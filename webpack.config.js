@@ -13,7 +13,7 @@ module.exports = {
         port: 3000,
     },
     resolve: {
-        extensions: ['.jsx', '.tsx', '.js', '.json']
+        extensions: ['.jsx', '.tsx', '.js', '.ts', '.json']
     },
     plugins: [
         new HTMLWebpackPlugin({template: './src/index.html'}),
@@ -39,7 +39,7 @@ module.exports = {
                 }
             },
             {
-                test: /\.?tsx$/,
+                test: /\.?tsx$|ts/,
                 exclude: /node_modules/,
                 use: {
                     loader: "babel-loader",
