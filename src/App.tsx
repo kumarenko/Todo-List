@@ -1,10 +1,6 @@
-import React from "react";
+import React, { FC, ReactElement } from "react";
 
-function App() {
-
-    return (
-        <div>Todo list</div>
-    );
-}
-
+const App: FC = (): ReactElement => (
+    <div>Todo list</div>
+);
 export default App;
