@@ -1,7 +1,8 @@
 const SET_TODOS = "SET_TODOS";
 const UPDATE_TODO = "UPDATE_TODO";
 const DELETE_TODO = "DELETE_TODO";
-
+const UPDATE_TODO_SUCCESS = 'UPDATE_TODO_SUCCESS';
+const UPDATE_TODO_FAILURE = 'UPDATE_TODO_FAILURE';
 const defaultState = {
     todos: [],
 }
@@ -14,12 +15,19 @@ export default function todosReducer(state = defaultState, action) {
                 todos: action.payload,
             }
 
-        case UPDATE_TODO:
+        case UPDATE_TODO_SUCCESS:
             return {
                 ...state,
+                loading: false,
                 todos: state.todos.map(todo =>
-                    todo.id === action.payload.id ? { ...todo, ...action.payload } : todo
+                    todo.id === action.payload.id ? { ...todo, ...action.payload.updatedTodo } : todo
                 ),
+            };
+        case UPDATE_TODO_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
             };
         case DELETE_TODO:
             const todoId = action.payload;
@@ -29,6 +37,7 @@ export default function todosReducer(state = defaultState, action) {
                     todo.id !== todoId
                 ),
             };
+
         default:
             return state
     }

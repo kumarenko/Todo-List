@@ -3,7 +3,8 @@ import TaskList from "./components/TaskList";
 import TaskForm from "./components/TaskForm";
 import {useDispatch, useSelector} from "react-redux";
 import {getTodos} from "./actions/todos";
-import {deleteTodo, updateTodo} from "./redux/reducer";
+import {deleteTodo} from "./redux/reducer";
+import {updateTodo} from "./actions/todos";
 
 const App: FC = (): ReactElement => {
     const [openModal, setOpenModal] = useState(false);
@@ -13,14 +14,17 @@ const App: FC = (): ReactElement => {
     useEffect(()=>{
         dispatch(getTodos());
     }, [])
-    const handleUpdate = ({id, name, status, description}) => {
-        dispatch(updateTodo({id, name, status, description}));
+    const handleUpdate = (id, newTitle) => {
+        const updatedTodo = { title: newTitle };
+        //@ts-ignore
+        dispatch(updateTodo(id, updatedTodo));
     };
+
     const handleDelete = (id) => {
         dispatch(deleteTodo(id));
     };
     return <div>
-        <button onClick={() => handleUpdate({id:2,name: 'aaa', status: 'DONE', description:'New Title'})}>
+        <button onClick={() => handleUpdate(2, 'New Title')}>
             Update
         </button>
         <button onClick={() => handleDelete(1)}>

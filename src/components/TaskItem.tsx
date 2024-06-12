@@ -1,12 +1,12 @@
 import React from 'react';
 
 const TaskItem = ({item}) => {
-    const {id, name, status, description} = item;
+    const {id, title, status, body} = item;
     return (
         <div key={id}>
             <input type="radio" id='status' defaultChecked={status === 'DONE' }/>
-            <label htmlFor="status">{name}</label>
-            <p>Description: {description}</p>
+            <label htmlFor="status">{title}</label>
+            <p>Description: {body}</p>
             <button>Edit</button>
             <button>Delete</button>
         </div>
