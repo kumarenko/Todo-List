@@ -1,41 +1,57 @@
 import {setTodos} from "../redux/reducer";
 import axios from "axios";
-const UPDATE_TODO_REQUEST = 'UPDATE_TODO_REQUEST';
-const UPDATE_TODO_SUCCESS = 'UPDATE_TODO_SUCCESS';
-const UPDATE_TODO_FAILURE = 'UPDATE_TODO_FAILURE';
+
 export const getTodos:unknown = () => {
     return async (dispatch) => {
         const response = await axios.get(
-            `https://jsonplaceholder.typicode.com/posts`);
+            `https://jsonplaceholder.typicode.com/todos`);
         dispatch(setTodos(response.data))
     }
 }
 
-const updateTodoRequest = () => ({ type: UPDATE_TODO_REQUEST });
-const updateTodoSuccess = (id, updatedTodo) => ({ type: UPDATE_TODO_SUCCESS, payload: { id, updatedTodo } });
-const updateTodoFailure = (error) => ({ type: UPDATE_TODO_FAILURE, payload: error });
-
-export const updateTodo = (id:number, updatedTodo:string) => {
-    return (dispatch) => {
-        dispatch(updateTodoRequest());
-        return fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(updatedTodo)
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                dispatch(updateTodoSuccess(id, data));
-            })
-            .catch(error => {
-                dispatch(updateTodoFailure(error.toString()));
+export const addTodoRequest = (text, userId) => {
+    console.log('text', text, userId);
+    return async (dispatch) => {
+        try {
+            const response = await fetch(`https://jsonplaceholder.typicode.com/todos/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text, userId })
             });
+            const todo = await response.json();
+            console.log('wef', todo);
+            dispatch(addTodoSuccess(todo));
+        } catch (error) {
+            console.error('Error adding todo:', error);
+        }
     };
 };
+
+export const addTodoSuccess = (todo) => {
+    console.log('ewrwer', todo);
+    return {
+        type: 'ADD_TODO_SUCCESS',
+        id: todo.id,
+        text: todo.text
+    }
+};
+
+export const removeTodoRequest = (id) => {
+    return async (dispatch) => {
+        try {
+            await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+                method: 'DELETE'
+            });
+            dispatch(removeTodoSuccess(id));
+        } catch (error) {
+            console.error('Error removing todo:', error);
+        }
+    };
+};
+
+export const removeTodoSuccess = (id) => ({
+    type: 'REMOVE_TODO_SUCCESS',
+    id
+});

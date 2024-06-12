@@ -1,40 +1,51 @@
 import React, {FC, ReactElement, useEffect, useState} from "react";
 import TaskList from "./components/TaskList";
 import TaskForm from "./components/TaskForm";
-import {useDispatch, useSelector} from "react-redux";
-import {getTodos} from "./actions/todos";
-import {deleteTodo} from "./redux/reducer";
-import {updateTodo} from "./actions/todos";
+import {connect} from "react-redux";
+import { getTodos, addTodoRequest, removeTodoRequest } from './actions/todos';
 
-const App: FC = (): ReactElement => {
+const App: FC = ({ todos, getTodos, addTodoRequest, removeTodoRequest }): ReactElement => {
     const [openModal, setOpenModal] = useState(false);
-    const dispatch = useDispatch();
+    const [input, setInput] = useState('');
 
-    const todos = useSelector(state => state.items.todos);
     useEffect(()=>{
-        dispatch(getTodos());
-    }, [])
-    const handleUpdate = (id, newTitle) => {
-        const updatedTodo = { title: newTitle };
-        //@ts-ignore
-        dispatch(updateTodo(id, updatedTodo));
-    };
+        getTodos();
+    }, []);
 
-    const handleDelete = (id) => {
-        dispatch(deleteTodo(id));
+    const handleAddTodo = () => {
+        if (input.trim()) {
+            addTodoRequest(input, todos.length+1);
+            setInput('');
+        }
     };
+    console.log(getTodos);
     return <div>
-        <button onClick={() => handleUpdate(2, 'New Title')}>
+        <button onClick={() => {}}>
             Update
         </button>
-        <button onClick={() => handleDelete(1)}>
+        <button onClick={() => removeTodoRequest(1)}>
             Delete
         </button>
-        <button onClick={() => setOpenModal(!openModal)}>Add</button>
+        <button onClick={() => {
+            handleAddTodo();
+            setOpenModal(!openModal)
+        }}>Add</button>
         {todos.length ?
             <TaskList list={todos}/> :
             <p>Todo list is empty!</p>}
         {openModal ? <TaskForm/> : null}
     </div>
 };
-export default App;
+
+const mapStateToProps = (state) => ({
+    todos: state.items.todos
+});
+
+const mapDispatchToProps = {
+    addTodoRequest,
+    removeTodoRequest,
+    getTodos
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
