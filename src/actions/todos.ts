@@ -1,4 +1,4 @@
-import {setTodos} from "../redux/reducer";
+import {addListSuccess, setTodos} from "../redux/reducer";
 import {setShoppingLists} from "../redux/reducer";
 import axios from "axios";
 import {tempShoppingList} from "../components/tempList";
@@ -17,34 +17,21 @@ export const getShoppingLists:unknown = () => {
     }
 }
 
-export const addTodoRequest = (text, userId) => {
-    console.log('text', text, userId);
-    return async (dispatch) => {
+export const addTodoRequest = () => {
+    const temporaryPayload = {
+        id: Math.floor(Math.random() * 10),
+        name: 'New List',
+        items: []
+    }
+    return (dispatch) => {
         try {
-            const response = await fetch(`https://jsonplaceholder.typicode.com/todos/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ text, userId })
-            });
-            const todo = await response.json();
-            console.log('wef', todo);
-            dispatch(addTodoSuccess(todo));
+            dispatch(addListSuccess(temporaryPayload));
         } catch (error) {
             console.error('Error adding todo:', error);
         }
     };
 };
 
-export const addTodoSuccess = (todo) => {
-    console.log('ewrwer', todo);
-    return {
-        type: 'ADD_TODO_SUCCESS',
-        id: todo.id,
-        text: todo.text
-    }
-};
 
 export const removeTodoRequest = (id) => {
     return async (dispatch) => {
