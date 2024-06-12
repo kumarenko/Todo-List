@@ -22,35 +22,30 @@ module.exports = {
         new CleanWebpackPlugin()
     ],
     module: {
-        rules: [{
-            test: /\.(css|less)$/,
-            use: ['style-loader', 'css-loader', 'less-loader']
-        },
+        rules: [
+            {
+                test: /\.(js|jsx|ts|tsx)$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: "babel-loader",
+                    options: {
+                        presets: [
+                            '@babel/preset-env',
+                            '@babel/preset-react',
+                            '@babel/preset-typescript'
+                        ]
+                    }
+                }
+            },
             {
                 test: /\.(jpeg|png|svg)$/,
-                use:['file-loader']
+                use: ['file-loader']
             },
             {
-                test: /\.js$|jsx$|tsx/,
-                exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader",
-                    options: {
-                        presets: ['@babel/preset-env']
-                    }
-                }
-            },
-            {
-                test: /\.?tsx$|ts/,
-                exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader",
-                    options: {
-                        presets: ['@babel/preset-react','@babel/preset-env']
-                    }
-                }
+                test: /\.(css|less)$/,
+                use: ['style-loader', 'css-loader', 'less-loader']
             }
         ]
     },
     devtool: 'eval-source-map'
-}
+};
