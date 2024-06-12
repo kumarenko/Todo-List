@@ -1,10 +1,12 @@
 const SET_TODOS = "SET_TODOS";
+const SET_LISTS = "SET_LISTS";
 const UPDATE_TODO = "UPDATE_TODO";
 const DELETE_TODO = "DELETE_TODO";
 const UPDATE_TODO_SUCCESS = 'UPDATE_TODO_SUCCESS';
 const UPDATE_TODO_FAILURE = 'UPDATE_TODO_FAILURE';
 const defaultState = {
     todos: [],
+    lists: [],
 }
 
 export default function todosReducer(state = defaultState, action) {
@@ -13,6 +15,13 @@ export default function todosReducer(state = defaultState, action) {
             return {
                 ...state,
                 todos: action.payload,
+            }
+
+        case SET_LISTS:
+            console.log('payload', action.payload);
+            return {
+                ...state,
+                lists: action.payload,
             }
 
         case UPDATE_TODO_SUCCESS:
@@ -45,5 +54,6 @@ export default function todosReducer(state = defaultState, action) {
 
 
 export const setTodos = (todos) => ({type:SET_TODOS, payload:todos})
+export const setShoppingLists = (lists) => ({type:SET_LISTS, payload:lists})
 export const updateTodo = (todo) => ({type:UPDATE_TODO, payload:todo})
 export const deleteTodo = (todoId:number) => ({type:DELETE_TODO, payload: todoId})

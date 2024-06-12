@@ -1,11 +1,19 @@
 import {setTodos} from "../redux/reducer";
+import {setShoppingLists} from "../redux/reducer";
 import axios from "axios";
+import {tempShoppingList} from "../components/tempList";
 
 export const getTodos:unknown = () => {
     return async (dispatch) => {
         const response = await axios.get(
             `https://jsonplaceholder.typicode.com/todos`);
         dispatch(setTodos(response.data))
+    }
+}
+
+export const getShoppingLists:unknown = () => {
+    return (dispatch) => {
+        dispatch(setShoppingLists(tempShoppingList))
     }
 }
 

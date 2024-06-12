@@ -1,0 +1,21 @@
+
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+#root {
+  display: flex;
+  min-height: 100vh;
+}
+.content {
+  overflow: auto;
+  padding: 25px 20px;
+  width: 100%;
+}
+a {
+  &:focus, &:hover, &:visited, &:link, &:active {
+    text-decoration: none;
+    color: inherit;
+  }
+}
