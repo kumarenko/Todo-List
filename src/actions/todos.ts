@@ -1,15 +1,7 @@
-import {addListSuccess, setTodos} from "../redux/reducer";
+import {addListSuccess, deleteList, updateList, updateProductsList} from "../redux/reducer";
 import {setShoppingLists} from "../redux/reducer";
-import axios from "axios";
 import {tempShoppingList} from "../components/tempList";
 
-export const getTodos:unknown = () => {
-    return async (dispatch) => {
-        const response = await axios.get(
-            `https://jsonplaceholder.typicode.com/todos`);
-        dispatch(setTodos(response.data))
-    }
-}
 
 export const getShoppingLists:unknown = () => {
     return (dispatch) => {
@@ -17,36 +9,56 @@ export const getShoppingLists:unknown = () => {
     }
 }
 
-export const addTodoRequest = () => {
+export const addTodoRequest = (data) => {
     const temporaryPayload = {
-        id: Math.floor(Math.random() * 10),
-        name: 'New List',
+        id: Math.floor(Math.round(2) * 100),
+        name: data,
         items: []
     }
     return (dispatch) => {
-        try {
-            dispatch(addListSuccess(temporaryPayload));
-        } catch (error) {
-            console.error('Error adding todo:', error);
+        dispatch(addListSuccess(temporaryPayload));
+
+    };
+};
+
+
+export const updateListRequest = (list, newValue) => {
+    return async (dispatch) => {
+        const newObject = {
+            ...list,
+            name: newValue
         }
+        dispatch(updateList(newObject));
+    };
+};
+export const updateProductsListRequest = (name, parentId, id, added, details) => {
+    return async (dispatch) => {
+        const tempObj = {
+            id: parentId,
+            items: [{id: id, name, added, details}
+            ]
+        }
+
+        dispatch(updateProductsList(tempObj));
+    };
+};
+export const addProductToListRequest = (name, parentId, id, added, details) => {
+    return (dispatch) => {
+        const tempObj = {
+            id: parentId,
+            items: [{id: id, name, added: added, details}
+            ]
+        }
+        dispatch(updateProductsList(tempObj));
     };
 };
 
 
 export const removeTodoRequest = (id) => {
-    return async (dispatch) => {
-        try {
-            await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
-                method: 'DELETE'
-            });
-            dispatch(removeTodoSuccess(id));
-        } catch (error) {
-            console.error('Error removing todo:', error);
-        }
+    return (dispatch) => {
+        dispatch(deleteList(id));
+
     };
 };
 
-export const removeTodoSuccess = (id) => ({
-    type: 'REMOVE_TODO_SUCCESS',
-    id
-});
+

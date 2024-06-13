@@ -4,7 +4,7 @@ interface List {
     items: Array<{
         id: number,
         name: string,
-        status: string,
+        added: boolean,
         details: string
     }|undefined>,
 }
@@ -15,17 +15,17 @@ export const tempShoppingList: Array<List> = [
         items: [{
             id: 1,
             name: 'Zucker',
-            status: 'DONE',
+            added: true,
             details: '1kg'
         },{
             id: 2,
             name: 'Water',
-            status: 'DONE',
+            added: true,
             details: '2l'
         },{
             id: 3,
             name: 'Waffers',
-            status: 'PROGRESS',
+            added: false,
             details: '1sht'
         }]
     },
