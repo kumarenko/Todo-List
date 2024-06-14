@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {addProductToListRequest, updateProductsListRequest} from "../../../actions/todos";
 import {connect} from "react-redux";
 import {Button, ButtonGroup, ButtonToolbar} from "react-bootstrap";
 import {IoMdAddCircleOutline, IoMdRemoveCircleOutline} from "react-icons/io";
+import AddProductModal from "./AddProductModal";
 
 const ProductsList = ({parentId, products, addProductToListRequest}) => {
+    const [showModal, setShowModal] = useState(false);
+    const handleApply = () => setShowModal(false);
+    const handleClose = () => setShowModal(false);
+
     const renameProduct = (newValue, parentId, productId, added, details) => {
         addProductToListRequest(newValue, parentId, productId, added, details);
     }
@@ -30,6 +35,12 @@ const ProductsList = ({parentId, products, addProductToListRequest}) => {
                 </ButtonGroup>
 
             </ButtonToolbar>)}
+            <Button onClick={() => setShowModal(true)}>Add Product</Button>
+            <AddProductModal
+                show={showModal}
+                onHide={handleClose}
+                onApply={handleApply}
+            />
         </div>
     );
 };

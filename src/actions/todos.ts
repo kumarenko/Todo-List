@@ -1,11 +1,35 @@
-import {addListSuccess, deleteList, updateList, updateProductsList} from "../redux/reducer";
+import {
+    addListSuccess,
+    addProductsToList,
+    deleteList,
+    setAllProducts,
+    updateList,
+    updateProductsList
+} from "../redux/reducer";
 import {setShoppingLists} from "../redux/reducer";
-import {tempShoppingList} from "../components/tempList";
+import {tempShoppingList, allProducts} from "../components/tempList";
 
 
 export const getShoppingLists:unknown = () => {
     return (dispatch) => {
         dispatch(setShoppingLists(tempShoppingList))
+    }
+}
+export const getAllProducts:unknown = () => {
+    return (dispatch) => {
+        dispatch(setAllProducts(allProducts))
+    }
+}
+
+export const addProducts:unknown = ({id, name, added, count}, increment) => {
+    return (dispatch) => {
+        const newObj = {
+            id,
+            name,
+            added: true,
+            count: count+increment
+        }
+        dispatch(addProductsToList(newObj))
     }
 }
 
