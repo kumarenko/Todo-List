@@ -31,7 +31,9 @@ const ProductsList = ({parentId, products, addProductToListRequest}) => {
                            className='fancy-checkbox-primary'
                            defaultValue={item.name}
                            onBlur={(e) => {
-                               renameProduct(e.target.value, parentId, item._id, item.added, item.details, item.count)
+                               if (e.target.value !== item.name) {
+                                   renameProduct(e.target.value, parentId, item._id, item.added, item.details, item.count)
+                               }
                            }}/>
                 </ButtonGroup>
 
