@@ -10,9 +10,15 @@ import TaskForm from "./TaskForm";
 const ShoppingLists = ({allProducts, lists,getAllProducts, removeTodoRequest,updateListRequest}) => {
     const [showModal, setShowModal] = useState(false);
     const [selectedList, setSelectedList] = useState(null);
+    const [filteredProducts, setFilteredProducts] = useState([]);
     useEffect(() => {
         getAllProducts();
+        console.log('flterred',allProducts, filterAllProducts());
+
     },[]);
+    useEffect(()=> {
+        filterAllProducts()
+    }, [allProducts]);
     const handleClose = () => {
         setSelectedList(null);
         setShowModal(false);
@@ -29,7 +35,7 @@ const ShoppingLists = ({allProducts, lists,getAllProducts, removeTodoRequest,upd
         setSelectedList(list);
         setShowModal(true);
     }
-
+    const filterAllProducts = () => setFilteredProducts(allProducts.filter(product => product.count > 0));
     return (
         <>
             <Accordion alwaysOpen={true} defaultActiveKey={0} className='w-75 p-3'>
@@ -40,11 +46,10 @@ const ShoppingLists = ({allProducts, lists,getAllProducts, removeTodoRequest,upd
                         <Accordion.Header className='d-flex justify-content-between'>
                             {list.name}
                             {list.items.length ? <span> 0/{list.items.length}</span> : null}
-
                         </Accordion.Header>
                         <Accordion.Body>
                             <div className="accordion-body">
-                                <ProductsList parentId={list.id} products={allProducts}/>
+                                <ProductsList parentId={list.id} products={filteredProducts}/>
                             </div>
                         </Accordion.Body>
                     </Accordion.Item>
