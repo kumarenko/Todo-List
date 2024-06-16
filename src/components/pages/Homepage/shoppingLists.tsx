@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import ProductsList from "./productsList";
 import Accordion from 'react-bootstrap/Accordion';
-import {Button} from "react-bootstrap";
+import {Button, ProgressBar} from "react-bootstrap";
 import {IoMdCreate, IoMdTrash} from "react-icons/io";
 import {connect} from "react-redux";
 import {getAllProducts, removeTodoRequest, updateListRequest} from "../../../actions/todos";
@@ -13,8 +13,6 @@ const ShoppingLists = ({allProducts, lists,getAllProducts, removeTodoRequest,upd
     const [filteredProducts, setFilteredProducts] = useState([]);
     useEffect(() => {
         getAllProducts();
-        console.log('flterred',allProducts, filterAllProducts());
-
     },[]);
     useEffect(()=> {
         filterAllProducts()
@@ -43,9 +41,22 @@ const ShoppingLists = ({allProducts, lists,getAllProducts, removeTodoRequest,upd
                     return <Accordion.Item className='accordion' eventKey={list.id} key={list.id}>
                         <Button className='remove' onClick={()=> removeList(list.id)}><IoMdTrash /></Button>
                         <Button className='edit' onClick={()=> editList(list)}><IoMdCreate/></Button>
-                        <Accordion.Header className='d-flex justify-content-between'>
-                            {list.name}
-                            {list.items.length ? <span> 0/{list.items.length}</span> : null}
+                        <Accordion.Header
+                            className={`d-flex justify-content-between h-10 ${filteredProducts.filter(item => item.added).length === filteredProducts.length ? 'completed': ''}`}
+                        >
+                            <div className='mb-1 z-1'>
+                                {list.name}
+                                {filteredProducts.length ?
+                                    <> {filteredProducts.filter(item => item.added).length} / {filteredProducts.length}</>
+                                    : null}
+                            </div>
+
+
+                            <ProgressBar
+                                className='w-50 mt-1 z-1'
+                                now={filteredProducts.filter(item => item.added).length}
+                                max={filteredProducts.length}
+                            />
                         </Accordion.Header>
                         <Accordion.Body>
                             <div className="accordion-body">
