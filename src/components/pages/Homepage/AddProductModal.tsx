@@ -23,14 +23,13 @@ const AddProductModal = ({addProducts,allProducts, getAllProducts, value = null,
     const deleteProduct = (item) => {
         addProducts(item, -1);
     }
-    console.log('alll???', allProducts);
-    return ReactDOM.createPortal(<Modal show={show} onHide={onCloseHandler} className='w-100'>
+    return ReactDOM.createPortal(<Modal key={'sdf'} show={show} onHide={onCloseHandler} className='w-100'>
         <Modal.Header closeButton>
             <Modal.Title>Adding new List</Modal.Title>
         </Modal.Header>
         <Modal.Body className='d-flex align-items-start flex-column modal-fixed-height'>
             {allProducts.length ?
-                allProducts.map(item=> <div className='position-relative d-flex justify-content-center w-75 mx-auto my-1' key={item.id}>
+                allProducts.map(item => <div  key={item._id} className='position-relative d-flex justify-content-center w-75 mx-auto my-1'>
                     <Button className='rounded-pill w-100 d-flex justify-content-between align-items-center' onClick={() => addProduct(item)}>
                         <IoMdAdd className='position-absolute start-0 ms-3'>{item.name}</IoMdAdd>
                         <span className='m-auto'>{item.name}</span>

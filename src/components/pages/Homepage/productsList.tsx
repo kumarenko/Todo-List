@@ -10,18 +10,19 @@ const ProductsList = ({parentId, products, addProductToListRequest}) => {
     const handleApply = () => setShowModal(false);
     const handleClose = () => setShowModal(false);
 
-    const renameProduct = (newValue, parentId, productId, added, details) => {
-        addProductToListRequest(newValue, parentId, productId, added, details);
+    const renameProduct = (newValue, parentId, productId, added, details, count) => {
+        addProductToListRequest(newValue, parentId, productId, added, details, count);
     }
-    const selectProduct = (newValue, parentId, productId, added, details) => {
-        addProductToListRequest(newValue, parentId, productId, !added, details);
+    const selectProduct = (newValue, parentId, productId, added, details, count) => {
+        addProductToListRequest(newValue, parentId, productId, !added, details, count);
     }
 
     return (
         <div>
-            {products.map(item => <ButtonToolbar className='mb-2' aria-label="Toolbar with button groups" key={item.id+item.name}>
+            {products.length ?
+                products.map(item => <ButtonToolbar className='mb-2' aria-label="Toolbar with button groups" key={item._id}>
                 <ButtonGroup className="me-2" aria-label="First group">
-                    <Button onClick={() => selectProduct(item.name, parentId, item.id, item.added, item.details)}>
+                    <Button onClick={() => selectProduct(item.name, parentId, item._id, item.added, item.details, item.count)}>
                         {item.added ? <IoMdRemoveCircleOutline />
                             : <IoMdAddCircleOutline color={'#00ff00'} />
                         }</Button>
@@ -30,11 +31,11 @@ const ProductsList = ({parentId, products, addProductToListRequest}) => {
                            className='fancy-checkbox-primary'
                            defaultValue={item.name}
                            onBlur={(e) => {
-                               renameProduct(e.target.value, parentId, item.id, item.added, item.details)
+                               renameProduct(e.target.value, parentId, item._id, item.added, item.details, item.count)
                            }}/>
                 </ButtonGroup>
 
-            </ButtonToolbar>)}
+            </ButtonToolbar>) : null}
             <Button onClick={() => setShowModal(true)}>Add Product</Button>
             <AddProductModal
                 show={showModal}

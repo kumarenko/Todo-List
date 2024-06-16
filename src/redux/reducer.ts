@@ -20,7 +20,6 @@ export default function todosReducer(state = defaultState, action) {
                 lists: action.payload,
             }
         case SET_PRODUCTS:
-            console.log('dfsssssssss',action.payload)
             return {
                 ...state,
                 allProducts: action.payload,
@@ -60,7 +59,7 @@ export default function todosReducer(state = defaultState, action) {
                 ...state,
                 loading: false,
                 allProducts: state.allProducts.map(prod =>
-                    prod.id === action.payload.id ? { ...prod, ...action.payload  } : prod
+                    prod._id === action.payload._id ? { ...prod, ...action.payload  } : prod
                 ),
             };
 

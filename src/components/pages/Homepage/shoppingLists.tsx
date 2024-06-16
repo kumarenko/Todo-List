@@ -1,15 +1,18 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ProductsList from "./productsList";
 import Accordion from 'react-bootstrap/Accordion';
 import {Button} from "react-bootstrap";
 import {IoMdCreate, IoMdTrash} from "react-icons/io";
 import {connect} from "react-redux";
-import {removeTodoRequest,updateListRequest} from "../../../actions/todos";
+import {getAllProducts, removeTodoRequest, updateListRequest} from "../../../actions/todos";
 import TaskForm from "./TaskForm";
 
-const ShoppingLists = ({lists,removeTodoRequest,updateListRequest}) => {
+const ShoppingLists = ({allProducts, lists,getAllProducts, removeTodoRequest,updateListRequest}) => {
     const [showModal, setShowModal] = useState(false);
     const [selectedList, setSelectedList] = useState(null);
+    useEffect(() => {
+        getAllProducts();
+    },[]);
     const handleClose = () => {
         setSelectedList(null);
         setShowModal(false);
@@ -41,7 +44,7 @@ const ShoppingLists = ({lists,removeTodoRequest,updateListRequest}) => {
                         </Accordion.Header>
                         <Accordion.Body>
                             <div className="accordion-body">
-                                {list.items.length ? <ProductsList parentId={list.id} products={list.items}/> : null}
+                                <ProductsList parentId={list.id} products={allProducts}/>
                             </div>
                         </Accordion.Body>
                     </Accordion.Item>
@@ -58,11 +61,13 @@ const ShoppingLists = ({lists,removeTodoRequest,updateListRequest}) => {
 };
 const mapStateToProps = (state) => ({
     todos: state.items.todos,
-    lists: state.items.lists
+    lists: state.items.lists,
+    allProducts: state.items.allProducts
 });
 const mapDispatchToProps = {
     removeTodoRequest,
     updateListRequest,
+    getAllProducts
 };
 
 export default connect(mapStateToProps,mapDispatchToProps)(ShoppingLists)

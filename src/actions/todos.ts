@@ -1,5 +1,4 @@
 import {
-    addListSuccess,
     addProductsToList,
     deleteList,
     setAllProducts,
@@ -7,44 +6,42 @@ import {
     updateProductsList
 } from "../redux/reducer";
 import {setShoppingLists} from "../redux/reducer";
-import {tempShoppingList, allProducts} from "../components/tempList";
-
+import axios from "axios";
+import {PRODUCTS_URL, SHOPPING_LISTS_URL} from "../configs/urls";
 
 export const getShoppingLists:unknown = () => {
-    return (dispatch) => {
-        dispatch(setShoppingLists(tempShoppingList))
+    return async (dispatch) => {
+        const response = await axios.get(
+            SHOPPING_LISTS_URL);
+        dispatch(setShoppingLists(response.data.shoppingLists))
     }
 }
 export const getAllProducts:unknown = () => {
-    return (dispatch) => {
-        dispatch(setAllProducts(allProducts))
+    return async (dispatch) => {
+        const response = await axios.get(PRODUCTS_URL);
+        dispatch(setAllProducts(response.data.products));
     }
 }
 
-export const addProducts:unknown = ({id, name, added, count}, increment) => {
-    return (dispatch) => {
+export const addProducts:unknown = ({id, _id, name, added, count}, increment) => {
+    return async (dispatch) => {
         const newObj = {
-            id,
-            name,
+            id: _id || id,
+            name: name,
             added: true,
-            count: count+increment
+            count: (count ?? 0)+increment
         }
-        dispatch(addProductsToList(newObj))
+        const response = await fetch(
+            PRODUCTS_URL,{
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newObj)
+            }).then(res=>res.json());
+        dispatch(addProductsToList(response.product));
     }
 }
-
-export const addTodoRequest = (data) => {
-    const temporaryPayload = {
-        id: Math.floor(Math.round(2) * 100),
-        name: data,
-        items: []
-    }
-    return (dispatch) => {
-        dispatch(addListSuccess(temporaryPayload));
-
-    };
-};
-
 
 export const updateListRequest = (list, newValue) => {
     return async (dispatch) => {
@@ -57,24 +54,26 @@ export const updateListRequest = (list, newValue) => {
 };
 export const updateProductsListRequest = (name, parentId, id, added, details) => {
     return async (dispatch) => {
-        const tempObj = {
+        const objectToUpdate = {
             id: parentId,
             items: [{id: id, name, added, details}
             ]
         }
-
-        dispatch(updateProductsList(tempObj));
+        dispatch(updateProductsList(objectToUpdate));
     };
 };
-export const addProductToListRequest = (name, parentId, id, added, details) => {
-    return (dispatch) => {
-        const tempObj = {
-            id: parentId,
-            items: [{id: id, name, added: added, details}
-            ]
-        }
-        dispatch(updateProductsList(tempObj));
-    };
+export const addProductToListRequest = (name, parentId, id, added, details, count) => {
+    return async (dispatch) => {
+        const response = await fetch(
+            PRODUCTS_URL,{
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({id, name, added, count})
+            }).then(res=>res.json());
+        dispatch(addProductsToList(response.product));
+    }
 };
 
 

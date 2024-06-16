@@ -1,18 +1,16 @@
 import React, {FC, ReactElement, useEffect, useState} from "react";
 import TaskForm from "./TaskForm";
 import {connect} from "react-redux";
-import { addTodoRequest, removeTodoRequest,getShoppingLists } from '../../../actions/todos';
+import {removeTodoRequest, getShoppingLists} from '../../../actions/todos';
 import ShoppingLists from "./shoppingLists";
 import {Button} from "react-bootstrap";
 import {IoMdAdd} from "react-icons/io";
 import './styles.less';
-const HomePage: FC = ({ lists, addTodoRequest,getShoppingLists }): ReactElement => {
+const HomePage: FC = ({lists, getShoppingLists }): ReactElement => {
     const [showModal, setShowModal] = useState(false);
     const handleClose = () => setShowModal(false);
     const handleApply = (data) => {
-        addTodoRequest(data);
         setShowModal(false);
-
     };
     const handleShow = () => setShowModal(true);
     useEffect(()=>{
@@ -39,7 +37,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-    addTodoRequest,
     removeTodoRequest,
     getShoppingLists,
 };
