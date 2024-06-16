@@ -25,6 +25,12 @@ const TaskForm = ({value = null, show, onHide, onApply}) => {
                 defaultValue={value?.name || ''}
                 onChange={(e)=> setData(e.target.value)}
             />
+            <Form.Check
+                type="switch"
+                defaultChecked={true}
+                className='my-2'
+                label="Automatically reopen when completed"
+            />
         </Modal.Body>
         <Modal.Footer>
             <Button variant="secondary" onClick={onHide}>
