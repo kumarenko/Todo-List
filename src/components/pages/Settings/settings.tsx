@@ -21,6 +21,21 @@ const Settings = ({theme, changeTheme}) => {
                     className='my-2'
                     label="Dark Mode"
                 />
+                <div>
+                    <span className='m-1'>Select Units</span>
+                    <Form.Select aria-label="Units" defaultValue={'metrics'} className='w-25'>
+                        <option value="metrics">Metrics</option>
+                        <option value="imperial">Imperial</option>
+                    </Form.Select>
+                </div>
+                <div className="div">
+                    <span className='m-1'>Select language:</span>
+                    <Form.Select aria-label="language" defaultValue={'en'} className='w-25'>
+                        <option value="en">English</option>
+                        <option value="ua">Ukrainian</option>
+                        <option value="pl">Polish</option>
+                    </Form.Select>
+                </div>
             </div>
         </div>
     );
