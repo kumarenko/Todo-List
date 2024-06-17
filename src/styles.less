@@ -12,6 +12,35 @@ body {
   overflow: auto;
   padding: 25px 20px;
   width: 100%;
+  background: #fff;
+  &.dark {
+    background: #000;
+    span, div, h1, h2,h3, a {
+      color: #fff;
+    }
+    .accordion {
+      &-button:not(.collapsed) {
+        background-color: #2d2d2d;
+      }
+      &-button.collapsed {
+        background-color: #2d2d2d;
+
+      }
+      &-body {
+        background-color: black;
+      }
+    }
+  }
+}
+nav {
+  background: #fff;
+
+  &.dark {
+    background: #000;
+    span, div, h1, a {
+      color: #fff;
+    }
+  }
 }
 a {
   &:focus, &:hover, &:visited, &:link, &:active {

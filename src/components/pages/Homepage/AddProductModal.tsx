@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import ReactDOM from "react-dom";
 import {Button, Modal} from "react-bootstrap";
 import {addProducts, getAllProducts} from "../../../actions/todos";
-import {connect} from "react-redux";
+import {connect, useSelector} from "react-redux";
 import {IoMdAdd, IoMdClose, IoMdRemove} from "react-icons/io";
 const AddProductModal = ({addProducts,allProducts, getAllProducts, value = null, show, onHide, onApply}) => {
     const [data, setData] = useState("");
@@ -23,6 +23,10 @@ const AddProductModal = ({addProducts,allProducts, getAllProducts, value = null,
     const deleteProduct = (item) => {
         addProducts(item, -1);
     }
+
+    const theme = useSelector(state => state.settings.theme);
+    const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
+
     return ReactDOM.createPortal(<Modal key={'sdf'} show={show} onHide={onCloseHandler} className='w-100'>
         <Modal.Header closeButton>
             <Modal.Title>Adding new List</Modal.Title>
@@ -30,12 +34,12 @@ const AddProductModal = ({addProducts,allProducts, getAllProducts, value = null,
         <Modal.Body className='d-flex align-items-start flex-column modal-fixed-height'>
             {allProducts.length ?
                 allProducts.map(item => <div  key={item._id} className='position-relative d-flex justify-content-center w-75 mx-auto my-1'>
-                    <Button className='rounded-pill w-100 d-flex justify-content-between align-items-center' onClick={() => addProduct(item)}>
+                    <Button variant={buttonsVariant} className='rounded-pill w-100 d-flex justify-content-between align-items-center' onClick={() => addProduct(item)}>
                         <IoMdAdd className='position-absolute start-0 ms-3'>{item.name}</IoMdAdd>
                         <span className='m-auto'>{item.name}</span>
                         {item.count > 0 ? <span className='position-absolute end-0 me-5'>{item.count}</span>: null}
                     </Button>
-                    {item.count > 0 ? <Button className='d-flex align-items-center h-100 position-absolute end-0 rounded-circle'
+                    {item.count > 0 ? <Button variant={buttonsVariant} className='d-flex align-items-center h-100 position-absolute end-0 rounded-circle'
                              onClick={() => deleteProduct(item)}
                     >{item.count > 1 ? <IoMdRemove /> : <IoMdClose/>}
                     </Button> : null}

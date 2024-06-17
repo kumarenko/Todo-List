@@ -4,8 +4,8 @@ import {
     setAllProducts,
     updateList,
     updateProductsList
-} from "../redux/reducer";
-import {setShoppingLists} from "../redux/reducer";
+} from "../redux/shoppingListsReducer";
+import {setShoppingLists} from "../redux/shoppingListsReducer";
 import axios from "axios";
 import {PRODUCTS_URL, SHOPPING_LISTS_URL} from "../configs/urls";
 

@@ -3,7 +3,7 @@ import ProductsList from "./productsList";
 import Accordion from 'react-bootstrap/Accordion';
 import {Button, ProgressBar} from "react-bootstrap";
 import {IoMdCreate, IoMdTrash} from "react-icons/io";
-import {connect} from "react-redux";
+import {connect, useSelector} from "react-redux";
 import {getAllProducts, removeTodoRequest, updateListRequest} from "../../../actions/todos";
 import TaskForm from "./TaskForm";
 
@@ -33,14 +33,16 @@ const ShoppingLists = ({allProducts, lists,getAllProducts, removeTodoRequest,upd
         setSelectedList(list);
         setShowModal(true);
     }
+    const theme = useSelector(state => state.settings.theme);
+    const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
     const filterAllProducts = () => setFilteredProducts(allProducts.filter(product => product.count > 0));
     return (
         <>
             <Accordion alwaysOpen={true} defaultActiveKey={0} className='w-75 p-3'>
                 {lists.map(list => {
                     return <Accordion.Item className='accordion' eventKey={list.id} key={list.id}>
-                        <Button className='remove' onClick={()=> removeList(list.id)}><IoMdTrash /></Button>
-                        <Button className='edit' onClick={()=> editList(list)}><IoMdCreate/></Button>
+                        <Button variant={buttonsVariant} className='remove' onClick={()=> removeList(list.id)}><IoMdTrash /></Button>
+                        <Button variant={buttonsVariant} className='edit' onClick={()=> editList(list)}><IoMdCreate/></Button>
                         <Accordion.Header
                             className={`d-flex justify-content-between h-10 ${filteredProducts.filter(item => item.added).length === filteredProducts.length ? 'completed': ''}`}
                         >
