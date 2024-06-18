@@ -24,7 +24,7 @@ const Settings = ({theme, changeTheme}) => {
                 <div>
                     <span className='m-1'>Select Units</span>
                     <Form.Select aria-label="Units" defaultValue={'metrics'} className='w-25'>
-                        <option value="metrics">Metrics</option>
+                        <option value="metric">Metric</option>
                         <option value="imperial">Imperial</option>
                     </Form.Select>
                 </div>
