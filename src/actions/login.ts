@@ -4,7 +4,7 @@ export const setUserData = (isAuthorized) => {
     const updatedLoginState = {
         isAuthorized: isAuthorized,
         user: {
-            role: 'guest',
+            role: 'GUEST',
         }
     }
     return async (dispatch) => {
@@ -18,7 +18,7 @@ export const signInAction = (user) => {
         isAuthorized: false,
         // loading: false,
         user: {
-            role: 'user',
+            role: 'USER',
             id: 123123,
             email: user.email,
             name: 'userName',

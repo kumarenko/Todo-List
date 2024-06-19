@@ -9,21 +9,21 @@ import {setShoppingLists} from "../redux/shoppingListsReducer";
 import axios from "axios";
 import {PRODUCTS_URL, SHOPPING_LISTS_URL} from "../configs/urls";
 
-export const getShoppingLists:unknown = () => {
+export const getShoppingLists = () => {
     return async (dispatch) => {
         const response = await axios.get(
             SHOPPING_LISTS_URL);
         dispatch(setShoppingLists(response.data.shoppingLists))
     }
 }
-export const getAllProducts:unknown = () => {
+export const getAllProducts = () => {
     return async (dispatch) => {
         const response = await axios.get(PRODUCTS_URL);
         dispatch(setAllProducts(response.data.products));
     }
 }
 
-export const addProducts:unknown = ({id, _id, name, added, count}, increment) => {
+export const addProducts = ({id, _id, name, added, count}, increment) => {
     return async (dispatch) => {
         const newObj = {
             id: _id || id,

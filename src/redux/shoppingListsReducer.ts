@@ -1,3 +1,5 @@
+import {ShoppingList} from "../types/types";
+
 const SET_LISTS = "SET_LISTS";
 const SET_PRODUCTS = "SET_PRODUCTS";
 const UPDATE_LIST = "UPDATE_LIST";
@@ -6,7 +8,9 @@ const DELETE_LIST = "DELETE_LIST";
 const UPDATE_PRODUCTS = 'UPDATE_PRODUCTS';
 const ADD_PRODUCTS = 'ADD_PRODUCTS';
 const UPDATE_TODO_FAILURE = 'UPDATE_TODO_FAILURE';
-const defaultState = {
+
+
+const defaultState: { lists: ShoppingList[]; allProducts: ShoppingList[] } = {
     lists: [],
     allProducts: [],
 }

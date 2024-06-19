@@ -1,8 +1,10 @@
+import {Login} from "../types/types";
+
 const UPDATE_LOGIN = "UPDATE_LOGIN";
-const defaultState = {
+const defaultState:Login = {
     isAuthorized: false,
     user: {
-        role: 'guest',
+        role: 'GUEST',
         userId: null,
         name: '',
         surname: '',
@@ -14,7 +16,6 @@ const defaultState = {
 export default function userReducer(state = defaultState, action) {
     switch (action.type) {
         case UPDATE_LOGIN:
-            console.log(action.payload);
             return action.payload;
 
         default:
@@ -22,4 +23,4 @@ export default function userReducer(state = defaultState, action) {
     }
 }
 
-export const updateLogin = (userData) => ({type:UPDATE_LOGIN, payload: userData})
+export const updateLogin = (userData: object) => ({type:UPDATE_LOGIN, payload: userData})
