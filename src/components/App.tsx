@@ -12,13 +12,13 @@ import './../styles.less';
 
 const App = () => {
     const theme = useSelector(state => state.settings.theme);
-    const isAuthorized = useSelector(state => state.login);
+    const isAuthorized = useSelector(state => state.user.isAuthorized);
     return (
         <Router>
             {isAuthorized ? <Navigation/>: null}
             <div className={`content ${theme}`}>
                 <Routes>
-                    <Route index element={isAuthorized ? <HomePage /> : <Navigate to={'/login'}/>} />
+                    <Route index element={isAuthorized ? <HomePage /> : <Navigate to={'/login'} replace/>} />
                     <Route path='/profile' element={isAuthorized ? <Profile /> : <Navigate to={'/login'}/>} />
                     <Route path='/settings' element={isAuthorized ? <Settings /> : <Navigate to={'/login'}/>} />
                     <Route path='/login' element={<LoginPage/>} />

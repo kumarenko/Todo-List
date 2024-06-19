@@ -3,4 +3,30 @@
   &-content {
     border: 1px solid
   }
+  .popup {
+    position: absolute;
+    top: 30%;
+    animation: 4s forwards popup linear;
+  }
+}
+@keyframes popup {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  5% {
+
+    opacity: 1;
+    transform: translateY(50px);
+  }
+  95% {
+
+    opacity: 1;
+    transform: translateY(50px);
+  }
+  100% {
+
+    opacity: 0;
+    transform: translateY(0);
+  }
 }
