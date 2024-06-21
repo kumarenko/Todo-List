@@ -3,12 +3,12 @@ import Form from 'react-bootstrap/Form';
 import {Alert, Button} from "react-bootstrap";
 import {connect, useSelector} from "react-redux";
 import {useNavigate} from 'react-router-dom'
-import {setUserData, signInAction} from "../../../actions/login";
+import {setUserData, signInAction,signUpAction,logoutAction} from "../../../actions/login";
 import logo from './../../../media/logo.png';
 import './styles.less';
 import {validateSignInForm} from "../../../helpers/validator";
 
-const LoginPage = ({user, setUserData,signInAction}) => {
+const LoginPage = ({user, setUserData,signInAction,signUpAction,logoutAction}) => {
     const theme = useSelector(state => state.settings.theme);
     const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
     const [email, setEmail] = useState('');
@@ -19,6 +19,28 @@ const LoginPage = ({user, setUserData,signInAction}) => {
      const loginAsGuest = () => {
         setUserData(!user.isAuthorized);
     }
+    const token = sessionStorage.getItem('token'); // Получаем токен из хранилища
+
+    useEffect(() => {
+        fetch('http://localhost:4000/api/protected-route', {
+            method: 'GET', // или 'POST', 'PUT', 'DELETE' и т.д.
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Добавление токена в заголовки
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                //user data retrieving
+                console.log(data.user);
+            })
+            .catch(error => console.error('There was a problem with your fetch operation:', error));
+    }, [])
     useEffect(() => {
         console.log(user.errorMessage);
 
@@ -42,7 +64,14 @@ const LoginPage = ({user, setUserData,signInAction}) => {
          }
      }
      const signUpHandler = () => {
-
+         const errors = validateSignInForm({email, password});
+         console.log(errors.join('\n'));
+         setErrorMessage(validateSignInForm({email, password}));
+         if(errors.length) {
+             setShowPopup(true);
+         } else {
+             signUpAction(email, password);
+         }
      }
 
     if(!user.isAuthorized) {
@@ -74,9 +103,10 @@ const LoginPage = ({user, setUserData,signInAction}) => {
                         onClick={()=>signInHandler()}
                         className='w-50 my-2 mx-auto'>Sign In</Button>
                     <span className='mx-2 mt-1 text-center'>Don't have an account? Please sign up below</span>
-                    <Button variant={buttonsVariant} className='w-50 my-1'>Sign Up</Button>
+                    <Button onClick={() => signUpHandler()} variant={buttonsVariant} className='w-50 my-1'>Sign Up</Button>
                     <span className='mx-2 mt-1 text-center'>Or</span>
                     <Button variant={buttonsVariant} className='w-50 my-1' onClick={() => loginAsGuest()}>Enter as a Guest</Button>
+                    <Button variant={buttonsVariant} className='w-50 my-1' onClick={() => logoutAction()}>LOgout</Button>
                 </div>
                 {showPopup ? <Alert onAnimationEnd={()=> setShowPopup(false)} variant='danger' className='popup'>
                     {errorMessage.map(message => <div key={message} className='text-center'>{message}</div>)}
@@ -93,7 +123,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     setUserData,
-    signInAction
+    signInAction,
+    signUpAction,
+    logoutAction
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
