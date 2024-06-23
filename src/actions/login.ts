@@ -1,4 +1,4 @@
-import {updateLogin} from "../redux/userReducer";
+import {defaultState, updateLogin} from "../redux/userReducer";
 
 export const setUserData = (isAuthorized) => {
     const updatedLoginState = {
@@ -11,7 +11,6 @@ export const setUserData = (isAuthorized) => {
         dispatch(updateLogin(updatedLoginState));
     };
 };
-
 
 export const signInAction = (user) => {
     return async (dispatch) => {
@@ -30,13 +29,11 @@ export const signInAction = (user) => {
                 // loading: false,
                 user: {
                     role: 'USER',
-                    id: 123123,
+                    id: data._id,
                     email: data.email,
                     name: 'userName',
-                    surname: 'userSurname',
+                    lastName: 'userSurname',
                 },
-                status: 404,
-                errorMessage: 'Not found'
             }
             sessionStorage.setItem('token', data.token); // Получаем токен из хранилища
             dispatch(updateLogin(updatedLoginState));
@@ -47,9 +44,44 @@ export const signInAction = (user) => {
     };
 };
 
+export const checkUserSession:any = () => {
+    const token = sessionStorage.getItem('token'); // Получаем токен из хранилища
+    return (dispatch) => {
+        fetch('http://localhost:4000/api/protected-route', {
+            method: 'GET', // или 'POST', 'PUT', 'DELETE' и т.д.
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Добавление токена в заголовки
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                //user data retrieving
+                const updatedLoginState = {
+                    isAuthorized: true,
+                    user: {
+                        role: 'USER',
+                        id: data.user._id,
+                        email: data.user.email,
+                        name: 'userName',
+                        lastName: 'userSurname',
+                    },
+                }
+                dispatch(updateLogin(updatedLoginState));
+            })
+            .catch(error => console.error('There was a problem with your fetch operation:', error));
+    }
+}
+
 export const logoutAction = () => {
     return async (dispatch) => {
         sessionStorage.setItem('token', '');
+        dispatch(updateLogin(defaultState));
     };
 };
 
@@ -58,14 +90,12 @@ export const signUpAction = (email, password) => {
 
         const response = await fetch('http://localhost:4000/api/register', {
             method: 'POST',
-            // mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ email, password })
         });
         const data = await response.json();
-        console.log(data);
         if (response.status === 201) {
             alert('Registration successful!');
         } else {

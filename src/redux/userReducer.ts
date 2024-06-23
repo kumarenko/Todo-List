@@ -1,13 +1,13 @@
 import {Login} from "../types/types";
 
 const UPDATE_LOGIN = "UPDATE_LOGIN";
-const defaultState:Login = {
+export const defaultState:Login = {
     isAuthorized: false,
     user: {
         role: 'GUEST',
         userId: null,
         name: '',
-        surname: '',
+        lastName: '',
         email: '',
     },
     errorMessage: ''

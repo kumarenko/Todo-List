@@ -6,14 +6,15 @@ import ShoppingLists from "./shoppingLists";
 import {Button} from "react-bootstrap";
 import {IoMdAdd} from "react-icons/io";
 import './styles.less';
-const HomePage: FC = ({lists, getShoppingLists }): ReactElement => {
+const HomePage: FC = ({lists, getShoppingLists, title }): ReactElement => {
     const [showModal, setShowModal] = useState(false);
     const handleClose = () => setShowModal(false);
-    const handleApply = (data) => {
+    const handleApply = () => {
         setShowModal(false);
     };
     const handleShow = () => setShowModal(true);
     useEffect(()=>{
+        document.title = title;
         getShoppingLists();
     }, []);
 

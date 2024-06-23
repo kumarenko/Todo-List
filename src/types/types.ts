@@ -16,7 +16,7 @@ export interface Login {
         role: 'GUEST' | 'USER',
         userId: number | null,
         name: string,
-        surname: string,
+        lastName: string,
         email: string,
     },
     errorMessage: string,

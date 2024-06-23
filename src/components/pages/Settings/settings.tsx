@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from "react-redux";
 import {changeTheme} from "../../../actions/settings";
 import Form from "react-bootstrap/Form";
 
-const Settings = ({theme, changeTheme}) => {
+const Settings = ({theme, changeTheme, title}) => {
+    useEffect(() => {
+        document.title = title
+    }, []);
+
     const toggle = () => {
         const newTheme = theme === 'light' ? 'dark': 'light';
         changeTheme(newTheme);
