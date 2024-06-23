@@ -58,7 +58,6 @@ export default function todosReducer(state = defaultState, action) {
                 ),
             };
         case ADD_PRODUCTS:
-            console.log('action', action.payload);
             return {
                 ...state,
                 loading: false,

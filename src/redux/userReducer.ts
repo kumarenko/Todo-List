@@ -10,7 +10,8 @@ export const defaultState:Login = {
         lastName: '',
         email: '',
     },
-    errorMessage: ''
+    errorMessage: '',
+    successMessage: ''
 }
 
 export default function userReducer(state = defaultState, action) {

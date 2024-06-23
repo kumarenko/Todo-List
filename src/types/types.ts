@@ -20,6 +20,7 @@ export interface Login {
         email: string,
     },
     errorMessage: string,
+    successMessage: string,
 }
 export interface SettingsTypes {
     theme: string

@@ -85,7 +85,7 @@ export const logoutAction = () => {
     };
 };
 
-export const signUpAction = (email, password) => {
+export const signUpAction = (email, name,lastName, password) => {
     return async (dispatch) => {
 
         const response = await fetch('http://localhost:4000/api/register', {
@@ -93,13 +93,13 @@ export const signUpAction = (email, password) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ email, name, lastName, password })
         });
         const data = await response.json();
         if (response.status === 201) {
-            alert('Registration successful!');
+            dispatch(updateLogin({...defaultState, successMessage: data}))
         } else {
-            alert('Registration failed!');
+            dispatch(updateLogin({...defaultState, errorMessage: data.message}))
         }
     }
 };
