@@ -5,23 +5,21 @@ export interface ShoppingList {
     items: ShoppingList[];
 }
 
-export interface ShoppingListsResponse {
-    lists: ShoppingList[];
-    products: ShoppingList[]
-}
+export interface User {
+    role: 'GUEST' | 'USER',
+    id: string,
+    name: string,
+    lastName: string,
+    email: string,
 
+}
 export interface Login {
     isAuthorized: boolean,
-    user: {
-        role: 'GUEST' | 'USER',
-        userId: number | null,
-        name: string,
-        lastName: string,
-        email: string,
-    },
+    user: User,
     errorMessage: string,
     successMessage: string,
 }
 export interface SettingsTypes {
     theme: string
 }
+

@@ -5,7 +5,7 @@ export const defaultState:Login = {
     isAuthorized: false,
     user: {
         role: 'GUEST',
-        userId: null,
+        id: '',
         name: '',
         lastName: '',
         email: '',

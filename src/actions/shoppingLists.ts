@@ -23,10 +23,10 @@ export const getAllProducts = () => {
     }
 }
 
-export const addProducts = ({id, _id, name, added, count}, increment) => {
+export const addProducts = ({_id, name, added, count}, increment) => {
     return async (dispatch) => {
         const newObj = {
-            id: _id || id,
+            id: _id,
             name: name,
             added: true,
             count: (count ?? 0)+increment

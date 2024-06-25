@@ -2,11 +2,16 @@ import React, {useEffect} from 'react';
 import {logoutAction, setUserData, signInAction, signUpAction} from "../../../actions/login";
 import {connect} from "react-redux";
 import {Button} from "react-bootstrap";
+import {User} from "../../../types/types";
 
-const Profile = ({user, logoutAction, title}) => {
+interface ProfileInterface extends User {
+    logoutAction: () => void,
+    title: string;
+}
+const Profile = ({user, logoutAction, title}:ProfileInterface) => {
     const userData = user.user;
     useEffect(() => {
-        document.title = title
+        document.title = title;
     }, []);
     return (
         <div>
