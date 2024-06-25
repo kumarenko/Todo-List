@@ -1,7 +1,7 @@
 import React, {FC, ReactElement, useEffect, useState} from "react";
 import TaskForm from "./TaskForm";
 import {connect, useSelector} from "react-redux";
-import {removeTodoRequest, getShoppingLists} from '../../../actions/todos';
+import {removeTodoRequest, getShoppingLists} from '../../../actions/shoppingLists';
 import ShoppingLists from "./shoppingLists";
 import {Button} from "react-bootstrap";
 import {IoMdAdd} from "react-icons/io";

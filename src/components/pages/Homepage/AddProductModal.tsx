@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import ReactDOM from "react-dom";
 import {Button, Modal} from "react-bootstrap";
-import {addProducts, getAllProducts} from "../../../actions/todos";
+import {addProducts, getAllProducts} from "../../../actions/shoppingLists";
 import {connect, useSelector} from "react-redux";
 import {IoMdAdd, IoMdClose, IoMdRemove} from "react-icons/io";
 const AddProductModal = ({addProducts,allProducts, getAllProducts, value = null, show, onHide, onApply}) => {

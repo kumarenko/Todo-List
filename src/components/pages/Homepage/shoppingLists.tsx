@@ -4,7 +4,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import {Button, ProgressBar} from "react-bootstrap";
 import {IoMdCreate, IoMdTrash} from "react-icons/io";
 import {connect, useSelector} from "react-redux";
-import {getAllProducts, removeTodoRequest, updateListRequest} from "../../../actions/todos";
+import {getAllProducts, removeTodoRequest, updateListRequest} from "../../../actions/shoppingLists";
 import TaskForm from "./TaskForm";
 
 const ShoppingLists = ({allProducts, lists,getAllProducts, removeTodoRequest,updateListRequest}) => {

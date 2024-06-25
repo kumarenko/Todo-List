@@ -117,7 +117,7 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
                 {showSuccessPopup ? <Alert onAnimationEnd={() => {
                     setShowSuccessPopup(false);
                     dispatch(updateLogin({...user, successMessage: ''}))
-                }} variant='danger' className='popup'>
+                }} variant='success' className='popup'>
                     {successMessage}
                 </Alert> : null}
             </div>

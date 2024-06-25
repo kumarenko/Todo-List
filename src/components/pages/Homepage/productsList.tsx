@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {addProductToListRequest, updateProductsListRequest} from "../../../actions/todos";
+import {addProductToListRequest, updateProductsListRequest} from "../../../actions/shoppingLists";
 import {connect, useSelector} from "react-redux";
 import {Button, ButtonGroup, ButtonToolbar} from "react-bootstrap";
 import {IoMdAddCircleOutline, IoMdRemoveCircleOutline} from "react-icons/io";

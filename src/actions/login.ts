@@ -31,8 +31,8 @@ export const signInAction = (user) => {
                     role: 'USER',
                     id: data._id,
                     email: data.email,
-                    name: 'userName',
-                    lastName: 'userSurname',
+                    name: data?.name,
+                    lastName: data?.lastName,
                 },
             }
             sessionStorage.setItem('token', data.token); // Получаем токен из хранилища
@@ -68,8 +68,8 @@ export const checkUserSession:any = () => {
                         role: 'USER',
                         id: data.user._id,
                         email: data.user.email,
-                        name: 'userName',
-                        lastName: 'userSurname',
+                        name: data.user?.name,
+                        lastName: data.user?.lastName,
                     },
                 }
                 dispatch(updateLogin(updatedLoginState));
