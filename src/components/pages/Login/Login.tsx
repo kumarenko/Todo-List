@@ -82,7 +82,7 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
                         className="mb-3"
                     >
                         <Tab eventKey={"login"} title="Sign In">
-                            <SignInTab
+                            {key === 'login' && <SignInTab
                                 email={email} setEmail={setEmail}
                                 password={password} setPassword={setPassword}
                                 signInHandler={signInHandler}
@@ -90,10 +90,10 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
                                 buttonsVariant={buttonsVariant}
                                 errors={errors}
                                 resetErrors={reset}
-                            />
+                            />}
                         </Tab>
                         <Tab eventKey={"register"} title="Sign Up">
-                            <SignUpTab
+                            {key === 'register' && <SignUpTab
                                 email={email} setEmail={setEmail}
                                 name={name} setName={setName}
                                 lastName={lastName} setLastName={setLastName}
@@ -103,7 +103,7 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
                                 buttonsVariant={buttonsVariant}
                                 errors={errors}
                                 resetErrors={reset}
-                            />
+                            />}
                         </Tab>
                     </Tabs>
                 </div>
