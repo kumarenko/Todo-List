@@ -1,0 +1,29 @@
+.popup {
+  position: fixed;
+  left: 50%;
+  width: auto;
+  top: 30%;
+  animation: 4s forwards popup linear;
+}
+
+@keyframes popup {
+  0% {
+    opacity: 0;
+    transform: translateY(0) translateX(-50%);
+  }
+  5% {
+
+    opacity: 1;
+    transform: translateY(50px) translateX(-50%);
+  }
+  95% {
+
+    opacity: 1;
+    transform: translateY(50px) translateX(-50%);
+  }
+  100% {
+
+    opacity: 0;
+    transform: translateY(0) translateX(-50%);
+  }
+}

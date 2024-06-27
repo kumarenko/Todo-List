@@ -1,4 +1,10 @@
-import {defaultState, updateLogin} from "../redux/userReducer";
+import {
+    defaultState,
+    updateLogin,
+    updateProfileData,
+    updateProfileErrorMessage,
+    updateProfileSuccessMessage
+} from "../redux/userReducer";
 
 export const setUserData = (isAuthorized) => {
     const updatedLoginState = {
@@ -29,10 +35,12 @@ export const signInAction = (user) => {
                 // loading: false,
                 user: {
                     role: 'USER',
-                    id: data._id,
+                    id: data._id || data.id || data.userId,
                     email: data.email,
                     name: data?.name,
                     lastName: data?.lastName,
+                    gender: data?.gender || '',
+                    birthday: data?.birthday,
                 },
             }
             sessionStorage.setItem('token', data.token); // Получаем токен из хранилища
@@ -66,10 +74,12 @@ export const checkUserSession:any = () => {
                     isAuthorized: true,
                     user: {
                         role: 'USER',
-                        id: data.user._id,
+                        id: data.user.id,
                         email: data.user.email,
-                        name: data.user?.name,
-                        lastName: data.user?.lastName,
+                        name: data.user.name,
+                        lastName: data.user.lastName,
+                        gender: data.user.gender,
+                        birthday: data.user.birthday,
                     },
                 }
                 dispatch(updateLogin(updatedLoginState));
@@ -104,3 +114,25 @@ export const signUpAction = (email, name,lastName, password) => {
     }
 };
 
+export const updateProfileInfo = (userId, data) => {
+    return async (dispatch) => {
+        const response = await fetch(`http://localhost:4000/api/users/${userId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            const userData = await response.json();
+            const data = userData.user;
+            sessionStorage.setItem('token', userData.token); // Получаем токен из хранилища
+            dispatch(updateProfileData(data));
+            dispatch(updateProfileSuccessMessage(userData.message));
+        } else {
+            const userData = await response.json();
+            dispatch(updateProfileErrorMessage(userData.message))
+        }
+    };
+}

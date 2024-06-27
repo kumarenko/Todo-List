@@ -11,6 +11,8 @@ export interface User {
     name: string,
     lastName: string,
     email: string,
+    gender: 'MALE' | 'FEMALE',
+    birthday: Date,
 
 }
 export interface Login {
