@@ -5,6 +5,7 @@ import {
     updateProfileErrorMessage,
     updateProfileSuccessMessage
 } from "../redux/userReducer";
+import {LOGIN_URL, PROTECTED_ROUTE_URL, REGISTER_URL, USERS_URL} from "../configs/urls";
 
 export const setUserData = (isAuthorized) => {
     const updatedLoginState = {
@@ -20,7 +21,7 @@ export const setUserData = (isAuthorized) => {
 
 export const signInAction = (user) => {
     return async (dispatch) => {
-        const response = await fetch('http://localhost:4000/api/login', {
+        const response = await fetch(LOGIN_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -55,7 +56,7 @@ export const signInAction = (user) => {
 export const checkUserSession:any = () => {
     const token = sessionStorage.getItem('token'); // Получаем токен из хранилища
     return (dispatch) => {
-        fetch('http://localhost:4000/api/protected-route', {
+        fetch(PROTECTED_ROUTE_URL, {
             method: 'GET', // или 'POST', 'PUT', 'DELETE' и т.д.
             headers: {
                 'Content-Type': 'application/json',
@@ -98,7 +99,7 @@ export const logoutAction = () => {
 export const signUpAction = (email, name,lastName, password) => {
     return async (dispatch) => {
 
-        const response = await fetch('http://localhost:4000/api/register', {
+        const response = await fetch(REGISTER_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -114,9 +115,9 @@ export const signUpAction = (email, name,lastName, password) => {
     }
 };
 
-export const updateProfileInfo = (userId, data) => {
+export const updateProfileInfo: any = (userId, data) => {
     return async (dispatch) => {
-        const response = await fetch(`http://localhost:4000/api/users/${userId}`, {
+        const response = await fetch(`${USERS_URL}/${userId}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

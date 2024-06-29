@@ -15,8 +15,8 @@ export const validateSignInForm = ({ email, password}) => {
     return errors;
 };
 export const validateSignUpForm = ({ email, password, confirmPassword, name, lastName }) => {
-    let errors = [];
-    if(!email) {
+    let errors = {};
+    if(!email.length) {
         errors = {...errors, email: 'Email field is required'};
     }
     if (email.length && !String(email)
@@ -36,3 +36,20 @@ export const validateSignUpForm = ({ email, password, confirmPassword, name, las
     }
     return errors;
 };
+
+export const validateChangePassword = (current, newPassword, confirmNewPassword) => {
+    let errors = {};
+    if(!current.length) {
+        errors = {...errors, password: 'Password field   is required'};
+    }
+    if(newPassword.length < 8) {
+        errors = {...errors, newPassword: 'New Passwords is too short'};
+    }
+    if(newPassword !== confirmNewPassword) {
+        errors = {...errors, confirmPassword: 'Passwords do not match'};
+    }
+    if(!confirmNewPassword.length) {
+        errors = {...errors, confirmPassword: 'Confirm password field is required'};
+    }
+    return errors;
+}

@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {logoutAction, updateProfileInfo} from "../../../actions/login";
 import {connect, useDispatch, useSelector} from "react-redux";
-import {Button, Col, Container, Row, Form, Alert} from "react-bootstrap";
+import {Button, Container, Form} from "react-bootstrap";
 import {User} from "../../../types/types";
-import './styles.less';
-import {updateLogin, updateProfileErrorMessage, updateProfileSuccessMessage} from "../../../redux/userReducer";
+import {updateProfileErrorMessage, updateProfileSuccessMessage} from "../../../redux/userReducer";
 import CustomAlert from "../../../common/Alert";
+import ChangePassword from "./changePassword";
+import './styles.less';
 
 interface ProfileInterface extends User {
     logoutAction: () => void,
     UpdateProfileInfo: () => void,
     title: string;
-
 }
 const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterface) => {
     const userData = user.user;
@@ -78,8 +78,8 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
         setBirthday(userData.birthday);
         setIsEditing(false);
     }
-console.log('.....',birthday);
-const now = new Date().toISOString().split("T")[0];
+
+    const now = new Date().toISOString().split("T")[0];
     return (
         <div className='profile d-flex flex-column align-items-center'>
             <div className="d-flex justify-content-between h3 w-75 p-3">
@@ -133,9 +133,12 @@ const now = new Date().toISOString().split("T")[0];
                             /> : <div>{birthday}</div>
                         }
                     </div>
-                </Container>: <div className="w-75">
-
-            </div>}
+                </Container>:
+                <div className="w-75">
+                    You are in guest mode now.
+                </div>
+            }
+            <ChangePassword userId={userData.id}/>
             <div className='w-75 controls'>
                 <Button variant={buttonsVariant} onClick={() => {
                     handleProfileData();
