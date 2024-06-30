@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import HomePage from './../components/pages/Homepage/Homepage';
-import Settings from './../components/pages/Settings/settings';
+import Settings from './pages/Settings/settings';
 import NotFound from './../components/pages/NotFound';
 import Navigation from './../components/navigation/Navigation';
 import Profile from './../components/pages/Profile/Profile';

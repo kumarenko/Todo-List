@@ -12,6 +12,12 @@ module.exports = {
     devServer: {
         port: 3001,
         historyApiFallback: true,
+        // https: {
+        //     key: path.resolve(__dirname, 'server.key'),
+        //     cert: path.resolve(__dirname, 'server.cert'),
+        // },
+        // // Убедитесь, что у вас установлен host на localhost для исключения из требований https
+        // host: '192.168.55.4'
 
     },
     resolve: {
