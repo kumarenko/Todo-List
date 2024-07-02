@@ -1,9 +1,14 @@
-import React, { useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useState, useLayoutEffect, useRef } from 'react';
 import Quagga from 'quagga';
 import * as ReactDOM from "react-dom";
+import './styles.less';
+import {Form} from "react-bootstrap";
 
-const BarcodeScanner = ({ onDetected }) => {
+const BarcodeScanner = ({ onDetected, onClose }) => {
     const videoRef = useRef(null);
+    const [detectedCode, setDetectedCode] = useState(null);
+    const [manualEntering, setManualEntering] = useState(false);
+    const [manualCode, setManualCode] = useState('');
 
     useLayoutEffect(() => {
         const startCamera = async () => {
@@ -12,8 +17,9 @@ const BarcodeScanner = ({ onDetected }) => {
                 stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
                 if (videoRef.current) {
                     videoRef.current.srcObject = stream;
-                    videoRef.current.play();
-                }
+                    videoRef.current.addEventListener('loadedmetadata', () => {
+                        videoRef.current.play();
+                    });
 
                 Quagga.init({
                     inputStream: {
@@ -36,11 +42,18 @@ const BarcodeScanner = ({ onDetected }) => {
                     Quagga.start();
                 });
 
-                Quagga.onDetected(onDetected);
-
+                    Quagga.onDetected(handleDetected);
+                }
             } catch (err) {
                 console.error('Error accessing media devices:', err);
                 alert('Ошибка при доступе к устройствам медиа: ' + err.message);
+            }
+        };
+
+        const handleDetected = (data) => {
+            setDetectedCode(data.codeResult.code);
+            if (onDetected) {
+                onDetected(data.codeResult.code);
             }
         };
 
@@ -50,7 +63,7 @@ const BarcodeScanner = ({ onDetected }) => {
 
         return () => {
             console.log("Stopping Quagga and video stream");
-            Quagga.offDetected(onDetected);
+            Quagga.offDetected(handleDetected);
             Quagga.stop();
             if (videoRef.current && videoRef.current.srcObject) {
                 let stream = videoRef.current.srcObject;
@@ -66,10 +79,32 @@ const BarcodeScanner = ({ onDetected }) => {
     }, [onDetected]);
 
     return ReactDOM.createPortal(
-        <div style={{ position: 'fixed', left: 0, top: 200, width: '100%', height: '100%' }}>
-            <video ref={videoRef} style={{ width: '100%', height: '100%' }} playsInline />
+        <div className='barcode d-flex flex-column justify-content-center align-items-centers'>
+            <div className='d-flex justify-content-end m-2'>
+                <button onClick={onClose}>
+                    Cancel
+                </button>
+            </div>
+            <h3 className='text-center'>Please scan barcode with your camera</h3>
+            <video ref={videoRef} style={{ width: '100%', height: 'auto', aspectRatio: '16/9' }} playsInline />
+
+            {detectedCode && !manualEntering && (
+                <p className='text-center m-2'>Detected code: {detectedCode}</p>
+            )}
+            <div className='text-center'>
+                <button className='button-as-link my-2' onClick={() => setManualEntering(!manualEntering)}>Enter manually</button>
+            </div>
+            {manualEntering &&
+            <div className='text-center'>
+                <Form.Control className='search mx-auto my-2' type="text" value={manualCode} onChange={(e) => setManualCode(e.target.value)}/>
+                <button className='my-1'
+                    onClick={() => {
+                    setDetectedCode(manualCode);
+                    onDetected(manualCode);
+                }}>Search</button>
+            </div>}
         </div>,
-        document.body
+        document.getElementById('root')
     );
 };
 

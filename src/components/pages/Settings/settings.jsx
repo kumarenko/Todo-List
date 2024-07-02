@@ -17,9 +17,9 @@ const Settings = ({theme, changeTheme, title}) => {
         changeTheme(newTheme);
     }
     const handleDetected = (result) => {
-        console.log("Barcode detected: " + result.codeResult.code);
-        setCode(result.codeResult.code);
-        setToggle(!toggle1);
+        console.log("Barcode detected: " + result);
+        setCode(result);
+
     };
 
 
@@ -27,20 +27,27 @@ const Settings = ({theme, changeTheme, title}) => {
         const proxyurl = "https://cors-anywhere.herokuapp.com/"; // Use a proxy to avoid CORS error
         const api_key = "qvq6xf6o09nzs4pf9qn428l5b6lnfj";
 
-        const url = proxyurl + `https://api.barcodelookup.com/v3/products?barcode=${code}&formatted=y&key=` + api_key;
+        const url = proxyurl + `https://api.barcodelookup.com/v3/products?barcode=5902898822458&formatted=y&key=` + api_key;
         try {
-            const response = await fetch(url);
+            const response = await fetch(url,{
+                method: 'GET',
+            });
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
+            setToggle(!toggle1);
             return data;
         } catch (err) {
+            setToggle(!toggle1);
             console.error(err);
             throw err;
         }
     };
 
+    const closeScanner = () => {
+        setToggle(false);
+    }
     useEffect(()=> {
         if(code) {
             fetchProductData()
@@ -56,7 +63,7 @@ const Settings = ({theme, changeTheme, title}) => {
         <div className='homepage d-flex flex-column align-items-center'>
             <div className="d-flex justify-content-between h3 w-75 p-3">
                 <h1>Settings</h1>
-                {toggle1 ? <BarcodeScanner onDetected={handleDetected}/> : null}
+                {toggle1 ? <BarcodeScanner onDetected={handleDetected} onClose={closeScanner}/> : null}
             </div>
             <div className="w-75 p-3">
                 <button onClick={()=> setToggle(!toggle1)}>Close</button>

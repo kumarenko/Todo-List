@@ -36,6 +36,14 @@ body {
         background-color: black;
       }
     }
+    &+.barcode {
+      span, div:not(.alert), h1, h2,h3, a, .button-as-link, p {
+        &::after {
+          background: #fff; // underline color
+        }
+        color: #fff;
+      }
+    }
   }
 }
 nav {
