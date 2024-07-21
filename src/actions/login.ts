@@ -31,20 +31,21 @@ export const signInAction = (user) => {
 
         if (response.ok) {
             const data = await response.json();
+            const {token, user} = data;
             const updatedLoginState = {
                 isAuthorized: true,
                 // loading: false,
                 user: {
                     role: 'USER',
-                    id: data._id || data.id || data.userId,
-                    email: data.email,
-                    name: data?.name,
-                    lastName: data?.lastName,
-                    gender: data?.gender || '',
-                    birthday: data?.birthday,
+                    id: user._id || user.id || user.userId,
+                    email: user.email,
+                    name: user?.name || '',
+                    lastName: user?.lastName || '',
+                    gender: user?.gender || '',
+                    birthday: user?.birthday || '',
                 },
             }
-            sessionStorage.setItem('token', data.token); // Получаем токен из хранилища
+            sessionStorage.setItem('token', token);
             dispatch(updateLogin(updatedLoginState));
 
         } else {
@@ -54,13 +55,13 @@ export const signInAction = (user) => {
 };
 
 export const checkUserSession:any = () => {
-    const token = sessionStorage.getItem('token'); // Получаем токен из хранилища
+    const token = sessionStorage.getItem('token');
     return (dispatch) => {
         fetch(PROTECTED_ROUTE_URL, {
-            method: 'GET', // или 'POST', 'PUT', 'DELETE' и т.д.
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` // Добавление токена в заголовки
+                'Authorization': `Bearer ${token}`
             }
         })
             .then(response => {
@@ -75,11 +76,12 @@ export const checkUserSession:any = () => {
                     isAuthorized: true,
                     user: {
                         role: 'USER',
-                        id: data.user.id,
+                        id: data.user.userId,
                         email: data.user.email,
                         name: data.user.name,
                         lastName: data.user.lastName,
                         gender: data.user.gender,
+                        shoppingLists: data.user.shoppingLists,
                         birthday: data.user.birthday,
                     },
                 }

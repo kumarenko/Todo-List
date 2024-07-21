@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import ProductsList from "./productsList";
 import Accordion from 'react-bootstrap/Accordion';
-import {Button, ProgressBar} from "react-bootstrap";
+import {Button, Card, ProgressBar} from "react-bootstrap";
 import {IoMdCreate, IoMdTrash} from "react-icons/io";
 import {connect, useSelector} from "react-redux";
 import {getAllProducts, removeTodoRequest, updateListRequest} from "../../../actions/shoppingLists";
 import TaskForm from "./TaskForm";
+import {Link} from "react-router-dom";
 
-const ShoppingLists = ({allProducts, lists,getAllProducts, removeTodoRequest,updateListRequest}) => {
+const ShoppingLists = ({allProducts, lists,getAllProducts, removeTodoRequest,updateListRequest, userId}) => {
     const [showModal, setShowModal] = useState(false);
     const [selectedList, setSelectedList] = useState(null);
     const [filteredProducts, setFilteredProducts] = useState([]);
@@ -40,33 +41,24 @@ const ShoppingLists = ({allProducts, lists,getAllProducts, removeTodoRequest,upd
         <>
             <Accordion alwaysOpen={true} defaultActiveKey={0} className='w-75 p-3'>
                 {lists.map(list => {
-                    return <Accordion.Item className='accordion' eventKey={list.id} key={list.id}>
-                        <Button variant={buttonsVariant} className='remove' onClick={()=> removeList(list.id)}><IoMdTrash /></Button>
-                        <Button variant={buttonsVariant} className='edit' onClick={()=> editList(list)}><IoMdCreate/></Button>
-                        <Accordion.Header
-                            className={`d-flex justify-content-between h-10 ${filteredProducts.filter(item => item.added).length === filteredProducts.length ? 'completed': ''}`}
-                        >
-                            <div className='mb-1 z-1'>
-                                {list.name}
-                                {filteredProducts.length ?
-                                    <> {filteredProducts.filter(item => item.added).length} / {filteredProducts.length}</>
-                                    : null}
-                            </div>
+                    console.log(list.products);
+                    return <Link className='list-item-link' to={`/lists/${list._id}`}>
+                        <Card>
+                            <span>{list.name} {list._id}</span>
+                             {list.products.length ?
+                                 <>
+                                     {list.products.filter(item => item).length} / {list.products.length}
+                                     <ProgressBar
+                                         className='w-50 mt-1 z-1'
+                                         now={list.products.filter(item => item).length}
+                                         max={list.products.length}
+                                     />
+                                 </>
+                                 : null}
 
-
-                            <ProgressBar
-                                className='w-50 mt-1 z-1'
-                                now={filteredProducts.filter(item => item.added).length}
-                                max={filteredProducts.length}
-                            />
-                        </Accordion.Header>
-                        <Accordion.Body>
-                            <div className="accordion-body">
-                                <ProductsList parentId={list.id} products={filteredProducts}/>
-                            </div>
-                        </Accordion.Body>
-                    </Accordion.Item>
-                },)}
+                        </Card>
+                    </Link>
+                })}
             </Accordion>
             <TaskForm
                 value={selectedList}
@@ -78,9 +70,9 @@ const ShoppingLists = ({allProducts, lists,getAllProducts, removeTodoRequest,upd
     );
 };
 const mapStateToProps = (state) => ({
-    todos: state.items.todos,
     lists: state.items.lists,
-    allProducts: state.items.allProducts
+    allProducts: state.items.allProducts,
+    userId: state.user.user.id,
 });
 const mapDispatchToProps = {
     removeTodoRequest,

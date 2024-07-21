@@ -1,14 +1,15 @@
-import React, {useState} from 'react';
-import {addProductToListRequest, updateProductsListRequest} from "../../../actions/shoppingLists";
+import React from 'react';
+import {
+    addProductToListRequest,
+    deleteProductFromList,
+    updateProductsListRequest
+} from "../../../actions/shoppingLists";
 import {connect, useSelector} from "react-redux";
 import {Button, ButtonGroup, ButtonToolbar} from "react-bootstrap";
 import {IoMdAddCircleOutline, IoMdRemoveCircleOutline} from "react-icons/io";
-import AddProductModal from "./AddProductModal";
 
-const ProductsList = ({parentId, products, addProductToListRequest}) => {
-    const [showModal, setShowModal] = useState(false);
-    const handleApply = () => setShowModal(false);
-    const handleClose = () => setShowModal(false);
+const ProductsList = ({listId, products, addProductToListRequest,deleteProductFromList}) => {
+
 
     const renameProduct = (newValue, parentId, productId, added, details, count) => {
         addProductToListRequest(newValue, parentId, productId, added, details, count);
@@ -19,6 +20,9 @@ const ProductsList = ({parentId, products, addProductToListRequest}) => {
     const theme = useSelector(state => state.settings.theme);
     const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
 
+    const deleteProduct = (id) => {
+        deleteProductFromList(listId, id);
+    }
     return (
         <div>
             {products.length ?
@@ -28,6 +32,12 @@ const ProductsList = ({parentId, products, addProductToListRequest}) => {
                         {item.added ? <IoMdRemoveCircleOutline />
                             : <IoMdAddCircleOutline color={'#00ff00'} />
                         }</Button>
+                    <Button variant={buttonsVariant}
+                            onClick={() => deleteProduct(item._id)}>
+                        {item.added ? <IoMdRemoveCircleOutline />
+                            : <IoMdRemoveCircleOutline color={'#00ff00'} />
+                        }
+                    </Button>
                     <input type="text"
                            id={item.name}
                            className='fancy-checkbox-primary'
@@ -40,12 +50,6 @@ const ProductsList = ({parentId, products, addProductToListRequest}) => {
                 </ButtonGroup>
 
             </ButtonToolbar>) : null}
-            <Button variant={buttonsVariant} onClick={() => setShowModal(true)}>Add Product</Button>
-            <AddProductModal
-                show={showModal}
-                onHide={handleClose}
-                onApply={handleApply}
-            />
         </div>
     );
 };
@@ -56,5 +60,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     updateProductsListRequest,
     addProductToListRequest,
+    deleteProductFromList,
 };
 export default connect(mapStateToProps,mapDispatchToProps)(ProductsList)

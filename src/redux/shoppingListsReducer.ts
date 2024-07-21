@@ -1,6 +1,7 @@
 import {ShoppingList} from "../types/types";
 
 const SET_LISTS = "SET_LISTS";
+const SET_LIST = "SET_LIST";
 const SET_PRODUCTS = "SET_PRODUCTS";
 const UPDATE_LIST = "UPDATE_LIST";
 const ADD_LIST = "ADD_LIST";
@@ -10,8 +11,9 @@ const ADD_PRODUCTS = 'ADD_PRODUCTS';
 const UPDATE_TODO_FAILURE = 'UPDATE_TODO_FAILURE';
 
 
-const defaultState: { lists: ShoppingList[]; allProducts: ShoppingList[] } = {
+const defaultState: { lists: ShoppingList[], allProducts: ShoppingList[], list: {} } = {
     lists: [],
+    list: {},
     allProducts: [],
 }
 
@@ -22,6 +24,11 @@ export default function todosReducer(state = defaultState, action) {
             return {
                 ...state,
                 lists: action.payload,
+            }
+        case SET_LIST:
+            return {
+                ...state,
+                list: action.payload,
             }
         case SET_PRODUCTS:
             return {
@@ -92,6 +99,7 @@ export default function todosReducer(state = defaultState, action) {
 }
 
 export const setShoppingLists = (lists) => ({type:SET_LISTS, payload:lists})
+export const setShoppingList = (list) => ({type:SET_LIST, payload:list})
 export const setAllProducts = (products) => ({type:SET_PRODUCTS, payload:products})
 export const addListSuccess = (list) => ({type: ADD_LIST,payload: list});
 export const updateList = (list) => ({type:UPDATE_LIST, payload: list})

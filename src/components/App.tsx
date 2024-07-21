@@ -10,6 +10,7 @@ import Profile from './../components/pages/Profile/Profile';
 import LoginPage from "./pages/Login/Login";
 import './../styles.less';
 import {checkUserSession} from "../actions/login";
+import ListPage from "./pages/Homepage/listPage/ListPage";
 
 const App = () => {
     const theme = useSelector(state => state.settings.theme);
@@ -27,6 +28,7 @@ const App = () => {
                     <Route index element={isAuthorized ? <HomePage title="Home" /> : <Navigate to={'/login'}/>} />
                     <Route path='/profile' element={isAuthorized ? <Profile title='Profile' /> : <Navigate to={'/login'}/>} />
                     <Route path='/settings' element={isAuthorized ? <Settings title='Settings'/> : <Navigate to={'/login'}/>} />
+                    <Route path='/lists/:listId' element={isAuthorized ? <ListPage title='List'/> : <Navigate to={'/login'}/>} />
                     <Route path='/login' element={<LoginPage title='Login'/>} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>

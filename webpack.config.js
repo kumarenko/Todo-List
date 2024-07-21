@@ -8,6 +8,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: "[name].[hash].js",
+        publicPath: '/',  // Добавьте эту строку для корректной работы маршрутизации
     },
     devServer: {
         port: 3001,
