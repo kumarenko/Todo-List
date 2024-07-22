@@ -3,7 +3,7 @@ import {
     addProductToListRequest,
     deleteProductFromList,
     updateProductsListRequest
-} from "../../../actions/shoppingLists";
+} from "../../../../actions/shoppingLists";
 import {connect, useSelector} from "react-redux";
 import {Button, ButtonGroup, ButtonToolbar} from "react-bootstrap";
 import {IoMdAddCircleOutline, IoMdRemoveCircleOutline} from "react-icons/io";

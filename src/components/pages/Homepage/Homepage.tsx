@@ -1,5 +1,5 @@
 import React, {FC, ReactElement, useEffect, useState} from "react";
-import TaskForm from "./TaskForm";
+import CreateListModal from "./createListModal";
 import {connect, useSelector} from "react-redux";
 import {
     removeTodoRequest,
@@ -9,7 +9,7 @@ import {
 } from '../../../actions/shoppingLists';
 import ShoppingLists from "./shoppingLists";
 import {Button} from "react-bootstrap";
-import {IoMdAdd, IoMdClose} from "react-icons/io";
+import {IoMdAdd} from "react-icons/io";
 import './styles.less';
 const HomePage: FC = ({lists, products, getShoppingLists, title, user,addShoppingList,deleteProductFromList }): ReactElement => {
     const [showModal, setShowModal] = useState(false);
@@ -22,8 +22,6 @@ const HomePage: FC = ({lists, products, getShoppingLists, title, user,addShoppin
     // const handleShow = () => setShowModal(true);
     const addNewList = () => {
         setShowModal(true);
-
-        console.log(user, products);
     }
     useEffect(()=>{
         document.title = title;
@@ -40,7 +38,7 @@ const HomePage: FC = ({lists, products, getShoppingLists, title, user,addShoppin
         </div>
         {lists?.length ? <ShoppingLists lists={lists}/> :
             <h3>Here is no List. Press 'Add List' to create new one!</h3>}
-            <TaskForm
+            <CreateListModal
                 show={showModal}
                 onHide={handleClose}
                 onApply={handleApply}

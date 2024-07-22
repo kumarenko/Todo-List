@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import ProductsList from "./productsList";
 import Accordion from 'react-bootstrap/Accordion';
 import {Button, Card, ProgressBar} from "react-bootstrap";
 import {IoMdCreate, IoMdTrash} from "react-icons/io";
 import {connect, useSelector} from "react-redux";
 import {getAllProducts, removeTodoRequest, updateListRequest} from "../../../actions/shoppingLists";
-import TaskForm from "./TaskForm";
+import CreateListModal from "./createListModal";
 import {Link} from "react-router-dom";
 
 const ShoppingLists = ({allProducts, lists,getAllProducts, removeTodoRequest,updateListRequest, userId}) => {
@@ -15,9 +14,6 @@ const ShoppingLists = ({allProducts, lists,getAllProducts, removeTodoRequest,upd
     useEffect(() => {
         getAllProducts();
     },[]);
-    useEffect(()=> {
-        filterAllProducts()
-    }, [allProducts]);
     const handleClose = () => {
         setSelectedList(null);
         setShowModal(false);
@@ -36,31 +32,38 @@ const ShoppingLists = ({allProducts, lists,getAllProducts, removeTodoRequest,upd
     }
     const theme = useSelector(state => state.settings.theme);
     const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
-    const filterAllProducts = () => setFilteredProducts(allProducts.filter(product => product.count > 0));
+
     return (
         <>
             <Accordion alwaysOpen={true} defaultActiveKey={0} className='w-75 p-3'>
                 {lists.map(list => {
                     console.log(list.products);
-                    return <Link className='list-item-link' to={`/lists/${list._id}`}>
+                    return <div className='list-item-link'>
                         <Card>
-                            <span>{list.name} {list._id}</span>
-                             {list.products.length ?
-                                 <>
-                                     {list.products.filter(item => item).length} / {list.products.length}
-                                     <ProgressBar
-                                         className='w-50 mt-1 z-1'
-                                         now={list.products.filter(item => item).length}
-                                         max={list.products.length}
-                                     />
-                                 </>
-                                 : null}
+                            <Link to={`/lists/${list._id}`}>
+                                {list.name} {list._id}
+                                {list.products.length ?
+                                    <>
+                                        {list.products.filter(item => item).length} / {list.products.length}
+                                        <ProgressBar
+                                            className='w-50 mt-1 z-1'
+                                            now={list.products.filter(item => item).length}
+                                            max={list.products.length}
+                                        />
+                                    </>
+                                    : null}
+                            </Link>
+
+                           <div className="buttons">
+                               <Button variant={buttonsVariant} className='remove' onClick={()=> removeList(list.id)}><IoMdTrash /></Button>
+                               <Button variant={buttonsVariant} className='edit' onClick={()=> editList(list)}><IoMdCreate/></Button>
+                           </div>
 
                         </Card>
-                    </Link>
+                    </div>
                 })}
             </Accordion>
-            <TaskForm
+            <CreateListModal
                 value={selectedList}
                 show={showModal}
                 onHide={handleClose}

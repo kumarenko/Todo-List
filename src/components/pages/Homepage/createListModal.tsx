@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Button, Modal} from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 
-const TaskForm = ({value = null, show, onHide, onApply}) => {
+const CreateListModal = ({value = null, show, onHide, onApply}) => {
     const [data, setData] = useState("");
     function handleClick() {
         onApply(data || value?.name);
@@ -43,4 +43,4 @@ const TaskForm = ({value = null, show, onHide, onApply}) => {
     </Modal>, document.body);
 };
 
-export default TaskForm;
+export default CreateListModal;

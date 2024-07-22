@@ -1,16 +1,21 @@
 import React, {useEffect, useState} from 'react';
 import ReactDOM from "react-dom";
-import {Button, Modal} from "react-bootstrap";
-import {addProducts, addProductToList, getAllProducts} from "../../../actions/shoppingLists";
+import {Button, Modal, Form, InputGroup, Col} from "react-bootstrap";
+import {addProducts, addProductToList, getAllProducts} from "../../../../actions/shoppingLists";
 import {connect, useSelector} from "react-redux";
-import {IoMdAdd, IoMdClose, IoMdRemove} from "react-icons/io";
+import {IoMdAdd, IoMdClose, IoMdRemove, IoMdSearch} from "react-icons/io";
 const AddProductModal = ({list, addProducts,allProducts, getAllProducts, value = null, show, onHide, onApply,addProductToList}) => {
-    const [data, setData] = useState("");
-    const [name, setName] = useState('');
-
+    const [data, setData] = useState('');
+    const [filteredItems, setFilteredItems] = useState([]);
     useEffect(() => {
         getAllProducts();
+        setFilteredItems(allProducts);
     }, []);
+
+    useEffect(() => {
+        setFilteredItems(allProducts);
+    }, [allProducts]);
+
     function handleClick() {
         onApply(data || value?.name);
         setData('');
@@ -18,29 +23,49 @@ const AddProductModal = ({list, addProducts,allProducts, getAllProducts, value =
     const onCloseHandler = () => {
         onHide();
         setData('');
+        setTimeout(() => setFilteredItems(allProducts), 500);
     }
     const addProduct = (item) => {
-        addProducts(item, 1);
+        // addProducts(item, 1);
+        addProductToList(list._id, item.name)
+
     }
     const deleteProduct = (item) => {
         addProducts(item, -1);
     }
-
+    const filterProducts = (searchValue) => {
+        let filteredItems = allProducts.filter(prod => prod.name.includes(searchValue));
+        filteredItems.length > 0 ?
+            setFilteredItems(filteredItems) :
+            setFilteredItems([{name: searchValue}]);
+    }
     const theme = useSelector(state => state.settings.theme);
     const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
 
-    return ReactDOM.createPortal(<Modal key={'sdf'} show={show} onHide={onCloseHandler} className='w-100'>
+    return ReactDOM.createPortal(<Modal show={show} onHide={onCloseHandler} className='w-100'>
         <Modal.Header closeButton>
             <Modal.Title>Adding new List</Modal.Title>
         </Modal.Header>
         <Modal.Body className='d-flex align-items-start flex-column modal-fixed-height'>
-            <input type="text" onChange={(e) => setName(e.target.value)}/>
-            <button onClick={() => {
-                addProductToList(list._id, name)
-            }}>add</button>
-            {allProducts.length ?
-                allProducts.map(item => <div  key={item._id} className='position-relative d-flex justify-content-center w-75 mx-auto my-1'>
-                    <Button variant={buttonsVariant} className='rounded-pill w-100 d-flex justify-content-between align-items-center' onClick={() => addProduct(item)}>
+            <Form.Group as={Col}>
+                <InputGroup>
+                    <Form.Control
+                        type="text"
+                        onChange={(e) => {
+                            filterProducts(e.target.value);
+                        }}
+                        placeholder="Search here.."
+                    />
+                    <InputGroup.Text>
+                        <IoMdSearch />
+                    </InputGroup.Text>
+                </InputGroup>
+            </Form.Group>
+            {filteredItems.length ?
+                filteredItems.map(item => <div  key={item._id} className='position-relative d-flex justify-content-center w-75 mx-auto my-1'>
+                    <Button variant={buttonsVariant}
+                            className='rounded-pill w-100 d-flex justify-content-between align-items-center'
+                            onClick={() => addProduct(item)}>
                         <IoMdAdd className='position-absolute start-0 ms-3'>{item.name}</IoMdAdd>
                         <span className='m-auto'>{item.name}</span>
                         {item.count > 0 ? <span className='position-absolute end-0 me-5'>{item.count}</span>: null}
@@ -52,14 +77,7 @@ const AddProductModal = ({list, addProducts,allProducts, getAllProducts, value =
                 </div>) :
             <span>No Items</span>}
         </Modal.Body>
-        <Modal.Footer>
-            <Button variant="secondary" onClick={onHide}>
-                Close
-            </Button>
-            <Button variant="primary" onClick={handleClick} disabled={data.length === 0}>
-                Save Changes
-            </Button>
-        </Modal.Footer>
+        <Modal.Footer/>
     </Modal>, document.body);
 };
 const mapStateToProps = (state) => ({

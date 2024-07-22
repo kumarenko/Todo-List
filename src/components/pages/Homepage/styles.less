@@ -4,10 +4,20 @@
     &-button:focus {
       box-shadow: none;
     }
-    .edit, .remove {
-      position: absolute;
-      top: 8px;
-      z-index: 5;
+    .card {
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      .buttons {
+        .edit, .remove {
+          width: 36px;
+          height: 36px;
+          padding: 0 10px;
+          margin: 0 5px;
+        }
+      }
     }
     &-header > button {
       display: flex;
@@ -18,11 +28,6 @@
         right: 3%;
       }
     }
-    .edit {
-      right: 128px;
-    }
-    .remove {
-      right: 64px;
-    }
   }
+
 }

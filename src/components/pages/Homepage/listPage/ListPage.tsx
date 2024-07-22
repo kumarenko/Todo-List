@@ -1,17 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {
     addProductToList,
-    addShoppingList,
     deleteProductFromList,
     getShoppingList
 } from "../../../../actions/shoppingLists";
 import {connect, useSelector} from "react-redux";
-import ProductsList from "../productsList";
 import { useParams } from 'react-router-dom';
 import {Button, ButtonGroup} from "react-bootstrap";
-import AddProductModal from "../AddProductModal";
+import AddProductModal from "./AddProductModal";
 
-const ListPage = ({list, getShoppingList,deleteProductFromList,addProductToList,allProducts}) => {
+const ListPage = ({list, getShoppingList,deleteProductFromList}) => {
     const { listId } = useParams();
     const [showModal, setShowModal] = useState(false);
     const handleApply = () => setShowModal(false);
@@ -22,11 +20,6 @@ const ListPage = ({list, getShoppingList,deleteProductFromList,addProductToList,
     useEffect(() => {
         getShoppingList(listId);
     }, []);
-    //
-    // useEffect(() => {
-    //     console.log(list);
-    // }, [list]);
-    //
 
     const check = (id) => {
         deleteProductFromList(list._id, id);
@@ -42,7 +35,6 @@ const ListPage = ({list, getShoppingList,deleteProductFromList,addProductToList,
                         <span>{prod.name}</span>
                     </li>)}
                 </ul> : <span>There are no one product</span>}
-
             </div>
 
             <Button variant={buttonsVariant} onClick={() => setShowModal(true)}>Add Product</Button>
@@ -51,7 +43,6 @@ const ListPage = ({list, getShoppingList,deleteProductFromList,addProductToList,
                 onHide={handleClose}
                 onApply={handleApply}
             />
-            {/*<ProductsList products={allProducts} listId={list._id}/>*/}
         </div>
     );
 };
