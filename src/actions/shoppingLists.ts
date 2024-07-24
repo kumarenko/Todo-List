@@ -3,7 +3,6 @@ import {
     deleteList,
     setAllProducts, setShoppingList,
     updateList,
-    updateProductsList
 } from "../redux/shoppingListsReducer";
 import {setShoppingLists} from "../redux/shoppingListsReducer";
 import axios from "axios";
@@ -12,7 +11,7 @@ import {
     SHOPPING_LISTS_URL,
     SHOPPING_LIST_CREATE_URL,
     SHOPPING_LISTS_DELETE_URL,
-    SHOPPING_LISTS_ADD_PROD_URL
+    SHOPPING_LISTS_ADD_PROD_URL, SHOPPING_LISTS_EDIT_PROD_URL
 } from "../configs/urls";
 
 export const getShoppingLists = (userId: string) => {
@@ -33,7 +32,6 @@ export const getShoppingList = (listId) => {
 }
 export const addShoppingList = (userId, name, products) => {
     return async (dispatch) => {
-        console.log('1111', userId);
         const obj = {
             userIds: [userId],
             name: name,
@@ -47,7 +45,6 @@ export const addShoppingList = (userId, name, products) => {
                 },
                 body: JSON.stringify(obj)
             }).then(res=>res.json());
-        console.log('????', response);
         // dispatch(setShoppingLists(response.data.shoppingLists))
     }
 }
@@ -63,8 +60,8 @@ export const deleteProductFromList = (shoppingListId, productId) => {
                 },
                 body: JSON.stringify(obj)
             }).then(res=>res.json());
-        console.log('????', response[0]);
-        dispatch(setShoppingList(response[0]))
+        console.log('????', response);
+        dispatch(setShoppingList(response))
 
         // dispatch(setShoppingLists(response.data.shoppingLists))
     }
@@ -125,13 +122,20 @@ export const updateListRequest = (list, newValue) => {
         dispatch(updateList(newObject));
     };
 };
-export const updateProductsListRequest = (name, parentId, id, added, details) => {
+export const updateProductsListRequest = (shoppingListId, productId, name) => {
     return async (dispatch) => {
-        const objectToUpdate = {
-            id: parentId,
-            items: [{id, name, added, details}]
-        } 
-        dispatch(updateProductsList(objectToUpdate));
+        const objectToUpdate = {shoppingListId, productId, name};
+        const response = await fetch(
+            `${SHOPPING_LISTS_EDIT_PROD_URL}`,{
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(objectToUpdate)
+            }).then(res=>res.json());
+        console.log('????', response);
+
+        dispatch(setShoppingList(response))
     };
 };
 export const addProductToListRequest = (name, parentId, id, added, details, count) => {

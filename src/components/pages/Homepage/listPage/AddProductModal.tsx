@@ -5,7 +5,6 @@ import {addProducts, addProductToList, getAllProducts} from "../../../../actions
 import {connect, useSelector} from "react-redux";
 import {IoMdAdd, IoMdClose, IoMdRemove, IoMdSearch} from "react-icons/io";
 const AddProductModal = ({list, addProducts,allProducts, getAllProducts, value = null, show, onHide, onApply,addProductToList}) => {
-    const [data, setData] = useState('');
     const [filteredItems, setFilteredItems] = useState([]);
     useEffect(() => {
         getAllProducts();
@@ -16,19 +15,12 @@ const AddProductModal = ({list, addProducts,allProducts, getAllProducts, value =
         setFilteredItems(allProducts);
     }, [allProducts]);
 
-    function handleClick() {
-        onApply(data || value?.name);
-        setData('');
-    }
     const onCloseHandler = () => {
         onHide();
-        setData('');
         setTimeout(() => setFilteredItems(allProducts), 500);
     }
     const addProduct = (item) => {
-        // addProducts(item, 1);
         addProductToList(list._id, item.name)
-
     }
     const deleteProduct = (item) => {
         addProducts(item, -1);
@@ -44,7 +36,7 @@ const AddProductModal = ({list, addProducts,allProducts, getAllProducts, value =
 
     return ReactDOM.createPortal(<Modal show={show} onHide={onCloseHandler} className='w-100'>
         <Modal.Header closeButton>
-            <Modal.Title>Adding new List</Modal.Title>
+            <Modal.Title>Adding new Product to List</Modal.Title>
         </Modal.Header>
         <Modal.Body className='d-flex align-items-start flex-column modal-fixed-height'>
             <Form.Group as={Col}>

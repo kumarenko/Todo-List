@@ -7,10 +7,9 @@ import {getAllProducts, removeTodoRequest, updateListRequest} from "../../../act
 import CreateListModal from "./createListModal";
 import {Link} from "react-router-dom";
 
-const ShoppingLists = ({allProducts, lists,getAllProducts, removeTodoRequest,updateListRequest, userId}) => {
+const ShoppingLists = ({lists, getAllProducts, removeTodoRequest,updateListRequest, userId}) => {
     const [showModal, setShowModal] = useState(false);
     const [selectedList, setSelectedList] = useState(null);
-    const [filteredProducts, setFilteredProducts] = useState([]);
     useEffect(() => {
         getAllProducts();
     },[]);
@@ -37,12 +36,11 @@ const ShoppingLists = ({allProducts, lists,getAllProducts, removeTodoRequest,upd
         <>
             <Accordion alwaysOpen={true} defaultActiveKey={0} className='w-75 p-3'>
                 {lists.map(list => {
-                    console.log(list.products);
                     return <div className='list-item-link'>
                         <Card>
                             <Link to={`/lists/${list._id}`}>
                                 {list.name} {list._id}
-                                {list.products.length ?
+                                {list.products?.length ?
                                     <>
                                         {list.products.filter(item => item).length} / {list.products.length}
                                         <ProgressBar
