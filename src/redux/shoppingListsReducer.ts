@@ -10,7 +10,6 @@ const UPDATE_PRODUCTS = 'UPDATE_PRODUCTS';
 const ADD_PRODUCTS = 'ADD_PRODUCTS';
 const UPDATE_TODO_FAILURE = 'UPDATE_TODO_FAILURE';
 
-
 const defaultState: { lists: ShoppingList[], allProducts: ShoppingList[], list: {} } = {
     lists: [],
     list: {},
@@ -47,7 +46,7 @@ export default function todosReducer(state = defaultState, action) {
                 ...state,
                 loading: false,
                 lists: state.lists.map(list =>
-                    list.id === action.payload.id ? { ...list, ...action.payload  } : list
+                    list._id === action.payload._id ? { ...list, ...action.payload  } : list
                 ),
             };
         case UPDATE_TODO_FAILURE:
@@ -101,9 +100,5 @@ export default function todosReducer(state = defaultState, action) {
 export const setShoppingLists = (lists) => ({type:SET_LISTS, payload:lists})
 export const setShoppingList = (list) => ({type:SET_LIST, payload:list})
 export const setAllProducts = (products) => ({type:SET_PRODUCTS, payload:products})
-export const addListSuccess = (list) => ({type: ADD_LIST,payload: list});
 export const updateList = (list) => ({type:UPDATE_LIST, payload: list})
-export const deleteList = (listId:number) => ({type:DELETE_LIST, payload: listId})
-export const updateProductsList = (updateList:object) => ({type:UPDATE_PRODUCTS, payload: updateList})
-
 export const addProductsToList = (updateList:object) => ({type:ADD_PRODUCTS, payload: updateList})

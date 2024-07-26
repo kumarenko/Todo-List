@@ -1,48 +1,113 @@
 import React, {useEffect, useState} from 'react';
 import Accordion from 'react-bootstrap/Accordion';
-import {Button, Card, ProgressBar} from "react-bootstrap";
-import {IoMdCreate, IoMdTrash} from "react-icons/io";
+import {Button, ButtonGroup, Card, Dropdown, ProgressBar} from "react-bootstrap";
+import {IoMdCreate, IoMdPersonAdd, IoMdTrash} from "react-icons/io";
 import {connect, useSelector} from "react-redux";
-import {getAllProducts, removeTodoRequest, updateListRequest} from "../../../actions/shoppingLists";
+import {getAllProducts, removeListRequest, updateListRequest} from "../../../actions/shoppingLists";
 import CreateListModal from "./createListModal";
+import ShareListModal from "./shareListModal";
 import {Link} from "react-router-dom";
+import {getColorById} from "../../../helpers/validator";
+import {FiMoreHorizontal} from "react-icons/fi";
 
-const ShoppingLists = ({lists, getAllProducts, removeTodoRequest,updateListRequest, userId}) => {
+const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => {
     const [showModal, setShowModal] = useState(false);
+    const [showSharingModal, setSharingModal] = useState(false);
     const [selectedList, setSelectedList] = useState(null);
+    const [owners, setOwners] = useState({});
     useEffect(() => {
-        getAllProducts();
-    },[]);
+        if(showSharingModal) {
+            const selectedListToInvite = lists.find(list => list._id === owners.listId);
+            const updatedOwnersList = {
+                ...owners,
+                owners: selectedListToInvite.userOwners,
+            };
+            setOwners(updatedOwnersList);
+        }
+    },[lists]);
     const handleClose = () => {
         setSelectedList(null);
         setShowModal(false);
     };
+    const handleCloseSharingModal = () => {
+        setSharingModal(false);
+    };
     const handleApply = (text) => {
         updateListRequest(selectedList, text);
         setShowModal(false);
-
     };
     const removeList = (id) => {
-        removeTodoRequest(id);
+        removeListRequest(userId,id);
     }
     const editList = (list) => {
         setSelectedList(list);
         setShowModal(true);
     }
+    const openSharingModal = (listId, users, creator, title) => {
+        setOwners({
+            title, listId, creator,
+            owners: users,
+        });
+        setSharingModal(true);
+    }
     const theme = useSelector(state => state.settings.theme);
     const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
 
+    const renderAvatars = (users) => {
+        users = users.filter(user => user.status !== 'WAIT');
+        let userAvatars = [];
+        for (let index = 0; index < users.length; index++) {
+            const user = users[index];
+            if(index === 2) {
+                if(users.length === 3) {
+                    break;
+                }
+                userAvatars.push(
+                    <div className={'avatar-container d-flex flex-col w-auto'}
+                         key={'user-avatar'}
+                         >
+
+                        <div  className='user-avatar'
+                              style={{
+                            backgroundColor: '#676767',
+                        }}>
+                            <span style={{fontSize: 10}}>
+                                +{users.length - 3}
+                            </span>
+                        </div>
+
+                    </div>
+                );
+                break;
+            }
+            userAvatars.push(
+                <div className={`avatar-container d-flex-col w-auto`}
+                     key={user._id}
+                     >
+                    <div className='user-avatar'
+                         style={{
+                        backgroundColor: getColorById(user._id),
+                    }}>
+                       <span>
+                        {user.name ? user.name[0] : user.email[0]}
+                    </span>
+                    </div>
+                </div>
+            );
+        }
+        return userAvatars;
+    }
     return (
         <>
-            <Accordion alwaysOpen={true} defaultActiveKey={0} className='w-75 p-3'>
+            <Accordion alwaysOpen={true} defaultActiveKey={0} className='w-75 p-3 my-2'>
                 {lists.map(list => {
-                    return <div className='list-item-link'>
+                    return <div className='list-item-link my-2' key={list._id}>
                         <Card>
                             <Link to={`/lists/${list._id}`}>
-                                {list.name} {list._id}
+                                {list.name} \\ {list._id}.
                                 {list.products?.length ?
                                     <>
-                                        {list.products.filter(item => item).length} / {list.products.length}
+                                         {list.products.filter(item => item).length} / {list.products.length}
                                         <ProgressBar
                                             className='w-50 mt-1 z-1'
                                             now={list.products.filter(item => item).length}
@@ -52,11 +117,32 @@ const ShoppingLists = ({lists, getAllProducts, removeTodoRequest,updateListReque
                                     : null}
                             </Link>
 
-                           <div className="buttons">
-                               <Button variant={buttonsVariant} className='remove' onClick={()=> removeList(list.id)}><IoMdTrash /></Button>
-                               <Button variant={buttonsVariant} className='edit' onClick={()=> editList(list)}><IoMdCreate/></Button>
+                           <div className="buttons d-flex align-items-center">
+                               {list.userOwners.length > 0  &&
+                               <Button className='avatars-btn rounded-4 p-0 hover:bg-gray-200 me-1' variant='secondary'
+                                       onClick={() => openSharingModal(list._id,list.userOwners,list.creator, list.name)}
+                               >
+                                   <div className="avatars d-flex flex-row w-auto items-center">
+                                       {renderAvatars(list.userOwners)}
+                                   </div>
+                               </Button>}
+                               <Dropdown as={ButtonGroup} className='me-1'>
+                                   <Dropdown.Toggle variant={buttonsVariant}>
+                                       <FiMoreHorizontal />
+                                   </Dropdown.Toggle>
+                                   <Dropdown.Menu variant={buttonsVariant}>
+                                       <Dropdown.Item eventKey="2" onClick={()=> openSharingModal(list._id, list.userOwners,list.creator, list.name)}>
+                                           <IoMdPersonAdd /> Share
+                                       </Dropdown.Item>
+                                       <Dropdown.Item eventKey="2" onClick={()=> editList(list)}>
+                                           <IoMdCreate/> Edit
+                                       </Dropdown.Item>
+                                       <Dropdown.Item eventKey="3" onClick={()=> removeList(list._id)}>
+                                           <IoMdTrash /> Delete
+                                       </Dropdown.Item>
+                                   </Dropdown.Menu>
+                               </Dropdown>
                            </div>
-
                         </Card>
                     </div>
                 })}
@@ -67,6 +153,12 @@ const ShoppingLists = ({lists, getAllProducts, removeTodoRequest,updateListReque
                 onHide={handleClose}
                 onApply={handleApply}
             />
+            {showSharingModal && <ShareListModal
+                list={owners}
+                show={showSharingModal}
+                onHide={handleCloseSharingModal}
+                onApply={handleApply}
+            />}
         </>
     );
 };
@@ -76,7 +168,7 @@ const mapStateToProps = (state) => ({
     userId: state.user.user.id,
 });
 const mapDispatchToProps = {
-    removeTodoRequest,
+    removeListRequest,
     updateListRequest,
     getAllProducts
 };

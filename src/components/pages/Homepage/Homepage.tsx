@@ -2,16 +2,15 @@ import React, {FC, ReactElement, useEffect, useState} from "react";
 import CreateListModal from "./createListModal";
 import {connect, useSelector} from "react-redux";
 import {
-    removeTodoRequest,
+    removeListRequest,
     getShoppingLists,
     addShoppingList,
-    deleteProductFromList
 } from '../../../actions/shoppingLists';
 import ShoppingLists from "./shoppingLists";
 import {Button} from "react-bootstrap";
 import {IoMdAdd} from "react-icons/io";
 import './styles.less';
-const HomePage: FC = ({lists, products, getShoppingLists, title, user,addShoppingList,deleteProductFromList }): ReactElement => {
+const HomePage: FC = ({lists, getShoppingLists, title, user, addShoppingList }): ReactElement => {
     const [showModal, setShowModal] = useState(false);
     const handleClose = () => setShowModal(false);
 
@@ -19,7 +18,7 @@ const HomePage: FC = ({lists, products, getShoppingLists, title, user,addShoppin
         addShoppingList(user.id, name, []);
         setShowModal(false);
     };
-    // const handleShow = () => setShowModal(true);
+
     const addNewList = () => {
         setShowModal(true);
     }
@@ -48,16 +47,13 @@ const HomePage: FC = ({lists, products, getShoppingLists, title, user,addShoppin
 
 const mapStateToProps = (state) => ({
     lists: state.items.lists,
-    userId: state.user.user.id,
-    products: state.items.allProducts,
     user: state.user.user,
 });
 
 const mapDispatchToProps = {
-    removeTodoRequest,
+    removeListRequest,
     getShoppingLists,
     addShoppingList,
-    deleteProductFromList,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

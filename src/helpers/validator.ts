@@ -14,6 +14,17 @@ export const validateSignInForm = ({ email, password}) => {
     }
     return errors;
 };
+export const validateEmail = (email: string) => {
+    let errorMessage = '';
+    if (!email.length || !String(email)
+        .toLowerCase()
+        .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )) {
+        errorMessage = 'Email is not valid';
+    }
+    return errorMessage
+}
 export const validateSignUpForm = ({ email, password, confirmPassword, name, lastName }) => {
     let errors = {};
     if(!email.length) {
@@ -40,7 +51,7 @@ export const validateSignUpForm = ({ email, password, confirmPassword, name, las
 export const validateChangePassword = (current, newPassword, confirmNewPassword) => {
     let errors = {};
     if(!current.length) {
-        errors = {...errors, password: 'Password field   is required'};
+        errors = {...errors, password: 'Password field is required'};
     }
     if(newPassword.length < 8) {
         errors = {...errors, newPassword: 'New Passwords is too short'};
@@ -52,4 +63,19 @@ export const validateChangePassword = (current, newPassword, confirmNewPassword)
         errors = {...errors, confirmPassword: 'Confirm password field is required'};
     }
     return errors;
+}
+
+export const reverseString = (str) => {
+    let splitString = str.toString().split("");
+    let reverseArray = splitString.reverse();
+    return reverseArray.join("");
+}
+export const getColorById = (id) => {
+    let idWithOnlyDigits = id.replace(/\D/g,'');
+    let invertedId = parseInt(reverseString(idWithOnlyDigits));
+    let k = (invertedId / 10 ** idWithOnlyDigits.length).toFixed(2);
+    let h = 360 * k;
+    let s = 50;
+    let l = 50;
+    return 'hsl(' + h + ',' + s + '%,' + l + '%)';
 }

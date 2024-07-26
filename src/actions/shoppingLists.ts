@@ -1,17 +1,15 @@
 import {
     addProductsToList,
-    deleteList,
     setAllProducts, setShoppingList,
     updateList,
 } from "../redux/shoppingListsReducer";
 import {setShoppingLists} from "../redux/shoppingListsReducer";
 import axios from "axios";
 import {
-    PRODUCTS_URL,
-    SHOPPING_LISTS_URL,
-    SHOPPING_LIST_CREATE_URL,
-    SHOPPING_LISTS_DELETE_URL,
-    SHOPPING_LISTS_ADD_PROD_URL, SHOPPING_LISTS_EDIT_PROD_URL
+    PRODUCTS_URL, SHOPPING_LISTS_URL,
+    SHOPPING_LIST_CREATE_URL, SHOPPING_LISTS_DELETE_URL,
+    SHOPPING_LISTS_ADD_PROD_URL, SHOPPING_LISTS_EDIT_PROD_URL,
+    SHOPPING_LIST_SHARE_URL
 } from "../configs/urls";
 
 export const getShoppingLists = (userId: string) => {
@@ -26,26 +24,21 @@ export const getShoppingList = (listId) => {
     return async (dispatch) => {
         const response = await axios.get(
             `${SHOPPING_LISTS_URL}/${listId}` );
-        console.log('response: ', response.data);
         dispatch(setShoppingList(response.data))
     }
 }
-export const addShoppingList = (userId, name, products) => {
+export const addShoppingList = (userId, name) => {
     return async (dispatch) => {
-        const obj = {
-            userIds: [userId],
-            name: name,
-            products: products,
-        };
+        const obj = {userId,name};
         const response = await fetch(
             `${SHOPPING_LIST_CREATE_URL}`,{
-                method: 'PUT',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(obj)
             }).then(res=>res.json());
-        // dispatch(setShoppingLists(response.data.shoppingLists))
+         dispatch(setShoppingLists(response.shoppingLists))
     }
 }
 
@@ -60,10 +53,7 @@ export const deleteProductFromList = (shoppingListId, productId) => {
                 },
                 body: JSON.stringify(obj)
             }).then(res=>res.json());
-        console.log('????', response);
         dispatch(setShoppingList(response))
-
-        // dispatch(setShoppingLists(response.data.shoppingLists))
     }
 }
 
@@ -78,13 +68,9 @@ export const addProductToList = (shoppingListId, name) => {
                 },
                 body: JSON.stringify(obj)
             }).then(res=>res.json());
-        console.log('????', response);
         dispatch(setShoppingList(response))
-
-        // dispatch(setShoppingLists(response.data.shoppingLists))
     }
 }
-
 
 export const getAllProducts = () => {
     return async (dispatch) => {
@@ -133,31 +119,38 @@ export const updateProductsListRequest = (shoppingListId, productId, name) => {
                 },
                 body: JSON.stringify(objectToUpdate)
             }).then(res=>res.json());
-        console.log('????', response);
-
         dispatch(setShoppingList(response))
     };
 };
-export const addProductToListRequest = (name, parentId, id, added, details, count) => {
+
+export const inviteUsersRequest = (shoppingListId, invitedUser, method) => {
     return async (dispatch) => {
+        const objectToUpdate = {shoppingListId, invitedUser};
         const response = await fetch(
-            PRODUCTS_URL,{
-                method: 'PUT',
+            `${SHOPPING_LIST_SHARE_URL}`,{
+                method,
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({id, name, added, count})
+                body: JSON.stringify(objectToUpdate)
             }).then(res=>res.json());
-        dispatch(addProductsToList(response.product));
-    }
+        dispatch(updateList(response.updatedShoppingList))
+    };
 };
 
-
-export const removeTodoRequest = (id) => {
-    return (dispatch) => {
-        dispatch(deleteList(id));
-
-    };
+export const removeListRequest = (userId, shoppingListId) => {
+    return async (dispatch) => {
+        const obj = {userId, shoppingListId};
+        const response = await fetch(
+            `${SHOPPING_LIST_CREATE_URL}`,{
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(obj)
+            }).then(res=>res.json());
+        dispatch(setShoppingLists(response.shoppingLists))
+    }
 };
 
 
