@@ -7,3 +7,17 @@ export const preventCharacters = (event) => {
         event.preventDefault();
     }
 }
+export const copyTextToClipboard = (text) => {
+    if (navigator.clipboard) {
+        return navigator.clipboard.writeText(text)
+            .then(() => {
+                return 'success';
+            })
+            .catch(() => {
+                return 'error';
+            });
+    } else {
+        console.warn('Буфер обмена недоступен');
+        return Promise.reject('Буфер обмена недоступен');
+    }
+};

@@ -43,10 +43,12 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
         setSelectedList(list);
         setShowModal(true);
     }
-    const openSharingModal = (listId, users, creator, title) => {
+    const openSharingModal = (list) => {
+        const {_id, name, creator, products, userOwners} = list;
         setOwners({
-            title, listId, creator,
-            owners: users,
+            name, listId: _id,
+            creator, products,
+            owners: userOwners,
         });
         setSharingModal(true);
     }
@@ -97,55 +99,56 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
         }
         return userAvatars;
     }
+
     return (
         <>
             <Accordion alwaysOpen={true} defaultActiveKey={0} className='w-75 p-3 my-2'>
-                {lists.map(list => {
-                    return <div className='list-item-link my-2' key={list._id}>
-                        <Card>
-                            <Link to={`/lists/${list._id}`}>
-                                {list.name} \\ {list._id}.
-                                {list.products?.length ?
-                                    <>
-                                         {list.products.filter(item => item).length} / {list.products.length}
-                                        <ProgressBar
-                                            className='w-50 mt-1 z-1'
-                                            now={list.products.filter(item => item).length}
-                                            max={list.products.length}
-                                        />
-                                    </>
-                                    : null}
-                            </Link>
+                {lists.map(list => <div className='list-item-link my-2 p-2' key={list._id}>
+                    <Card className='p-2'>
+                        <Link to={`/lists/${list._id}`}>
+                            {list.name} {list.products?.length ?
+                                <div className='d-flex justify-content-between'>
 
-                           <div className="buttons d-flex align-items-center">
-                               {list.userOwners.length > 0  &&
-                               <Button className='avatars-btn rounded-4 p-0 hover:bg-gray-200 me-1' variant='secondary'
-                                       onClick={() => openSharingModal(list._id,list.userOwners,list.creator, list.name)}
-                               >
-                                   <div className="avatars d-flex flex-row w-auto items-center">
-                                       {renderAvatars(list.userOwners)}
-                                   </div>
-                               </Button>}
-                               <Dropdown as={ButtonGroup} className='me-1'>
-                                   <Dropdown.Toggle variant={buttonsVariant}>
-                                       <FiMoreHorizontal />
-                                   </Dropdown.Toggle>
-                                   <Dropdown.Menu variant={buttonsVariant}>
-                                       <Dropdown.Item eventKey="2" onClick={()=> openSharingModal(list._id, list.userOwners,list.creator, list.name)}>
-                                           <IoMdPersonAdd /> Share
-                                       </Dropdown.Item>
-                                       <Dropdown.Item eventKey="2" onClick={()=> editList(list)}>
-                                           <IoMdCreate/> Edit
-                                       </Dropdown.Item>
-                                       <Dropdown.Item eventKey="3" onClick={()=> removeList(list._id)}>
-                                           <IoMdTrash /> Delete
-                                       </Dropdown.Item>
-                                   </Dropdown.Menu>
-                               </Dropdown>
-                           </div>
-                        </Card>
-                    </div>
-                })}
+                                    <ProgressBar
+                                        className='mt-1'
+                                        now={list.products.filter(item => item.checked).length}
+                                        max={list.products.length}
+                                    />
+                                    <div>
+                                        {list.products.filter(item => item).length} / {list.products.length}
+                                    </div>
+                                </div>
+                                : null}
+                        </Link>
+
+                        <div className="buttons d-flex align-items-center">
+                            {list.userOwners.length > 0  &&
+                            <Button className='avatars-btn rounded-4 p-0 hover:bg-gray-200 me-1' variant='secondary'
+                                    onClick={() => openSharingModal(list)}
+                            >
+                                <div className="avatars d-flex flex-row w-auto items-center">
+                                    {renderAvatars(list.userOwners)}
+                                </div>
+                            </Button>}
+                            <Dropdown as={ButtonGroup} className='me-1'>
+                                <Dropdown.Toggle variant={buttonsVariant}>
+                                    <FiMoreHorizontal />
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu variant={buttonsVariant}>
+                                    <Dropdown.Item eventKey="2" onClick={()=> openSharingModal(list)}>
+                                        <IoMdPersonAdd /> Share
+                                    </Dropdown.Item>
+                                    <Dropdown.Item eventKey="2" onClick={()=> editList(list)}>
+                                        <IoMdCreate/> Edit
+                                    </Dropdown.Item>
+                                    <Dropdown.Item eventKey="3" onClick={()=> removeList(list._id)}>
+                                        <IoMdTrash /> Delete
+                                    </Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </div>
+                    </Card>
+                </div>)}
             </Accordion>
             <CreateListModal
                 value={selectedList}

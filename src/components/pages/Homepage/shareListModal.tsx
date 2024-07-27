@@ -6,12 +6,16 @@ import {getColorById, validateEmail} from "../../../helpers/validator";
 import {IoMdClose} from "react-icons/io";
 import {inviteUsersRequest} from "../../../actions/shoppingLists";
 import {connect, useSelector} from "react-redux";
+import {copyTextToClipboard} from "../../../helpers/helper";
+import CustomAlert from "../../../common/Alert";
 
 const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) => {
     const [email, setEmail] = useState('');
     const [owners, setOwners] = useState([]);
+    const [message, setMessage] = useState('');
     const [waitingOwners, setWaitingOwners] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
+
     useEffect(()=> {
         let ownersArray = list.owners.filter(item => item.status !== 'WAIT');
         ownersArray.sort((a, b) => {
@@ -27,6 +31,27 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
         validateEmail(email) ?
             setErrorMessage(validateEmail(email)) :
             inviteUsersRequest(list.listId, email, 'POST');
+    }
+    const copyList = () => {
+        let str = `${list.name}\n`;
+        list.products.forEach(prod => {
+            const prodStr = `${prod.name} ${prod.count > 2 ? ` (${prod.count} pcs)` : ''}`
+            if(prod.checked) {
+                str = str + `• ${prodStr.split('').map(char => char + '\u0336').join('')}\n`
+            } else {
+                str = str + `• ${prod.name}\n`
+            }
+        });
+        copyTextToClipboard(str)
+            .then(result => {
+                if (result === 'success') {
+                    setMessage('List copied to clipboard');
+                }
+            })
+            .catch(error => {
+                setMessage(`Error copying to clipboard: ${error}`);
+            });
+        setTimeout(() => setMessage(''), 2500);
     }
     const removeInvite = (email) => {
         inviteUsersRequest(list.listId, email, 'DELETE');
@@ -49,7 +74,7 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
 
     return ReactDOM.createPortal(<Modal show={show} onHide={onHide} className='share-modal'>
         <Modal.Header closeButton>
-            <Modal.Title>{list.title}</Modal.Title>
+            <Modal.Title>{list.name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
             <Container className='d-flex justify-content-between align-items-start'>
@@ -73,6 +98,9 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
 
                 <Button className={'mx-2'} onClick={() => invite()} variant={buttonsVariant}>
                     Invite
+                </Button>
+                <Button className={'mx-2'} onClick={() => copyList()} variant={buttonsVariant}>
+                    Copy
                 </Button>
             </Container>
             <Container className='d-flex justify-content-between flex-column'>
@@ -146,6 +174,9 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
         </Modal.Body>
         <Modal.Footer>
         </Modal.Footer>
+        {message ? <CustomAlert variant={'success'} className='popup'>
+            {message}
+        </CustomAlert> : null}
     </Modal>, document.body);
 };
 const mapStateToProps = (state) => ({

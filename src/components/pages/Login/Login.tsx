@@ -7,7 +7,6 @@ import SignInTab from './SignInTab';
 import SignUpTab from './SignUpTab';
 import {validateSignInForm, validateSignUpForm} from "../../../helpers/validator";
 import {updateLogin} from "../../../redux/userReducer";
-import './styles.less';
 
 const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => {
     const dispatch = useDispatch();
@@ -111,13 +110,13 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
                     setShowErrorPopup(false);
                     dispatch(updateLogin({...user, errorMessage: ''}));
                     setErrorMessage('');
-                }} variant='danger' className='popup'>
+                }} variant='danger' className='popup position-fixed'>
                     {errorMessage}
                 </Alert> : null}
                 {showSuccessPopup ? <Alert onAnimationEnd={() => {
                     setShowSuccessPopup(false);
                     dispatch(updateLogin({...user, successMessage: ''}))
-                }} variant='success' className='popup'>
+                }} variant='success' className='popup position-fixed'>
                     {successMessage}
                 </Alert> : null}
             </div>

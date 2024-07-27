@@ -5,7 +5,11 @@ const CustomAlert = ({...props}) => {
     const [visible, setVisible] = useState(true);
     if(props.children) {
         return (
-            visible && <Alert variant={props.variant} onAnimationEnd={() => setVisible(false)} className='popup position-absolute'>{props.children}</Alert>
+            visible && <Alert variant={props.variant}
+                              onAnimationEnd={() => setVisible(false)}
+                              className='popup position-fixed'>
+                {props.children}
+            </Alert>
         );
     }
 };
