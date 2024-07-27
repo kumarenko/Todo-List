@@ -13,7 +13,8 @@ import EditProductModal from "./EditProductModal";
 
 const ListPage = ({list, getShoppingList,updateProductsListRequest}) => {
     const { listId } = useParams();
-    const [allProds, setAllProds] = useState([]);
+    const [checkedProds, setCheckedProds] = useState([]);
+    const [uncheckedProds,setUncheckedProds] = useState([]);
     const [showAddModal, setAddShowModal] = useState(false);
     const handleApply = () => setAddShowModal(false);
     const handleClose = () => setAddShowModal(false);
@@ -27,11 +28,19 @@ const ListPage = ({list, getShoppingList,updateProductsListRequest}) => {
 
     useEffect(() => {
         getShoppingList(listId);
-        setAllProds(list.products ?? []);
     }, []);
 
     useEffect(() => {
-        setAllProds(list.products ?? []);
+        if(list.products) {
+            let checked = [];
+            list.products.forEach(prod => {
+                prod.checked ?
+                    checked.push(prod) :
+                    checked.splice(checked.indexOf(prod), 0);
+            });
+            setCheckedProds(checked);
+            setUncheckedProds(list.products.filter(prod => !prod.checked));
+        }
     }, [list]);
 
     const selectProduct = (prod) => {
@@ -50,20 +59,38 @@ const ListPage = ({list, getShoppingList,updateProductsListRequest}) => {
         <div className='list-page'>
             <h3>{list?.name}</h3>
             <div>
-                {allProds.length ? <FlipMove>
-                    {allProds.map(prod => <div className='d-flex align-items-center' key={prod._id}>
+                {checkedProds.length ? <FlipMove>
+                    {checkedProds.map(prod => <div className='d-flex align-items-center' key={prod._id}>
                         <Form.Check
                             type={'checkbox'}
                             checked={prod.checked}
                             onChange={() => checkProduct(prod)}
-                            id={`check-${prod._id}`}
+                            id={prod._id}
                         />
                         <Button
                             variant={buttonsVariant}
                             className='my-1'
                             onClick={() => selectProduct(prod)}>
-                            {prod.name} {prod.count}
+                            {prod.name} <span style={{filter: 'brightness(0.5)'}}>{prod.count}</span>
                         </Button>
+                        {prod.price ? <span> {prod.price} $</span> : null}
+                    </div>)}
+                </FlipMove> : <span>There are no one product</span>}
+                {uncheckedProds.length ? <FlipMove>
+                    {uncheckedProds.map(prod => <div className='d-flex align-items-center' key={prod._id}>
+                        <Form.Check
+                            type={'checkbox'}
+                            checked={prod.checked}
+                            onChange={() => checkProduct(prod)}
+                            id={prod._id}
+                        />
+                        <Button
+                            variant={buttonsVariant}
+                            className='my-1'
+                            onClick={() => selectProduct(prod)}>
+                            {prod.name} <span style={{filter: 'brightness(0.5)'}}>{prod.count}</span>
+                        </Button>
+                        {prod.price ? <span> {prod.price} $</span> : null}
                     </div>)}
                 </FlipMove> : <span>There are no one product</span>}
             </div>
