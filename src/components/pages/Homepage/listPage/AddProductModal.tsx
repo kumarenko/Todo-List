@@ -4,7 +4,7 @@ import {Button, Modal, Form, InputGroup, Col} from "react-bootstrap";
 import {addProducts, addProductToList, getAllProducts} from "../../../../actions/shoppingLists";
 import {connect, useSelector} from "react-redux";
 import {IoMdAdd, IoMdClose, IoMdRemove, IoMdSearch} from "react-icons/io";
-const AddProductModal = ({list, addProducts,allProducts, getAllProducts, value = null, show, onHide, onApply,addProductToList}) => {
+const AddProductModal = ({list, addProducts,allProducts, getAllProducts, show, onHide, addProductToList}) => {
     const [filteredItems, setFilteredItems] = useState([]);
     useEffect(() => {
         getAllProducts();
@@ -20,7 +20,10 @@ const AddProductModal = ({list, addProducts,allProducts, getAllProducts, value =
         setTimeout(() => setFilteredItems(allProducts), 500);
     }
     const addProduct = (item) => {
-        addProductToList(list._id, item.name)
+        const product = {
+          name: item.name,
+        };
+        addProductToList(list._id, product);
     }
     const deleteProduct = (item) => {
         addProducts(item, -1);

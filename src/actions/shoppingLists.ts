@@ -7,7 +7,7 @@ import {setShoppingLists} from "../redux/shoppingListsReducer";
 import axios from "axios";
 import {
     PRODUCTS_URL, SHOPPING_LISTS_URL,
-    SHOPPING_LIST_CREATE_URL, SHOPPING_LISTS_DELETE_URL,
+    SHOPPING_LIST_CREATE_URL,
     SHOPPING_LISTS_ADD_PROD_URL, SHOPPING_LISTS_EDIT_PROD_URL,
     SHOPPING_LIST_SHARE_URL
 } from "../configs/urls";
@@ -42,24 +42,9 @@ export const addShoppingList = (userId, name) => {
     }
 }
 
-export const deleteProductFromList = (shoppingListId, productId) => {
+export const addProductToList = (shoppingListId, product) => {
     return async (dispatch) => {
-        const obj = {shoppingListId, productId};
-        const response = await fetch(
-            `${SHOPPING_LISTS_DELETE_URL}`,{
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(obj)
-            }).then(res=>res.json());
-        dispatch(setShoppingList(response))
-    }
-}
-
-export const addProductToList = (shoppingListId, name) => {
-    return async (dispatch) => {
-        const obj = {shoppingListId, name};
+        const obj = {shoppingListId, product};
         const response = await fetch(
             `${SHOPPING_LISTS_ADD_PROD_URL}`,{
                 method: 'POST',
@@ -72,6 +57,20 @@ export const addProductToList = (shoppingListId, name) => {
     }
 }
 
+export const deleteProductFromList = (shoppingListId, product) => {
+    return async (dispatch) => {
+        const obj = {shoppingListId, product};
+        const response = await fetch(
+            `${SHOPPING_LISTS_EDIT_PROD_URL}`,{
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(obj)
+            }).then(res=>res.json());
+        dispatch(setShoppingList(response));
+    }
+}
 export const getAllProducts = () => {
     return async (dispatch) => {
         const response = await axios.get(PRODUCTS_URL);
@@ -108,9 +107,9 @@ export const updateListRequest = (list, newValue) => {
         dispatch(updateList(newObject));
     };
 };
-export const updateProductsListRequest = (shoppingListId, productId, name) => {
+export const updateProductsListRequest = (shoppingListId, product) => {
     return async (dispatch) => {
-        const objectToUpdate = {shoppingListId, productId, name};
+        const objectToUpdate = {shoppingListId, product};
         const response = await fetch(
             `${SHOPPING_LISTS_EDIT_PROD_URL}`,{
                 method: 'PUT',

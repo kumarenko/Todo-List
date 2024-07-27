@@ -3,7 +3,7 @@ import FlipMove from "react-flip-move";
 import {
     addProductToList,
     deleteProductFromList,
-    getShoppingList
+    getShoppingList, updateProductsListRequest
 } from "../../../../actions/shoppingLists";
 import {connect, useSelector} from "react-redux";
 import { useParams } from 'react-router-dom';
@@ -11,7 +11,7 @@ import {Button, Form} from "react-bootstrap";
 import AddProductModal from "./AddProductModal";
 import EditProductModal from "./EditProductModal";
 
-const ListPage = ({list, getShoppingList}) => {
+const ListPage = ({list, getShoppingList,updateProductsListRequest}) => {
     const { listId } = useParams();
     const [allProds, setAllProds] = useState([]);
     const [showAddModal, setAddShowModal] = useState(false);
@@ -32,10 +32,6 @@ const ListPage = ({list, getShoppingList}) => {
 
     useEffect(() => {
         setAllProds(list.products ?? []);
-        // prevent update request if name didn`t change
-        if(product._id) {
-            setProduct(list.products.find(item => item._id === product._id))
-        }
     }, [list]);
 
     const selectProduct = (prod) => {
@@ -43,10 +39,12 @@ const ListPage = ({list, getShoppingList}) => {
         setProduct(prod);
     }
     const checkProduct = (selectedProd) => {
-        setAllProds((prevProducts) => {
-            const filteredProducts = prevProducts.filter(prod => prod._id !== selectedProd._id);
-            return [...filteredProducts, selectedProd];
-        });
+        const prod = {
+            ...selectedProd,
+            productId: selectedProd._id,
+            checked: !selectedProd.checked
+        }
+        updateProductsListRequest(list._id, prod);
     };
     return (
         <div className='list-page'>
@@ -56,6 +54,7 @@ const ListPage = ({list, getShoppingList}) => {
                     {allProds.map(prod => <div className='d-flex align-items-center' key={prod._id}>
                         <Form.Check
                             type={'checkbox'}
+                            checked={prod.checked}
                             onChange={() => checkProduct(prod)}
                             id={`check-${prod._id}`}
                         />
@@ -63,7 +62,7 @@ const ListPage = ({list, getShoppingList}) => {
                             variant={buttonsVariant}
                             className='my-1'
                             onClick={() => selectProduct(prod)}>
-                            {prod.name}
+                            {prod.name} {prod.count}
                         </Button>
                     </div>)}
                 </FlipMove> : <span>There are no one product</span>}
@@ -91,7 +90,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     getShoppingList,
     deleteProductFromList,
-    addProductToList
+    addProductToList,
+    updateProductsListRequest
 };
 
 export default connect(mapStateToProps,mapDispatchToProps)(ListPage);

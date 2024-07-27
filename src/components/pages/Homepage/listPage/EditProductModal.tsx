@@ -6,25 +6,49 @@ import {connect, useSelector} from "react-redux";
 import {MdAttachMoney, MdShoppingCart} from "react-icons/md";
 import {FaPlusMinus} from "react-icons/fa6";
 import {useParams} from "react-router-dom";
+import {preventCharacters} from "../../../../helpers/helper";
 
 const EditProductModal = ({product, show, onHide, deleteProductFromList,updateProductsListRequest}) => {
     const { listId } = useParams();
     const [name, setName] = useState('');
+    const [count, setCount] = useState(1);
+    const [price, setPrice] = useState(0);
+    const [category, setCategory] = useState('');
     const theme = useSelector(state => state.settings.theme);
     const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
-    const onCloseHandler = () => {
-        onHide();
-    }
     useEffect(() => {
         setName(product?.name ?? '');
+        setCount(product?.count ? parseInt(product.count) : 1);
+        setPrice(product?.price ? parseInt(product.price) : 0);
+        setCategory(product?.category ?? '');
     }, [product]);
-    const renameProd = (value) => {
-        setName(value);
+
+    const hasChanges = () => {
+        console.log(product.name,name,product.count, count,product.price, price,product.category,category)
+        return product.name !== name ||
+            parseInt(product.count) !== count ||
+            parseInt(product.price) !== price ||
+            product.category !== category;
     }
-    const applyRename = () => {
-        product.name !== name && updateProductsListRequest(listId, product._id, name);
+    const applyUpdate = () => {
+        const prod = {
+            productId: product._id,
+            checked: product.checked,
+            name, count, price,
+            category,
+        }
+        if(hasChanges()) {
+             updateProductsListRequest(listId, prod);
+        }
     }
-    return ReactDOM.createPortal(<Modal show={show} onHide={onCloseHandler} className='w-100'>
+    const deleteProduct = () => {
+        const prod = {
+            productId: product._id,
+        }
+        deleteProductFromList(listId, prod);
+        onHide();
+    }
+    return ReactDOM.createPortal(<Modal show={show} onHide={onHide} className='w-100'>
         <Modal.Header closeButton>
             <Modal.Title>Product Editing</Modal.Title>
         </Modal.Header>
@@ -36,9 +60,9 @@ const EditProductModal = ({product, show, onHide, deleteProductFromList,updatePr
                     </Form.Label>
                     <Form.Control
                         type="text"
-                        onBlur={() => applyRename()}
-                        onChange={(e) => renameProd(e.target.value)}
-                        value={name ?? ''}
+                        onBlur={() => applyUpdate()}
+                        onChange={(e) => setName(e.target.value)}
+                        value={name}
                     />
                     <InputGroup.Text>
                         <MdShoppingCart />
@@ -50,8 +74,11 @@ const EditProductModal = ({product, show, onHide, deleteProductFromList,updatePr
                     </Form.Label>
                     <Form.Control
                         type="number"
-                        onChange={() => {}}
-                        value={product?.count || 1}
+                        onBlur={() => applyUpdate()}
+                        min={1}
+                        onKeyPress={event => preventCharacters(event)}
+                        onChange={(event) => setCount(parseInt(event.target.value))}
+                        value={count}
                     />
                     <InputGroup.Text>
                         <FaPlusMinus />
@@ -63,8 +90,10 @@ const EditProductModal = ({product, show, onHide, deleteProductFromList,updatePr
                     </Form.Label>
                     <Form.Control
                         type="number"
-                        onChange={() => {}}
-                        value={product?.count || 0.00}
+                        onBlur={() => applyUpdate()}
+                        onKeyPress={event => preventCharacters(event)}
+                        onChange={(e) => setPrice(parseInt(e.target.value))}
+                        value={price}
                     />
                     <InputGroup.Text>
                         <MdAttachMoney />
@@ -76,8 +105,9 @@ const EditProductModal = ({product, show, onHide, deleteProductFromList,updatePr
                     </Form.Label>
                     <Form.Select
                         aria-label="gender"
-                        onChange={() => {}}
-                        value={'vegetables'}>
+                        onBlur={() => applyUpdate()}
+                        onChange={(e) => setCategory(e.target.value)}
+                        value={category}>
                         <option value="other">Other</option>
                         <option value="fruits">Fruits</option>
                         <option value="vegetables">Vegetables</option>
@@ -86,10 +116,7 @@ const EditProductModal = ({product, show, onHide, deleteProductFromList,updatePr
                     </Form.Select>
                 </InputGroup>
                 <Button
-                    onClick={() => {
-                        deleteProductFromList(listId, product._id);
-                        onCloseHandler();
-                    }}
+                    onClick={() => deleteProduct()}
                     variant={buttonsVariant}>Remove Product</Button>
             </Form.Group>
         </Modal.Body>
