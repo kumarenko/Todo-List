@@ -122,9 +122,9 @@ export const updateProductsListRequest = (shoppingListId, product) => {
     };
 };
 
-export const inviteUsersRequest = (shoppingListId, invitedUser, method) => {
+export const inviteUsersRequest = (shoppingListId, userId, invitedUser, method) => {
     return async (dispatch) => {
-        const objectToUpdate = {shoppingListId, invitedUser};
+        const objectToUpdate = {shoppingListId, invitedUser, userId};
         const response = await fetch(
             `${SHOPPING_LIST_SHARE_URL}`,{
                 method,

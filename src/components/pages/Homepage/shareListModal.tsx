@@ -30,7 +30,7 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
     const invite = () => {
         validateEmail(email) ?
             setErrorMessage(validateEmail(email)) :
-            inviteUsersRequest(list.listId, email, 'POST');
+            inviteUsersRequest(list.listId, currentUser.id, email, 'POST');
     }
     const copyList = () => {
         let str = `${list.name}\n`;
@@ -54,7 +54,7 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
         setTimeout(() => setMessage(''), 2500);
     }
     const removeInvite = (email) => {
-        inviteUsersRequest(list.listId, email, 'DELETE');
+        inviteUsersRequest(list.listId,currentUser._id, email, 'DELETE');
     }
     const renderBadge = (user) => {
         if(list.creator._id === user._id) {
