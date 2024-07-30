@@ -101,10 +101,18 @@ export const addProducts = ({_id, name, added, count}, increment) => {
 export const updateListRequest = (list, newValue) => {
     return async (dispatch) => {
         const newObject = {
-            ...list,
+            shoppingListId: list._id,
             name: newValue
         }
-        dispatch(updateList(newObject));
+        const response = await fetch(
+            `${SHOPPING_LIST_CREATE_URL}`,{
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newObject)
+            }).then(res=>res.json());
+        dispatch(updateList({...list, name: response.name}));
     };
 };
 export const updateProductsListRequest = (shoppingListId, product) => {
