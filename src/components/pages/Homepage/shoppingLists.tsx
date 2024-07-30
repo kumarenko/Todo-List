@@ -131,7 +131,7 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
                                 </div>
                             </Button>}
                             <Dropdown as={ButtonGroup} className='me-1'>
-                                <Dropdown.Toggle variant={buttonsVariant}>
+                                <Dropdown.Toggle variant={buttonsVariant} className='dropdown-without-arrow'>
                                     <FiMoreHorizontal />
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu variant={buttonsVariant}>

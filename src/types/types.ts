@@ -24,4 +24,21 @@ export interface Login {
 export interface SettingsTypes {
     theme: string
 }
+export type ProductCategory =
+    'FRUITS' | 'VEGETABLES' |
+    'DAIRY' | 'MEAT' |
+    'BAKERY' | 'OTHER' |
+    'SWEETS' | 'SPICES' |
+    'CHEMISTRY' | 'ALCOHOL' |
+    'MILKS';
 
+export const ProductCategories: ProductCategory[] = [
+    'FRUITS',
+    'VEGETABLES',
+    'DAIRY',
+    'MEAT',
+    'BAKERY',
+    'OTHER','SWEETS',
+    'SPICES', 'MILKS',
+    'CHEMISTRY', 'ALCOHOL'
+];

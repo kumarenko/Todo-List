@@ -74,6 +74,7 @@ const ListPage = ({list, getShoppingList,updateProductsListRequest}) => {
                             {prod.name} <span style={{filter: 'brightness(0.5)'}}>{prod.count}</span>
                         </Button>
                         {prod.price ? <span> {prod.price} $</span> : null}
+                        {prod.category ? <span> {prod.category}</span> : null}
                     </div>)}
                 </FlipMove> : <span>There are no one product</span>}
                 {uncheckedProds.length ? <FlipMove>
@@ -91,6 +92,7 @@ const ListPage = ({list, getShoppingList,updateProductsListRequest}) => {
                             {prod.name} <span style={{filter: 'brightness(0.5)'}}>{prod.count}</span>
                         </Button>
                         {prod.price ? <span> {prod.price} $</span> : null}
+                        {prod.category ? <span> {prod.category}</span> : null}
                     </div>)}
                 </FlipMove> : <span>There are no one product</span>}
             </div>

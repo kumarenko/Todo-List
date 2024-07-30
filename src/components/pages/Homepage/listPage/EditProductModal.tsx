@@ -7,20 +7,21 @@ import {MdAttachMoney, MdShoppingCart} from "react-icons/md";
 import {FaPlusMinus} from "react-icons/fa6";
 import {useParams} from "react-router-dom";
 import {preventCharacters} from "../../../../helpers/helper";
+import { ProductCategories , ProductCategory} from "../../../../types/types";
 
 const EditProductModal = ({product, show, onHide, deleteProductFromList,updateProductsListRequest}) => {
     const { listId } = useParams();
     const [name, setName] = useState('');
     const [count, setCount] = useState(1);
     const [price, setPrice] = useState(0);
-    const [category, setCategory] = useState('');
+    const [category, setCategory] = useState<ProductCategory | string>('');
     const theme = useSelector(state => state.settings.theme);
     const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
     useEffect(() => {
         setName(product?.name ?? '');
         setCount(product?.count ? parseInt(product.count) : 1);
         setPrice(product?.price ? parseInt(product.price) : 0);
-        setCategory(product?.category ?? '');
+        setCategory(product?.category ?? '' as ProductCategory);
     }, [product]);
 
     const hasChanges = () => {
@@ -48,6 +49,7 @@ const EditProductModal = ({product, show, onHide, deleteProductFromList,updatePr
         deleteProductFromList(listId, prod);
         onHide();
     }
+
     return ReactDOM.createPortal(<Modal show={show} onHide={onHide} className='w-100'>
         <Modal.Header closeButton>
             <Modal.Title>Product Editing</Modal.Title>
@@ -101,18 +103,18 @@ const EditProductModal = ({product, show, onHide, deleteProductFromList,updatePr
                 </InputGroup>
                 <InputGroup className='my-2'>
                     <Form.Label column sm="2" className='mx-2 w-25'>
-                        Category
+                        Category {category}
                     </Form.Label>
                     <Form.Select
                         aria-label="gender"
                         onBlur={() => applyUpdate()}
-                        onChange={(e) => setCategory(e.target.value)}
+                        onChange={(e) => setCategory(e.target.value) as ProductCategory}
                         value={category}>
-                        <option value="other">Other</option>
-                        <option value="fruits">Fruits</option>
-                        <option value="vegetables">Vegetables</option>
-                        <option value="meat">Meat</option>
-                        <option value="bakery">Bakery</option>
+                        {ProductCategories.map((category) => (
+                            <option key={category} value={category}>
+                                {category}
+                            </option>
+                        ))}
                     </Form.Select>
                 </InputGroup>
                 <Button
