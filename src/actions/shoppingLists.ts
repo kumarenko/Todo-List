@@ -1,15 +1,9 @@
-import {
-    addProductsToList,
-    setAllProducts, setShoppingList,
-    updateList,
-} from "../redux/shoppingListsReducer";
+import {setShoppingList, updateList} from "../redux/shoppingListsReducer";
 import {setShoppingLists} from "../redux/shoppingListsReducer";
 import axios from "axios";
 import {
-    PRODUCTS_URL, SHOPPING_LISTS_URL,
-    SHOPPING_LIST_CREATE_URL,
-    SHOPPING_LISTS_ADD_PROD_URL, SHOPPING_LISTS_EDIT_PROD_URL,
-    SHOPPING_LIST_SHARE_URL
+    SHOPPING_LISTS_URL, SHOPPING_LIST_CREATE_URL,
+     SHOPPING_LIST_SHARE_URL
 } from "../configs/urls";
 
 export const getShoppingLists = (userId: string) => {
@@ -42,62 +36,6 @@ export const addShoppingList = (userId, name) => {
     }
 }
 
-export const addProductToList = (shoppingListId, product) => {
-    return async (dispatch) => {
-        const obj = {shoppingListId, product};
-        const response = await fetch(
-            `${SHOPPING_LISTS_ADD_PROD_URL}`,{
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(obj)
-            }).then(res=>res.json());
-        dispatch(setShoppingList(response))
-    }
-}
-
-export const deleteProductFromList = (shoppingListId, product) => {
-    return async (dispatch) => {
-        const obj = {shoppingListId, product};
-        const response = await fetch(
-            `${SHOPPING_LISTS_EDIT_PROD_URL}`,{
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(obj)
-            }).then(res=>res.json());
-        dispatch(setShoppingList(response));
-    }
-}
-export const getAllProducts = () => {
-    return async (dispatch) => {
-        const response = await axios.get(PRODUCTS_URL);
-        dispatch(setAllProducts(response.data.products));
-    }
-}
-
-export const addProducts = ({_id, name, added, count}, increment) => {
-    return async (dispatch) => {
-        const newObj = {
-            id: _id,
-            name: name,
-            added: true,
-            count: (count ?? 0)+increment
-        }
-        const response = await fetch(
-            PRODUCTS_URL,{
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newObj)
-            }).then(res=>res.json());
-        dispatch(addProductsToList(response.product));
-    }
-}
-
 export const updateListRequest = (list, newValue) => {
     return async (dispatch) => {
         const newObject = {
@@ -113,20 +51,6 @@ export const updateListRequest = (list, newValue) => {
                 body: JSON.stringify(newObject)
             }).then(res=>res.json());
         dispatch(updateList({...list, name: response.name}));
-    };
-};
-export const updateProductsListRequest = (shoppingListId, product) => {
-    return async (dispatch) => {
-        const objectToUpdate = {shoppingListId, product};
-        const response = await fetch(
-            `${SHOPPING_LISTS_EDIT_PROD_URL}`,{
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(objectToUpdate)
-            }).then(res=>res.json());
-        dispatch(setShoppingList(response))
     };
 };
 

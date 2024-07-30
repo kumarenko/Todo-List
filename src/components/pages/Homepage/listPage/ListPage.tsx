@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import FlipMove from "react-flip-move";
-import {
-    addProductToList,
-    deleteProductFromList,
-    getShoppingList, updateProductsListRequest
-} from "../../../../actions/shoppingLists";
+import {getShoppingList} from "../../../../actions/shoppingLists";
+import {updateProductsListRequest} from "../../../../actions/products";
+import {addProductToList, deleteProductFromList} from "../../../../actions/products";
 import {connect, useSelector} from "react-redux";
 import { useParams } from 'react-router-dom';
 import {Button, Form} from "react-bootstrap";

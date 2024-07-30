@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import ReactDOM from "react-dom";
 import {Button, Modal, Form, InputGroup, Col} from "react-bootstrap";
-import {addProducts, addProductToList, getAllProducts} from "../../../../actions/shoppingLists";
+import {addProductToList, getAllProducts} from "../../../../actions/products";
 import {connect, useSelector} from "react-redux";
-import {IoMdAdd, IoMdClose, IoMdRemove, IoMdSearch} from "react-icons/io";
+import {IoMdAdd, IoMdSearch} from "react-icons/io";
 import {Filter} from './filter';
 import {ProductCategories} from "../../../../types/types";
 
-const AddProductModal = ({list, addProducts, allProducts, getAllProducts, show, onHide, addProductToList}) => {
+const AddProductModal = ({list, allProducts, getAllProducts, show, onHide, addProductToList}) => {
     const [filteredItems, setFilteredItems] = useState([]);
     const [filteredCategories, setFilteredCategories] = useState([...ProductCategories]);
     const [searchValue, setSearchValue] = useState('');
@@ -31,10 +31,6 @@ const AddProductModal = ({list, addProducts, allProducts, getAllProducts, show, 
             category: item.category ?? "Other",
         };
         addProductToList(list._id, product);
-    }
-
-    const deleteProduct = (item) => {
-        addProducts(item, -1);
     }
 
     const applyFilters = () => {
@@ -86,10 +82,6 @@ const AddProductModal = ({list, addProducts, allProducts, getAllProducts, show, 
                                 <span className='m-auto'>{item.name}</span>
                                 {item.category ? <span className='position-absolute end-0 me-5'>{item.category}</span> : null}
                             </Button>
-                            {item.count > 0 ? <Button variant={buttonsVariant} className='d-flex align-items-center h-100 position-absolute end-0 rounded-circle'
-                                                      onClick={() => deleteProduct(item)}
-                            >{item.count > 1 ? <IoMdRemove /> : <IoMdClose />}
-                            </Button> : null}
                         </div>
                     )) :
                     <span>No Items</span>}
@@ -105,7 +97,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     getAllProducts,
-    addProducts,
     addProductToList,
 };
 

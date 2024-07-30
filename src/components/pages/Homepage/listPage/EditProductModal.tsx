@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import ReactDOM from "react-dom";
 import {Button, Modal, Form, InputGroup, Col} from "react-bootstrap";
-import {deleteProductFromList, updateProductsListRequest} from "../../../../actions/shoppingLists";
+import {updateProductsListRequest} from "../../../../actions/products";
+import {deleteProductFromList} from "../../../../actions/products";
 import {connect, useSelector} from "react-redux";
 import {MdAttachMoney, MdShoppingCart} from "react-icons/md";
 import {FaPlusMinus} from "react-icons/fa6";
