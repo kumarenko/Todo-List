@@ -1,17 +1,40 @@
 import React, {useEffect, useState} from 'react';
 import ReactDOM from "react-dom";
 import {Button, Modal, Form, InputGroup, Col} from "react-bootstrap";
-import {addProductToList, getAllProducts} from "../../../../actions/products";
+import {addProductToList, findProductByBarcode, getAllProducts} from "../../../../actions/products";
 import {connect, useSelector} from "react-redux";
 import {IoMdAdd, IoMdSearch} from "react-icons/io";
 import {Filter} from './filter';
 import {ProductCategories} from "../../../../types/types";
+import {FaBarcode} from "react-icons/fa";
+import BarcodeScanner from "./barcodeScanner";
 
-const AddProductModal = ({list, allProducts, getAllProducts, show, onHide, addProductToList}) => {
+const AddProductModal = ({list, allProducts, getAllProducts, show, onHide, addProductToList, findProductByBarcode, productFromBarcode}) => {
     const [filteredItems, setFilteredItems] = useState([]);
     const [filteredCategories, setFilteredCategories] = useState([...ProductCategories]);
     const [searchValue, setSearchValue] = useState('');
 
+    const [openCameraWindow, setOpenCameraWindow] = useState(false);
+    const [code, setCode] = useState('');
+
+    const handleDetected = (result) => {
+        console.log("Barcode detected: " + result);
+        setCode(result);
+    };
+    useEffect(() => {
+        if (Object.keys(productFromBarcode).length) {
+            setSearchValue(productFromBarcode.title);
+        }
+    },[productFromBarcode]);
+
+    const closeScanner = () => {
+        setOpenCameraWindow(false);
+    }
+    useEffect(()=> {
+        if(code) {
+            findProductByBarcode(code);
+        }
+    }, [code]);
     useEffect(() => {
         getAllProducts();
     }, []);
@@ -22,7 +45,10 @@ const AddProductModal = ({list, allProducts, getAllProducts, show, onHide, addPr
 
     const onCloseHandler = () => {
         onHide();
-        setTimeout(() => setFilteredItems(allProducts), 500);
+        setTimeout(() => {
+            setFilteredItems(allProducts);
+            setSearchValue('');
+        }, 500);
     }
 
     const addProduct = (item) => {
@@ -64,6 +90,7 @@ const AddProductModal = ({list, allProducts, getAllProducts, show, onHide, addPr
                         <Form.Control
                             type="text"
                             onChange={handleSearchChange}
+                            value={searchValue}
                             placeholder="Search here.."
                         />
                         <InputGroup.Text>
@@ -71,6 +98,10 @@ const AddProductModal = ({list, allProducts, getAllProducts, show, onHide, addPr
                         </InputGroup.Text>
                     </InputGroup>
                     <Filter filterData={filterByCategory} />
+                    <button onClick={()=> setOpenCameraWindow(!openCameraWindow)}>
+                        <FaBarcode />
+                    </button>
+                    {openCameraWindow? <BarcodeScanner onDetected={handleDetected} onClose={closeScanner}/> : null}
                 </Form.Group>
                 {filteredItems.length ?
                     filteredItems.map(item => (
@@ -92,12 +123,14 @@ const AddProductModal = ({list, allProducts, getAllProducts, show, onHide, addPr
 
 const mapStateToProps = (state) => ({
     list: state.items.list,
-    allProducts: state.items.allProducts
+    allProducts: state.items.allProducts,
+    productFromBarcode: state.items.productFromBarcode
 });
 
 const mapDispatchToProps = {
     getAllProducts,
     addProductToList,
+    findProductByBarcode,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddProductModal);

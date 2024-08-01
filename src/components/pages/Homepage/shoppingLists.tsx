@@ -109,14 +109,13 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
                         <Link to={`/lists/${list._id}`}>
                             {list.name} {list.products?.length ?
                                 <div className='d-flex justify-content-between'>
-
                                     <ProgressBar
                                         className='mt-1'
                                         now={list.products.filter(item => item.checked).length}
                                         max={list.products.length}
                                     />
                                     <div>
-                                        {list.products.filter(item => item).length} / {list.products.length}
+                                        {list.products.filter(item => item.checked).length} / {list.products.length}
                                     </div>
                                 </div>
                                 : null}

@@ -1,7 +1,6 @@
-import React, { useState, useLayoutEffect, useRef } from 'react';
+import React, {useState, useLayoutEffect, useRef} from 'react';
 import Quagga from 'quagga';
-import * as ReactDOM from "react-dom";
-import './styles.less';
+import '../../Settings/styles.less';
 import {Form} from "react-bootstrap";
 
 const BarcodeScanner = ({ onDetected, onClose }) => {
@@ -78,34 +77,35 @@ const BarcodeScanner = ({ onDetected, onClose }) => {
         };
     }, [onDetected]);
 
-    return ReactDOM.createPortal(
-        <div className='barcode d-flex flex-column justify-content-center align-items-centers'>
-            <div className='d-flex justify-content-end m-2'>
-                <button onClick={onClose}>
-                    Cancel
-                </button>
-            </div>
-            <h3 className='text-center'>Please scan barcode with your camera</h3>
-            <video ref={videoRef} style={{ width: '100%', height: 'auto', aspectRatio: '16/9' }} playsInline />
-
-            {detectedCode && !manualEntering && (
-                <p className='text-center m-2'>Detected code: {detectedCode}</p>
-            )}
-            <div className='text-center'>
-                <button className='button-as-link my-2' onClick={() => setManualEntering(!manualEntering)}>Enter manually</button>
-            </div>
-            {manualEntering &&
-            <div className='text-center'>
-                <Form.Control className='search mx-auto my-2' type="text" value={manualCode} onChange={(e) => setManualCode(e.target.value)}/>
-                <button className='my-1'
+    return <div className='position-fixed barcode d-flex flex-column justify-content-center align-items-centers z-1'>
+        <div className='d-flex justify-content-end m-2'>
+            <button onClick={onClose}>
+                Cancel
+            </button>
+        </div>
+        <h3 className='text-center'>Please scan barcode with your camera</h3>
+        <video ref={videoRef} style={{ width: '100%', height: 'auto', aspectRatio: '16/9' }} playsInline />
+        {detectedCode && !manualEntering && (
+            <p className='text-center m-2'>Detected code: {detectedCode}</p>
+        )}
+        <div className='text-center'>
+            <button className='button-as-link my-2' onClick={() => setManualEntering(!manualEntering)}>Enter manually</button>
+        </div>
+        {manualEntering &&
+        <div className='text-center'>
+            <Form.Control
+                className='search mx-auto my-2 z-3'
+                type="text"
+                value={manualCode}
+                onChange={(e) => setManualCode(e.target.value)}/>
+            <button className='my-1'
                     onClick={() => {
-                    setDetectedCode(manualCode);
-                    onDetected(manualCode);
-                }}>Search</button>
-            </div>}
-        </div>,
-        document.getElementById('root')
-    );
+                        setDetectedCode(manualCode);
+                        onClose();
+                        onDetected(manualCode);
+                    }}>Search</button>
+        </div>}
+    </div>;
 };
 
 export default BarcodeScanner;

@@ -9,11 +9,13 @@ const DELETE_LIST = "DELETE_LIST";
 const UPDATE_PRODUCTS = 'UPDATE_PRODUCTS';
 const ADD_PRODUCTS = 'ADD_PRODUCTS';
 const UPDATE_TODO_FAILURE = 'UPDATE_TODO_FAILURE';
+const ADD_BARCODE_PROD = 'ADD_BARCODE_PROD';
 
-const defaultState: { lists: ShoppingList[], allProducts: ShoppingList[], list: {} } = {
+const defaultState: { lists: ShoppingList[], allProducts: ShoppingList[], list: {}, productFromBarcode: {} } = {
     lists: [],
     list: {},
     allProducts: [],
+    productFromBarcode: {}
 }
 
 export default function todosReducer(state = defaultState, action) {
@@ -71,6 +73,12 @@ export default function todosReducer(state = defaultState, action) {
                     prod._id === action.payload._id ? { ...prod, ...action.payload  } : prod
                 ),
             };
+        case ADD_BARCODE_PROD:
+            return {
+                ...state,
+                loading: false,
+                productFromBarcode: action.payload,
+            };
 
         case UPDATE_PRODUCTS:
             const newProd = action.payload.items[0];
@@ -101,4 +109,4 @@ export const setShoppingLists = (lists) => ({type:SET_LISTS, payload:lists})
 export const setShoppingList = (list) => ({type:SET_LIST, payload:list})
 export const setAllProducts = (products) => ({type:SET_PRODUCTS, payload:products})
 export const updateList = (list) => ({type:UPDATE_LIST, payload: list})
-export const addProductsToList = (updateList:object) => ({type:ADD_PRODUCTS, payload: updateList})
+export const setBarcodeData = (prod:object) => ({type:ADD_BARCODE_PROD, payload: prod})

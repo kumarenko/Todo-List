@@ -1,5 +1,5 @@
-import {PRODUCTS_URL, SHOPPING_LISTS_ADD_PROD_URL, SHOPPING_LISTS_EDIT_PROD_URL} from "../configs/urls";
-import {setAllProducts, setShoppingList} from "../redux/shoppingListsReducer";
+import {BARCODE_URL, PRODUCTS_URL, SHOPPING_LISTS_ADD_PROD_URL, SHOPPING_LISTS_EDIT_PROD_URL} from "../configs/urls";
+import {setAllProducts, setBarcodeData, setShoppingList} from "../redux/shoppingListsReducer";
 import axios from "axios";
 
 export const getAllProducts = () => {
@@ -49,5 +49,18 @@ export const updateProductsListRequest = (shoppingListId, product) => {
                 body: JSON.stringify(objectToUpdate)
             }).then(res=>res.json());
         dispatch(setShoppingList(response))
+    };
+};
+
+export const findProductByBarcode = (barcode) => {
+    return async (dispatch) => {
+        const response = await fetch(
+            `${BARCODE_URL}?barcode=${barcode}`,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then(res=>res.json());
+        dispatch(setBarcodeData(response.products[0]))
     };
 };

@@ -1,22 +1,25 @@
 import React, {useEffect, useState} from 'react';
 import FlipMove from "react-flip-move";
-import {getShoppingList} from "../../../../actions/shoppingLists";
+import {getShoppingList, updateListRequest} from "../../../../actions/shoppingLists";
 import {updateProductsListRequest} from "../../../../actions/products";
 import {addProductToList, deleteProductFromList} from "../../../../actions/products";
 import {connect, useSelector} from "react-redux";
 import { useParams } from 'react-router-dom';
-import {Button, Form} from "react-bootstrap";
+import {Button, Form, InputGroup, ProgressBar} from "react-bootstrap";
 import AddProductModal from "./AddProductModal";
 import EditProductModal from "./EditProductModal";
+import './styles.less';
+import {IoMdCreate, IoMdSearch} from "react-icons/io";
+import {Filter} from "./filter";
 
-const ListPage = ({list, getShoppingList,updateProductsListRequest}) => {
+const ListPage = ({list, getShoppingList,updateProductsListRequest,updateListRequest}) => {
     const { listId } = useParams();
     const [checkedProds, setCheckedProds] = useState([]);
     const [uncheckedProds,setUncheckedProds] = useState([]);
     const [showAddModal, setAddShowModal] = useState(false);
     const handleApply = () => setAddShowModal(false);
     const handleClose = () => setAddShowModal(false);
-
+    const [listName, setListName] = useState('');
     const [showEditModal, setEditShowModal] = useState(false);
     const handleApplyEdit = () => setEditShowModal(false);
     const handleCloseEdit = () => setEditShowModal(false);
@@ -29,6 +32,7 @@ const ListPage = ({list, getShoppingList,updateProductsListRequest}) => {
     }, []);
 
     useEffect(() => {
+        setListName(list.name);
         if(list.products) {
             let checked = [];
             list.products.forEach(prod => {
@@ -53,9 +57,39 @@ const ListPage = ({list, getShoppingList,updateProductsListRequest}) => {
         }
         updateProductsListRequest(list._id, prod);
     };
+
     return (
         <div className='list-page'>
-            <h3>{list?.name}</h3>
+            <h3>
+                {list.name}
+                <InputGroup className='input-wrapper w-25 rounded-2'>
+                    <Form.Control
+                        value={listName}
+                        className='name-input'
+                        onBlur={()=> listName !== list.name && updateListRequest(list, listName)}
+                        onChange={(e) => setListName(e.target.value)}
+                        type="text"/>
+                    <IoMdCreate className='name-icon'/>
+                </InputGroup>
+                <div>
+                    <Button>
+                        <IoMdSearch />
+                    </Button>
+                    <Filter filterData={() => {}} />
+                </div>
+                {list.products?.length ?
+                    <div>
+                        <ProgressBar
+                            className='mt-1'
+                            now={list.products.filter(item => item.checked).length}
+                            max={list.products.length}
+                        />
+                        <div>
+                            {list.products.filter(item => item.checked).length} / {list.products.length}
+                        </div>
+                    </div>
+                    : null}
+            </h3>
             <div>
                 {checkedProds.length ? <FlipMove>
                     {checkedProds.map(prod => <div className='d-flex align-items-center' key={prod._id}>
@@ -118,7 +152,8 @@ const mapDispatchToProps = {
     getShoppingList,
     deleteProductFromList,
     addProductToList,
-    updateProductsListRequest
+    updateProductsListRequest,
+    updateListRequest
 };
 
 export default connect(mapStateToProps,mapDispatchToProps)(ListPage);
