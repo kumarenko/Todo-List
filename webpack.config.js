@@ -17,7 +17,6 @@ module.exports = {
         //     key: path.resolve(__dirname, 'server.key'),
         //     cert: path.resolve(__dirname, 'server.cert'),
         // },
-        // // Убедитесь, что у вас установлен host на localhost для исключения из требований https
         // host: '192.168.55.4'
 
     },
@@ -45,8 +44,11 @@ module.exports = {
                 }
             },
             {
-                test: /\.(jpeg|png|svg)$/,
-                use: ['file-loader']
+                test: /\.(png|jpg|jpeg|gif|svg|webp)$/,
+                type: 'asset/resource',  // Используем встроенный тип для обработки изображений
+                generator: {
+                    filename: 'images/[name][hash][ext][query]'  // Путь для выходных файлов
+                }
             },
             {
                 test: /\.(css|less)$/,

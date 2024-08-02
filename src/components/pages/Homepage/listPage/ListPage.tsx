@@ -1,30 +1,36 @@
 import React, {useEffect, useState} from 'react';
+import {connect, useSelector} from "react-redux";
 import FlipMove from "react-flip-move";
+import { useParams } from 'react-router-dom';
+import {IoMdCreate, IoMdSearch} from "react-icons/io";
+import {Button, Form, InputGroup, ProgressBar} from "react-bootstrap";
+
 import {getShoppingList, updateListRequest} from "../../../../actions/shoppingLists";
 import {updateProductsListRequest} from "../../../../actions/products";
 import {addProductToList, deleteProductFromList} from "../../../../actions/products";
-import {connect, useSelector} from "react-redux";
-import { useParams } from 'react-router-dom';
-import {Button, Form, InputGroup, ProgressBar} from "react-bootstrap";
 import AddProductModal from "./AddProductModal";
 import EditProductModal from "./EditProductModal";
-import './styles.less';
-import {IoMdCreate, IoMdSearch} from "react-icons/io";
 import {Filter} from "./filter";
+
+import './categorieSpritePositions.less';
+import './styles.less';
 
 const ListPage = ({list, getShoppingList,updateProductsListRequest,updateListRequest}) => {
     const { listId } = useParams();
+
     const [checkedProds, setCheckedProds] = useState([]);
     const [uncheckedProds,setUncheckedProds] = useState([]);
+    const [product, setProduct] = useState({});
+    const [listName, setListName] = useState('');
     const [showAddModal, setAddShowModal] = useState(false);
+    const [showEditModal, setEditShowModal] = useState(false);
+
     const handleApply = () => setAddShowModal(false);
     const handleClose = () => setAddShowModal(false);
-    const [listName, setListName] = useState('');
-    const [showEditModal, setEditShowModal] = useState(false);
     const handleApplyEdit = () => setEditShowModal(false);
     const handleCloseEdit = () => setEditShowModal(false);
-    const [product, setProduct] = useState({});
     const theme = useSelector(state => state.settings.theme);
+
     const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
 
     useEffect(() => {
@@ -33,6 +39,7 @@ const ListPage = ({list, getShoppingList,updateProductsListRequest,updateListReq
 
     useEffect(() => {
         setListName(list.name);
+        document.title = list.name;
         if(list.products) {
             let checked = [];
             list.products.forEach(prod => {
@@ -90,7 +97,7 @@ const ListPage = ({list, getShoppingList,updateProductsListRequest,updateListReq
                     </div>
                     : null}
             </h3>
-            <div>
+            <div className='list'>
                 {checkedProds.length ? <FlipMove>
                     {checkedProds.map(prod => <div className='d-flex align-items-center' key={prod._id}>
                         <Form.Check
@@ -107,6 +114,8 @@ const ListPage = ({list, getShoppingList,updateProductsListRequest,updateListReq
                         </Button>
                         {prod.price ? <span> {prod.price} $</span> : null}
                         {prod.category ? <span> {prod.category}</span> : null}
+                        {prod.category ? <div className={`sprite sprite-${prod.category.toLowerCase()}`}/>
+                            : null}
                     </div>)}
                 </FlipMove> : <span>There are no one product</span>}
                 {uncheckedProds.length ? <FlipMove>
@@ -125,6 +134,8 @@ const ListPage = ({list, getShoppingList,updateProductsListRequest,updateListReq
                         </Button>
                         {prod.price ? <span> {prod.price} $</span> : null}
                         {prod.category ? <span> {prod.category}</span> : null}
+                        {prod.category ? <div className={`sprite sprite-${prod.category.toLowerCase()}`}/>
+                        : null}
                     </div>)}
                 </FlipMove> : <span>There are no one product</span>}
             </div>
