@@ -22,9 +22,9 @@ export const addProductToList = (shoppingListId, product) => {
         dispatch(setShoppingList(response))
     }
 }
-export const deleteProductFromList = (shoppingListId, product) => {
+export const deleteProductFromList = (shoppingListId, products) => {
     return async (dispatch) => {
-        const obj = {shoppingListId, product};
+        const obj = {shoppingListId, products: products};
         const response = await fetch(
             `${SHOPPING_LISTS_EDIT_PROD_URL}`,{
                 method: 'DELETE',
@@ -37,9 +37,10 @@ export const deleteProductFromList = (shoppingListId, product) => {
     }
 }
 
-export const updateProductsListRequest = (shoppingListId, product) => {
+export const updateProductsListRequest = (shoppingListId, products) => {
     return async (dispatch) => {
-        const objectToUpdate = {shoppingListId, product};
+        const objectToUpdate = {
+            shoppingListId, products};
         const response = await fetch(
             `${SHOPPING_LISTS_EDIT_PROD_URL}`,{
                 method: 'PUT',

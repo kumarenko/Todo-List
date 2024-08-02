@@ -40,14 +40,14 @@ const EditProductModal = ({product, show, onHide, deleteProductFromList,updatePr
             category,
         }
         if(hasChanges()) {
-             updateProductsListRequest(listId, prod);
+             updateProductsListRequest(listId, [prod]);
         }
     }
     const deleteProduct = () => {
         const prod = {
             productId: product._id,
         }
-        deleteProductFromList(listId, prod);
+        deleteProductFromList(listId, [prod]);
         onHide();
     }
 
