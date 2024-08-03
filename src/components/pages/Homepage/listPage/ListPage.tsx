@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {connect, useSelector} from "react-redux";
 import FlipMove from "react-flip-move";
 import { useParams } from 'react-router-dom';
-import {IoMdCreate, IoMdSearch} from "react-icons/io";
+import {IoMdCreate} from "react-icons/io";
 import {Button, Form, InputGroup, ProgressBar} from "react-bootstrap";
 
 import {getShoppingList, updateListRequest} from "../../../../actions/shoppingLists";
@@ -14,6 +14,7 @@ import {Filter} from "./filter";
 
 import './categorieSpritePositions.less';
 import './styles.less';
+import {MdFilterListAlt} from "react-icons/md";
 
 const ListPage = ({list, getShoppingList,updateProductsListRequest,updateListRequest}) => {
     const { listId } = useParams();
@@ -24,11 +25,13 @@ const ListPage = ({list, getShoppingList,updateProductsListRequest,updateListReq
     const [listName, setListName] = useState('');
     const [showAddModal, setAddShowModal] = useState(false);
     const [showEditModal, setEditShowModal] = useState(false);
+    const [showFilterModal, setFilterShowModal] = useState(false);
 
     const handleApply = () => setAddShowModal(false);
     const handleClose = () => setAddShowModal(false);
     const handleApplyEdit = () => setEditShowModal(false);
     const handleCloseEdit = () => setEditShowModal(false);
+    const handleCloseFilter = () => setFilterShowModal(false);
     const theme = useSelector(state => state.settings.theme);
 
     const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
@@ -62,9 +65,17 @@ const ListPage = ({list, getShoppingList,updateProductsListRequest,updateListReq
             productId: selectedProd._id,
             checked: !selectedProd.checked
         }
-        updateProductsListRequest(list._id, prod);
+        updateProductsListRequest(list._id, [prod]);
     };
-
+    const filterByCategory = (data) => {
+        if(data.length) {
+            setUncheckedProds(list.products.filter(prod=> data.includes(prod.category) && !prod.checked));
+            setCheckedProds(list.products.filter(prod=> data.includes(prod.category) && prod.checked));
+        } else {
+            setUncheckedProds(list.products.filter(prod=> !prod.checked));
+            setCheckedProds(list.products.filter(prod=> prod.checked));
+        }
+    }
     return (
         <div className='list-page'>
             <h3>
@@ -78,12 +89,9 @@ const ListPage = ({list, getShoppingList,updateProductsListRequest,updateListReq
                         type="text"/>
                     <IoMdCreate className='name-icon'/>
                 </InputGroup>
-                <div>
-                    <Button>
-                        <IoMdSearch />
-                    </Button>
-                    <Filter filterData={() => {}} />
-                </div>
+                <Button onClick={()=> setFilterShowModal(true)}>
+                    Filter <MdFilterListAlt />
+                </Button>
                 {list.products?.length ?
                     <div>
                         <ProgressBar
@@ -152,6 +160,10 @@ const ListPage = ({list, getShoppingList,updateProductsListRequest,updateListReq
                 onHide={handleCloseEdit}
                 onApply={handleApplyEdit}
             />
+            <Filter
+                show={showFilterModal}
+                onHide={handleCloseFilter}
+                filterData={filterByCategory}/>
         </div>
     );
 };

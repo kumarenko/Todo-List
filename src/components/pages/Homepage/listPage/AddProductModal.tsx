@@ -8,11 +8,14 @@ import {Filter} from './filter';
 import {ProductCategories} from "../../../../types/types";
 import {FaBarcode} from "react-icons/fa";
 import BarcodeScanner from "./barcodeScanner";
+import {MdFilterListAlt} from "react-icons/md";
 
 const AddProductModal = ({list, allProducts, getAllProducts, show, onHide, addProductToList, findProductByBarcode, productFromBarcode}) => {
     const [filteredItems, setFilteredItems] = useState([]);
     const [filteredCategories, setFilteredCategories] = useState([...ProductCategories]);
     const [searchValue, setSearchValue] = useState('');
+    const [showFilterModal, setFilterShowModal] = useState(false);
+    const handleCloseFilter = () => setFilterShowModal(false);
 
     const [openCameraWindow, setOpenCameraWindow] = useState(false);
     const [code, setCode] = useState('');
@@ -97,10 +100,12 @@ const AddProductModal = ({list, allProducts, getAllProducts, show, onHide, addPr
                             <IoMdSearch />
                         </InputGroup.Text>
                     </InputGroup>
-                    <Filter filterData={filterByCategory} />
-                    <button onClick={()=> setOpenCameraWindow(!openCameraWindow)}>
+                    <Button onClick={()=> setFilterShowModal(true)}>
+                        Filter <MdFilterListAlt />
+                    </Button>
+                    <Button onClick={()=> setOpenCameraWindow(!openCameraWindow)}>
                         <FaBarcode />
-                    </button>
+                    </Button>
                     {openCameraWindow? <BarcodeScanner onDetected={handleDetected} onClose={closeScanner}/> : null}
                 </Form.Group>
                 {filteredItems.length ?
@@ -118,6 +123,10 @@ const AddProductModal = ({list, allProducts, getAllProducts, show, onHide, addPr
                     <span>No Items</span>}
             </Modal.Body>
             <Modal.Footer />
+            <Filter
+                show={showFilterModal}
+                onHide={handleCloseFilter}
+                filterData={filterByCategory} />
         </Modal>, document.body);
 };
 

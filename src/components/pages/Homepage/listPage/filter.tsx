@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import {Button, ButtonGroup, Dropdown, Form} from "react-bootstrap";
+import {Button, Form, Modal} from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { ProductCategories } from "../../../../types/types";
-import {MdFilterListAlt} from "react-icons/md";
 
-export const Filter = ({filterData}) => {
+export const Filter = ({show, filterData, onHide}) => {
     const theme = useSelector(state => state.settings.theme);
     const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
     const [selected, setSelected] = useState([]);
@@ -18,7 +17,6 @@ export const Filter = ({filterData}) => {
                 newSelected.push(item);
             return newSelected;
         });
-        filterData(selected);
     };
 
     const onSelectAll = () => {
@@ -32,29 +30,12 @@ export const Filter = ({filterData}) => {
         setAll([...ProductCategories]);
     }, []);
 
-    useEffect(() => {
-        filterData(selected);
-    }, [selected]);
-
-    return (
-        <Dropdown as={ButtonGroup} className='me-1'>
-            <Dropdown.Toggle variant={buttonsVariant} className='dropdown-without-arrow'>
-                Filter <MdFilterListAlt />
-            </Dropdown.Toggle>
-            <Dropdown.Menu variant={buttonsVariant}>
-                <Dropdown.Item
-                    as="div"
-                    onClick={(e) => e.stopPropagation()}
-                >
-                    <div onClick={() => onSelectAll()}>
-                        <Form.Check
-                            type="checkbox"
-                            label='Check all'
-                            checked={all.length === selected.length}
-                            onChange={() => {}}
-                        />
-                    </div>
-                </Dropdown.Item>
+    return (<Modal  show={show} onHide={onHide}  className='w-100'>
+        <div className='me-1'>
+            <Modal.Header variant={buttonsVariant} className='dropdown-without-arrow'>
+                <Modal.Title>Filter Products by categories</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
                 <div className='d-flex'>
                     <Button onClick={() => onSelectAll()}>
                         Check all
@@ -63,23 +44,31 @@ export const Filter = ({filterData}) => {
                         Uncheck all
                     </Button>
                 </div>
-                {all.map(category => (
-                    <Dropdown.Item
-                        key={category}
-                        as="div"
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <div onClick={() => onSelect(category)}>
-                            <Form.Check
-                                type="checkbox"
-                                label={category}
-                                checked={selected.includes(category)}
-                                onChange={() => {}}
-                            />
-                        </div>
-                    </Dropdown.Item>
-                ))}
-            </Dropdown.Menu>
-        </Dropdown>
-    );
+                <ul>
+                    {all.map(category => (
+                        <li
+                            key={category}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <div onClick={() => onSelect(category)}>
+                                <Form.Check
+                                    type="checkbox"
+                                    label={category}
+                                    checked={selected.includes(category)}
+                                    onChange={() => {}}
+                                />
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button onClick={() => {
+                    filterData(selected);
+                    onHide();
+                }}>Apply</Button>
+                <Button onClick={onHide}>Cancel</Button>
+            </Modal.Footer>
+        </div>
+    </Modal>);
 };
