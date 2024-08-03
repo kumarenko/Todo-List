@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {connect, useSelector} from "react-redux";
 import FlipMove from "react-flip-move";
-import { useParams } from 'react-router-dom';
-import {IoMdCreate} from "react-icons/io";
+import {useParams} from 'react-router-dom';
+import {IoMdCreate, IoMdSearch} from "react-icons/io";
 import {Button, Form, InputGroup, ProgressBar} from "react-bootstrap";
 
 import {getShoppingList, updateListRequest} from "../../../../actions/shoppingLists";
@@ -15,17 +15,20 @@ import {Filter} from "./filter";
 import './categorieSpritePositions.less';
 import './styles.less';
 import {MdFilterListAlt} from "react-icons/md";
+import {ProductCategories} from "../../../../types/types";
 
-const ListPage = ({list, getShoppingList,updateProductsListRequest,updateListRequest}) => {
+const ListPage = ({ list, getShoppingList, updateProductsListRequest, updateListRequest }) => {
     const { listId } = useParams();
 
     const [checkedProds, setCheckedProds] = useState([]);
-    const [uncheckedProds,setUncheckedProds] = useState([]);
+    const [uncheckedProds, setUncheckedProds] = useState([]);
     const [product, setProduct] = useState({});
     const [listName, setListName] = useState('');
+    const [searchValue, setSearchValue] = useState('');
     const [showAddModal, setAddShowModal] = useState(false);
     const [showEditModal, setEditShowModal] = useState(false);
     const [showFilterModal, setFilterShowModal] = useState(false);
+    const [filteredCategories, setFilteredCategories] = useState([...ProductCategories]);
 
     const handleApply = () => setAddShowModal(false);
     const handleClose = () => setAddShowModal(false);
@@ -38,12 +41,12 @@ const ListPage = ({list, getShoppingList,updateProductsListRequest,updateListReq
 
     useEffect(() => {
         getShoppingList(listId);
-    }, []);
+    }, [listId, getShoppingList]);
 
     useEffect(() => {
         setListName(list.name);
         document.title = list.name;
-        if(list.products) {
+        if (list.products) {
             let checked = [];
             list.products.forEach(prod => {
                 prod.checked ?
@@ -58,24 +61,36 @@ const ListPage = ({list, getShoppingList,updateProductsListRequest,updateListReq
     const selectProduct = (prod) => {
         setEditShowModal(true);
         setProduct(prod);
-    }
+    };
+
     const checkProduct = (selectedProd) => {
         const prod = {
             ...selectedProd,
             productId: selectedProd._id,
             checked: !selectedProd.checked
-        }
+        };
         updateProductsListRequest(list._id, [prod]);
     };
-    const filterByCategory = (data) => {
-        if(data.length) {
-            setUncheckedProds(list.products.filter(prod=> data.includes(prod.category) && !prod.checked));
-            setCheckedProds(list.products.filter(prod=> data.includes(prod.category) && prod.checked));
-        } else {
-            setUncheckedProds(list.products.filter(prod=> !prod.checked));
-            setCheckedProds(list.products.filter(prod=> prod.checked));
+
+    useEffect(() => {
+        applyFilters();
+    }, [searchValue, filteredCategories]);
+
+    const applyFilters = () => {
+        if (list.products?.length) {
+            const filteredProducts = list.products.filter(prod =>
+                filteredCategories.includes(prod.category) &&
+                prod.name.toLowerCase().includes(searchValue.toLowerCase())
+            );
+            setUncheckedProds(filteredProducts.filter(prod => !prod.checked));
+            setCheckedProds(filteredProducts.filter(prod => prod.checked));
         }
-    }
+    };
+
+    const filterByCategory = (data) => {
+        setFilteredCategories(data);
+    };
+
     return (
         <div className='list-page'>
             <h3>
@@ -84,12 +99,21 @@ const ListPage = ({list, getShoppingList,updateProductsListRequest,updateListReq
                     <Form.Control
                         value={listName}
                         className='name-input'
-                        onBlur={()=> listName !== list.name && updateListRequest(list, listName)}
+                        onBlur={() => listName !== list.name && updateListRequest(list, listName)}
                         onChange={(e) => setListName(e.target.value)}
-                        type="text"/>
-                    <IoMdCreate className='name-icon'/>
+                        type="text" />
+                    <IoMdCreate className='name-icon' />
                 </InputGroup>
-                <Button onClick={()=> setFilterShowModal(true)}>
+                <InputGroup className='input-wrapper w-25 rounded-2'>
+                    <Form.Control
+                        value={searchValue}
+                        className='name-input'
+                        onBlur={() => {}}
+                        onChange={(e) => setSearchValue(e.target.value)}
+                        type="text" />
+                    <IoMdSearch className='name-icon' />
+                </InputGroup>
+                <Button onClick={() => setFilterShowModal(true)}>
                     Filter <MdFilterListAlt />
                 </Button>
                 {list.products?.length ?
@@ -122,7 +146,7 @@ const ListPage = ({list, getShoppingList,updateProductsListRequest,updateListReq
                         </Button>
                         {prod.price ? <span> {prod.price} $</span> : null}
                         {prod.category ? <span> {prod.category}</span> : null}
-                        {prod.category ? <div className={`sprite sprite-${prod.category.toLowerCase()}`}/>
+                        {prod.category ? <div className={`sprite sprite-${prod.category.toLowerCase()}`} />
                             : null}
                     </div>)}
                 </FlipMove> : <span>There are no one product</span>}
@@ -142,8 +166,8 @@ const ListPage = ({list, getShoppingList,updateProductsListRequest,updateListReq
                         </Button>
                         {prod.price ? <span> {prod.price} $</span> : null}
                         {prod.category ? <span> {prod.category}</span> : null}
-                        {prod.category ? <div className={`sprite sprite-${prod.category.toLowerCase()}`}/>
-                        : null}
+                        {prod.category ? <div className={`sprite sprite-${prod.category.toLowerCase()}`} />
+                            : null}
                     </div>)}
                 </FlipMove> : <span>There are no one product</span>}
             </div>
@@ -163,14 +187,16 @@ const ListPage = ({list, getShoppingList,updateProductsListRequest,updateListReq
             <Filter
                 show={showFilterModal}
                 onHide={handleCloseFilter}
-                filterData={filterByCategory}/>
+                filterData={filterByCategory} />
         </div>
     );
 };
+
 const mapStateToProps = (state) => ({
     list: state.items.list,
     allProducts: state.items.allProducts,
 });
+
 const mapDispatchToProps = {
     getShoppingList,
     deleteProductFromList,
@@ -179,4 +205,4 @@ const mapDispatchToProps = {
     updateListRequest
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(ListPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ListPage);
