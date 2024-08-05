@@ -1,8 +1,49 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import { Button } from "react-bootstrap";
+import { GoogleLogin } from '@react-oauth/google';
+import {useDispatch} from "react-redux";
+import {updateLogin} from "../../../redux/userReducer";
 
 const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, loginAsGuest, buttonsVariant, errors, resetErrors }) => {
+    const dispatch = useDispatch();
+
+    const handleGoogleLoginSuccess = async (response) => {
+        const idToken = response.credential;
+        const accessToken = response.access_token; // Получите токен доступа здесь
+
+        try {
+            const serverResponse = await fetch('http://localhost:4000/api/google-login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ idToken, accessToken }),
+            });
+
+            if (serverResponse.ok) {
+                const { token, user } = await serverResponse.json();
+                sessionStorage.setItem('token', token);
+                const updatedLoginState = {
+                    isAuthorized: true,
+                    user: {
+                        role: 'USER',
+                        id: user._id,
+                        email: user.email,
+                        name: user.name,
+                        lastName: user.lastName,
+                        gender: user.gender,
+                        birthday: user.birthday,
+                    },
+                }
+                dispatch(updateLogin(updatedLoginState));
+            } else {
+                console.error('Login failed:', await serverResponse.text());
+            }
+        } catch (error) {
+            console.error('Error during Google login:', error);
+        }
+    };
+
+
     return (
         <Form className='d-flex flex-column'>
             <h2>Please log in</h2>
@@ -49,6 +90,12 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
                 className='w-75 my-1 mx-auto'
                 onClick={loginAsGuest}
             >Enter as a Guest</Button>
+            <GoogleLogin
+                onSuccess={handleGoogleLoginSuccess}
+                onError={() => {
+                    console.log('Login Failed');
+                }}
+            />
         </Form>
     );
 }
