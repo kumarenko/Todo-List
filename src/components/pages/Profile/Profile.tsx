@@ -21,8 +21,6 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
     const [name, setName] = useState(userData.name);
     const [lastName, setLastName] = useState(userData.lastName);
     const [email, setEmail] = useState(userData.email);
-    const [gender, setGender] = useState(userData.gender);
-    const [birthday, setBirthday] = useState(userData.birthday);
     const [isEditing, setIsEditing] = useState(false);
     const [message, setMessage] = useState('');
     useEffect(() => {
@@ -41,12 +39,6 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
             }
             if (userData.email !== email) {
                 updatedData = {...updatedData, email};
-            }
-            if (userData.gender !== gender) {
-                updatedData = {...updatedData, gender};
-            }
-            if (userData.birthday !== birthday) {
-                updatedData = {...updatedData, birthday};
             }
             updateProfileInfo(userData.id, updatedData);
             setIsEditing(false);
@@ -74,12 +66,9 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
         setName(userData.name);
         setLastName(userData.lastName);
         setEmail(userData.email);
-        setGender(userData.gender);
-        setBirthday(userData.birthday);
         setIsEditing(false);
     }
 
-    const now = new Date().toISOString().split("T")[0];
     return (
         <div className='profile d-flex flex-column align-items-center'>
             <div className="d-flex justify-content-between h3 w-75 p-3">
@@ -106,32 +95,6 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
                             disabled value={email}
                             type="text"/> :
                             <div>{userData.email}</div>}
-                    </div>
-                    <div>
-                        <div>Gender</div>
-                        {isEditing ?
-                            <Form.Select
-                                aria-label="gender"
-                                onChange={e => setGender(e.target.value)}
-                                value={gender}>
-                                <option value="MALE">Male</option>
-                                <option value="FEMALE">Female</option>
-                            </Form.Select> :
-                            <div>{userData.gender}</div>
-                        }
-                    </div>
-                    <div>
-                        <div>Date of Birth</div>
-                        {isEditing ?
-                            <Form.Control
-                                onChange={e => {
-                                    setBirthday(e.target.value);
-                                }}
-                                type="date"
-                                max={now}
-                                value={birthday}
-                            /> : <div>{birthday}</div>
-                        }
                     </div>
                 </Container>:
                 <div className="w-75">

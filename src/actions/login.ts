@@ -41,8 +41,6 @@ export const signInAction = (user) => {
                     email: user.email,
                     name: user?.name || '',
                     lastName: user?.lastName || '',
-                    gender: user?.gender || '',
-                    birthday: user?.birthday || '',
                 },
             }
             sessionStorage.setItem('token', token);
@@ -80,9 +78,7 @@ export const checkUserSession:any = () => {
                         email: data.user.email,
                         name: data.user.name,
                         lastName: data.user.lastName,
-                        gender: data.user.gender,
                         shoppingLists: data.user.shoppingLists,
-                        birthday: data.user.birthday,
                     },
                 }
                 dispatch(updateLogin(updatedLoginState));

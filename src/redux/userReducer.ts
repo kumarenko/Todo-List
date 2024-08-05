@@ -4,7 +4,7 @@ const UPDATE_LOGIN = "UPDATE_LOGIN";
 const UPDATE_PROFILE = "UPDATE_PROFILE";
 const UPDATE_ERROR_MESSAGE = "UPDATE_ERROR_MESSAGE";
 const UPDATE_SUCCESS_MESSAGE = "UPDATE_SUCCESS_MESSAGE";
-const UPDATE_PASSWORD = "UPDATE_PASSWORD";
+
 export const defaultState:Login = {
     isAuthorized: false,
     user: {
@@ -13,8 +13,6 @@ export const defaultState:Login = {
         name: '',
         lastName: '',
         email: '',
-        gender: 'MALE',
-        birthday: new Date,
     },
     errorMessage: '',
     successMessage: ''
