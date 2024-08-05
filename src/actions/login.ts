@@ -78,7 +78,8 @@ export const checkUserSession:any = () => {
                         email: data.user.email,
                         name: data.user.name,
                         lastName: data.user.lastName,
-                        shoppingLists: data.user.shoppingLists,
+                        image: data.user.image,
+                        googleId: data.user.googleId,
                     },
                 }
                 dispatch(updateLogin(updatedLoginState));

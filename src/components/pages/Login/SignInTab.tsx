@@ -30,8 +30,8 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
                         email: user.email,
                         name: user.name,
                         lastName: user.lastName,
-                        gender: user.gender,
-                        birthday: user.birthday,
+                        image: user.image,
+                        googleId: user.googleId
                     },
                 }
                 dispatch(updateLogin(updatedLoginState));
@@ -42,7 +42,6 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
             console.error('Error during Google login:', error);
         }
     };
-
 
     return (
         <Form className='d-flex flex-column'>
@@ -96,6 +95,7 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
                     console.log('Login Failed');
                 }}
             />
+            <button onClick={() =>{}}>generate</button>
         </Form>
     );
 }

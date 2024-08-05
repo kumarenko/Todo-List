@@ -11,7 +11,8 @@ export interface User {
     name: string,
     lastName: string,
     email: string,
-
+    avatar: string | null,
+    googleId: string | null
 }
 export interface Login {
     isAuthorized: boolean,

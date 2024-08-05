@@ -13,6 +13,8 @@ export const defaultState:Login = {
         name: '',
         lastName: '',
         email: '',
+        avatar: null,
+        googleId: null,
     },
     errorMessage: '',
     successMessage: ''

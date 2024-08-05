@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {logoutAction, updateProfileInfo} from "../../../actions/login";
 import {connect, useDispatch, useSelector} from "react-redux";
-import {Button, Container, Form} from "react-bootstrap";
+import {Button, Container, Form, Image} from "react-bootstrap";
 import {User} from "../../../types/types";
 import {updateProfileErrorMessage, updateProfileSuccessMessage} from "../../../redux/userReducer";
 import CustomAlert from "../../../common/Alert";
@@ -61,6 +61,7 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
                 setMessage('');
             }, 2500)
         }
+        console.log('???', user.user.googleId);
     }, [user]);
     const resetProfileData = () => {
         setName(userData.name);
@@ -78,6 +79,9 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
             </div>
             {userData.role === 'USER' ?
                 <Container fluid="md" className='user-info d-flex w-75 flex-wrap mb-2'>
+                    {user.user.googleId ? <div>
+                        <Image src={user.user.image} roundedCircle/>
+                    </div> : null}
                     <div>
                         <div>Name</div>
                         {isEditing ? <Form.Control
@@ -101,7 +105,7 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
                     You are in guest mode now.
                 </div>
             }
-            <ChangePassword userId={userData.id}/>
+            {!user.user.googleId ? <ChangePassword userId={userData.id}/> : null}
             <div className='w-75 controls'>
                 <Button variant={buttonsVariant} onClick={() => {
                     handleProfileData();
