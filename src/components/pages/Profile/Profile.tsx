@@ -105,7 +105,7 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
                     You are in guest mode now.
                 </div>
             }
-            {!user.user.googleId ? <ChangePassword userId={userData.id}/> : null}
+            <ChangePassword userId={userData.id} googleId={user.user.googleId}/>
             <div className='w-75 controls'>
                 <Button variant={buttonsVariant} onClick={() => {
                     handleProfileData();

@@ -4,7 +4,7 @@ import {validateChangePassword} from "../../../helpers/validator";
 import {useDispatch} from "react-redux";
 import {updateProfileInfo} from "../../../actions/login";
 
-const ChangePassword = ({userId}) => {
+const ChangePassword = ({userId, googleId}) => {
 
     const dispatch = useDispatch();
     const [allowChange, setAllowChange] = useState(false);
@@ -14,12 +14,12 @@ const ChangePassword = ({userId}) => {
     const [validationErrors, setValidationErrors] = useState({});
 
     const changePasswordHandler = () => {
-        let errors = validateChangePassword(currentPassword, newPassword, confirmNewPassword);
+        let errors = validateChangePassword(currentPassword, newPassword, confirmNewPassword, googleId);
         console.log(errors,Object.keys(errors));
         if(Object.keys(errors).length) {
             setValidationErrors(errors);
         } else {
-            dispatch(updateProfileInfo(userId, {oldPassword: currentPassword, newPassword: newPassword}));
+            dispatch(updateProfileInfo(userId, {oldPassword: newPassword, newPassword: newPassword}));
         }
     }
     const resetErrors =() => {
@@ -28,32 +28,33 @@ const ChangePassword = ({userId}) => {
     return (
         <Container  fluid="md" className='user-info d-flex w-75 flex-wrap flex-column mb-2'>
             {allowChange ? <>
-                <div>
-                    <div>Your Current password</div>
-                    <Form.Control
-                        isInvalid={!!validationErrors.password}
-                        onChange={(e) => {
-                            resetErrors()
-                            setCurrentPassword(e.target.value)
-                        }} type="password" value={currentPassword}/>
-                    <Form.Control.Feedback type="invalid">
-                        {validationErrors.password}
-                    </Form.Control.Feedback>
-                </div>
-                <div>
-                    <div>Enter new password</div>
-                    <Form.Control
-                        isInvalid={!!validationErrors.newPassword}
-                        onChange={(e) => {
-                            resetErrors();
-                            setNewPassword(e.target.value)
-                        }} type="password" value={newPassword}/>
-                    <Form.Control.Feedback type="invalid">
-                        {validationErrors.newPassword}
-                    </Form.Control.Feedback>
-                </div>
-                <div>
-                    <div>Your Current password</div>
+                    {googleId}
+                    {!googleId ? <div>
+                        <div>{googleId ? 'Your Current password' : 'Your Current password'}</div>
+                        <Form.Control
+                            isInvalid={!!validationErrors.password}
+                            onChange={(e) => {
+                                resetErrors()
+                                setCurrentPassword(e.target.value)
+                            }} type="password" value={currentPassword}/>
+                        <Form.Control.Feedback type="invalid">
+                            {validationErrors.password}
+                        </Form.Control.Feedback>
+                    </div> : null}
+                    <div>
+                        <div>Enter new password</div>
+                        <Form.Control
+                            isInvalid={!!validationErrors.newPassword}
+                            onChange={(e) => {
+                                resetErrors();
+                                setNewPassword(e.target.value)
+                            }} type="password" value={newPassword}/>
+                        <Form.Control.Feedback type="invalid">
+                            {validationErrors.newPassword}
+                        </Form.Control.Feedback>
+                    </div>
+                    <div>
+                    <div>Confirm password</div>
                     <Form.Control
                         isInvalid={!!validationErrors.confirmPassword}
                         onChange={(e) => {

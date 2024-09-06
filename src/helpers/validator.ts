@@ -48,9 +48,9 @@ export const validateSignUpForm = ({ email, password, confirmPassword, name, las
     return errors;
 };
 
-export const validateChangePassword = (current, newPassword, confirmNewPassword) => {
+export const validateChangePassword = (current, newPassword, confirmNewPassword, googleId) => {
     let errors = {};
-    if(!current.length) {
+    if(!current.length && !googleId) {
         errors = {...errors, password: 'Password field is required'};
     }
     if(newPassword.length < 8) {
