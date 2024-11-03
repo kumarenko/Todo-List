@@ -44,17 +44,19 @@ const ListPage = ({ list, getShoppingList, updateProductsListRequest, updateList
     }, [listId, getShoppingList]);
 
     useEffect(() => {
-        setListName(list.name);
-        document.title = list.name;
-        if (list.products) {
-            let checked = [];
-            list.products.forEach(prod => {
-                prod.checked ?
-                    checked.push(prod) :
-                    checked.splice(checked.indexOf(prod), 0);
-            });
-            setCheckedProds(checked);
-            setUncheckedProds(list.products.filter(prod => !prod.checked));
+        if (Object.keys(list).length) {
+            setListName(list.name.value);
+            document.title = list.name.value;
+            if (list.products) {
+                let checked = [];
+                list.products.forEach(prod => {
+                    prod.checked ?
+                        checked.push(prod) :
+                        checked.splice(checked.indexOf(prod), 0);
+                });
+                setCheckedProds(checked);
+                setUncheckedProds(list.products.filter(prod => !prod.checked));
+            }
         }
     }, [list]);
 
@@ -94,12 +96,12 @@ const ListPage = ({ list, getShoppingList, updateProductsListRequest, updateList
     return (
         <div className='list-page'>
             <h3>
-                {list.name}
+                {list.name ? list.name.value : ''}
                 <InputGroup className='input-wrapper w-25 rounded-2'>
                     <Form.Control
                         value={listName}
                         className='name-input'
-                        onBlur={() => listName !== list.name && updateListRequest(list, listName)}
+                        onBlur={() => listName !== list.name.value && updateListRequest(list, listName)}
                         onChange={(e) => setListName(e.target.value)}
                         type="text" />
                     <IoMdCreate className='name-icon' />

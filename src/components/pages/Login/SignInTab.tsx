@@ -95,7 +95,6 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
                     console.log('Login Failed');
                 }}
             />
-            <button onClick={() =>{}}>generate</button>
         </Form>
     );
 }

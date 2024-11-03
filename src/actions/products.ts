@@ -9,7 +9,9 @@ export const getAllProducts = () => {
     }
 }
 export const addProductToList = (shoppingListId, product) => {
-    return async (dispatch) => {
+    return async (dispatch, state) => {
+        let currentList = state().items.list;
+
         const obj = {shoppingListId, product};
         const response = await fetch(
             `${SHOPPING_LISTS_ADD_PROD_URL}`,{
@@ -19,11 +21,12 @@ export const addProductToList = (shoppingListId, product) => {
                 },
                 body: JSON.stringify(obj)
             }).then(res=>res.json());
-        dispatch(setShoppingList(response))
+        dispatch(setShoppingList({...currentList, products: response}))
     }
 }
 export const deleteProductFromList = (shoppingListId, products) => {
-    return async (dispatch) => {
+    return async (dispatch, state) => {
+        let currentList = state().items.list;
         const obj = {shoppingListId, products: products};
         const response = await fetch(
             `${SHOPPING_LISTS_EDIT_PROD_URL}`,{
@@ -33,12 +36,13 @@ export const deleteProductFromList = (shoppingListId, products) => {
                 },
                 body: JSON.stringify(obj)
             }).then(res=>res.json());
-        dispatch(setShoppingList(response));
+        dispatch(setShoppingList({...currentList, products: response}))
     }
 }
 
 export const updateProductsListRequest = (shoppingListId, products) => {
-    return async (dispatch) => {
+    return async (dispatch, state) => {
+        let currentList = state().items.list;
         const objectToUpdate = {
             shoppingListId, products};
         const response = await fetch(
@@ -49,7 +53,7 @@ export const updateProductsListRequest = (shoppingListId, products) => {
                 },
                 body: JSON.stringify(objectToUpdate)
             }).then(res=>res.json());
-        dispatch(setShoppingList(response))
+        dispatch(setShoppingList({...currentList, products: response}))
     };
 };
 

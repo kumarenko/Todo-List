@@ -55,7 +55,9 @@ export const updateListRequest = (list, newValue) => {
 };
 
 export const inviteUsersRequest = (shoppingListId, userId, invitedUser, method) => {
-    return async (dispatch) => {
+    return async (dispatch, state) => {
+        const lists = state().items.lists;
+        const currentList = lists.find(list => list._id === shoppingListId);
         const objectToUpdate = {shoppingListId, invitedUser, userId};
         const response = await fetch(
             `${SHOPPING_LIST_SHARE_URL}`,{
@@ -65,12 +67,14 @@ export const inviteUsersRequest = (shoppingListId, userId, invitedUser, method) 
                 },
                 body: JSON.stringify(objectToUpdate)
             }).then(res=>res.json());
-        dispatch(updateList(response.updatedShoppingList))
+        dispatch(updateList({...currentList, userOwners: response.userOwners}))
     };
 };
 
 export const removeListRequest = (userId, shoppingListId) => {
-    return async (dispatch) => {
+    return async (dispatch, state) => {
+        const lists = state().items.lists;
+        const currentList = lists.find(list => list._id === shoppingListId);
         const obj = {userId, shoppingListId};
         const response = await fetch(
             `${SHOPPING_LIST_CREATE_URL}`,{
@@ -80,7 +84,7 @@ export const removeListRequest = (userId, shoppingListId) => {
                 },
                 body: JSON.stringify(obj)
             }).then(res=>res.json());
-        dispatch(setShoppingLists(response.shoppingLists))
+        dispatch(updateList({...currentList, userOwners: response.userOwners}))
     }
 };
 

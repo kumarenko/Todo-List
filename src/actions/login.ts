@@ -77,8 +77,7 @@ export const checkUserSession:any = () => {
                         id: data.user.userId,
                         email: data.user.email,
                         name: data.user.name,
-                        lastName: data.user.lastName,
-                        image: data.user.image,
+                        avatar: data.user.avatar,
                         googleId: data.user.googleId,
                     },
                 }

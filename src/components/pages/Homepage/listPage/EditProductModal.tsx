@@ -34,7 +34,7 @@ const EditProductModal = ({product, show, onHide, deleteProductFromList,updatePr
     }
     const applyUpdate = () => {
         const prod = {
-            productId: product._id,
+            _id: product._id,
             checked: product.checked,
             name, count, price,
             category,
@@ -45,7 +45,7 @@ const EditProductModal = ({product, show, onHide, deleteProductFromList,updatePr
     }
     const deleteProduct = () => {
         const prod = {
-            productId: product._id,
+            _id: product._id,
         }
         deleteProductFromList(listId, [prod]);
         onHide();

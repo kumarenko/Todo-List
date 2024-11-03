@@ -21,7 +21,7 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
             const selectedListToInvite = lists.find(list => list._id === owners.listId);
             const updatedOwnersList = {
                 ...owners,
-                owners: selectedListToInvite.userOwners,
+                userOwners: selectedListToInvite.userOwners,
             };
             setOwners(updatedOwnersList);
         }
@@ -49,7 +49,7 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
         setOwners({
             name, listId: _id,
             creator, products,
-            owners: userOwners,
+            userOwners,
         });
         setSharingModal(true);
     }
@@ -107,7 +107,7 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
                 {lists.map(list => <div className='list-item-link my-2 p-2' key={list._id}>
                     <Card className='p-2'>
                         <Link to={`/lists/${list._id}`}>
-                            {list.name} {list.products?.length ?
+                            {list.name.value} {list.products?.length ?
                                 <div className='d-flex justify-content-between'>
                                     <ProgressBar
                                         className='mt-1'

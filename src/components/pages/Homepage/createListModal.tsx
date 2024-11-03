@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 const CreateListModal = ({value = null, show, onHide, onApply}) => {
     const [data, setData] = useState("");
     function handleClick() {
-        onApply(data || value?.name);
+        onApply(data || value?.name.value);
         setData('');
     }
     const onCloseHandler = () => {
@@ -22,7 +22,7 @@ const CreateListModal = ({value = null, show, onHide, onApply}) => {
             <Form.Control
                 type="text"
                 id="name"
-                defaultValue={value?.name || ''}
+                defaultValue={value?.name.value || ''}
                 onChange={(e)=> setData(e.target.value)}
             />
             <Form.Check

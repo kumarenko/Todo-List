@@ -17,14 +17,14 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(()=> {
-        let ownersArray = list.owners.filter(item => item.status !== 'WAIT');
+        let ownersArray = list.userOwners.filter(item => item.status !== 'WAIT');
         ownersArray.sort((a, b) => {
             if (a._id === currentUser.id) return -1;
             if (b._id === currentUser.id) return 1;
             return 0;
         });
         setOwners(ownersArray);
-        setWaitingOwners(list.owners.filter(item => item.status === 'WAIT'));
+        setWaitingOwners(list.userOwners.filter(item => item.status === 'WAIT'));
     }, [list]);
 
     const invite = () => {
@@ -74,7 +74,7 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
 
     return ReactDOM.createPortal(<Modal show={show} onHide={onHide} className='share-modal'>
         <Modal.Header closeButton>
-            <Modal.Title>{list.name}</Modal.Title>
+            <Modal.Title>{list.name.value}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
             <Container className='d-flex justify-content-between align-items-start'>
