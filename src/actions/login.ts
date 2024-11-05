@@ -21,7 +21,9 @@ export const setUserData = (isAuthorized) => {
 };
 
 export const signInAction = (user) => {
-    return async (dispatch) => {
+    return async (dispatch, state) => {
+        const userState = state().user;
+        dispatch(updateLogin({...userState, loading: true}));
         const response = await fetch(LOGIN_URL, {
             method: 'POST',
             headers: {
@@ -35,7 +37,7 @@ export const signInAction = (user) => {
             const {token, user} = data;
             const updatedLoginState = {
                 isAuthorized: true,
-                // loading: false,
+                loading: false,
                 user: {
                     role: 'USER',
                     id: user._id || user.id || user.userId,
@@ -51,6 +53,8 @@ export const signInAction = (user) => {
 
         } else {
             alert('Login failed!');
+            dispatch(updateLogin({...userState, loading: false}));
+
         }
     };
 };
@@ -100,7 +104,10 @@ export const logoutAction = () => {
 };
 
 export const signUpAction = (email, name,lastName, password) => {
-    return async (dispatch) => {
+    return async (dispatch, state) => {
+        const userState = state().user;
+
+        dispatch(updateLogin({...userState, loading: true}));
 
         const response = await fetch(REGISTER_URL, {
             method: 'POST',
@@ -111,9 +118,9 @@ export const signUpAction = (email, name,lastName, password) => {
         });
         const data = await response.json();
         if (response.status === 201) {
-            dispatch(updateLogin({...defaultState, successMessage: data}))
+            dispatch(updateLogin({...defaultState, successMessage: data, loading: false}))
         } else {
-            dispatch(updateLogin({...defaultState, errorMessage: data.message}))
+            dispatch(updateLogin({...defaultState, errorMessage: data.message, loading: false}))
         }
     }
 };

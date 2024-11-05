@@ -2,15 +2,16 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import { Button } from "react-bootstrap";
 import { GoogleLogin } from '@react-oauth/google';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {updateLogin} from "../../../redux/userReducer";
 
 const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, loginAsGuest, buttonsVariant, errors, resetErrors }) => {
     const dispatch = useDispatch();
-
+    const userState = useSelector(state => state.user);
     const handleGoogleLoginSuccess = async (response) => {
         const idToken = response.credential;
         const accessToken = response.access_token; // Получите токен доступа здесь
+        dispatch(updateLogin({...userState, loading: true}));
 
         try {
             const serverResponse = await fetch('http://localhost:4000/api/google-login', {
@@ -24,6 +25,7 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
                 sessionStorage.setItem('token', token);
                 const updatedLoginState = {
                     isAuthorized: true,
+                    loading: false,
                     user: {
                         role: 'USER',
                         id: user._id,
@@ -37,6 +39,7 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
                 dispatch(updateLogin(updatedLoginState));
             } else {
                 console.error('Login failed:', await serverResponse.text());
+                dispatch(updateLogin({...userState, loading: true}));
             }
         } catch (error) {
             console.error('Error during Google login:', error);

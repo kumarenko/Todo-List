@@ -29,7 +29,6 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
 
     function handleProfileData() {
         if(isEditing) {
-            console.log(user);
             let updatedData = {};
             if (userData.name !== name) {
                 updatedData = {...updatedData, name};
@@ -86,11 +85,6 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
                         <div>Name</div>
                         {isEditing ? <Form.Control
                             onChange={e => setName(e.target.value)} type="text" value={name}/> : <div>{userData.name}</div>}
-                    </div>
-                    <div>
-                        <div>Last Name</div>
-                        {isEditing ? <Form.Control
-                            onChange={e => setLastName(e.target.value)} type="text" value={lastName}/> : <div>{userData.lastName}</div>}
                     </div>
                     <div>
                         <div>Email</div>

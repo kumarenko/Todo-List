@@ -2,7 +2,7 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import { Button } from "react-bootstrap";
 
-const SignUpTab = ({ email, setEmail, name, setName, lastName, setLastName, password, setPassword, confirmPassword, setConfirmPassword, signUpHandler, buttonsVariant, errors, resetErrors }) => {
+const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, confirmPassword, setConfirmPassword, signUpHandler, buttonsVariant, errors, resetErrors }) => {
     return (
         <Form className='d-flex flex-column'>
             <h2>Please sign up</h2>
@@ -36,22 +36,6 @@ const SignUpTab = ({ email, setEmail, name, setName, lastName, setLastName, pass
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors?.name}
-                </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group className="mb-2">
-                <Form.Label>Last Name</Form.Label>
-                <Form.Control
-                    type="text"
-                    value={lastName}
-                    isInvalid={!!errors?.lastName}
-                    onChange={event => {
-                        resetErrors();
-                        setLastName(event.target.value)
-                    }}
-                    placeholder="Doe"
-                />
-                <Form.Control.Feedback type="invalid">
-                    {errors?.lastName}
                 </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-2" controlId="passSignUp">

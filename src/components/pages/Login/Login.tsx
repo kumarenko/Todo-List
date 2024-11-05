@@ -7,6 +7,7 @@ import SignInTab from './SignInTab';
 import SignUpTab from './SignUpTab';
 import {validateSignInForm, validateSignUpForm} from "../../../helpers/validator";
 import {updateLogin} from "../../../redux/userReducer";
+import Spinner from "../../../common/spinner";
 
 const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => {
     const dispatch = useDispatch();
@@ -15,7 +16,6 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
     const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
-    const [lastName, setLastName] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -45,9 +45,9 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
     }, [user, navigate]);
 
     const signUpHandler = () => {
-        setErrors(validateSignUpForm({ email, password, confirmPassword, name, lastName }));
-        if (!Object.keys(validateSignUpForm({ email, password, confirmPassword, name, lastName })).length) {
-            signUpAction(email,name, lastName, password);
+        setErrors(validateSignUpForm({ email, password, confirmPassword, name }));
+        if (!Object.keys(validateSignUpForm({ email, password, confirmPassword, name })).length) {
+            signUpAction(email,name, password);
         }
     }
 
@@ -71,6 +71,7 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
         return (
                 <div className='login container-sm my-auto h-100 d-flex align-items-start justify-content-center'>
                 <div className="login-content d-flex flex-column align-items-center justify-content-center">
+                    {user.loading ? <Spinner/> : null}
                     <Tabs
                         id="controlled-tab-example"
                         activeKey={key}
@@ -95,7 +96,6 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
                             {key === 'register' && <SignUpTab
                                 email={email} setEmail={setEmail}
                                 name={name} setName={setName}
-                                lastName={lastName} setLastName={setLastName}
                                 password={password} setPassword={setPassword}
                                 confirmPassword={confirmPassword} setConfirmPassword={setConfirmPassword}
                                 signUpHandler={signUpHandler}

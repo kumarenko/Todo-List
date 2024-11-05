@@ -25,7 +25,7 @@ export const validateEmail = (email: string) => {
     }
     return errorMessage
 }
-export const validateSignUpForm = ({ email, password, confirmPassword, name, lastName }) => {
+export const validateSignUpForm = ({ email, password, confirmPassword, name }) => {
     let errors = {};
     if(!email.length) {
         errors = {...errors, email: 'Email field is required'};
@@ -40,8 +40,6 @@ export const validateSignUpForm = ({ email, password, confirmPassword, name, las
         errors = {...errors, password: 'Password is too short'};
     } if(!name.length) {
         errors = {...errors, name: 'Name is required'};
-    } if(!lastName.length) {
-        errors = {...errors, lastName: 'Last name is required'};
     } if(password !== confirmPassword) {
         errors = {...errors, confirmPassword: 'Passwords do not match'};
     }
