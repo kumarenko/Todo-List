@@ -1,4 +1,27 @@
 .list-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+.flip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+  .progress-count {
+    width: 15%;
+  }
+  .progress-line {
+    width: 90%;
+  }
+  .list {
+    overflow-y: auto;
+    flex: 1;
+  }
+  .prices {
+    display: flex;
+    justify-content: space-around;
+  }
   .name-input {
     background: transparent;
     color: white;
@@ -27,5 +50,32 @@
         opacity: 1;
       }
     }
+  }
+  .avatar-container {
+    width: 64px;
+    height: 64px;
+    outline: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #acacac;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+    }
+  }
+  .category-name {
+    height: 18px;
+    text-align: center;
+    font-size: 10px;
+  }
+  .x {
+    font-size: 10px;
   }
 }

@@ -1,11 +1,9 @@
-import {BARCODE_URL, PRODUCTS_URL, SHOPPING_LISTS_ADD_PROD_URL, SHOPPING_LISTS_EDIT_PROD_URL} from "../configs/urls";
+import {BARCODE_URL, SHOPPING_LISTS_ADD_PROD_URL, SHOPPING_LISTS_EDIT_PROD_URL} from "../configs/urls";
 import {setAllProducts, setBarcodeData, setShoppingList} from "../redux/shoppingListsReducer";
-import axios from "axios";
-
+import products from './../configs/products.json';
 export const getAllProducts = () => {
-    return async (dispatch) => {
-        const response = await axios.get(PRODUCTS_URL);
-        dispatch(setAllProducts(response.data.products));
+    return (dispatch) => {
+        dispatch(setAllProducts(products));
     }
 }
 export const addProductToList = (shoppingListId, product) => {
@@ -45,15 +43,20 @@ export const updateProductsListRequest = (shoppingListId, products) => {
         let currentList = state().items.list;
         const objectToUpdate = {
             shoppingListId, products};
-        const response = await fetch(
-            `${SHOPPING_LISTS_EDIT_PROD_URL}`,{
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(objectToUpdate)
-            }).then(res=>res.json());
-        dispatch(setShoppingList({...currentList, products: response}))
+        const response = await fetch(`${SHOPPING_LISTS_EDIT_PROD_URL}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(objectToUpdate),
+        });
+
+        if (!response.ok) {
+            dispatch(setShoppingList(currentList));
+        } else {
+            const data = await response.json();
+            dispatch(setShoppingList({ ...currentList, products: data }));
+        }
     };
 };
 

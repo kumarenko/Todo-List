@@ -16,6 +16,7 @@ import './categorieSpritePositions.less';
 import './styles.less';
 import {MdFilterListAlt} from "react-icons/md";
 import {ProductCategories} from "../../../../types/types";
+import {getCurrencySymbol} from "../../../../helpers/helper";
 
 const ListPage = ({ list, getShoppingList, updateProductsListRequest, updateListRequest }) => {
     const { listId } = useParams();
@@ -36,6 +37,7 @@ const ListPage = ({ list, getShoppingList, updateProductsListRequest, updateList
     const handleCloseEdit = () => setEditShowModal(false);
     const handleCloseFilter = () => setFilterShowModal(false);
     const theme = useSelector(state => state.settings.theme);
+    const country = useSelector(state => state.user.user.country);
 
     const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
 
@@ -115,66 +117,103 @@ const ListPage = ({ list, getShoppingList, updateProductsListRequest, updateList
                         type="text" />
                     <IoMdSearch className='name-icon' />
                 </InputGroup>
+                <Button variant={buttonsVariant} onClick={() => setAddShowModal(true)}>Add Product</Button>
                 <Button onClick={() => setFilterShowModal(true)}>
                     Filter <MdFilterListAlt />
                 </Button>
                 {list.products?.length ?
-                    <div>
+                    <div className='w-100 d-flex flex-nowrap align-items-center px-2 mx-auto'>
                         <ProgressBar
-                            className='mt-1'
+                            className='mt-1 w-100 progress-line'
                             now={list.products.filter(item => item.checked).length}
                             max={list.products.length}
                         />
-                        <div>
-                            {list.products.filter(item => item.checked).length} / {list.products.length}
-                        </div>
                     </div>
                     : null}
+                <div className='prices w-75 mx-auto'>
+                    <div>
+                        <span>Purchased Total: </span>
+                        <span>{list.products?.length && list.products.reduce(
+                            (accumulator, prod) => prod.checked ? accumulator + parseFloat(prod.price) : accumulator, 0
+                        )} {getCurrencySymbol(country)}
+                        </span>
+                    </div>
+                    <div>
+                        <span>Remaining Total: </span>
+                        <span>{list.products?.length && list.products.reduce(
+                            (accumulator, prod) => !prod.checked ? accumulator + parseFloat(prod.price ?? 0) : accumulator, 0
+                        )} {getCurrencySymbol(country)}
+                        </span>
+                    </div>
+                    <div>
+                        <span>Total: </span>
+                        <span>{list.products?.length && list.products.reduce(
+                            (accumulator, prod) => accumulator + parseFloat(prod.price ?? 0), 0
+                        )} {getCurrencySymbol(country)}
+                        </span>
+                    </div>
+                </div>
             </h3>
             <div className='list'>
-                {checkedProds.length ? <FlipMove>
-                    {checkedProds.map(prod => <div className='d-flex align-items-center' key={prod._id}>
-                        <Form.Check
-                            type={'checkbox'}
-                            checked={prod.checked}
-                            onChange={() => checkProduct(prod)}
-                            id={prod._id}
-                        />
-                        <Button
-                            variant={buttonsVariant}
-                            className='my-1'
-                            onClick={() => selectProduct(prod)}>
-                            {prod.name} <span style={{filter: 'brightness(0.5)'}}>{prod.count}</span>
-                        </Button>
-                        {prod.price ? <span> {prod.price} $</span> : null}
-                        {prod.category ? <span> {prod.category}</span> : null}
-                        {prod.category ? <div className={`sprite sprite-${prod.category.toLowerCase()}`} />
-                            : null}
+                {uncheckedProds.length ? <FlipMove className='flip'>
+                    {uncheckedProds.map(prod => <div className='d-flex w-75 justify-content-between mb-2' key={prod._id}>
+                        <div className='d-flex w-100 align-items-center ml-2'>
+                            <Form.Check
+                                type={'checkbox'}
+                                className='mx-3'
+                                checked={prod.checked}
+                                onChange={() => checkProduct(prod)}
+                                id={prod._id}
+                            />
+                            <Button
+                                variant={buttonsVariant}
+                                className='my-1 mx-2 w-100'
+                                onClick={() => selectProduct(prod)}>
+                                {prod.name}
+                                <div>
+                                    <span>{prod.price} {getCurrencySymbol(country)} <span className='x'>✕</span> </span>
+                                    <span style={{filter: 'brightness(1)'}}>{prod.count} pc(s)</span>
+                                </div>
+                            </Button>
+                            {prod.avatar ? <Button className='avatar-container' variant={buttonsVariant}>
+                                <img src={prod.avatar} alt={prod.category.toLowerCase()}/>
+                            </Button> : <div className='avatar-container'>
+                                <div className={`sprite sprite-${prod.category.toLowerCase()}`} />
+                            </div>}
+                        </div>
                     </div>)}
                 </FlipMove> : <span>There are no one product</span>}
-                {uncheckedProds.length ? <FlipMove>
-                    {uncheckedProds.map(prod => <div className='d-flex align-items-center' key={prod._id}>
-                        <Form.Check
-                            type={'checkbox'}
-                            checked={prod.checked}
-                            onChange={() => checkProduct(prod)}
-                            id={prod._id}
-                        />
-                        <Button
-                            variant={buttonsVariant}
-                            className='my-1'
-                            onClick={() => selectProduct(prod)}>
-                            {prod.name} <span style={{filter: 'brightness(0.5)'}}>{prod.count}</span>
-                        </Button>
-                        {prod.price ? <span> {prod.price} $</span> : null}
-                        {prod.category ? <span> {prod.category}</span> : null}
-                        {prod.category ? <div className={`sprite sprite-${prod.category.toLowerCase()}`} />
-                            : null}
+
+                {checkedProds.length ? <FlipMove className='flip'>
+                    {checkedProds.map(prod => <div className='d-flex w-75 justify-content-between mb-2' key={prod._id}>
+                        <div className='d-flex w-100 align-items-center ml-2'>
+                            <Form.Check
+                                type={'checkbox'}
+                                className='mx-3'
+                                checked={prod.checked}
+                                onChange={() => checkProduct(prod)}
+                                id={prod._id}
+                            />
+                            <Button
+                                variant={buttonsVariant}
+                                className='my-1 mx-2 w-100'
+                                onClick={() => selectProduct(prod)}>
+                                {prod.name}
+                                <div>
+                                    <span>{prod.price} {getCurrencySymbol(country)} <span className='x'>✕</span> </span>
+                                    <span style={{filter: 'brightness(1)'}}>{prod.count} pc(s)</span>
+                                </div>
+                            </Button>
+                            {prod.avatar ? <Button className='avatar-container' variant={buttonsVariant}>
+                                <img src={prod.avatar} alt={prod.category.toLowerCase()}/>
+                            </Button> : <div className='avatar-container'>
+                                <div className={`sprite sprite-${prod.category.toLowerCase()}`} />
+                            </div>}
+                        </div>
                     </div>)}
                 </FlipMove> : <span>There are no one product</span>}
             </div>
 
-            <Button variant={buttonsVariant} onClick={() => setAddShowModal(true)}>Add Product</Button>
             <AddProductModal
                 show={showAddModal}
                 onHide={handleClose}

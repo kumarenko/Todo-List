@@ -6,6 +6,7 @@ import {
     updateProfileSuccessMessage
 } from "../redux/userReducer";
 import {LOGIN_URL, PROTECTED_ROUTE_URL, REGISTER_URL, USERS_URL} from "../configs/urls";
+import {updateCurrency, updateUnits} from "../redux/settingsReducer";
 
 export const setUserData = (isAuthorized) => {
     const updatedLoginState = {
@@ -43,6 +44,8 @@ export const signInAction = (user) => {
                     lastName: user?.lastName || '',
                 },
             }
+            updateCurrency(user.currency);
+            updateUnits(user.metricUnits);
             sessionStorage.setItem('token', token);
             dispatch(updateLogin(updatedLoginState));
 
@@ -74,14 +77,16 @@ export const checkUserSession:any = () => {
                     isAuthorized: true,
                     user: {
                         role: 'USER',
-                        id: data.user.userId,
+                        id: data.user.id,
                         email: data.user.email,
                         name: data.user.name,
                         avatar: data.user.avatar,
                         googleId: data.user.googleId,
+                        country: data.user.country,
                     },
                 }
                 dispatch(updateLogin(updatedLoginState));
+                dispatch(updateUnits(data.user.metricUnits));
             })
             .catch(error => console.error('There was a problem with your fetch operation:', error));
     }
@@ -127,6 +132,8 @@ export const updateProfileInfo: any = (userId, data) => {
             const userData = await response.json();
             const data = userData.user;
             sessionStorage.setItem('token', userData.token); // Получаем токен из хранилища
+            dispatch(updateUnits(data.metricUnits));
+
             dispatch(updateProfileData(data));
             dispatch(updateProfileSuccessMessage(userData.message));
         } else {

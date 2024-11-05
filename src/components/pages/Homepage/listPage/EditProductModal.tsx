@@ -4,42 +4,45 @@ import {Button, Modal, Form, InputGroup, Col} from "react-bootstrap";
 import {updateProductsListRequest} from "../../../../actions/products";
 import {deleteProductFromList} from "../../../../actions/products";
 import {connect, useSelector} from "react-redux";
-import {MdAttachMoney, MdShoppingCart} from "react-icons/md";
+import {MdShoppingCart} from "react-icons/md";
 import {FaPlusMinus} from "react-icons/fa6";
 import {useParams} from "react-router-dom";
-import {preventCharacters} from "../../../../helpers/helper";
+import {getCurrencySymbol, preventCharacters} from "../../../../helpers/helper";
 import { ProductCategories , ProductCategory} from "../../../../types/types";
 
 const EditProductModal = ({product, show, onHide, deleteProductFromList,updateProductsListRequest}) => {
     const { listId } = useParams();
     const [name, setName] = useState('');
-    const [count, setCount] = useState(1);
-    const [price, setPrice] = useState(0);
+    const [count, setCount] = useState('1');
+    const [price, setPrice] = useState('0');
     const [category, setCategory] = useState<ProductCategory | string>('');
     const theme = useSelector(state => state.settings.theme);
     const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
+    const country = useSelector(state => state.user.user.country);
+
     useEffect(() => {
-        setName(product?.name ?? '');
-        setCount(product?.count ? parseInt(product.count) : 1);
-        setPrice(product?.price ? parseInt(product.price) : 0);
-        setCategory(product?.category ?? '' as ProductCategory);
+        if (Object.keys(product).length) {
+            setName(product?.name ?? '');
+            setCount(product?.count ? product.count : '1');
+            setPrice(product?.price ? product.price : '0');
+            setCategory(product?.category ?? '' as ProductCategory);
+        }
     }, [product]);
 
     const hasChanges = () => {
-        console.log(product.name,name,product.count, count,product.price, price,product.category,category)
         return product.name !== name ||
             parseInt(product.count) !== count ||
-            parseInt(product.price) !== price ||
+            product.price.toString() !== price ||
             product.category !== category;
     }
     const applyUpdate = () => {
         const prod = {
             _id: product._id,
             checked: product.checked,
-            name, count, price,
+            name, count, price: parseFloat(price || '0'),
             category,
         }
-        if(hasChanges()) {
+        if(hasChanges() && price && name && count) {
              updateProductsListRequest(listId, [prod]);
         }
     }
@@ -51,7 +54,18 @@ const EditProductModal = ({product, show, onHide, deleteProductFromList,updatePr
         onHide();
     }
 
-    return ReactDOM.createPortal(<Modal show={show} onHide={onHide} className='w-100'>
+    return ReactDOM.createPortal(<Modal show={show} onHide={() => {
+        onHide();
+        if (price === '') {
+            setPrice(product.price);
+        }
+        if (count === '') {
+            setCount(product.count);
+        }
+        if (name === '') {
+            setCount(product.name);
+        }
+    }} className='w-100'>
         <Modal.Header closeButton>
             <Modal.Title>Product Editing</Modal.Title>
         </Modal.Header>
@@ -80,7 +94,9 @@ const EditProductModal = ({product, show, onHide, deleteProductFromList,updatePr
                         onBlur={() => applyUpdate()}
                         min={1}
                         onKeyPress={event => preventCharacters(event)}
-                        onChange={(event) => setCount(parseInt(event.target.value))}
+                        onChange={(e) => {
+                            setCount(e.target.value)
+                        }}
                         value={count}
                     />
                     <InputGroup.Text>
@@ -93,13 +109,16 @@ const EditProductModal = ({product, show, onHide, deleteProductFromList,updatePr
                     </Form.Label>
                     <Form.Control
                         type="number"
+                        inputMode="decimal"
                         onBlur={() => applyUpdate()}
                         onKeyPress={event => preventCharacters(event)}
-                        onChange={(e) => setPrice(parseInt(e.target.value))}
+                        onChange={(e) => {
+                            setPrice(e.target.value)
+                        }}
                         value={price}
                     />
                     <InputGroup.Text>
-                        <MdAttachMoney />
+                        <span>{getCurrencySymbol(country)}</span>
                     </InputGroup.Text>
                 </InputGroup>
                 <InputGroup className='my-2'>

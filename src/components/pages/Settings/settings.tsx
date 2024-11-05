@@ -2,15 +2,18 @@ import React, {useEffect} from 'react';
 import {connect} from "react-redux";
 import {changeTheme} from "../../../actions/settings";
 import Form from "react-bootstrap/Form";
-import {findProductByBarcode} from "../../../actions/products";
+import {updateProfileInfo} from "../../../actions/login";
 
-const Settings = ({theme, changeTheme, title}) => {
+const Settings = ({theme, changeTheme, title, user, isMetricUnits,updateProfileInfo}) => {
     useEffect(() => {
-        document.title = title
+        document.title = title;
     }, []);
     const toggle = () => {
         const newTheme = theme === 'light' ? 'dark': 'light';
         changeTheme(newTheme);
+    }
+    const toggleUnits = (event) => {
+        updateProfileInfo(user.id, {metricUnits: event.target.value === 'metric'});
     }
     return (
         <div className='homepage d-flex flex-column align-items-center'>
@@ -26,8 +29,8 @@ const Settings = ({theme, changeTheme, title}) => {
                     label="Dark Mode"
                 />
                 <div>
-                    <span className='m-1'>Select Units</span>
-                    <Form.Select aria-label="Units" defaultValue={'metrics'} className='w-25'>
+                    <span className='m-1'>Select Units {isMetricUnits.toString()}</span>
+                    <Form.Select aria-label="Units" value={isMetricUnits ? 'metric' : 'imperial'} onChange={toggleUnits} className='w-25'>
                         <option value="metric">Metric</option>
                         <option value="imperial">Imperial</option>
                     </Form.Select>
@@ -47,12 +50,13 @@ const Settings = ({theme, changeTheme, title}) => {
 
 const mapStateToProps = (state) => ({
     theme: state.settings.theme,
-    productFromBarcode: state.items.productFromBarcode
+    isMetricUnits: state.settings.isMetric,
+    user: state.user.user,
 })
 
 const mapDispatchToProps = {
     changeTheme,
-    findProductByBarcode,
+    updateProfileInfo,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

@@ -1,0 +1,2589 @@
+[
+  {
+    "_id": "666cc4c06342aab4bf94e81d",
+    "name": "Water",
+    "category": "MEAT",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "666cc4c06342aab4bf94e81f",
+    "name": "Bread",
+    "category": "BAKERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "666cc4c06342aab4bf94e820",
+    "name": "Salt",
+    "category": "SPICES",
+    "units": [
+      "oz",
+      "mg",
+      "g"
+    ]
+  },
+  {
+    "_id": "666cc4c06342aab4bf94e821",
+    "name": "Beer",
+    "category": "ALCOHOL",
+    "units": [
+      "ml",
+      "l",
+      "pt"
+    ]
+  },
+  {
+    "_id": "666cc4c06342aab4bf94e822",
+    "name": "Cookies",
+    "category": "BAKERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "666cc4c06342aab4bf94e823",
+    "name": "Tomatoes",
+    "category": "VEGETABLES",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "666cc4c06342aab4bf94e824",
+    "name": "Cucumbers",
+    "category": "VEGETABLES",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "666cc4c06342aab4bf94e826",
+    "name": "Milk",
+    "category": "MILKS",
+    "units": [
+      "ml",
+      "l",
+      "pt",
+      "gal"
+    ]
+  },
+  {
+    "_id": "666cc4c06342aab4bf94e827",
+    "name": "Eggs",
+    "category": "OTHER",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "666cc4c06342aab4bf94e828",
+    "name": "Soap",
+    "category": "CHEMISTRY",
+    "units": [
+      "ml",
+      "l",
+      "g",
+      "kg"
+    ]
+  },
+  {
+    "_id": "666cc4c06342aab4bf94e829",
+    "name": "Pizza",
+    "category": "MEAT",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "666cc4c06342aab4bf94e82a",
+    "name": "Salad",
+    "category": "VEGETABLES",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "666cc4c06342aab4bf94e82b",
+    "name": "Sweets",
+    "category": "SWEETS",
+    "units": [
+      "pc(s)",
+      "g",
+      "kg"
+    ]
+  },
+  {
+    "_id": "666cc4c06342aab4bf94e82c",
+    "name": "Sauce",
+    "category": "OTHER",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "666cc4c06342aab4bf94e82d",
+    "name": "Butter",
+    "category": "MILKS",
+    "units": [
+      "ml",
+      "l",
+      "pt",
+      "gal"
+    ]
+  },
+  {
+    "_id": "669ea506fc178de609ba472a",
+    "name": "Waffers",
+    "category": "SWEETS",
+    "units": [
+      "pc(s)",
+      "g",
+      "kg"
+    ]
+  },
+  {
+    "_id": "669ea507fc178de609ba472c",
+    "name": "Waffers",
+    "category": "SWEETS",
+    "units": [
+      "pc(s)",
+      "g",
+      "kg"
+    ]
+  },
+  {
+    "_id": "669edb5efc178de609ba4737",
+    "name": "Sweets",
+    "category": "OTHER",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "669edb61fc178de609ba4738",
+    "name": "Pizza",
+    "category": "OTHER",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66a0009efc178de609ba473c",
+    "name": "Bread",
+    "category": "OTHER",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66a0045dff661268edcf1ff7",
+    "name": "Cucumbers",
+    "category": "OTHER",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66a0092c685b95b75bbc382b",
+    "name": "Meat",
+    "category": "OTHER",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66a009a7685b95b75bbc382c",
+    "name": "Cookies",
+    "category": "OTHER",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66a00aa64349b994425bf024",
+    "name": "Tomatoes",
+    "category": "OTHER",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66a00be94349b994425bf025",
+    "name": "Soap",
+    "category": "MEAT",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66a00c054349b994425bf026",
+    "name": "Eggs",
+    "category": "OTHER",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1656526e8eca8f90b970",
+    "name": "Beef",
+    "category": "MEAT",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1656526e8eca8f90b971",
+    "name": "Chicken",
+    "category": "MEAT",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1656526e8eca8f90b972",
+    "name": "Pork",
+    "category": "MEAT",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1656526e8eca8f90b973",
+    "name": "Lamb",
+    "category": "MEAT",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1656526e8eca8f90b974",
+    "name": "Turkey",
+    "category": "MEAT",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1656526e8eca8f90b975",
+    "name": "Duck",
+    "category": "MEAT",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1656526e8eca8f90b976",
+    "name": "Veal",
+    "category": "MEAT",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1656526e8eca8f90b977",
+    "name": "Bacon",
+    "category": "MEAT",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1656526e8eca8f90b978",
+    "name": "Ham",
+    "category": "MEAT",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1656526e8eca8f90b979",
+    "name": "Sausage",
+    "category": "MEAT",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1656526e8eca8f90b97a",
+    "name": "Salami",
+    "category": "MEAT",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1656526e8eca8f90b97b",
+    "name": "Pepperoni",
+    "category": "MEAT",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1656526e8eca8f90b97c",
+    "name": "Bologna",
+    "category": "MEAT",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1656526e8eca8f90b97d",
+    "name": "Mortadella",
+    "category": "MEAT",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1656526e8eca8f90b97e",
+    "name": "Prosciutto",
+    "category": "MEAT",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b980",
+    "name": "Milk",
+    "category": "MILKS",
+    "units": [
+      "ml",
+      "l",
+      "pt",
+      "gal"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b981",
+    "name": "Cheese",
+    "category": "MILKS",
+    "units": [
+      "ml",
+      "l",
+      "pt",
+      "gal"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b982",
+    "name": "Yogurt",
+    "category": "MILKS",
+    "units": [
+      "ml",
+      "l",
+      "pt",
+      "gal"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b983",
+    "name": "Butter",
+    "category": "MILKS",
+    "units": [
+      "ml",
+      "l",
+      "pt",
+      "gal"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b984",
+    "name": "Cream",
+    "category": "MILKS",
+    "units": [
+      "ml",
+      "l",
+      "pt",
+      "gal"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b985",
+    "name": "Eggs",
+    "category": "MILKS",
+    "units": [
+      "ml",
+      "l",
+      "pt",
+      "gal"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b986",
+    "name": "Cottage Cheese",
+    "category": "MILKS",
+    "units": [
+      "ml",
+      "l",
+      "pt",
+      "gal"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b987",
+    "name": "Sour Cream",
+    "category": "MILKS",
+    "units": [
+      "ml",
+      "l",
+      "pt",
+      "gal"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b988",
+    "name": "Apple",
+    "category": "FRUITS",
+    "units": [
+      "pc(s)",
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b989",
+    "name": "Banana",
+    "category": "FRUITS",
+    "units": [
+      "pc(s)",
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b98a",
+    "name": "Orange",
+    "category": "FRUITS",
+    "units": [
+      "pc(s)",
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b98b",
+    "name": "Grapes",
+    "category": "FRUITS",
+    "units": [
+      "pc(s)",
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b98c",
+    "name": "Strawberry",
+    "category": "FRUITS",
+    "units": [
+      "pc(s)",
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b98d",
+    "name": "Blueberry",
+    "category": "FRUITS",
+    "units": [
+      "pc(s)",
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b98e",
+    "name": "Pineapple",
+    "category": "FRUITS",
+    "units": [
+      "pc(s)",
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b98f",
+    "name": "Watermelon",
+    "category": "FRUITS",
+    "units": [
+      "pc(s)",
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b990",
+    "name": "Peach",
+    "category": "FRUITS",
+    "units": [
+      "pc(s)",
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b991",
+    "name": "Mango",
+    "category": "FRUITS",
+    "units": [
+      "pc(s)",
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b992",
+    "name": "Carrot",
+    "category": "VEGETABLES",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b993",
+    "name": "Broccoli",
+    "category": "VEGETABLES",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b994",
+    "name": "Spinach",
+    "category": "VEGETABLES",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b995",
+    "name": "Potato",
+    "category": "VEGETABLES",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b996",
+    "name": "Tomato",
+    "category": "VEGETABLES",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b997",
+    "name": "Cucumber",
+    "category": "VEGETABLES",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b998",
+    "name": "Bell Pepper",
+    "category": "VEGETABLES",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b999",
+    "name": "Onion",
+    "category": "VEGETABLES",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b99a",
+    "name": "Garlic",
+    "category": "VEGETABLES",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b99b",
+    "name": "Lettuce",
+    "category": "VEGETABLES",
+    "units": [
+      "g",
+      "kg",
+      "lb"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b99c",
+    "name": "Water",
+    "category": "DRINKS",
+    "units": [
+      "ml",
+      "l",
+      "oz",
+      "pt"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b99d",
+    "name": "Juice",
+    "category": "DRINKS",
+    "units": [
+      "ml",
+      "l",
+      "oz",
+      "pt"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b99e",
+    "name": "Soda",
+    "category": "DRINKS",
+    "units": [
+      "ml",
+      "l",
+      "oz",
+      "pt"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b99f",
+    "name": "Tea",
+    "category": "DRINKS",
+    "units": [
+      "ml",
+      "l",
+      "oz",
+      "pt"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9a0",
+    "name": "Coffee",
+    "category": "DRINKS",
+    "units": [
+      "ml",
+      "l",
+      "oz",
+      "pt"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9a1",
+    "name": "Milkshake",
+    "category": "DRINKS",
+    "units": [
+      "ml",
+      "l",
+      "oz",
+      "pt"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9a2",
+    "name": "Lemonade",
+    "category": "DRINKS",
+    "units": [
+      "ml",
+      "l",
+      "oz",
+      "pt"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9a3",
+    "name": "Energy Drink",
+    "category": "DRINKS",
+    "units": [
+      "ml",
+      "l",
+      "oz",
+      "pt"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9a4",
+    "name": "Toothpaste",
+    "category": "HYGIENE",
+    "units": [
+      "ml",
+      "l",
+      "g",
+      "kg"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9a5",
+    "name": "Shampoo",
+    "category": "HYGIENE",
+    "units": [
+      "ml",
+      "l",
+      "g",
+      "kg"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9a6",
+    "name": "Soap",
+    "category": "HYGIENE",
+    "units": [
+      "ml",
+      "l",
+      "g",
+      "kg"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9a7",
+    "name": "Deodorant",
+    "category": "HYGIENE",
+    "units": [
+      "ml",
+      "l",
+      "g",
+      "kg"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9a8",
+    "name": "Body Lotion",
+    "category": "HYGIENE",
+    "units": [
+      "ml",
+      "l",
+      "g",
+      "kg"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9a9",
+    "name": "Toilet Paper",
+    "category": "HYGIENE",
+    "units": [
+      "ml",
+      "l",
+      "g",
+      "kg"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9aa",
+    "name": "Hand Sanitizer",
+    "category": "HYGIENE",
+    "units": [
+      "ml",
+      "l",
+      "g",
+      "kg"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9ab",
+    "name": "Facial Cleanser",
+    "category": "HYGIENE",
+    "units": [
+      "ml",
+      "l",
+      "g",
+      "kg"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9ac",
+    "name": "Conditioner",
+    "category": "HYGIENE",
+    "units": [
+      "ml",
+      "l",
+      "g",
+      "kg"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9ad",
+    "name": "Shaving Cream",
+    "category": "HYGIENE",
+    "units": [
+      "ml",
+      "l",
+      "g",
+      "kg"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9ae",
+    "name": "Olive Oil",
+    "category": "OILS",
+    "units": [
+      "ml",
+      "l",
+      "oz"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9af",
+    "name": "Vegetable Oil",
+    "category": "OILS",
+    "units": [
+      "ml",
+      "l",
+      "oz"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9b0",
+    "name": "Sunflower Oil",
+    "category": "OILS",
+    "units": [
+      "ml",
+      "l",
+      "oz"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9b1",
+    "name": "Canola Oil",
+    "category": "OILS",
+    "units": [
+      "ml",
+      "l",
+      "oz"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9b2",
+    "name": "Coconut Oil",
+    "category": "OILS",
+    "units": [
+      "ml",
+      "l",
+      "oz"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9b3",
+    "name": "Sesame Oil",
+    "category": "OILS",
+    "units": [
+      "ml",
+      "l",
+      "oz"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9b4",
+    "name": "Avocado Oil",
+    "category": "OILS",
+    "units": [
+      "ml",
+      "l",
+      "oz"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9b5",
+    "name": "Salmon",
+    "category": "FISH",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9b6",
+    "name": "Tuna",
+    "category": "FISH",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9b7",
+    "name": "Cod",
+    "category": "FISH",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9b8",
+    "name": "Trout",
+    "category": "FISH",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9b9",
+    "name": "Herring",
+    "category": "FISH",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9ba",
+    "name": "Sardines",
+    "category": "FISH",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9bb",
+    "name": "Mackerel",
+    "category": "FISH",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9bc",
+    "name": "Wine",
+    "category": "ALCOHOL",
+    "units": [
+      "ml",
+      "l",
+      "pt"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9bd",
+    "name": "Beer",
+    "category": "ALCOHOL",
+    "units": [
+      "ml",
+      "l",
+      "pt"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9be",
+    "name": "Vodka",
+    "category": "ALCOHOL",
+    "units": [
+      "ml",
+      "l",
+      "pt"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9bf",
+    "name": "Whiskey",
+    "category": "ALCOHOL",
+    "units": [
+      "ml",
+      "l",
+      "pt"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9c0",
+    "name": "Rum",
+    "category": "ALCOHOL",
+    "units": [
+      "ml",
+      "l",
+      "pt"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9c1",
+    "name": "Gin",
+    "category": "ALCOHOL",
+    "units": [
+      "ml",
+      "l",
+      "pt"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9c2",
+    "name": "Champagne",
+    "category": "ALCOHOL",
+    "units": [
+      "ml",
+      "l",
+      "pt"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9c3",
+    "name": "Smartphone",
+    "category": "ELECTRONICS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9c4",
+    "name": "Laptop",
+    "category": "ELECTRONICS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9c5",
+    "name": "Television",
+    "category": "ELECTRONICS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9c6",
+    "name": "Headphones",
+    "category": "ELECTRONICS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9c7",
+    "name": "Tablet",
+    "category": "ELECTRONICS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9c8",
+    "name": "Camera",
+    "category": "ELECTRONICS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9c9",
+    "name": "Smartwatch",
+    "category": "ELECTRONICS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9ca",
+    "name": "All-purpose Cleaner",
+    "category": "HOUSEHOLD_CHEMICALS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9cb",
+    "name": "Dishwashing Liquid",
+    "category": "HOUSEHOLD_CHEMICALS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9cc",
+    "name": "Laundry Detergent",
+    "category": "HOUSEHOLD_CHEMICALS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9cd",
+    "name": "Glass Cleaner",
+    "category": "HOUSEHOLD_CHEMICALS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9ce",
+    "name": "Toilet Cleaner",
+    "category": "HOUSEHOLD_CHEMICALS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9cf",
+    "name": "Multipurpose Cleaner",
+    "category": "HOUSEHOLD_CHEMICALS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9d0",
+    "name": "Fabric Softener",
+    "category": "HOUSEHOLD_CHEMICALS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9d1",
+    "name": "Coffee Beans",
+    "category": "COFFEE_TEA",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9d2",
+    "name": "Ground Coffee",
+    "category": "COFFEE_TEA",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9d3",
+    "name": "Instant Coffee",
+    "category": "COFFEE_TEA",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9d4",
+    "name": "Black Tea",
+    "category": "COFFEE_TEA",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9d5",
+    "name": "Green Tea",
+    "category": "COFFEE_TEA",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9d6",
+    "name": "Herbal Tea",
+    "category": "COFFEE_TEA",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9d7",
+    "name": "Oolong Tea",
+    "category": "COFFEE_TEA",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9d8",
+    "name": "Potato Chips",
+    "category": "SNACKS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9d9",
+    "name": "Pretzels",
+    "category": "SNACKS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9da",
+    "name": "Nuts",
+    "category": "SNACKS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9db",
+    "name": "Popcorn",
+    "category": "SNACKS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9dc",
+    "name": "Crackers",
+    "category": "SNACKS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9dd",
+    "name": "Granola Bars",
+    "category": "SNACKS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9de",
+    "name": "Rice Cakes",
+    "category": "SNACKS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9df",
+    "name": "Chocolate",
+    "category": "SWEETS",
+    "units": [
+      "pc(s)",
+      "g",
+      "kg"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9e0",
+    "name": "Candy",
+    "category": "SWEETS",
+    "units": [
+      "pc(s)",
+      "g",
+      "kg"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9e1",
+    "name": "Cookies",
+    "category": "SWEETS",
+    "units": [
+      "pc(s)",
+      "g",
+      "kg"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9e2",
+    "name": "Cake",
+    "category": "SWEETS",
+    "units": [
+      "pc(s)",
+      "g",
+      "kg"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9e3",
+    "name": "Donuts",
+    "category": "SWEETS",
+    "units": [
+      "pc(s)",
+      "g",
+      "kg"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9e4",
+    "name": "Ice Cream",
+    "category": "SWEETS",
+    "units": [
+      "pc(s)",
+      "g",
+      "kg"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9e5",
+    "name": "Pastries",
+    "category": "SWEETS",
+    "units": [
+      "pc(s)",
+      "g",
+      "kg"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9e6",
+    "name": "Notebooks",
+    "category": "STATIONERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9e7",
+    "name": "Pens",
+    "category": "STATIONERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9e8",
+    "name": "Pencils",
+    "category": "STATIONERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9e9",
+    "name": "Markers",
+    "category": "STATIONERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9ea",
+    "name": "Paper Clips",
+    "category": "STATIONERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9eb",
+    "name": "Stapler",
+    "category": "STATIONERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9ec",
+    "name": "Folders",
+    "category": "STATIONERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9ed",
+    "name": "Shrimp",
+    "category": "SEAFOOD",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9ee",
+    "name": "Crab",
+    "category": "SEAFOOD",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9ef",
+    "name": "Lobster",
+    "category": "SEAFOOD",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9f0",
+    "name": "Mussels",
+    "category": "SEAFOOD",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9f1",
+    "name": "Oysters",
+    "category": "SEAFOOD",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9f2",
+    "name": "Clams",
+    "category": "SEAFOOD",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9f3",
+    "name": "Scallops",
+    "category": "SEAFOOD",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9f4",
+    "name": "Canned Tuna",
+    "category": "CANNED",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9f5",
+    "name": "Canned Beans",
+    "category": "CANNED",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9f6",
+    "name": "Canned Tomatoes",
+    "category": "CANNED",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9f7",
+    "name": "Canned Corn",
+    "category": "CANNED",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9f8",
+    "name": "Canned Soup",
+    "category": "CANNED",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9f9",
+    "name": "Canned Fruit",
+    "category": "CANNED",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9fa",
+    "name": "Canned Vegetables",
+    "category": "CANNED",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9fb",
+    "name": "Bread",
+    "category": "BAKERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9fc",
+    "name": "Buns",
+    "category": "BAKERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9fd",
+    "name": "Bagels",
+    "category": "BAKERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9fe",
+    "name": "Croissants",
+    "category": "BAKERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90b9ff",
+    "name": "Muffins",
+    "category": "BAKERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba00",
+    "name": "Pita",
+    "category": "BAKERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba01",
+    "name": "Tortillas",
+    "category": "BAKERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba02",
+    "name": "Bread",
+    "category": "BAKERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba03",
+    "name": "Buns",
+    "category": "BAKERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba04",
+    "name": "Bagels",
+    "category": "BAKERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba05",
+    "name": "Croissants",
+    "category": "BAKERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba06",
+    "name": "Muffins",
+    "category": "BAKERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba07",
+    "name": "Pita",
+    "category": "BAKERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba08",
+    "name": "Tortillas",
+    "category": "BAKERY",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba09",
+    "name": "Pain Reliever",
+    "category": "MEDICATION",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba0a",
+    "name": "Cold Medicine",
+    "category": "MEDICATION",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba0b",
+    "name": "Antibiotics",
+    "category": "MEDICATION",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba0c",
+    "name": "Allergy Medication",
+    "category": "MEDICATION",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba0d",
+    "name": "Cough Syrup",
+    "category": "MEDICATION",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba0e",
+    "name": "Antacids",
+    "category": "MEDICATION",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba0f",
+    "name": "Vitamins",
+    "category": "MEDICATION",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba10",
+    "name": "Diapers",
+    "category": "CHILDREN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba11",
+    "name": "Baby Formula",
+    "category": "CHILDREN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba12",
+    "name": "Children's CLOTHES",
+    "category": "CHILDREN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba13",
+    "name": "Toys",
+    "category": "CHILDREN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba14",
+    "name": "Baby Lotion",
+    "category": "CHILDREN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba15",
+    "name": "Strollers",
+    "category": "CHILDREN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba16",
+    "name": "Cribs",
+    "category": "CHILDREN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba17",
+    "name": "Pet Food",
+    "category": "PETS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba18",
+    "name": "Cat Litter",
+    "category": "PETS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba19",
+    "name": "Dog Toys",
+    "category": "PETS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba1a",
+    "name": "Pet Shampoo",
+    "category": "PETS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba1b",
+    "name": "Pet Beds",
+    "category": "PETS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba1c",
+    "name": "Pet Collars",
+    "category": "PETS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba1d",
+    "name": "Pet Leashes",
+    "category": "PETS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba1e",
+    "name": "Pet Carriers",
+    "category": "PETS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba1f",
+    "name": "Aquarium Supplies",
+    "category": "PETS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba20",
+    "name": "Bird Cages",
+    "category": "PETS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba21",
+    "name": "T-Shirts",
+    "category": "CLOTHES",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba22",
+    "name": "Jeans",
+    "category": "CLOTHES",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba23",
+    "name": "Dresses",
+    "category": "CLOTHES",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba24",
+    "name": "Jackets",
+    "category": "CLOTHES",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba25",
+    "name": "Shoes",
+    "category": "CLOTHES",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba26",
+    "name": "Hats",
+    "category": "CLOTHES",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba27",
+    "name": "Socks",
+    "category": "CLOTHES",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba28",
+    "name": "Underwear",
+    "category": "CLOTHES",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba29",
+    "name": "Sweaters",
+    "category": "CLOTHES",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba2a",
+    "name": "Shorts",
+    "category": "CLOTHES",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba2b",
+    "name": "Frozen Vegetables",
+    "category": "FROZEN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba2c",
+    "name": "Frozen Pizza",
+    "category": "FROZEN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba2d",
+    "name": "Ice Cream",
+    "category": "FROZEN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba2e",
+    "name": "Frozen Fruit",
+    "category": "FROZEN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba2f",
+    "name": "Frozen Meals",
+    "category": "FROZEN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba30",
+    "name": "Frozen Fish",
+    "category": "FROZEN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba31",
+    "name": "Frozen Chicken",
+    "category": "FROZEN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba32",
+    "name": "Frozen Potatoes",
+    "category": "FROZEN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba33",
+    "name": "Frozen Waffles",
+    "category": "FROZEN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba34",
+    "name": "Frozen Desserts",
+    "category": "FROZEN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba35",
+    "name": "Cleaning Supplies",
+    "category": "HOUSE",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba36",
+    "name": "Batteries",
+    "category": "HOUSE",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba37",
+    "name": "Light Bulbs",
+    "category": "HOUSE",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba38",
+    "name": "Garbage Bags",
+    "category": "HOUSE",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba39",
+    "name": "Toilet Paper",
+    "category": "HOUSE",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba3a",
+    "name": "Paper Towels",
+    "category": "HOUSE",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba3b",
+    "name": "Laundry Detergent",
+    "category": "HOUSE",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba3c",
+    "name": "Fabric Softener",
+    "category": "HOUSE",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba3d",
+    "name": "Air Fresheners",
+    "category": "HOUSE",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba3e",
+    "name": "Storage Containers",
+    "category": "HOUSE",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba3f",
+    "name": "Pots and Pans",
+    "category": "KITCHEN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba40",
+    "name": "Utensils",
+    "category": "KITCHEN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba41",
+    "name": "Cutlery",
+    "category": "KITCHEN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba42",
+    "name": "Plates",
+    "category": "KITCHEN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba43",
+    "name": "Cups",
+    "category": "KITCHEN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba44",
+    "name": "Bowls",
+    "category": "KITCHEN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba45",
+    "name": "Cutting Boards",
+    "category": "KITCHEN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba46",
+    "name": "Kitchen Towels",
+    "category": "KITCHEN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba47",
+    "name": "Measuring Cups",
+    "category": "KITCHEN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba48",
+    "name": "Food Storage Containers",
+    "category": "KITCHEN",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba49",
+    "name": "Bed Sheets",
+    "category": "BEDDING",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba4a",
+    "name": "Pillows",
+    "category": "BEDDING",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba4b",
+    "name": "Pillowcases",
+    "category": "BEDDING",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba4c",
+    "name": "Blankets",
+    "category": "BEDDING",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba4d",
+    "name": "Duvet Covers",
+    "category": "BEDDING",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba4e",
+    "name": "Comforters",
+    "category": "BEDDING",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba4f",
+    "name": "Mattress Protectors",
+    "category": "BEDDING",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba50",
+    "name": "Bed Skirts",
+    "category": "BEDDING",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba51",
+    "name": "Throw Blankets",
+    "category": "BEDDING",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba52",
+    "name": "Quilts",
+    "category": "BEDDING",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba53",
+    "name": "Pizza",
+    "category": "READY_MEALS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba54",
+    "name": "Prepared Salads",
+    "category": "READY_MEALS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba55",
+    "name": "Prepared Sandwiches",
+    "category": "READY_MEALS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba56",
+    "name": "Microwave Meals",
+    "category": "READY_MEALS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba57",
+    "name": "Sushi",
+    "category": "READY_MEALS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba58",
+    "name": "Prepared Pasta",
+    "category": "READY_MEALS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba59",
+    "name": "Rotisserie Chicken",
+    "category": "READY_MEALS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba5a",
+    "name": "Prepared Soups",
+    "category": "READY_MEALS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba5b",
+    "name": "Bento Boxes",
+    "category": "READY_MEALS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba5c",
+    "name": "Prepared Desserts",
+    "category": "READY_MEALS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba5d",
+    "name": "Hammer",
+    "category": "TOOLS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba5e",
+    "name": "Screwdriver",
+    "category": "TOOLS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba5f",
+    "name": "Wrench",
+    "category": "TOOLS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba60",
+    "name": "Drill",
+    "category": "TOOLS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba61",
+    "name": "Saw",
+    "category": "TOOLS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba62",
+    "name": "Pliers",
+    "category": "TOOLS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba63",
+    "name": "Tape Measure",
+    "category": "TOOLS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba64",
+    "name": "Level",
+    "category": "TOOLS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba65",
+    "name": "Utility Knife",
+    "category": "TOOLS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1b43526e8eca8f90ba66",
+    "name": "Screws and Nails",
+    "category": "TOOLS",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1cdb526e8eca8f90ba67",
+    "name": "Ketchup",
+    "category": "SAUCES",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1cdb526e8eca8f90ba68",
+    "name": "Mayonnaise",
+    "category": "SAUCES",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1cdb526e8eca8f90ba69",
+    "name": "Barbecue Sauce",
+    "category": "SAUCES",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1cdb526e8eca8f90ba6a",
+    "name": "Soy Sauce",
+    "category": "SAUCES",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1cdb526e8eca8f90ba6b",
+    "name": "Hot Sauce",
+    "category": "SAUCES",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1cdb526e8eca8f90ba6c",
+    "name": "Mustard",
+    "category": "SAUCES",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1cdb526e8eca8f90ba6d",
+    "name": "Pasta Sauce",
+    "category": "SAUCES",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1cdb526e8eca8f90ba6e",
+    "name": "Ranch Dressing",
+    "category": "SAUCES",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1cdb526e8eca8f90ba6f",
+    "name": "Sweet and Sour Sauce",
+    "category": "SAUCES",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1cdb526e8eca8f90ba70",
+    "name": "Salsa",
+    "category": "SAUCES",
+    "units": [
+      "pc(s)"
+    ]
+  },
+  {
+    "_id": "66ac1cdb526e8eca8f90ba71",
+    "name": "Salt",
+    "category": "SPICES",
+    "units": [
+      "oz",
+      "mg",
+      "g"
+    ]
+  },
+  {
+    "_id": "66ac1cdb526e8eca8f90ba72",
+    "name": "Black Pepper",
+    "category": "SPICES",
+    "units": [
+      "oz",
+      "mg",
+      "g"
+    ]
+  },
+  {
+    "_id": "66ac1cdb526e8eca8f90ba73",
+    "name": "Paprika",
+    "category": "SPICES",
+    "units": [
+      "oz",
+      "mg",
+      "g"
+    ]
+  },
+  {
+    "_id": "66ac1cdb526e8eca8f90ba74",
+    "name": "Cumin",
+    "category": "SPICES",
+    "units": [
+      "oz",
+      "mg",
+      "g"
+    ]
+  },
+  {
+    "_id": "66ac1cdb526e8eca8f90ba75",
+    "name": "Garlic Powder",
+    "category": "SPICES",
+    "units": [
+      "oz",
+      "mg",
+      "g"
+    ]
+  },
+  {
+    "_id": "66ac1cdb526e8eca8f90ba76",
+    "name": "Onion Powder",
+    "category": "SPICES",
+    "units": [
+      "oz",
+      "mg",
+      "g"
+    ]
+  },
+  {
+    "_id": "66ac1cdb526e8eca8f90ba77",
+    "name": "Chili Powder",
+    "category": "SPICES",
+    "units": [
+      "oz",
+      "mg",
+      "g"
+    ]
+  },
+  {
+    "_id": "66ac1cdb526e8eca8f90ba78",
+    "name": "Oregano",
+    "category": "SPICES",
+    "units": [
+      "oz",
+      "mg",
+      "g"
+    ]
+  },
+  {
+    "_id": "66ac1cdb526e8eca8f90ba79",
+    "name": "Basil",
+    "category": "SPICES",
+    "units": [
+      "oz",
+      "mg",
+      "g"
+    ]
+  },
+  {
+    "_id": "66ac1cdb526e8eca8f90ba7a",
+    "name": "Thyme",
+    "category": "SPICES",
+    "units": [
+      "oz",
+      "mg",
+      "g"
+    ]
+  }
+]

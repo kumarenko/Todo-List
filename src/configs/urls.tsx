@@ -1,7 +1,6 @@
 import ServerConfig from "./serverConfig";
 
 export const URL = ServerConfig.getUrl();
-export const PRODUCTS_URL = URL + "api/products";
 export const SHOPPING_LISTS_URL = URL + "api/shoppingLists";
 export const SHOPPING_LIST_CREATE_URL = URL + "api/shoppingLists/add";
 export const SHOPPING_LISTS_ADD_PROD_URL = URL + "api/shoppingLists/addProduct";
@@ -12,4 +11,3 @@ export const PROTECTED_ROUTE_URL = URL + "api/protected-route";
 export const REGISTER_URL = URL + "api/register";
 export const USERS_URL = URL + "api/users";
 export const BARCODE_URL = URL + "api/getProductByBarcode";
-

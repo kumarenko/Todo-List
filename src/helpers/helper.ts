@@ -21,3 +21,20 @@ export const copyTextToClipboard = (text) => {
         return Promise.reject('Буфер обмена недоступен');
     }
 };
+
+export const getCurrencySymbol = (countryCode) => {
+    const currencySymbols = {
+        US: "$",
+        CA: "$",
+        PL: "zł",
+        GB: "£",
+        EU: "€",
+        JP: "¥",
+        CN: "¥",
+        UA: "₴",
+        RU: "₽",
+        IN: "₹",
+        AU: "$",
+    };
+    return currencySymbols[countryCode] || "$";
+};
