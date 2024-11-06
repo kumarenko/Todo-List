@@ -77,24 +77,26 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
 
             </div>
             {userData.role === 'USER' ?
-                <Container fluid="md" className='user-info d-flex w-75 flex-wrap mb-2'>
-                    {user.user.googleId ? <div>
-                        <Image src={user.user.avatar} roundedCircle/>
-                    </div> : null}
+                <>
                     <div>
-                        <div>Name</div>
-                        {isEditing ? <Form.Control
-                            onChange={e => setName(e.target.value)} type="text" value={name}/> : <div>{userData.name}</div>}
+                        <Image src={user.user.avatar} roundedCircle className='avatar mb-1'/>
                     </div>
-                    <div>
-                        <div>Email</div>
-                        {isEditing ? <Form.Control
-                            onChange={e => setEmail(e.target.value)}
-                            disabled value={email}
-                            type="text"/> :
-                            <div>{userData.email}</div>}
-                    </div>
-                </Container>:
+                    <Container fluid="md" className='user-info d-flex w-75 flex-wrap mb-2'>
+                        <div>
+                            <div>Name</div>
+                            {isEditing ? <Form.Control
+                                onChange={e => setName(e.target.value)} type="text" value={name}/> : <div>{userData.name}</div>}
+                        </div>
+                        <div>
+                            <div>Email</div>
+                            {isEditing ? <Form.Control
+                                    onChange={e => setEmail(e.target.value)}
+                                    disabled value={email}
+                                    type="text"/> :
+                                <div>{userData.email}</div>}
+                        </div>
+                    </Container>
+                </> :
                 <div className="w-75">
                     You are in guest mode now.
                 </div>

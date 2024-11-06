@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Container, Form, useAccordionButton} from "react-bootstrap";
+import {Button, Container, Form} from "react-bootstrap";
 import {validateChangePassword} from "../../../helpers/validator";
 import {useDispatch} from "react-redux";
 import {updateProfileInfo} from "../../../actions/login";
@@ -19,7 +19,7 @@ const ChangePassword = ({userId, googleId}) => {
         if(Object.keys(errors).length) {
             setValidationErrors(errors);
         } else {
-            dispatch(updateProfileInfo(userId, {oldPassword: newPassword, newPassword: newPassword}));
+            dispatch(updateProfileInfo(userId, {password: currentPassword, newPassword: newPassword}));
         }
     }
     const resetErrors =() => {
@@ -65,8 +65,7 @@ const ChangePassword = ({userId, googleId}) => {
                         {validationErrors.confirmPassword}
                     </Form.Control.Feedback>
                 </div>
-                <div>
-
+                <div className='d-flex justify-content-between'>
                     <Button onClick={()=>changePasswordHandler()}>Apply</Button>
                     <Button onClick={() => {
                         setCurrentPassword('');
