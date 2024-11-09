@@ -3,11 +3,34 @@
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
+  .list-header {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    &-controls {
+      display: flex;
+      justify-content: space-between;
+      .extra-actions {
+        width: 64px;
+        min-width: 64px;
+        margin: 0 10px;
+      }
+    }
+  }
 .flip {
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 800px;
+  margin: 10px auto;
 }
+  .separator {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    height: 3px;
+    background-color: #2d2d2d;
+  }
   .progress-count {
     width: 15%;
   }
@@ -21,6 +44,11 @@
   .prices {
     display: flex;
     justify-content: space-around;
+    & > div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
   }
   .name-input {
     background: transparent;
@@ -40,15 +68,28 @@
       outline: none;
     }
   }
-  .name-icon {
-    opacity: 0;
-  }
   .input-wrapper {
+    .name-icon {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      right: 15px;
+      pointer-events: none;
+    }
+    &.search {
+      width: 64px;
+      min-width: 64px;
+      transition: .25s;
+      margin: 0 15px;
+
+      &:focus-within {
+        width: 50%;
+        transition: .25s;
+      }
+    }
     &:hover, &:focus-within {
       background: rgba(255, 255, 255, .15);
-      .name-icon {
-        opacity: 1;
-      }
     }
   }
   .avatar-container {

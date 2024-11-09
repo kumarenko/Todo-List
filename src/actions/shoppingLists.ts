@@ -1,4 +1,4 @@
-import {setShoppingList, updateList} from "../redux/shoppingListsReducer";
+import {setShoppingList} from "../redux/shoppingListsReducer";
 import {setShoppingLists} from "../redux/shoppingListsReducer";
 import axios from "axios";
 import {
@@ -14,11 +14,17 @@ export const getShoppingLists = (userId: string) => {
     }
 }
 
-export const getShoppingList = (listId) => {
+export const getShoppingList = (listId, userId, navigate) => {
     return async (dispatch) => {
-        const response = await axios.get(
-            `${SHOPPING_LISTS_URL}/${listId}` );
-        dispatch(setShoppingList(response.data))
+        try {
+            const response = await axios.get(
+                `${SHOPPING_LISTS_URL}/${listId}`, {params: {userId}});
+            if(response.status === 200) {
+                dispatch(setShoppingList(response.data))
+            }
+        } catch (e) {
+            navigate('/');
+        }
     }
 }
 export const addShoppingList = (userId, name) => {
@@ -50,7 +56,7 @@ export const updateListRequest = (list, newValue) => {
                 },
                 body: JSON.stringify(newObject)
             }).then(res=>res.json());
-        dispatch(updateList({...list, name: response.name}));
+        dispatch(setShoppingList({...list, name: response.name}));
     };
 };
 
@@ -67,24 +73,35 @@ export const inviteUsersRequest = (shoppingListId, userId, invitedUser, method) 
                 },
                 body: JSON.stringify(objectToUpdate)
             }).then(res=>res.json());
-        dispatch(updateList({...currentList, userOwners: response.userOwners}))
+        dispatch(setShoppingList({...currentList, userOwners: response.userOwners}))
     };
 };
 
 export const removeListRequest = (userId, shoppingListId) => {
     return async (dispatch, state) => {
         const lists = state().items.lists;
-        const currentList = lists.find(list => list._id === shoppingListId);
         const obj = {userId, shoppingListId};
-        const response = await fetch(
-            `${SHOPPING_LIST_CREATE_URL}`,{
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(obj)
-            }).then(res=>res.json());
-        dispatch(updateList({...currentList, userOwners: response.userOwners}))
+        dispatch(
+            setShoppingLists(
+                lists.map(list =>
+                    list._id === shoppingListId ? {...list, loading: true} : list,
+                ),
+            ),
+        );
+        const response = await fetch(`${SHOPPING_LIST_CREATE_URL}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(obj),
+        });
+        if (response.ok) {
+            dispatch(
+                setShoppingLists(lists.filter(list => list._id !== shoppingListId)),
+            );
+        } else {
+            dispatch(setShoppingList(lists));
+        }
     }
 };
 

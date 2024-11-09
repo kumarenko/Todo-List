@@ -83,7 +83,7 @@ const AddProductModal = ({list, allProducts, getAllProducts, show, onHide, addPr
     const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
 
     return ReactDOM.createPortal(
-        <Modal show={show} onHide={onCloseHandler} className='w-100'>
+        <Modal show={show} onHide={onCloseHandler} className='w-100' centered>
             <Modal.Header closeButton>
                 <Modal.Title>Adding new Product to List</Modal.Title>
             </Modal.Header>

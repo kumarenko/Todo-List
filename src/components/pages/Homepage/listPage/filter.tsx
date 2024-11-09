@@ -30,7 +30,7 @@ export const Filter = ({show, filterData, onHide}) => {
         setAll([...ProductCategories]);
     }, []);
 
-    return (<Modal  show={show} onHide={onHide}  className='w-100'>
+    return (<Modal  show={show} onHide={onHide}  className='w-100' centered>
         <div className='me-1'>
             <Modal.Header variant={buttonsVariant} className='dropdown-without-arrow'>
                 <Modal.Title>Filter Products by categories</Modal.Title>

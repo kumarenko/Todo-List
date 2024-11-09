@@ -65,7 +65,7 @@ const EditProductModal = ({product, show, onHide, deleteProductFromList,updatePr
         if (name === '') {
             setCount(product.name);
         }
-    }} className='w-100'>
+    }} className='w-100' centered>
         <Modal.Header closeButton>
             <Modal.Title>Product Editing</Modal.Title>
         </Modal.Header>

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import {Button, ButtonGroup, Card, Dropdown, ProgressBar} from "react-bootstrap";
 import {IoMdCreate, IoMdPersonAdd, IoMdTrash} from "react-icons/io";
-import {connect, useSelector} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import {removeListRequest, updateListRequest} from "../../../actions/shoppingLists";
 import {getAllProducts} from "../../../actions/products";
 import CreateListModal from "./createListModal";
@@ -10,12 +10,14 @@ import ShareListModal from "./shareListModal";
 import {Link} from "react-router-dom";
 import {getColorById} from "../../../helpers/validator";
 import {FiMoreHorizontal} from "react-icons/fi";
+import {setShoppingList} from "../../../redux/shoppingListsReducer";
 
 const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => {
     const [showModal, setShowModal] = useState(false);
     const [showSharingModal, setSharingModal] = useState(false);
     const [selectedList, setSelectedList] = useState(null);
     const [owners, setOwners] = useState({});
+    const dispatch = useDispatch();
     useEffect(() => {
         if(showSharingModal) {
             const selectedListToInvite = lists.find(list => list._id === owners.listId);
@@ -45,12 +47,8 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
         setShowModal(true);
     }
     const openSharingModal = (list) => {
-        const {_id, name, creator, products, userOwners} = list;
-        setOwners({
-            name, listId: _id,
-            creator, products,
-            userOwners,
-        });
+        setSelectedList(list);
+        dispatch(setShoppingList(list));
         setSharingModal(true);
     }
     const theme = useSelector(state => state.settings.theme);
@@ -157,7 +155,6 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
                 onApply={handleApply}
             />
             {showSharingModal && <ShareListModal
-                list={owners}
                 show={showSharingModal}
                 onHide={handleCloseSharingModal}
                 onApply={handleApply}

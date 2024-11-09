@@ -30,7 +30,7 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
     const invite = () => {
         validateEmail(email) ?
             setErrorMessage(validateEmail(email)) :
-            inviteUsersRequest(list.listId, currentUser.id, email, 'POST');
+            inviteUsersRequest(list._id, currentUser.id, email, 'POST');
     }
     const copyList = () => {
         let str = `${list.name}\n`;
@@ -72,7 +72,7 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
     const theme = useSelector(state => state.settings.theme);
     const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
 
-    return ReactDOM.createPortal(<Modal show={show} onHide={onHide} className='share-modal'>
+    return ReactDOM.createPortal(<Modal show={show} onHide={onHide} className='share-modal' centered>
         <Modal.Header closeButton>
             <Modal.Title>{list.name.value}</Modal.Title>
         </Modal.Header>
@@ -181,6 +181,7 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
 };
 const mapStateToProps = (state) => ({
     lists: state.items.lists,
+    list: state.items.list,
     currentUser: state.user.user,
 });
 const mapDispatchToProps = {

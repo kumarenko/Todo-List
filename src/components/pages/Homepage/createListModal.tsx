@@ -13,7 +13,7 @@ const CreateListModal = ({value = null, show, onHide, onApply}) => {
         onHide();
         setData('');
     }
-    return ReactDOM.createPortal(<Modal show={show} onHide={onCloseHandler}>
+    return ReactDOM.createPortal(<Modal show={show} onHide={onCloseHandler} centered>
         <Modal.Header closeButton>
             <Modal.Title>Adding new List</Modal.Title>
         </Modal.Header>
@@ -24,12 +24,6 @@ const CreateListModal = ({value = null, show, onHide, onApply}) => {
                 id="name"
                 defaultValue={value?.name.value || ''}
                 onChange={(e)=> setData(e.target.value)}
-            />
-            <Form.Check
-                type="switch"
-                defaultChecked={true}
-                className='my-2'
-                label="Automatically reopen when completed"
             />
         </Modal.Body>
         <Modal.Footer>

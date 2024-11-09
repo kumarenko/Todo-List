@@ -13,7 +13,15 @@ const ADD_BARCODE_PROD = 'ADD_BARCODE_PROD';
 
 const defaultState: { lists: ShoppingList[], allProducts: ShoppingList[], list: {}, productFromBarcode: {} } = {
     lists: [],
-    list: {},
+    list: {
+        _id: '',
+        name: {
+            value: ''
+        },
+        products: [],
+        userOwners: [],
+        creator: '',
+    },
     allProducts: [],
     productFromBarcode: {}
 }
