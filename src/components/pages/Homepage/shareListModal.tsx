@@ -33,7 +33,7 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
             inviteUsersRequest(list._id, currentUser.id, email, 'POST');
     }
     const copyList = () => {
-        let str = `${list.name}\n`;
+        let str = `${list.name.value}\n`;
         list.products.forEach(prod => {
             const prodStr = `${prod.name} ${prod.count > 2 ? ` (${prod.count} pcs)` : ''}`
             if(prod.checked) {
@@ -102,7 +102,7 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
             <Container className='d-flex justify-content-between flex-column'>
                 {owners.length > 1 ?
                 <>
-                    <h3>List shared with {owners.length} {owners.length > 2 ? 'person' : 'people'}</h3>
+                    <h3>List shared with {owners.length - 1} {owners.length > 2 ? 'person' : 'people'}</h3>
                     <Container className=' flex-row items-center'>
                         {owners.map(user => <Container key={user._id} className='d-flex flex-nowrap justify-content-between'>
                             <div className='d-flex'>
@@ -116,19 +116,18 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
                                 </div>
                                 <span className='mx-2'>
                                     <span className='subtitle'>{user.email}</span>
-                                    {currentUser.id === user._id && <Badge bg="secondary">You</Badge>}
+                                    {currentUser.id === user._id && <Badge bg="secondary ms-1">You</Badge>}
                                 </span>
                             </div>
-                            <div>
+                            {list.creator !== user._id && <div>
                                 {renderBadge(user)}
                                 <Button
-                                    className={'mx-2 opacity-0-disabled'}
+                                    className={'mx-2'}
                                     size="sm"
-                                    onClick={() => removeInvite(user.email)}
-                                    disabled={list.creator === user._id}>
-                                    <IoMdClose />
+                                    onClick={() => removeInvite(user.email)}>
+                                    <IoMdClose/>
                                 </Button>
-                            </div>
+                            </div>}
                         </Container>)}
                     </Container>
                 </> : null}
@@ -165,7 +164,7 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
                 </> : null}
             </Container>
         </Modal.Body>
-        <Modal.Footer className='modal-styled-bg'/>
+        <Modal.Footer className='modal-styled-bg empty-footer'/>
         {message ? <CustomAlert className='popup'>
             {message}
         </CustomAlert> : null}

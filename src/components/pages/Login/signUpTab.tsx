@@ -7,7 +7,7 @@ const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, conf
         <Form className='d-flex flex-column'>
             <h2>Please sign up</h2>
             <Form.Group className="mb-2">
-                <Form.Label>Email address</Form.Label>
+                <Form.Label className='subtitle'>Email address</Form.Label>
                 <Form.Control
                     type="email"
                     value={email}
@@ -23,7 +23,7 @@ const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, conf
                 </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-2">
-                <Form.Label>Name</Form.Label>
+                <Form.Label className='subtitle'>Name</Form.Label>
                 <Form.Control
                     type="text"
                     value={name}
@@ -39,7 +39,7 @@ const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, conf
                 </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-2" controlId="passSignUp">
-                <Form.Label>Password</Form.Label>
+                <Form.Label className='subtitle'>Password</Form.Label>
                 <Form.Control
                     type="password"
                     value={password}
@@ -55,7 +55,7 @@ const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, conf
                 </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-2" controlId="confirmPassSignUp">
-                <Form.Label>Confirm Password</Form.Label>
+                <Form.Label className='subtitle'>Confirm Password</Form.Label>
                 <Form.Control
                     type="password"
                     value={confirmPassword}

@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {Button, Form, Modal} from "react-bootstrap";
-import { useSelector } from "react-redux";
 import { ProductCategories } from "../../../../types/types";
 
 export const Filter = ({show, filterData, onHide}) => {
-    const theme = useSelector(state => state.settings.theme);
-    const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
     const [selected, setSelected] = useState([]);
     const [all, setAll] = useState([]);
 
@@ -31,44 +28,45 @@ export const Filter = ({show, filterData, onHide}) => {
     }, []);
 
     return (<Modal  show={show} onHide={onHide}  className='w-100' centered>
-        <div className='me-1'>
-            <Modal.Header variant={buttonsVariant} className='dropdown-without-arrow'>
-                <Modal.Title>Filter Products by categories</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <div className='d-flex'>
-                    <Button onClick={() => onSelectAll()}>
-                        Check all
-                    </Button>
-                    <Button onClick={() => setSelected([])}>
-                        Uncheck all
-                    </Button>
-                </div>
-                <ul>
-                    {all.map(category => (
-                        <li
-                            key={category}
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            <div onClick={() => onSelect(category)}>
-                                <Form.Check
-                                    type="checkbox"
-                                    label={category}
-                                    checked={selected.includes(category)}
-                                    onChange={() => {}}
-                                />
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            </Modal.Body>
-            <Modal.Footer>
-                <Button onClick={() => {
-                    filterData(selected);
-                    onHide();
-                }}>Apply</Button>
-                <Button onClick={onHide}>Cancel</Button>
-            </Modal.Footer>
-        </div>
+        <Modal.Header className='dropdown-without-arrow modal-styled-bg d-flex justify-content-center'>
+            <Modal.Title>Filter Products by categories</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className='modal-fixed-height modal-styled-bg'>
+            <div className='d-flex justify-content-around'>
+                <Button onClick={() => onSelectAll()}>
+                    Check all
+                </Button>
+                <Button onClick={() => setSelected([])}>
+                    Uncheck all
+                </Button>
+            </div>
+            <ul className='list-unstyled'>
+                {all.map(category => (
+                    <li
+                        key={category}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className='d-flex' onClick={() => onSelect(category)}>
+                            <Form.Check
+                                name={category}
+                                type="checkbox"
+                                checked={selected.includes(category)}
+                                onChange={() => {}}
+                            />
+                            <Form.Label className='subtitle ms-2' htmlFor={category}>
+                                {category}
+                            </Form.Label>
+                        </div>
+                    </li>
+                ))}
+            </ul>
+        </Modal.Body>
+        <Modal.Footer className='modal-styled-bg justify-content-around'>
+            <Button onClick={() => {
+                filterData(selected);
+                onHide();
+            }}>Apply</Button>
+            <Button onClick={onHide}>Cancel</Button>
+        </Modal.Footer>
     </Modal>);
 };

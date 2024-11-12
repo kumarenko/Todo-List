@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import ReactDOM from "react-dom";
-import {Button, Modal, Form, InputGroup, Col} from "react-bootstrap";
+import {Button, Modal, Form, InputGroup} from "react-bootstrap";
 import {addProductToList, findProductByBarcode, getAllProducts} from "../../../../actions/products";
-import {connect, useSelector} from "react-redux";
+import {connect} from "react-redux";
 import {IoMdAdd, IoMdSearch} from "react-icons/io";
 import {Filter} from './filter';
 import {ProductCategories} from "../../../../types/types";
@@ -79,17 +79,12 @@ const AddProductModal = ({list, allProducts, getAllProducts, show, onHide, addPr
         setFilteredCategories(data);
     }
 
-    const theme = useSelector(state => state.settings.theme);
-    const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
-
     return ReactDOM.createPortal(
-        <Modal show={show} onHide={onCloseHandler} className='w-100' centered>
-            <Modal.Header closeButton>
+        <Modal show={show} onHide={onCloseHandler} className='w-100 rounded' centered>
+            <Modal.Header className='modal-styled-bg d-flex flex-column justify-content-center'>
                 <Modal.Title>Adding new Product to List</Modal.Title>
-            </Modal.Header>
-            <Modal.Body className='d-flex align-items-start flex-column modal-fixed-height'>
-                <Form.Group as={Col}>
-                    <InputGroup>
+                <Form.Group className='d-flex flex-row flex-nowrap w-100 mx-1'>
+                    <InputGroup className='w-75'>
                         <Form.Control
                             type="text"
                             onChange={handleSearchChange}
@@ -100,18 +95,23 @@ const AddProductModal = ({list, allProducts, getAllProducts, show, onHide, addPr
                             <IoMdSearch />
                         </InputGroup.Text>
                     </InputGroup>
-                    <Button onClick={()=> setFilterShowModal(true)}>
-                        Filter <MdFilterListAlt />
-                    </Button>
-                    <Button onClick={()=> setOpenCameraWindow(!openCameraWindow)}>
-                        <FaBarcode />
-                    </Button>
+                    <div className="buttons w-25 d-flex flex-nowrap">
+                        <Button onClick={()=> setFilterShowModal(true)} className='ms-2'>
+                            Filter <MdFilterListAlt />
+                        </Button>
+                        <Button onClick={()=> setOpenCameraWindow(!openCameraWindow)} className='mx-1'>
+                            <FaBarcode />
+                        </Button>
+                    </div>
                     {openCameraWindow? <BarcodeScanner onDetected={handleDetected} onClose={closeScanner}/> : null}
                 </Form.Group>
+            </Modal.Header>
+            <Modal.Body className='d-flex align-items-start flex-column modal-fixed-height modal-styled-bg'>
+
                 {filteredItems.length ?
                     filteredItems.map(item => (
                         <div key={item._id} className='position-relative d-flex justify-content-center w-75 mx-auto my-1'>
-                            <Button variant={buttonsVariant}
+                            <Button
                                     className='rounded-pill w-100 d-flex justify-content-between align-items-center'
                                     onClick={() => addProduct(item)}>
                                 <IoMdAdd className='position-absolute start-0 ms-3'>{item.name}</IoMdAdd>
@@ -122,7 +122,7 @@ const AddProductModal = ({list, allProducts, getAllProducts, show, onHide, addPr
                     )) :
                     <span>No Items</span>}
             </Modal.Body>
-            <Modal.Footer />
+            <Modal.Footer className='empty-footer modal-styled-bg'/>
             <Filter
                 show={showFilterModal}
                 onHide={handleCloseFilter}

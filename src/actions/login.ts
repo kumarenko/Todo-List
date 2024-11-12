@@ -44,9 +44,11 @@ export const signInAction = (user) => {
                     email: user.email,
                     name: user?.name || '',
                     lastName: user?.lastName || '',
+                    avatar: user.avatar || '',
+                    country: data.user.country,
                 },
             }
-            updateCurrency(user.currency);
+            dispatch(updateCurrency(user.currency));
             updateUnits(user.metricUnits);
             sessionStorage.setItem('token', token);
             dispatch(updateLogin(updatedLoginState));
@@ -89,6 +91,7 @@ export const checkUserSession:any = () => {
                         country: data.user.country,
                     },
                 }
+                dispatch(updateCurrency(data.user.currency));
                 dispatch(updateLogin(updatedLoginState));
                 dispatch(updateUnits(data.user.metricUnits));
             })

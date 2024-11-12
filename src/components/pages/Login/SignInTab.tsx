@@ -50,7 +50,7 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
         <Form className='d-flex flex-column'>
             <h2>Please log in</h2>
             <Form.Group className="mb-2">
-                <Form.Label>Email address</Form.Label>
+                <Form.Label className='subtitle'>Email address</Form.Label>
                 <Form.Control
                     type="email"
                     value={email}
@@ -66,7 +66,7 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
                 </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-2" controlId="passLogin">
-                <Form.Label>Password</Form.Label>
+                <Form.Label className='subtitle'>Password</Form.Label>
                 <Form.Control
                     type="password"
                     value={password}
@@ -86,7 +86,7 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
                 onClick={signInHandler}
                 className='w-50 my-2 mx-auto'
             >Sign In</Button>
-            <div className='text-center'>Or</div>
+            <div className='text-center subtitle'>Or</div>
             <Button
                 variant={buttonsVariant}
                 className='w-75 my-1 mx-auto'

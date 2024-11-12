@@ -11,7 +11,7 @@ const ADD_PRODUCTS = 'ADD_PRODUCTS';
 const UPDATE_TODO_FAILURE = 'UPDATE_TODO_FAILURE';
 const ADD_BARCODE_PROD = 'ADD_BARCODE_PROD';
 
-const defaultState: { lists: ShoppingList[], allProducts: ShoppingList[], list: {}, productFromBarcode: {} } = {
+export const defaultState: { lists: ShoppingList[], allProducts: ShoppingList[], list: {}, productFromBarcode: {} } = {
     lists: [],
     list: {
         _id: '',

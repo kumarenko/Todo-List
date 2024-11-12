@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import {connect} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import FlipMove from "react-flip-move";
 import {useNavigate, useParams} from 'react-router-dom';
 import {IoMdCreate, IoMdPersonAdd, IoMdSearch, IoMdTrash} from "react-icons/io";
@@ -19,10 +19,12 @@ import {ProductCategories} from "../../../../types/types";
 import {debounce, getCurrencySymbol} from "../../../../helpers/helper";
 import {FiMoreHorizontal} from "react-icons/fi";
 import ShareListModal from "../shareListModal";
+import {defaultState, setShoppingList} from "../../../../redux/shoppingListsReducer";
 
 const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updateListRequest, removeListRequest }) => {
     const { listId } = useParams();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [checkedProds, setCheckedProds] = useState([]);
     const [uncheckedProds, setUncheckedProds] = useState([]);
     const [product, setProduct] = useState({});
@@ -44,6 +46,11 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
         getShoppingList(listId, user.id, navigate);
     }, [listId, getShoppingList]);
 
+    useEffect(() => {
+        return () => {
+            dispatch(setShoppingList(defaultState.list));
+        }
+    }, []);
     useEffect(() => {
         if (Object.keys(list).length) {
             setListName(list.name.value);

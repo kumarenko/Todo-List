@@ -51,12 +51,15 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
         setSharingModal(true);
     }
 
-    const renderAvatars = (users) => {
+    const renderAvatars = (users, creator) => {
         users = users.filter(user => user.status !== 'WAIT');
         let userAvatars = [];
         for (let index = 0; index < users.length; index++) {
             const user = users[index];
-            if(index === 2) {
+            if(users[index]._id === creator) {
+                continue;
+            }
+            if(index === 3) {
                 if(users.length === 3) {
                     break;
                 }
@@ -77,21 +80,23 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
                     </div>
                 );
                 break;
-            }
-            userAvatars.push(
-                <div className={`avatar-container d-flex-col w-auto`}
-                     key={user._id}
-                     >
-                    <div className='user-avatar'
-                         style={{
-                        backgroundColor: getColorById(user._id),
-                    }}>
+            } else {
+                userAvatars.push(
+                    <div className={`avatar-container d-flex-col w-auto`}
+                         key={user._id}
+                    >
+                        <div className='user-avatar'
+                             style={{
+                                 backgroundColor: getColorById(user._id),
+                             }}>
                        <span>
                         {user.name ? user.name[0] : user.email[0]}
                     </span>
+                        </div>
                     </div>
-                </div>
-            );
+                );
+            }
+
         }
         return userAvatars;
     }
@@ -121,7 +126,7 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
                                     onClick={() => openSharingModal(list)}
                             >
                                 <div className="avatars d-flex flex-row w-auto items-center">
-                                    {renderAvatars(list.userOwners)}
+                                    {renderAvatars(list.userOwners, list.creator)}
                                 </div>
                             </Button>}
                             <Dropdown as={ButtonGroup} className='me-1'>

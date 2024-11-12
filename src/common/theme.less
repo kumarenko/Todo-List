@@ -12,6 +12,7 @@ body {
       background-color: @BUTTON_BG_DARK;
       border: 1px solid @INPUT_BORDER_LIGHT;
       color: @BUTTON_TEXT_DARK;
+      box-shadow: none;
     }
     h1, h2, h3, h4, h5, h6, .h4, .title {
       color: @TITLE_DARK;
@@ -27,6 +28,7 @@ body {
     }
     .input-group-text, select,
     input[type='number'], input[type='number']:disabled,
+    input[type='password'], input[type='password']:disabled,
     input[type='text'], input[type='text']:disabled,
     input[type='email'], input[type='email']:disabled {
       background-color: @INPUT_BG_DARK;
@@ -104,6 +106,9 @@ body {
   a {
     color: @BUTTON_TEXT_LIGHT;
   }
+  button.btn {
+    border: 1px solid @INPUT_BORDER_DARK;
+  }
   button {
     background-color: @BUTTON_BG_LIGHT;
     border: 1px solid @INPUT_BORDER_DARK;
@@ -123,6 +128,7 @@ body {
   }
   .input-group-text,
   input[type='text'], input[type='text']:disabled,
+  input[type='password'], input[type='password']:disabled,
   input[type='number'], input[type='number']:disabled,
   input[type='email'], input[type='email']:disabled {
     background-color: @INPUT_BG_LIGHT;
