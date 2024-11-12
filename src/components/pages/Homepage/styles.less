@@ -1,20 +1,24 @@
 .homepage {
-  .accordion {
-    position: relative;
-    &-button:focus {
-      box-shadow: none;
-    }
+  max-width: 800px;
+  margin: 10px auto;
+  .lists {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     .card {
       display: flex;
       flex-wrap: nowrap;
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-      a {
-        width: 65%;
-        .progress {
-          width: 75%;
-        }
+      .progress-count {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
       }
       .buttons {
         .avatars-btn {

@@ -14,11 +14,11 @@ const CreateListModal = ({value = null, show, onHide, onApply}) => {
         setData('');
     }
     return ReactDOM.createPortal(<Modal show={show} onHide={onCloseHandler} centered>
-        <Modal.Header closeButton>
+        <Modal.Header className='modal-styled-bg justify-content-center'>
             <Modal.Title>Adding new List</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-            <Form.Label htmlFor="name">Enter name: </Form.Label>
+        <Modal.Body className='modal-styled-bg'>
+            <Form.Label htmlFor="name" className='subtitle'>Enter name: </Form.Label>
             <Form.Control
                 type="text"
                 id="name"
@@ -26,11 +26,11 @@ const CreateListModal = ({value = null, show, onHide, onApply}) => {
                 onChange={(e)=> setData(e.target.value)}
             />
         </Modal.Body>
-        <Modal.Footer>
-            <Button variant="secondary" onClick={onHide}>
+        <Modal.Footer className='modal-styled-bg justify-content-around'>
+            <Button onClick={onHide}>
                 Close
             </Button>
-            <Button variant="primary" onClick={handleClick} disabled={data.length === 0}>
+            <Button onClick={handleClick} disabled={data.length === 0}>
                 Save Changes
             </Button>
         </Modal.Footer>

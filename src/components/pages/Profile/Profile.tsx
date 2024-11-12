@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {logoutAction, updateProfileInfo} from "../../../actions/login";
-import {connect, useDispatch, useSelector} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import {Button, Container, Form, Image} from "react-bootstrap";
 import {User} from "../../../types/types";
 import {updateProfileErrorMessage, updateProfileSuccessMessage} from "../../../redux/userReducer";
@@ -15,8 +15,6 @@ interface ProfileInterface extends User {
 }
 const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterface) => {
     const userData = user.user;
-    const theme = useSelector(state => state.settings.theme);
-    const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
     const dispatch = useDispatch();
     const [name, setName] = useState(userData.name);
     const [lastName, setLastName] = useState(userData.lastName);
@@ -73,7 +71,7 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
         <div className='profile d-flex flex-column align-items-center'>
             <div className="d-flex justify-content-between h3 w-75 p-3">
                 <h1>Profile page</h1>
-                <Button variant={buttonsVariant} size={'md'} onClick={() => logoutAction()}>Logout</Button>
+                <Button size={'md'} onClick={() => logoutAction()}>Logout</Button>
 
             </div>
             {userData.role === 'USER' ?
@@ -83,30 +81,30 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
                     </div>
                     <Container fluid="md" className='user-info d-flex w-75 flex-wrap mb-2'>
                         <div>
-                            <div>Name</div>
+                            <h5>Name</h5>
                             {isEditing ? <Form.Control
-                                onChange={e => setName(e.target.value)} type="text" value={name}/> : <div>{userData.name}</div>}
+                                onChange={e => setName(e.target.value)} type="text" value={name}/> : <div className={'subtitle'}>{userData.name}</div>}
                         </div>
                         <div>
-                            <div>Email</div>
+                            <h5>Email</h5>
                             {isEditing ? <Form.Control
                                     onChange={e => setEmail(e.target.value)}
                                     disabled value={email}
                                     type="text"/> :
-                                <div>{userData.email}</div>}
+                                <div className='subtitle'>{userData.email}</div>}
                         </div>
                     </Container>
                 </> :
                 <div className="w-75">
-                    You are in guest mode now.
+                    <h4>You are in guest mode now.</h4>
                 </div>
             }
             <ChangePassword userId={userData.id} googleId={user.user.googleId}/>
             <div className='w-75 controls'>
-                <Button variant={buttonsVariant} onClick={() => {
+                <Button onClick={() => {
                     handleProfileData();
                 }} size="md">{isEditing ? 'Save' : 'Edit'}</Button>
-                {isEditing && <Button variant={buttonsVariant} onClick={() => resetProfileData()} size="md">Cancel</Button>}
+                {isEditing && <Button onClick={() => resetProfileData()} size="md">Cancel</Button>}
             </div>
             <CustomAlert variant={user.errorMessage ? 'danger' : 'success'} className='popup'>
                 {message}

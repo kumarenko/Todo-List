@@ -21,22 +21,22 @@ const Settings = ({theme, changeTheme, title, user, isMetricUnits,updateProfileI
                 <h1>Settings</h1>
             </div>
             <div className="w-75 p-3">
+                <h5 className='m-1'>Dark mode</h5>
                 <Form.Check
                     type="switch"
                     defaultChecked={theme !== 'light'}
                     onChange={() => toggle()}
                     className='my-2'
-                    label="Dark Mode"
                 />
                 <div>
-                    <span className='m-1'>Select Units {isMetricUnits.toString()}</span>
+                    <h5 className='m-1'>Select Units</h5>
                     <Form.Select aria-label="Units" value={isMetricUnits ? 'metric' : 'imperial'} onChange={toggleUnits} className='w-25'>
                         <option value="metric">Metric</option>
                         <option value="imperial">Imperial</option>
                     </Form.Select>
                 </div>
                 <div className="div">
-                    <span className='m-1'>Select language:</span>
+                    <h5 className='m-1'>Select language</h5>
                     <Form.Select aria-label="language" defaultValue={'en'} className='w-25'>
                         <option value="en">English</option>
                         <option value="ua">Ukrainian</option>

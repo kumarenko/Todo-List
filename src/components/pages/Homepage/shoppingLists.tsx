@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import Accordion from 'react-bootstrap/Accordion';
 import {Button, ButtonGroup, Card, Dropdown, ProgressBar} from "react-bootstrap";
 import {IoMdCreate, IoMdPersonAdd, IoMdTrash} from "react-icons/io";
-import {connect, useDispatch, useSelector} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import {removeListRequest, updateListRequest} from "../../../actions/shoppingLists";
 import {getAllProducts} from "../../../actions/products";
 import CreateListModal from "./createListModal";
@@ -51,8 +50,6 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
         dispatch(setShoppingList(list));
         setSharingModal(true);
     }
-    const theme = useSelector(state => state.settings.theme);
-    const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
 
     const renderAvatars = (users) => {
         users = users.filter(user => user.status !== 'WAIT');
@@ -101,27 +98,26 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
 
     return (
         <>
-            <Accordion alwaysOpen={true} defaultActiveKey={0} className='w-75 p-3 my-2'>
-                {lists.map(list => <div className='list-item-link my-2 p-2' key={list._id}>
-                    <Card className='p-2'>
-                        <Link to={`/lists/${list._id}`}>
-                            {list.name.value} {list.products?.length ?
-                                <div className='d-flex justify-content-between'>
+            <div className='lists w-100 p-3 my-2'>
+                {lists.map(list => <div className=' w-100 my-2 p-2' key={list._id}>
+                    <Card className='w-100 d-flex flex-row align-items-stretch p-2 section-styled-bg'>
+                        <Link to={`/lists/${list._id}`} className='w-75'>
+                            <h5>{list.name.value}</h5>
+                            {list.products?.length ?
+                                <div className='position-relative d-flex justify-content-center flex-wrap align-items-stretch'>
                                     <ProgressBar
-                                        className='mt-1'
+                                        className='mt-1 w-100'
                                         now={list.products.filter(item => item.checked).length}
                                         max={list.products.length}
                                     />
-                                    <div>
-                                        {list.products.filter(item => item.checked).length} / {list.products.length}
-                                    </div>
+                                    <span className='progress-count'>{list.products.filter(item => item.checked).length} / {list.products.length}</span>
                                 </div>
                                 : null}
                         </Link>
 
-                        <div className="buttons d-flex align-items-center">
+                        <div className="buttons d-flex align-items-center justify-content-around justify-content-sm-end  flex-column-reverse  flex-sm-row  w-25">
                             {list.userOwners.length > 0  &&
-                            <Button className='avatars-btn rounded-4 p-0 hover:bg-gray-200 me-1' variant='secondary'
+                            <Button className='avatars-btn rounded-4 p-0 me-1'
                                     onClick={() => openSharingModal(list)}
                             >
                                 <div className="avatars d-flex flex-row w-auto items-center">
@@ -129,10 +125,10 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
                                 </div>
                             </Button>}
                             <Dropdown as={ButtonGroup} className='me-1'>
-                                <Dropdown.Toggle variant={buttonsVariant} className='dropdown-without-arrow'>
+                                <Dropdown.Toggle className='dropdown-without-arrow'>
                                     <FiMoreHorizontal />
                                 </Dropdown.Toggle>
-                                <Dropdown.Menu variant={buttonsVariant}>
+                                <Dropdown.Menu className='section-styled-bg'>
                                     <Dropdown.Item eventKey="2" onClick={()=> openSharingModal(list)}>
                                         <IoMdPersonAdd /> Share
                                     </Dropdown.Item>
@@ -147,7 +143,7 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
                         </div>
                     </Card>
                 </div>)}
-            </Accordion>
+            </div>
             <CreateListModal
                 value={selectedList}
                 show={showModal}

@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import {connect, useSelector} from "react-redux";
+import {connect} from "react-redux";
 import FlipMove from "react-flip-move";
 import {useNavigate, useParams} from 'react-router-dom';
 import {IoMdCreate, IoMdPersonAdd, IoMdSearch, IoMdTrash} from "react-icons/io";
@@ -39,12 +39,8 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
     const handleApplyEdit = () => setEditShowModal(false);
     const handleCloseEdit = () => setEditShowModal(false);
     const handleCloseFilter = () => setFilterShowModal(false);
-    const theme = useSelector(state => state.settings.theme);
-
-    const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
 
     useEffect(() => {
-        console.log('ssss', user);
         getShoppingList(listId, user.id, navigate);
     }, [listId, getShoppingList]);
 
@@ -113,83 +109,86 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
     };
     return (
         <div className='list-page'>
-            <h3 className='list-header'>
-                <div className="list-header-controls">
+            <h3 className='list-header p-3'>
+                <div className="d-flex  flex-sm-row flex-column justify-content-between ">
                     <InputGroup className='input-wrapper rounded-2'>
                         <Form.Control
                             value={listName}
-                            className='name-input'
+                            className='name-input rounded'
                             onChange={handleInputChange}
                             type="text"
                         />
-                        <IoMdCreate className='name-icon' />
+                        <IoMdCreate className='name-icon'/>
                     </InputGroup>
-                    <InputGroup className='input-wrapper search rounded-2'>
+                    <InputGroup className='input-wrapper search rounded'>
                         <Form.Control
                             value={searchValue}
-                            className='name-input'
+                            className='name-input rounded'
                             onBlur={() => {}}
                             onChange={(e) => setSearchValue(e.target.value)}
                             type="text" />
                         <IoMdSearch className='name-icon' />
                     </InputGroup>
-                    <Button variant={buttonsVariant} onClick={() => setAddShowModal(true)}>Add Product</Button>
-
-                    <Dropdown as={ButtonGroup} className='extra-actions'>
-                        <Dropdown.Toggle variant={buttonsVariant} className='dropdown-without-arrow'>
-                            <FiMoreHorizontal />
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu variant={buttonsVariant}>
-                            <Dropdown.Item eventKey="1" onClick={()=> setSharingModal(true)}>
-                                <IoMdPersonAdd /> Share
-                            </Dropdown.Item>
-                            <Dropdown.Item eventKey="2" onClick={()=> {}}>
-                                <IoMdCreate/> Sort
-                            </Dropdown.Item>
-                            <Dropdown.Item eventKey="2" onClick={()=> setFilterShowModal(true)}>
-                                <MdFilterListAlt/> Filter
-                            </Dropdown.Item>
-                            <Dropdown.Item eventKey="3" onClick={async ()=> {
-                                await removeListRequest(user.id, list._id);
-                                navigate(-1);
-                            }}>
-                                <IoMdTrash /> Delete
-                            </Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
+                    <div className="actions d-flex flex-row flex-nowrap">
+                        <Button onClick={() => setAddShowModal(true)} className='add'>Add Product</Button>
+                        <Dropdown as={ButtonGroup} className='extra-actions'>
+                            <Dropdown.Toggle className='dropdown-without-arrow'>
+                                <FiMoreHorizontal />
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu className='section-styled-bg'>
+                                <Dropdown.Item eventKey="1" onClick={()=> setSharingModal(true)}>
+                                    <IoMdPersonAdd /> Share
+                                </Dropdown.Item>
+                                <Dropdown.Item eventKey="2" onClick={()=> {}}>
+                                    <IoMdCreate/> Sort
+                                </Dropdown.Item>
+                                <Dropdown.Item eventKey="2" onClick={()=> setFilterShowModal(true)}>
+                                    <MdFilterListAlt/> Filter
+                                </Dropdown.Item>
+                                <Dropdown.Item eventKey="3" onClick={async ()=> {
+                                    await removeListRequest(user.id, list._id);
+                                    navigate(-1);
+                                }}>
+                                    <IoMdTrash /> Delete
+                                </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
                 </div>
 
 
                 {list.products?.length ?
                     <>
-                        <div className='w-100 d-flex flex-nowrap align-items-center px-2 mx-auto'>
+                        <div className='position-relative w-100 d-flex flex-nowrap align-items-center px-2 mx-auto'>
                             <ProgressBar
-                                className='mt-1 w-100 progress-line'
+                                className='my-2 w-100 progress-line'
                                 now={list.products.filter(item => item.checked).length}
                                 max={list.products.length}
                             />
+                            <span className='progress-count'>{list.products.filter(item => item.checked).length} / {list.products.length}</span>
                         </div>
                         <div className='prices mx-auto'>
                             <div>
-                                <span>Purchased Total</span>
+                                <span className='subtitle'>Purchased</span>
                                 <span>{list.products?.length && list.products.reduce(
                                     (accumulator, prod) => prod.checked ? accumulator + parseFloat(prod.price) : accumulator, 0
                                 )} {getCurrencySymbol(user.country)}
-                        </span>
+                                </span>
                             </div>
                             <div>
-                                <span>Remaining Total</span>
+                                <span className='subtitle'>Remaining</span>
                                 <span>{list.products?.length && list.products.reduce(
                                     (accumulator, prod) => !prod.checked ? accumulator + parseFloat(prod.price ?? 0) : accumulator, 0
                                 )} {getCurrencySymbol(user.country)}
-                        </span>
+                                </span>
                             </div>
                             <div>
-                                <span>Total</span>
-                                <span>{list.products?.length && list.products.reduce(
+                                <span className='subtitle'>Total</span>
+                                <span>
+                                    {list.products?.length && list.products.reduce(
                                     (accumulator, prod) => accumulator + parseFloat(prod.price ?? 0), 0
-                                )} {getCurrencySymbol(user.country)}
-                        </span>
+                                    )} {getCurrencySymbol(user.country)}
+                                </span>
                             </div>
                         </div>
                     </>
@@ -202,54 +201,52 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                         <div className='d-flex w-100 align-items-center ml-2'>
                             <Form.Check
                                 type={'checkbox'}
-                                className='mx-3'
+                                className='prod-checkbox mx-3'
                                 checked={prod.checked}
                                 onChange={() => checkProduct(prod)}
                                 id={prod._id}
                             />
                             <Button
-                                variant={buttonsVariant}
-                                className='my-1 w-100'
+                                className='my-1 w-100 section-styled-bg'
                                 onClick={() => selectProduct(prod)}>
-                                {prod.name}
+                                <h5>{prod.name}</h5>
                                 <div>
-                                    <span>{prod.price} {getCurrencySymbol(user.country)} <span className='x'>✕</span> </span>
-                                    <span style={{filter: 'brightness(1)'}}>{prod.count} pc(s)</span>
+                                    <span className='subtitle'>{prod.price} {getCurrencySymbol(user.country)} <span className='x'>✕</span> </span>
+                                    <span className='subtitle'>{prod.count} pc(s)</span>
                                 </div>
                             </Button>
-                            {prod.avatar ? <Button className='avatar-container mx-3' variant={buttonsVariant}>
+                            {prod.avatar ? <Button className='avatar-container mx-3 section-styled-bg'>
                                 <img src={prod.avatar} alt={prod.category.toLowerCase()}/>
-                            </Button> : <div className='avatar-container mx-3'>
+                            </Button> : <div className='avatar-container mx-3 section-styled-bg'>
                                 <div className={`sprite sprite-${prod.category.toLowerCase()}`} />
                             </div>}
                         </div>
                     </div>)}
                 </FlipMove> : null}
 
-                {checkedProds.length && uncheckedProds.length ? <div className='separator'/> : null}
+                {checkedProds.length && uncheckedProds.length ? <div className='separator section-styled-bg'/> : null}
                 {checkedProds.length ? <FlipMove className='flip'>
                     {checkedProds.map(prod => <div className='d-flex justify-content-between mb-2 w-100' key={prod._id}>
                         <div className='d-flex w-100 align-items-center ml-2'>
                             <Form.Check
+                                id={prod._id}
                                 type={'checkbox'}
-                                className='mx-3'
+                                className='prod-checkbox mx-3'
                                 checked={prod.checked}
                                 onChange={() => checkProduct(prod)}
-                                id={prod._id}
                             />
                             <Button
-                                variant={buttonsVariant}
-                                className='my-1 w-100'
+                                className='my-1 w-100 section-styled-bg'
                                 onClick={() => selectProduct(prod)}>
-                                {prod.name}
+                                <h5>{prod.name}</h5>
                                 <div>
-                                    <span>{prod.price} {getCurrencySymbol(user.country)} <span className='x'>✕</span> </span>
-                                    <span style={{filter: 'brightness(1)'}}>{prod.count} pc(s)</span>
+                                    <span className='subtitle'>{prod.price} {getCurrencySymbol(user.country)} <span className='x'>✕</span> </span>
+                                    <span className='subtitle'>{prod.count} pc(s)</span>
                                 </div>
                             </Button>
-                            {prod.avatar ? <Button className='avatar-container mx-3' variant={buttonsVariant}>
+                            {prod.avatar ? <Button className='avatar-container mx-3 section-styled-bg'>
                                 <img src={prod.avatar} alt={prod.category.toLowerCase()}/>
-                            </Button> : <div className='avatar-container mx-3'>
+                            </Button> : <div className='avatar-container mx-3 section-styled-bg'>
                                 <div className={`sprite sprite-${prod.category.toLowerCase()}`} />
                             </div>}
                         </div>

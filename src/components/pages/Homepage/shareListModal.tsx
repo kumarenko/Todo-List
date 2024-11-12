@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import {getColorById, validateEmail} from "../../../helpers/validator";
 import {IoMdClose} from "react-icons/io";
 import {inviteUsersRequest} from "../../../actions/shoppingLists";
-import {connect, useSelector} from "react-redux";
+import {connect} from "react-redux";
 import {copyTextToClipboard} from "../../../helpers/helper";
 import CustomAlert from "../../../common/Alert";
 
@@ -68,15 +68,11 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
         }
     }
 
-
-    const theme = useSelector(state => state.settings.theme);
-    const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
-
     return ReactDOM.createPortal(<Modal show={show} onHide={onHide} className='share-modal' centered>
-        <Modal.Header closeButton>
+        <Modal.Header className='modal-styled-bg justify-content-center'>
             <Modal.Title>{list.name.value}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className='modal-styled-bg justify-content-center'>
             <Container className='d-flex justify-content-between align-items-start'>
                 <Form.Group className="mb-2 w-75">
                     <Form.Control
@@ -96,10 +92,10 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
                 </Form.Group>
 
 
-                <Button className={'mx-2'} onClick={() => invite()} variant={buttonsVariant}>
+                <Button className={'mx-2'} onClick={() => invite()}>
                     Invite
                 </Button>
-                <Button className={'mx-2'} onClick={() => copyList()} variant={buttonsVariant}>
+                <Button className={'mx-2'} onClick={() => copyList()}>
                     Copy
                 </Button>
             </Container>
@@ -119,18 +115,17 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
                                     </div>
                                 </div>
                                 <span className='mx-2'>
-                                    {user.email}
+                                    <span className='subtitle'>{user.email}</span>
                                     {currentUser.id === user._id && <Badge bg="secondary">You</Badge>}
                                 </span>
                             </div>
                             <div>
                                 {renderBadge(user)}
                                 <Button
-                                    className={'mx-2'}
+                                    className={'mx-2 opacity-0-disabled'}
                                     size="sm"
-                                    variant="outline-secondary"
                                     onClick={() => removeInvite(user.email)}
-                                    disabled={list.creator._id === user._id}>
+                                    disabled={list.creator === user._id}>
                                     <IoMdClose />
                                 </Button>
                             </div>
@@ -152,8 +147,7 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
                                     </div>
                                 </div>
                                 <span className='mx-2'>
-                                    {user.email}
-                                    {currentUser.id === user._id && <Badge bg="secondary">You</Badge>}
+                                    <span className='subtitle'>{user.email}</span>
                                 </span>
                             </div>
                             <div>
@@ -161,7 +155,6 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
                                 <Button
                                     className={'mx-2'}
                                     size="sm"
-                                    variant="outline-secondary"
                                     onClick={() => removeInvite(user.email)}
                                     disabled={list.creator._id === user._id}>
                                     <IoMdClose />
@@ -172,9 +165,8 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
                 </> : null}
             </Container>
         </Modal.Body>
-        <Modal.Footer>
-        </Modal.Footer>
-        {message ? <CustomAlert variant={'success'} className='popup'>
+        <Modal.Footer className='modal-styled-bg'/>
+        {message ? <CustomAlert className='popup'>
             {message}
         </CustomAlert> : null}
     </Modal>, document.body);

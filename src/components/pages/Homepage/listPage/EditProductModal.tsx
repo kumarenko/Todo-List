@@ -16,8 +16,6 @@ const EditProductModal = ({product, show, onHide, deleteProductFromList,updatePr
     const [count, setCount] = useState('1');
     const [price, setPrice] = useState('0');
     const [category, setCategory] = useState<ProductCategory | string>('');
-    const theme = useSelector(state => state.settings.theme);
-    const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
     const country = useSelector(state => state.user.user.country);
 
     useEffect(() => {
@@ -66,14 +64,14 @@ const EditProductModal = ({product, show, onHide, deleteProductFromList,updatePr
             setCount(product.name);
         }
     }} className='w-100' centered>
-        <Modal.Header closeButton>
-            <Modal.Title>Product Editing</Modal.Title>
+        <Modal.Header className='d-flex justify-content-center modal-styled-bg'>
+            <Modal.Title className='justify-content-center'>Product Editing</Modal.Title>
         </Modal.Header>
-        <Modal.Body className='d-flex align-items-start flex-column modal-fixed-height'>
+        <Modal.Body className='d-flex align-items-start flex-column modal-fixed-height modal-styled-bg'>
             <Form.Group as={Col} className='mx-auto'>
                 <InputGroup className='my-2'>
-                    <Form.Label column sm="2" className='mx-2 w-25'>
-                        Product
+                    <Form.Label column sm="2" className='subtitle mx-2 w-25'>
+                        Name
                     </Form.Label>
                     <Form.Control
                         type="text"
@@ -86,7 +84,7 @@ const EditProductModal = ({product, show, onHide, deleteProductFromList,updatePr
                     </InputGroup.Text>
                 </InputGroup>
                 <InputGroup className='my-2'>
-                    <Form.Label column sm="2" className='mx-2 w-25'>
+                    <Form.Label column sm="2" className='subtitle mx-2 w-25'>
                         Count
                     </Form.Label>
                     <Form.Control
@@ -104,12 +102,13 @@ const EditProductModal = ({product, show, onHide, deleteProductFromList,updatePr
                     </InputGroup.Text>
                 </InputGroup>
                 <InputGroup className='my-2'>
-                    <Form.Label column sm="2" className='mx-2 w-25'>
+                    <Form.Label column sm="2" className='subtitle mx-2 w-25'>
                         Price
                     </Form.Label>
                     <Form.Control
                         type="number"
                         inputMode="decimal"
+                        min={1}
                         onBlur={() => applyUpdate()}
                         onKeyPress={event => preventCharacters(event)}
                         onChange={(e) => {
@@ -122,8 +121,8 @@ const EditProductModal = ({product, show, onHide, deleteProductFromList,updatePr
                     </InputGroup.Text>
                 </InputGroup>
                 <InputGroup className='my-2'>
-                    <Form.Label column sm="2" className='mx-2 w-25'>
-                        Category {category}
+                    <Form.Label column sm="2" className='subtitle mx-2 w-25'>
+                        Category
                     </Form.Label>
                     <Form.Select
                         aria-label="gender"
@@ -137,12 +136,11 @@ const EditProductModal = ({product, show, onHide, deleteProductFromList,updatePr
                         ))}
                     </Form.Select>
                 </InputGroup>
-                <Button
-                    onClick={() => deleteProduct()}
-                    variant={buttonsVariant}>Remove Product</Button>
             </Form.Group>
         </Modal.Body>
-        <Modal.Footer/>
+        <Modal.Footer className='modal-styled-bg justify-content-around'>
+            <Button onClick={() => deleteProduct()}>Remove Product</Button>
+        </Modal.Footer>
     </Modal>, document.body);
 };
 const mapStateToProps = (state) => ({

@@ -69,7 +69,7 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
     const reset = () => setErrors({});
     if (!user.isAuthorized) {
         return (
-                <div className='login container-sm my-auto h-100 d-flex align-items-start justify-content-center'>
+                <div className='login container-sm my-auto h-100 d-flex align-items-start justify-content-center mt-5'>
                 <div className="login-content d-flex flex-column align-items-center justify-content-center">
                     {user.loading ? <Spinner/> : null}
                     <Tabs
