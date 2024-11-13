@@ -38,6 +38,9 @@ export default function todosReducer(state = defaultState, action) {
             return {
                 ...state,
                 list: action.payload,
+                lists: state.lists.map(list =>
+                    list._id === action.payload._id ? { ...list, ...action.payload  } : list
+                )
             }
         case SET_PRODUCTS:
             return {
@@ -116,5 +119,4 @@ export default function todosReducer(state = defaultState, action) {
 export const setShoppingLists = (lists) => ({type:SET_LISTS, payload:lists})
 export const setShoppingList = (list) => ({type:SET_LIST, payload:list})
 export const setAllProducts = (products) => ({type:SET_PRODUCTS, payload:products})
-export const updateList = (list) => ({type:UPDATE_LIST, payload: list})
 export const setBarcodeData = (prod:object) => ({type:ADD_BARCODE_PROD, payload: prod})

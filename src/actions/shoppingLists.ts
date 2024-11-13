@@ -72,8 +72,11 @@ export const inviteUsersRequest = (shoppingListId, userId, invitedUser, method) 
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(objectToUpdate)
-            }).then(res=>res.json());
-        dispatch(setShoppingList({...currentList, userOwners: response.userOwners}))
+            });
+        if(response.ok) {
+            const data = await response.json();
+            dispatch(setShoppingList({...currentList, userOwners: data.userOwners}))
+        }
     };
 };
 

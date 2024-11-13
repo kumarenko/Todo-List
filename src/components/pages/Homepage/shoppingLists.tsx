@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Button, ButtonGroup, Card, Dropdown, ProgressBar} from "react-bootstrap";
 import {IoMdCreate, IoMdPersonAdd, IoMdTrash} from "react-icons/io";
 import {connect, useDispatch} from "react-redux";
@@ -17,18 +17,8 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
     const [showSharingModal, setSharingModal] = useState(false);
     const [showDeleteModal, setDeleteModal] = useState(false);
     const [selectedList, setSelectedList] = useState(null);
-    const [owners, setOwners] = useState({});
     const dispatch = useDispatch();
-    useEffect(() => {
-        if(showSharingModal) {
-            const selectedListToInvite = lists.find(list => list._id === owners.listId);
-            const updatedOwnersList = {
-                ...owners,
-                userOwners: selectedListToInvite.userOwners,
-            };
-            setOwners(updatedOwnersList);
-        }
-    },[lists]);
+
     const handleClose = () => {
         setSelectedList(null);
         setShowModal(false);
@@ -60,54 +50,46 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
     }
 
     const renderAvatars = (users, creator) => {
+        users = users.sort((a, b) => {
+            if (a.name && b.name) {
+                return a.name.localeCompare(b.name);
+            }
+            return 0;
+        });
+
         users = users.filter(user => user.status !== 'WAIT');
         let userAvatars = [];
+
         for (let index = 0; index < users.length; index++) {
             const user = users[index];
-            if(users[index]._id === creator) {
+
+            if (user._id === creator || user._id === creator._id) {
                 continue;
             }
-            if(index === 3) {
-                if(users.length === 3) {
+            if (index === 3) {
+                if (users.length === 3) {
                     break;
                 }
                 userAvatars.push(
-                    <div className={'avatar-container d-flex flex-col w-auto'}
-                         key={'user-avatar'}
-                         >
-
-                        <div  className='user-avatar'
-                              style={{
-                            backgroundColor: '#676767',
-                        }}>
-                            <span style={{fontSize: 10}}>
-                                +{users.length - 3}
-                            </span>
+                    <div className="avatar-container d-flex flex-col w-auto" key="user-avatar">
+                        <div className="user-avatar" style={{ backgroundColor: '#676767' }}>
+                            <span style={{ fontSize: 10 }}>+{users.length - 3}</span>
                         </div>
-
                     </div>
                 );
                 break;
             } else {
                 userAvatars.push(
-                    <div className={`avatar-container d-flex-col w-auto`}
-                         key={user._id}
-                    >
-                        <div className='user-avatar'
-                             style={{
-                                 backgroundColor: getColorById(user._id),
-                             }}>
-                       <span>
-                        {user.name ? user.name[0] : user.email[0]}
-                    </span>
+                    <div className="avatar-container d-flex-col w-auto" key={user._id}>
+                        <div className="user-avatar" style={{ backgroundColor: getColorById(user._id) }}>
+                            <span>{user.name ? user.name[0] : user.email[0]}</span>
                         </div>
                     </div>
                 );
             }
-
         }
         return userAvatars;
-    }
+    };
 
     return (
         <>

@@ -9,7 +9,7 @@ import {connect} from "react-redux";
 import {copyTextToClipboard} from "../../../helpers/helper";
 import CustomAlert from "../../../common/Alert";
 
-const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) => {
+const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
     const [email, setEmail] = useState('');
     const [owners, setOwners] = useState([]);
     const [message, setMessage] = useState('');
@@ -19,8 +19,8 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
     useEffect(()=> {
         let ownersArray = list.userOwners.filter(item => item.status !== 'WAIT');
         ownersArray.sort((a, b) => {
-            if (a._id === currentUser.id) return -1;
-            if (b._id === currentUser.id) return 1;
+            if (a._id === user.id) return -1;
+            if (b._id === user.id) return 1;
             return 0;
         });
         setOwners(ownersArray);
@@ -30,7 +30,7 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
     const invite = () => {
         validateEmail(email) ?
             setErrorMessage(validateEmail(email)) :
-            inviteUsersRequest(list._id, currentUser.id, email, 'POST');
+            inviteUsersRequest(list._id, user.id, email, 'POST');
     }
     const copyList = () => {
         let str = `${list.name.value}\n`;
@@ -54,7 +54,7 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
         setTimeout(() => setMessage(''), 2500);
     }
     const removeInvite = (email) => {
-        inviteUsersRequest(list.listId,currentUser._id, email, 'DELETE');
+        inviteUsersRequest(list._id, user.id, email, 'DELETE');
     }
     const renderBadge = (user) => {
         if(list.creator._id === user._id) {
@@ -104,27 +104,27 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
                 <>
                     <h3>List shared with {owners.length - 1} {owners.length > 2 ? 'person' : 'people'}</h3>
                     <Container className=' flex-row items-center'>
-                        {owners.map(user => <Container key={user._id} className='d-flex flex-nowrap justify-content-between'>
+                        {owners.map(owner => <Container key={owner._id} className='d-flex flex-nowrap justify-content-between'>
                             <div className='d-flex'>
                                 <div className={'user-avatar -ml-2'}
                                      style={{
-                                         backgroundColor: getColorById(user._id),
+                                         backgroundColor: getColorById(owner._id),
                                      }}>
                                     <div className='user-avatar-info'>
-                                        {user.name ? user.name[0] : user.email[0]}
+                                        {owner.name ? owner.name[0] : owner.email[0]}
                                     </div>
                                 </div>
                                 <span className='mx-2'>
-                                    <span className='subtitle'>{user.email}</span>
-                                    {currentUser.id === user._id && <Badge bg="secondary ms-1">You</Badge>}
+                                    <span className='subtitle'>{owner.email}</span>
+                                    {user.id === owner._id && <Badge bg="secondary ms-1">You</Badge>}
                                 </span>
                             </div>
-                            {list.creator !== user._id && <div>
-                                {renderBadge(user)}
+                            {list.creator !== owner._id && <div>
+                                {renderBadge(owner)}
                                 <Button
                                     className={'mx-2'}
                                     size="sm"
-                                    onClick={() => removeInvite(user.email)}>
+                                    onClick={() => removeInvite(owner.email)}>
                                     <IoMdClose/>
                                 </Button>
                             </div>}
@@ -173,7 +173,7 @@ const ShareListModal = ({list, show, onHide,currentUser, inviteUsersRequest}) =>
 const mapStateToProps = (state) => ({
     lists: state.items.lists,
     list: state.items.list,
-    currentUser: state.user.user,
+    user: state.user.user,
 });
 const mapDispatchToProps = {
     inviteUsersRequest
