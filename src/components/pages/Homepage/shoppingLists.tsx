@@ -10,10 +10,12 @@ import {Link} from "react-router-dom";
 import {getColorById} from "../../../helpers/validator";
 import {FiMoreHorizontal} from "react-icons/fi";
 import {setShoppingList} from "../../../redux/shoppingListsReducer";
+import DeleteListModal from "./deleteListModal";
 
 const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => {
     const [showModal, setShowModal] = useState(false);
     const [showSharingModal, setSharingModal] = useState(false);
+    const [showDeleteModal, setDeleteModal] = useState(false);
     const [selectedList, setSelectedList] = useState(null);
     const [owners, setOwners] = useState({});
     const dispatch = useDispatch();
@@ -30,6 +32,7 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
     const handleClose = () => {
         setSelectedList(null);
         setShowModal(false);
+        setDeleteModal(false);
     };
     const handleCloseSharingModal = () => {
         setSharingModal(false);
@@ -40,6 +43,7 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
     };
     const removeList = (id) => {
         removeListRequest(userId,id);
+        setDeleteModal(false);
     }
     const editList = (list) => {
         setSelectedList(list);
@@ -49,6 +53,10 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
         setSelectedList(list);
         dispatch(setShoppingList(list));
         setSharingModal(true);
+    }
+    const openDeleteModal = (list) => {
+        setSelectedList(list);
+        setDeleteModal(true);
     }
 
     const renderAvatars = (users, creator) => {
@@ -140,7 +148,7 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
                                     <Dropdown.Item eventKey="2" onClick={()=> editList(list)}>
                                         <IoMdCreate/> Edit
                                     </Dropdown.Item>
-                                    <Dropdown.Item eventKey="3" onClick={()=> removeList(list._id)}>
+                                    <Dropdown.Item eventKey="3" onClick={()=> openDeleteModal(list)}>
                                         <IoMdTrash /> Delete
                                     </Dropdown.Item>
                                 </Dropdown.Menu>
@@ -149,16 +157,21 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
                     </Card>
                 </div>)}
             </div>
-            <CreateListModal
+            {showModal && <CreateListModal
                 value={selectedList}
                 show={showModal}
                 onHide={handleClose}
                 onApply={handleApply}
-            />
+            />}
+            {showDeleteModal && <DeleteListModal
+                name={selectedList.name.value}
+                show={showDeleteModal}
+                onHide={handleClose}
+                onApply={() => removeList(selectedList._id)}
+            />}
             {showSharingModal && <ShareListModal
                 show={showSharingModal}
                 onHide={handleCloseSharingModal}
-                onApply={handleApply}
             />}
         </>
     );

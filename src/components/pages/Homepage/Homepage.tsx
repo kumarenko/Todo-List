@@ -15,7 +15,7 @@ const HomePage: FC = ({lists, getShoppingLists, title, user, addShoppingList }):
     const handleClose = () => setShowModal(false);
 
     const handleApply = (name) => {
-        addShoppingList(user.id, name, []);
+        addShoppingList(user.id, name);
         setShowModal(false);
     };
 

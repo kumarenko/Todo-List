@@ -20,6 +20,7 @@ import {debounce, getCurrencySymbol} from "../../../../helpers/helper";
 import {FiMoreHorizontal} from "react-icons/fi";
 import ShareListModal from "../shareListModal";
 import {defaultState, setShoppingList} from "../../../../redux/shoppingListsReducer";
+import DeleteListModal from "../deleteListModal";
 
 const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updateListRequest, removeListRequest }) => {
     const { listId } = useParams();
@@ -35,6 +36,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
     const [showFilterModal, setFilterShowModal] = useState(false);
     const [filteredCategories, setFilteredCategories] = useState([...ProductCategories]);
     const [showSharingModal, setSharingModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     const handleApply = () => setAddShowModal(false);
     const handleClose = () => setAddShowModal(false);
@@ -114,6 +116,11 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
     const handleCloseSharingModal = () => {
         setSharingModal(false);
     };
+    const removeList = async () => {
+        setShowDeleteModal(false);
+        await removeListRequest(user.id, list._id);
+        navigate(-1);
+    }
     return (
         <div className='list-page'>
             <h3 className='list-header p-3'>
@@ -152,10 +159,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                 <Dropdown.Item eventKey="2" onClick={()=> setFilterShowModal(true)}>
                                     <MdFilterListAlt/> Filter
                                 </Dropdown.Item>
-                                <Dropdown.Item eventKey="3" onClick={async ()=> {
-                                    await removeListRequest(user.id, list._id);
-                                    navigate(-1);
-                                }}>
+                                <Dropdown.Item eventKey="3" onClick={() => setShowDeleteModal(true)}>
                                     <IoMdTrash /> Delete
                                 </Dropdown.Item>
                             </Dropdown.Menu>
@@ -275,6 +279,12 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                 product={product}
                 onHide={handleCloseEdit}
                 onApply={handleApplyEdit}
+            />
+            <DeleteListModal
+                name={list.name.value}
+                show={showDeleteModal}
+                onHide={handleClose}
+                onApply={() => removeList()}
             />
             <Filter
                 show={showFilterModal}

@@ -15,7 +15,7 @@ const CreateListModal = ({value = null, show, onHide, onApply}) => {
     }
     return ReactDOM.createPortal(<Modal show={show} onHide={onCloseHandler} centered>
         <Modal.Header className='modal-styled-bg justify-content-center'>
-            <Modal.Title>Adding new List</Modal.Title>
+            <Modal.Title>{value ? 'Renaming list' : 'Adding new List'}</Modal.Title>
         </Modal.Header>
         <Modal.Body className='modal-styled-bg'>
             <Form.Label htmlFor="name" className='subtitle'>Enter name: </Form.Label>
@@ -28,10 +28,10 @@ const CreateListModal = ({value = null, show, onHide, onApply}) => {
         </Modal.Body>
         <Modal.Footer className='modal-styled-bg justify-content-around'>
             <Button onClick={onHide}>
-                Close
+                Cancel
             </Button>
             <Button onClick={handleClick} disabled={data.length === 0}>
-                Save Changes
+                Apply
             </Button>
         </Modal.Footer>
     </Modal>, document.body);
