@@ -2,7 +2,7 @@ import React, {useEffect, useState, useCallback} from 'react';
 import {connect, useDispatch} from "react-redux";
 import FlipMove from "react-flip-move";
 import {useNavigate, useParams} from 'react-router-dom';
-import {IoMdCreate, IoMdPersonAdd, IoMdSearch, IoMdTrash} from "react-icons/io";
+import {IoMdCreate, IoMdPersonAdd, IoMdSearch, IoMdTrash, IoMdClose} from "react-icons/io";
 import {Button, ButtonGroup, Dropdown, Form, InputGroup, ProgressBar} from "react-bootstrap";
 import { FaSortAmountDown } from "react-icons/fa";
 
@@ -159,6 +159,11 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
         await removeListRequest(user.id, list._id);
         navigate(-1);
     }
+    const removeCategoryToFilter = (cat) => {
+        const updatedCategories = filteredCategories.filter((category) => category !== cat);
+        setFilteredCategories(updatedCategories);
+    };
+
     return (
         <div className='list-page'>
             <h3 className='list-header p-3'>
@@ -204,7 +209,6 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                         </Dropdown>
                     </div>
                 </div>
-
                 {list.products?.length ?
                     <>
                         <div className='position-relative w-100 d-flex flex-nowrap align-items-center px-2 mx-auto'>
@@ -241,7 +245,9 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                         </div>
                     </>
                     : <div className='text-center my-2 mx-auto title'>This list is empty</div>}
-
+                {filteredCategories.length >= 1 ? <div className='my-2'>
+                    {filteredCategories.map(cat => <Button className='mx-2' onClick={() => removeCategoryToFilter(cat)}><IoMdClose/>{cat}</Button>)}
+                </div> : null}
             </h3>
             <div className='list'>
                 {prods.filter(i => !i.checked).length ? <FlipMove className='flip'>
@@ -326,6 +332,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                 isVisible={showFilterModal}
                 onClose={handleCloseFilter}
                 categories={list.products.map(prod => prod.category).filter(onlyUnique)}
+                filteredCats={filteredCategories}
                 onSelectCategory={filterByCategory} />
             <SortingModal
                 isVisible={toggleSortingModal}
