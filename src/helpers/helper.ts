@@ -46,3 +46,6 @@ export const debounce = (func, delay) => {
         timeout = setTimeout(() => func(...args), delay);
     };
 }
+export function onlyUnique(value, index, array) {
+    return array.indexOf(value) === index;
+}

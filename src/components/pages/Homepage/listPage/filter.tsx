@@ -1,72 +1,54 @@
-import React, { useEffect, useState } from 'react';
-import {Button, Form, Modal} from "react-bootstrap";
-import { ProductCategories } from "../../../../types/types";
+import React, {useEffect, useState} from 'react';
+import ReactDOM from 'react-dom';
+import {Button, Modal} from "react-bootstrap";
+import allProducts from "../../../../configs/products.json";
+import {onlyUnique} from "../../../../helpers/helper";
 
-export const Filter = ({show, filterData, onHide}) => {
+const categories = allProducts.map(prod => prod.category).filter(onlyUnique);
+
+const FilterModal = ({isVisible, onClose, onSelectCategory}) => {
     const [selected, setSelected] = useState([]);
     const [all, setAll] = useState([]);
+    useEffect(() => {
+        setSelected([]);
+        setAll([...categories]);
+    }, []);
 
-    const onSelect = (item) => {
+    const setSelectedCategory = item => {
         setSelected(prevSelected => {
             const newSelected = [...prevSelected];
-            newSelected.includes(item) ?
-                newSelected.splice(newSelected.indexOf(item), 1) :
-                newSelected.push(item);
+            newSelected.includes(item)
+                ? newSelected.splice(newSelected.indexOf(item), 1)
+                : newSelected.push(item);
             return newSelected;
         });
     };
-
-    const onSelectAll = () => {
-        selected.length === all.length ?
-            setSelected([]) :
-            setSelected([...ProductCategories]);
-    };
-
-    useEffect(() => {
-        setSelected([...ProductCategories]);
-        setAll([...ProductCategories]);
-    }, []);
-
-    return (<Modal  show={show} onHide={onHide}  className='w-100' centered>
-        <Modal.Header className='dropdown-without-arrow modal-styled-bg d-flex justify-content-center'>
-            <Modal.Title>Filter Products by categories</Modal.Title>
+    return ReactDOM.createPortal(<Modal show={isVisible} onHide={onClose}>
+        <Modal.Header>
+            Filter Products by categories
         </Modal.Header>
-        <Modal.Body className='modal-fixed-height modal-styled-bg'>
-            <div className='d-flex justify-content-around'>
-                <Button onClick={() => onSelectAll()}>
-                    Check all
+        <Modal.Body>
+            {all.map((item, index) => (
+                <Button
+                    key={index}
+                    onClick={() => setSelectedCategory(item)}>
+                    <span>
+                        {item}
+                    </span>
                 </Button>
-                <Button onClick={() => setSelected([])}>
-                    Uncheck all
-                </Button>
-            </div>
-            <ul className='list-unstyled'>
-                {all.map(category => (
-                    <li
-                        key={category}
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <div className='d-flex' onClick={() => onSelect(category)}>
-                            <Form.Check
-                                name={category}
-                                type="checkbox"
-                                checked={selected.includes(category)}
-                                onChange={() => {}}
-                            />
-                            <Form.Label className='subtitle ms-2' htmlFor={category}>
-                                {category}
-                            </Form.Label>
-                        </div>
-                    </li>
-                ))}
-            </ul>
+            ))}
         </Modal.Body>
-        <Modal.Footer className='modal-styled-bg justify-content-around'>
+        <Modal.Footer>
             <Button onClick={() => {
-                filterData(selected);
-                onHide();
+                setSelected([]);
+            }}>Reset</Button>
+            <Button onClick={() => {
+                onSelectCategory(selected);
+                onClose();
             }}>Apply</Button>
-            <Button onClick={onHide}>Cancel</Button>
+            <Button onClick={onClose}>Close</Button>
         </Modal.Footer>
-    </Modal>);
+    </Modal>, document.body);
 };
+
+export default FilterModal;

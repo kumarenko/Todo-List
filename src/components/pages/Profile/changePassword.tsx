@@ -30,7 +30,7 @@ const ChangePassword = ({userId, googleId}) => {
             {allowChange ? <>
                     {googleId}
                     {!googleId ? <div>
-                        <h5>{googleId ? 'Your Current password' : 'Your Current password'}</h5>
+                        <h5 className='title'>{googleId ? 'Your Current password' : 'Your Current password'}</h5>
                         <Form.Control
                             isInvalid={!!validationErrors.password}
                             onChange={(e) => {
@@ -42,7 +42,7 @@ const ChangePassword = ({userId, googleId}) => {
                         </Form.Control.Feedback>
                     </div> : null}
                     <div>
-                        <h5>Enter new password</h5>
+                        <h5 className='title'>Enter new password</h5>
                         <Form.Control
                             isInvalid={!!validationErrors.newPassword}
                             onChange={(e) => {
@@ -54,7 +54,7 @@ const ChangePassword = ({userId, googleId}) => {
                         </Form.Control.Feedback>
                     </div>
                     <div>
-                    <h5>Confirm password</h5>
+                    <h5 className='title'>Confirm password</h5>
                     <Form.Control
                         isInvalid={!!validationErrors.confirmPassword}
                         onChange={(e) => {

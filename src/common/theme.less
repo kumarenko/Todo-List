@@ -8,13 +8,28 @@ body {
     a {
       color: @BUTTON_TEXT_DARK;
     }
-    button {
+    button, button.btn {
       background-color: @BUTTON_BG_DARK;
-      border: 1px solid @INPUT_BORDER_LIGHT;
+      border:none;
       color: @BUTTON_TEXT_DARK;
       box-shadow: none;
+      &:hover {
+        background-color: lighten(@BUTTON_BG_LIGHT, 10%);
+      }
+      &:active {
+        background-color: lighten(@BUTTON_BG_LIGHT, 20%);
+      }
     }
-    h1, h2, h3, h4, h5, h6, .h4, .title {
+    button.prod-edit-btn {
+      background-color: transparent;
+      &:hover {
+        background-color: lighten(@BUTTON_BG_LIGHT, 10%);
+      }
+      &:active {
+        background-color: lighten(@BUTTON_BG_LIGHT, 20%);
+      }
+    }
+    .title {
       color: @TITLE_DARK;
     }
     .subtitle {
@@ -54,8 +69,10 @@ body {
     .section-styled-bg {
       background-color: @SECTION_BG_DARK;
     }
-    .btn.section-styled-bg {
+    button.section-styled-bg {
       border: 1px solid @INPUT_BORDER_LIGHT;
+      background-color: @SECTION_BG_DARK;
+      color: @BUTTON_TEXT_DARK;
       &:hover {
         background-color: lighten(@SECTION_BG_DARK, 10%);
       }
@@ -109,10 +126,25 @@ body {
   button.btn {
     border: 1px solid @INPUT_BORDER_DARK;
   }
-  button {
+  button, button.btn {
     background-color: @BUTTON_BG_LIGHT;
-    border: 1px solid @INPUT_BORDER_DARK;
+    border: none;
     color: @BUTTON_TEXT_LIGHT;
+    &:hover {
+      background-color: darken(@BUTTON_BG_LIGHT, 10%);
+    }
+    &:active {
+      background-color: darken(@BUTTON_BG_LIGHT, 20%);
+    }
+  }
+  button.prod-edit-btn {
+    background-color: transparent;
+    &:hover {
+      background-color: lighten(@BUTTON_BG_LIGHT, 10%);
+    }
+    &:active {
+      background-color: lighten(@BUTTON_BG_LIGHT, 20%);
+    }
   }
   h1, h2, h3, h4, h5, h6 {
     color: @TITLE_LIGHT;
@@ -133,7 +165,6 @@ body {
   input[type='email'], input[type='email']:disabled {
     background-color: @INPUT_BG_LIGHT;
     color: @INPUT_TEXT_LIGHT;
-
     &:hover {
       background-color: darken(@INPUT_BG_LIGHT, 10%);
     }
@@ -151,12 +182,13 @@ body {
   input[type='text']:disabled:hover {
     background-color: inherit;
   }
-
   .section-styled-bg {
     background-color: @SECTION_BG_LIGHT;
   }
-  .btn.section-styled-bg {
+  button.section-styled-bg {
     border: 1px solid @INPUT_BORDER_DARK;
+    background-color: @SECTION_BG_LIGHT;
+    color: @BUTTON_TEXT_LIGHT;
     &:hover {
       background-color: darken(@SECTION_BG_LIGHT, 10%);
     }

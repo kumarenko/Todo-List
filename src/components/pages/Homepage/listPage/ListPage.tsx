@@ -4,18 +4,18 @@ import FlipMove from "react-flip-move";
 import {useNavigate, useParams} from 'react-router-dom';
 import {IoMdCreate, IoMdPersonAdd, IoMdSearch, IoMdTrash} from "react-icons/io";
 import {Button, ButtonGroup, Dropdown, Form, InputGroup, ProgressBar} from "react-bootstrap";
+import { FaSortAmountDown } from "react-icons/fa";
 
 import {getShoppingList, removeListRequest, updateListRequest} from "../../../../actions/shoppingLists";
 import {updateProductsListRequest} from "../../../../actions/products";
 import {addProductToList, deleteProductFromList} from "../../../../actions/products";
 import AddProductModal from "./AddProductModal";
 import EditProductModal from "./EditProductModal";
-import {Filter} from "./filter";
+import FilterModal from "./filter";
 
 import './categorieSpritePositions.less';
 import './styles.less';
 import {MdFilterListAlt} from "react-icons/md";
-import {ProductCategories} from "../../../../types/types";
 import {debounce, getCurrencySymbol} from "../../../../helpers/helper";
 import {FiMoreHorizontal} from "react-icons/fi";
 import ShareListModal from "../shareListModal";
@@ -26,17 +26,18 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
     const { listId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [checkedProds, setCheckedProds] = useState([]);
-    const [uncheckedProds, setUncheckedProds] = useState([]);
+
+    const [prods, setProds] = useState([]);
     const [product, setProduct] = useState({});
     const [listName, setListName] = useState('');
     const [searchValue, setSearchValue] = useState('');
     const [showAddModal, setAddShowModal] = useState(false);
     const [showEditModal, setEditShowModal] = useState(false);
     const [showFilterModal, setFilterShowModal] = useState(false);
-    const [filteredCategories, setFilteredCategories] = useState([...ProductCategories]);
+    const [filteredCategories, setFilteredCategories] = useState([]);
     const [showSharingModal, setSharingModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [sortingType, setSortingType] = useState('default');
 
     const handleApply = () => setAddShowModal(false);
     const handleClose = () => setAddShowModal(false);
@@ -54,21 +55,8 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
         }
     }, []);
     useEffect(() => {
-        if (Object.keys(list).length) {
-            setListName(list.name.value);
-            document.title = list.name.value;
-            if (list.products) {
-                let checked = [];
-                list.products.forEach(prod => {
-                    prod.checked ?
-                        checked.push(prod) :
-                        checked.splice(checked.indexOf(prod), 0);
-                });
-                setCheckedProds(checked);
-                setUncheckedProds(list.products.filter(prod => !prod.checked));
-            }
-        }
-    }, [list]);
+        setListName(list.name.value);
+    }, [list.name]);
 
     const selectProduct = (prod) => {
         setEditShowModal(true);
@@ -86,16 +74,62 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
 
     useEffect(() => {
         applyFilters();
-    }, [searchValue, filteredCategories]);
-
+    }, [searchValue, filteredCategories, list, sortingType]);
     const applyFilters = () => {
         if (list.products?.length) {
-            const filteredProducts = list.products.filter(prod =>
-                filteredCategories.includes(prod.category) &&
-                prod.name.toLowerCase().includes(searchValue.toLowerCase())
+            console.log(filteredCategories);
+            let filteredProducts = list.products.filter(
+                prod =>
+                    filteredCategories.includes(prod.category) &&
+                    prod.name.toLowerCase().includes(searchValue.toLowerCase()),
             );
-            setUncheckedProds(filteredProducts.filter(prod => !prod.checked));
-            setCheckedProds(filteredProducts.filter(prod => prod.checked));
+            if (filteredCategories.length === 0) {
+                filteredProducts = list.products.filter(prod =>
+                    prod.name.toLowerCase().includes(searchValue.toLowerCase()),
+                );
+            }
+            setProds(sortProds(filteredProducts));
+        }
+    };
+    const sortProds = array => {
+        const sortedArray = [...array];
+        switch (sortingType) {
+            case 'alphabetical': {
+                return sortedArray.sort((a, b) => {
+                    if (a.checked === b.checked) {
+                        return a.name.localeCompare(b.name);
+                    }
+                    return a.checked ? 1 : -1;
+                });
+            }
+            case 'popularity': {
+                return sortedArray.sort((a, b) => {
+                    if (a.checked === b.checked) {
+                        const selectionCountA = a.selectionCount || 0;
+                        const selectionCountB = b.selectionCount || 0;
+                        return selectionCountB - selectionCountA;
+                    }
+                    return a.checked ? 1 : -1;
+                });
+            }
+            case 'price': {
+                return sortedArray.sort((a, b) => {
+                    if (a.checked === b.checked) {
+                        const selectionCountA = a.price || 0;
+                        const selectionCountB = b.price || 0;
+                        return selectionCountB - selectionCountA;
+                    }
+                    return a.checked ? 1 : -1;
+                });
+            }
+            default: {
+                return sortedArray.sort((a, b) => {
+                    if (a.checked === b.checked) {
+                        return 0;
+                    }
+                    return a.checked ? 1 : -1;
+                });
+            }
         }
     };
 
@@ -132,7 +166,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                             onChange={handleInputChange}
                             type="text"
                         />
-                        <IoMdCreate className='name-icon'/>
+                        <IoMdCreate className='name-icon title'/>
                     </InputGroup>
                     <InputGroup className='input-wrapper search rounded'>
                         <Form.Control
@@ -141,7 +175,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                             onBlur={() => {}}
                             onChange={(e) => setSearchValue(e.target.value)}
                             type="text" />
-                        <IoMdSearch className='name-icon' />
+                        <IoMdSearch className='name-icon title' />
                     </InputGroup>
                     <div className="actions d-flex flex-row flex-nowrap">
                         <Button onClick={() => setAddShowModal(true)} className='add'>Add Product</Button>
@@ -154,7 +188,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                     <IoMdPersonAdd /> Share
                                 </Dropdown.Item>
                                 <Dropdown.Item eventKey="2" onClick={()=> {}}>
-                                    <IoMdCreate/> Sort
+                                    <FaSortAmountDown/> Sort
                                 </Dropdown.Item>
                                 <Dropdown.Item eventKey="2" onClick={()=> setFilterShowModal(true)}>
                                     <MdFilterListAlt/> Filter
@@ -167,7 +201,6 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                     </div>
                 </div>
 
-
                 {list.products?.length ?
                     <>
                         <div className='position-relative w-100 d-flex flex-nowrap align-items-center px-2 mx-auto'>
@@ -178,24 +211,24 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                             />
                             <span className='progress-count'>{list.products.filter(item => item.checked).length} / {list.products.length}</span>
                         </div>
-                        <div className='prices mx-auto'>
+                        <div className='prices mx-auto subtitle'>
                             <div>
-                                <span className='subtitle'>Purchased</span>
-                                <span>{list.products?.length && list.products.reduce(
+                                <span>Purchased</span>
+                                <span className='title'>{list.products?.length && list.products.reduce(
                                     (accumulator, prod) => prod.checked ? accumulator + parseFloat(prod.price) : accumulator, 0
                                 )} {getCurrencySymbol(user.country)}
                                 </span>
                             </div>
                             <div>
-                                <span className='subtitle'>Remaining</span>
-                                <span>{list.products?.length && list.products.reduce(
+                                <span>Remaining</span>
+                                <span className='title' >{list.products?.length && list.products.reduce(
                                     (accumulator, prod) => !prod.checked ? accumulator + parseFloat(prod.price ?? 0) : accumulator, 0
                                 )} {getCurrencySymbol(user.country)}
                                 </span>
                             </div>
                             <div>
-                                <span className='subtitle'>Total</span>
-                                <span>
+                                <span>Total</span>
+                                <span className='title'>
                                     {list.products?.length && list.products.reduce(
                                     (accumulator, prod) => accumulator + parseFloat(prod.price ?? 0), 0
                                     )} {getCurrencySymbol(user.country)}
@@ -203,12 +236,12 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                             </div>
                         </div>
                     </>
-                    : <div className='text-center my-2 mx-auto'>This list is empty</div>}
+                    : <div className='text-center my-2 mx-auto title'>This list is empty</div>}
 
             </h3>
             <div className='list'>
-                {uncheckedProds.length ? <FlipMove className='flip'>
-                    {uncheckedProds.map(prod => <div className='d-flex justify-content-between mb-2 w-100' key={prod._id}>
+                {prods.filter(i => !i.checked).length ? <FlipMove className='flip'>
+                    {prods.filter(i => !i.checked).map(prod => <div className='d-flex justify-content-between mb-2 w-100' key={prod._id}>
                         <div className='d-flex w-100 align-items-center ml-2'>
                             <Form.Check
                                 type={'checkbox'}
@@ -217,15 +250,15 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                 onChange={() => checkProduct(prod)}
                                 id={prod._id}
                             />
-                            <Button
+                            <button
                                 className='my-1 w-100 section-styled-bg'
                                 onClick={() => selectProduct(prod)}>
-                                <h5>{prod.name}</h5>
+                                <h5 className='title'>{prod.name}</h5>
                                 <div>
                                     <span className='subtitle'>{prod.price} {getCurrencySymbol(user.country)} <span className='x'>✕</span> </span>
                                     <span className='subtitle'>{prod.count} pc(s)</span>
                                 </div>
-                            </Button>
+                            </button>
                             {prod.avatar ? <Button className='avatar-container mx-3 section-styled-bg'>
                                 <img src={prod.avatar} alt={prod.category.toLowerCase()}/>
                             </Button> : <div className='avatar-container mx-3 section-styled-bg'>
@@ -234,10 +267,9 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                         </div>
                     </div>)}
                 </FlipMove> : null}
-
-                {checkedProds.length && uncheckedProds.length ? <div className='separator section-styled-bg'/> : null}
-                {checkedProds.length ? <FlipMove className='flip'>
-                    {checkedProds.map(prod => <div className='d-flex justify-content-between mb-2 w-100' key={prod._id}>
+                {prods.filter(i => i.checked).length ? <div className='separator section-styled-bg'/> : null}
+                {prods.filter(i => i.checked).length ? <FlipMove className='flip'>
+                    {prods.filter(i => i.checked).map(prod => <div className='d-flex justify-content-between mb-2 w-100' key={prod._id}>
                         <div className='d-flex w-100 align-items-center ml-2'>
                             <Form.Check
                                 id={prod._id}
@@ -249,7 +281,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                             <Button
                                 className='my-1 w-100 section-styled-bg'
                                 onClick={() => selectProduct(prod)}>
-                                <h5>{prod.name}</h5>
+                                <h5 className='title'>{prod.name}</h5>
                                 <div>
                                     <span className='subtitle'>{prod.price} {getCurrencySymbol(user.country)} <span className='x'>✕</span> </span>
                                     <span className='subtitle'>{prod.count} pc(s)</span>
@@ -286,10 +318,10 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                 onHide={handleClose}
                 onApply={() => removeList()}
             />
-            <Filter
-                show={showFilterModal}
-                onHide={handleCloseFilter}
-                filterData={filterByCategory} />
+            <FilterModal
+                isVisible={showFilterModal}
+                onClose={handleCloseFilter}
+                onSelectCategory={filterByCategory} />
         </div>
     );
 };

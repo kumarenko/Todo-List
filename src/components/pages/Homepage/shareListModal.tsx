@@ -70,7 +70,7 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
 
     return ReactDOM.createPortal(<Modal show={show} onHide={onHide} className='share-modal' centered>
         <Modal.Header className='modal-styled-bg justify-content-center'>
-            <Modal.Title>{list.name.value}</Modal.Title>
+            <Modal.Title className='title'>{list.name.value}</Modal.Title>
         </Modal.Header>
         <Modal.Body className='modal-styled-bg justify-content-center'>
             <Container className='d-flex justify-content-between align-items-start'>
@@ -102,7 +102,7 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
             <Container className='d-flex justify-content-between flex-column'>
                 {owners.length > 1 ?
                 <>
-                    <h3>List shared with {owners.length - 1} {owners.length > 2 ? 'person' : 'people'}</h3>
+                    <h3 className='title'>List shared with {owners.length - 1} {owners.length > 2 ? 'person' : 'people'}</h3>
                     <Container className=' flex-row items-center'>
                         {owners.map(owner => <Container key={owner._id} className='d-flex flex-nowrap justify-content-between'>
                             <div className='d-flex'>
@@ -133,7 +133,7 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
                 </> : null}
                 {waitingOwners.length ?
                 <>
-                    <h3>Invites sent to {waitingOwners.length} {waitingOwners.length > 1 ? 'person' : 'people'}</h3>
+                    <h3 className='title'>Invites sent to {waitingOwners.length} {waitingOwners.length > 1 ? 'person' : 'people'}</h3>
                     <Container className=' flex-row items-center'>
                         {waitingOwners.map(user => <Container key={user._id} className='d-flex flex-nowrap justify-content-between'>
                             <div className='d-flex'>

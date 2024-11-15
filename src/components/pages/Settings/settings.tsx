@@ -18,10 +18,10 @@ const Settings = ({theme, changeTheme, title, user, isMetricUnits,updateProfileI
     return (
         <div className='homepage d-flex flex-column align-items-center'>
             <div className="d-flex justify-content-between h3 w-75 p-3">
-                <h1>Settings</h1>
+                <h1 className='title'>Settings</h1>
             </div>
             <div className="w-75 p-3">
-                <h5 className='m-1'>Dark mode</h5>
+                <h5 className='m-1 title'>Dark mode</h5>
                 <Form.Check
                     type="switch"
                     defaultChecked={theme !== 'light'}
@@ -29,14 +29,14 @@ const Settings = ({theme, changeTheme, title, user, isMetricUnits,updateProfileI
                     className='my-2'
                 />
                 <div>
-                    <h5 className='m-1'>Select Units</h5>
+                    <h5 className='m-1 title'>Select Units</h5>
                     <Form.Select aria-label="Units" value={isMetricUnits ? 'metric' : 'imperial'} onChange={toggleUnits} className='w-25'>
                         <option value="metric">Metric</option>
                         <option value="imperial">Imperial</option>
                     </Form.Select>
                 </div>
                 <div className="div">
-                    <h5 className='m-1'>Select language</h5>
+                    <h5 className='m-1 title'>Select language</h5>
                     <Form.Select aria-label="language" defaultValue={'en'} className='w-25'>
                         <option value="en">English</option>
                         <option value="ua">Ukrainian</option>

@@ -70,7 +70,7 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
     return (
         <div className='profile d-flex flex-column align-items-center'>
             <div className="d-flex justify-content-between h3 w-75 p-3">
-                <h1>Profile page</h1>
+                <h1 className='title'>Profile page</h1>
                 <Button size={'md'} onClick={() => logoutAction()}>Logout</Button>
 
             </div>
@@ -81,12 +81,12 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
                     </div>
                     <Container fluid="md" className='user-info d-flex w-75 flex-wrap mb-2'>
                         <div>
-                            <h5>Name</h5>
+                            <h5 className='title'>Name</h5>
                             {isEditing ? <Form.Control
                                 onChange={e => setName(e.target.value)} type="text" value={name}/> : <div className={'subtitle'}>{userData.name}</div>}
                         </div>
                         <div>
-                            <h5>Email</h5>
+                            <h5 className='title'>Email</h5>
                             {isEditing ? <Form.Control
                                     onChange={e => setEmail(e.target.value)}
                                     disabled value={email}
@@ -96,7 +96,7 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
                     </Container>
                 </> :
                 <div className="w-75">
-                    <h4>You are in guest mode now.</h4>
+                    <h4 className='title'>You are in guest mode now.</h4>
                 </div>
             }
             <ChangePassword userId={userData.id} googleId={user.user.googleId}/>

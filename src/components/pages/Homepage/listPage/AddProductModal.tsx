@@ -3,130 +3,119 @@ import ReactDOM from "react-dom";
 import {Button, Modal, Form, InputGroup} from "react-bootstrap";
 import {addProductToList, findProductByBarcode, getAllProducts} from "../../../../actions/products";
 import {connect} from "react-redux";
-import {IoMdAdd, IoMdSearch} from "react-icons/io";
-import {Filter} from './filter';
-import {ProductCategories} from "../../../../types/types";
-import {FaBarcode} from "react-icons/fa";
-import BarcodeScanner from "./barcodeScanner";
-import {MdFilterListAlt} from "react-icons/md";
+import FilterModal from './filter';
+import allProducts from './../../../../configs/products.json';
+import {onlyUnique} from "../../../../helpers/helper";
+import RenderProduct from "./renderProduct";
+import { IoMdArrowDropdown } from "react-icons/io";
+const allCategories = allProducts.map(prod => prod.category).filter(onlyUnique);
+const AddProductModal = ({show, onHide}) => {
 
-const AddProductModal = ({list, allProducts, getAllProducts, show, onHide, addProductToList, findProductByBarcode, productFromBarcode}) => {
-    const [filteredItems, setFilteredItems] = useState([]);
-    const [filteredCategories, setFilteredCategories] = useState([...ProductCategories]);
     const [searchValue, setSearchValue] = useState('');
-    const [showFilterModal, setFilterShowModal] = useState(false);
-    const handleCloseFilter = () => setFilterShowModal(false);
+    const [toggleFilterModal, setToggleFilterModal] = useState(false);
+    const [filteredItems, setFilteredItems] = useState(allProducts);
+    const [filteredCategories, setFilteredCategories] = useState(allProducts.map(prod => prod.category).filter(onlyUnique));
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+    const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
 
-    const [openCameraWindow, setOpenCameraWindow] = useState(false);
-    const [code, setCode] = useState('');
-
-    const handleDetected = (result) => {
-        console.log("Barcode detected: " + result);
-        setCode(result);
+    const searchProduct = (e: any) => {
+        setSearchValue(e.target.value);
     };
     useEffect(() => {
-        if (Object.keys(productFromBarcode).length) {
-            setSearchValue(productFromBarcode.title);
-        }
-    },[productFromBarcode]);
-
-    const closeScanner = () => {
-        setOpenCameraWindow(false);
-    }
-    useEffect(()=> {
-        if(code) {
-            findProductByBarcode(code);
-        }
-    }, [code]);
-    useEffect(() => {
-        getAllProducts();
-    }, []);
-
-    useEffect(() => {
         applyFilters();
-    }, [allProducts, searchValue, filteredCategories]);
-
-    const onCloseHandler = () => {
-        onHide();
-        setTimeout(() => {
-            setFilteredItems(allProducts);
-            setSearchValue('');
-        }, 500);
-    }
-
-    const addProduct = (item) => {
-        const product = {
-            name: item.name,
-            category: item.category ?? "Other",
-        };
-        addProductToList(list._id, product);
-    }
+    }, [searchValue, selectedCategories]);
 
     const applyFilters = () => {
+        if (searchValue === '' && selectedCategories.length === 0) {
+            setFilteredItems(allProducts);
+            setFilteredCategories(allCategories);
+            return;
+        }
+
         let filtered = allProducts.filter(prod => {
-            const matchesSearch = prod.name.toLowerCase().includes(searchValue.toLowerCase());
-            const matchesCategory = filteredCategories.length === 0 || filteredCategories.includes(prod.category);
+            const matchesSearch = prod.name
+                .toLowerCase()
+                .includes(searchValue.toLowerCase());
+            const matchesCategory =
+                selectedCategories.length === 0 ||
+                selectedCategories.includes(prod.category);
             return matchesSearch && matchesCategory;
         });
-        setFilteredItems(filtered.length > 0 ? filtered : [{name: searchValue}]);
-    }
 
-    const handleSearchChange = (e) => {
-        setSearchValue(e.target.value);
-    }
+        setFilteredItems(filtered);
 
-    const filterByCategory = (data) => {
-        setFilteredCategories(data);
-    }
+        const filteredProductsCats = allCategories.filter(category =>
+            filtered.some(prod => prod.category === category),
+        );
 
+        setFilteredCategories(filteredProductsCats);
+    };
+
+    const filterByCategory = (categories: Array<string>) => {
+        setSelectedCategories(categories);
+    };
+
+    const toggleCategory = (category: string) => {
+        setExpandedCategories(prev =>
+            prev.includes(category)
+                ? prev.filter(cat => cat !== category)
+                : [...prev, category],
+        );
+    };
+
+    const countSelectedProducts = (category: string) => {
+        return filteredItems.filter((prod: any) => prod.category === category).length;
+    };
+
+    const renderCategory = (item: any) => {
+        const isExpanded = expandedCategories.includes(item);
+        const selectedProductsCount = countSelectedProducts(item);
+        return (
+            <div key={item} className='w-100'>
+                <button onClick={() => toggleCategory(item)} className={'d-flex justify-content-between align-items-center w-100 section-styled-bg my-1 p-1 rounded'}>
+                    <div>
+                        {item} <span>({selectedProductsCount})</span>
+                    </div>
+                    <IoMdArrowDropdown  style={{transform: `rotate(${isExpanded ? 180 : 0}deg)`}}/>
+                </button>
+                <div className='d-flex flex-column'>
+                    {isExpanded && filteredItems.filter(product => product.category === item).map(prod => <RenderProduct item={prod} />)}
+                </div>
+            </div>
+        );
+    };
     return ReactDOM.createPortal(
-        <Modal show={show} onHide={onCloseHandler} className='w-100 rounded' centered>
+        <Modal show={show} onHide={onHide} className='w-100 rounded' centered>
             <Modal.Header className='modal-styled-bg d-flex flex-column justify-content-center'>
-                <Modal.Title>Adding new Product to List</Modal.Title>
+                <Modal.Title className='title'>Adding new Product to List</Modal.Title>
                 <Form.Group className='d-flex flex-row flex-nowrap w-100 mx-1'>
                     <InputGroup className='w-75'>
-                        <Form.Control
-                            type="text"
-                            onChange={handleSearchChange}
+                        <input
+                            placeholder={'Enter product name'}
                             value={searchValue}
-                            placeholder="Search here.."
+                            onChange={searchProduct}
                         />
-                        <InputGroup.Text>
-                            <IoMdSearch />
-                        </InputGroup.Text>
+                        <Button
+                            onClick={() => setToggleFilterModal(true)}
+                        >filter</Button>
                     </InputGroup>
-                    <div className="buttons w-25 d-flex flex-nowrap">
-                        <Button onClick={()=> setFilterShowModal(true)} className='ms-2'>
-                            Filter <MdFilterListAlt />
-                        </Button>
-                        <Button onClick={()=> setOpenCameraWindow(!openCameraWindow)} className='mx-1'>
-                            <FaBarcode />
-                        </Button>
-                    </div>
-                    {openCameraWindow? <BarcodeScanner onDetected={handleDetected} onClose={closeScanner}/> : null}
+
                 </Form.Group>
             </Modal.Header>
             <Modal.Body className='d-flex align-items-start flex-column modal-fixed-height modal-styled-bg'>
-
-                {filteredItems.length ?
-                    filteredItems.map(item => (
-                        <div key={item._id} className='position-relative d-flex justify-content-center w-75 mx-auto my-1'>
-                            <Button
-                                    className='rounded-pill w-100 d-flex justify-content-between align-items-center'
-                                    onClick={() => addProduct(item)}>
-                                <IoMdAdd className='position-absolute start-0 ms-3'>{item.name}</IoMdAdd>
-                                <span className='m-auto'>{item.name}</span>
-                                {item.category ? <span className='position-absolute end-0 me-5'>{item.category}</span> : null}
-                            </Button>
-                        </div>
-                    )) :
-                    <span>No Items</span>}
+                {filteredCategories.length === 0 && (
+                    <RenderProduct
+                        item={{_id: null, name: searchValue, category: 'OTHER'}}
+                    />
+                )}
+                {filteredCategories.map((item:any) => renderCategory(item))}
             </Modal.Body>
             <Modal.Footer className='empty-footer modal-styled-bg'/>
-            <Filter
-                show={showFilterModal}
-                onHide={handleCloseFilter}
-                filterData={filterByCategory} />
+            {toggleFilterModal && <FilterModal
+                isVisible={toggleFilterModal}
+                onClose={() => setToggleFilterModal(false)}
+                onSelectCategory={filterByCategory}
+            />}
         </Modal>, document.body);
 };
 

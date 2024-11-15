@@ -97,7 +97,7 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
                 {lists.map(list => <div className=' w-100 my-2 p-2' key={list._id}>
                     <Card className='w-100 d-flex flex-row align-items-stretch p-2 section-styled-bg'>
                         <Link to={`/lists/${list._id}`} className='w-75'>
-                            <h5>{list.name.value}</h5>
+                            <h5 className='title'>{list.name.value}</h5>
                             {list.products?.length ?
                                 <div className='position-relative d-flex justify-content-center flex-wrap align-items-stretch'>
                                     <ProgressBar
