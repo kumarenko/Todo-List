@@ -21,6 +21,7 @@ import {FiMoreHorizontal} from "react-icons/fi";
 import ShareListModal from "../shareListModal";
 import {defaultState, setShoppingList} from "../../../../redux/shoppingListsReducer";
 import DeleteListModal from "../deleteListModal";
+import SortingModal from "./sorting";
 
 const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updateListRequest, removeListRequest }) => {
     const { listId } = useParams();
@@ -37,6 +38,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
     const [filteredCategories, setFilteredCategories] = useState([]);
     const [showSharingModal, setSharingModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [toggleSortingModal, setToggleSortingModal] = useState(false);
     const [sortingType, setSortingType] = useState('default');
 
     const handleApply = () => setAddShowModal(false);
@@ -132,7 +134,9 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
             }
         }
     };
-
+    const applySort = (type: string) => {
+        setSortingType(type);
+    };
     const filterByCategory = (data) => {
         setFilteredCategories(data);
     };
@@ -187,7 +191,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                 <Dropdown.Item eventKey="1" onClick={()=> setSharingModal(true)}>
                                     <IoMdPersonAdd /> Share
                                 </Dropdown.Item>
-                                <Dropdown.Item eventKey="2" onClick={()=> {}}>
+                                <Dropdown.Item eventKey="2" onClick={()=> setToggleSortingModal(true)}>
                                     <FaSortAmountDown/> Sort
                                 </Dropdown.Item>
                                 <Dropdown.Item eventKey="2" onClick={()=> setFilterShowModal(true)}>
@@ -322,6 +326,12 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                 isVisible={showFilterModal}
                 onClose={handleCloseFilter}
                 onSelectCategory={filterByCategory} />
+            <SortingModal
+                isVisible={toggleSortingModal}
+                onClose={() => setToggleSortingModal(false)}
+                sortingType={sortingType}
+                onApply={applySort}
+            />
         </div>
     );
 };

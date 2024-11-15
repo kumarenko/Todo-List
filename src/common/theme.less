@@ -14,19 +14,25 @@ body {
       color: @BUTTON_TEXT_DARK;
       box-shadow: none;
       &:hover {
-        background-color: lighten(@BUTTON_BG_LIGHT, 10%);
+        background-color: lighten(@BUTTON_BG_DARK, 10%);
       }
       &:active {
-        background-color: lighten(@BUTTON_BG_LIGHT, 20%);
+        background-color: lighten(@BUTTON_BG_DARK, 20%);
       }
     }
     button.prod-edit-btn {
       background-color: transparent;
       &:hover {
-        background-color: lighten(@BUTTON_BG_LIGHT, 10%);
+        background-color: lighten(@BUTTON_BG_DARK, 10%);
       }
       &:active {
-        background-color: lighten(@BUTTON_BG_LIGHT, 20%);
+        background-color: lighten(@BUTTON_BG_DARK, 20%);
+      }
+    }
+    button.active {
+      background-color: darken(@BUTTON_BG_DARK, 20%);
+      &:hover {
+        background-color: darken(@BUTTON_BG_DARK, 25%);
       }
     }
     .title {
@@ -116,116 +122,124 @@ body {
   }
 
   // light styles
-  background-color: @MAIN_BG_LIGHT;
-  nav {
-    background-color: @SECTION_BG_LIGHT;
-  }
-  a {
-    color: @BUTTON_TEXT_LIGHT;
-  }
-  button.btn {
-    border: 1px solid @INPUT_BORDER_DARK;
-  }
-  button, button.btn {
-    background-color: @BUTTON_BG_LIGHT;
-    border: none;
-    color: @BUTTON_TEXT_LIGHT;
-    &:hover {
-      background-color: darken(@BUTTON_BG_LIGHT, 10%);
+  &.light {
+    background-color: @MAIN_BG_LIGHT;
+    nav {
+      background-color: @SECTION_BG_LIGHT;
     }
-    &:active {
-      background-color: darken(@BUTTON_BG_LIGHT, 20%);
+    a {
+      color: @BUTTON_TEXT_LIGHT;
     }
-  }
-  button.prod-edit-btn {
-    background-color: transparent;
-    &:hover {
-      background-color: lighten(@BUTTON_BG_LIGHT, 10%);
-    }
-    &:active {
-      background-color: lighten(@BUTTON_BG_LIGHT, 20%);
-    }
-  }
-  h1, h2, h3, h4, h5, h6 {
-    color: @TITLE_LIGHT;
-  }
-  .subtitle {
-    color: @SUBTITLE_LIGHT;
-  }
-  .button-as-link {
-    color: @TITLE_LIGHT;
-    &::after {
-      background-color: @TITLE_LIGHT;
-    }
-  }
-  .input-group-text,
-  input[type='text'], input[type='text']:disabled,
-  input[type='password'], input[type='password']:disabled,
-  input[type='number'], input[type='number']:disabled,
-  input[type='email'], input[type='email']:disabled {
-    background-color: @INPUT_BG_LIGHT;
-    color: @INPUT_TEXT_LIGHT;
-    &:hover {
-      background-color: darken(@INPUT_BG_LIGHT, 10%);
-    }
-    &:focus, &:focus-within {
-      background-color: darken(@INPUT_BG_LIGHT, 20%);
-      border-color: @INPUT_BORDER_DARK;
-      color: @INPUT_TEXT_LIGHT;
-      box-shadow: none;
-    }
-    &::placeholder {
-      color: @INPUT_PLACEHOLDER_LIGHT;
-    }
-  }
-
-  input[type='text']:disabled:hover {
-    background-color: inherit;
-  }
-  .section-styled-bg {
-    background-color: @SECTION_BG_LIGHT;
-  }
-  button.section-styled-bg {
-    border: 1px solid @INPUT_BORDER_DARK;
-    background-color: @SECTION_BG_LIGHT;
-    color: @BUTTON_TEXT_LIGHT;
-    &:hover {
-      background-color: darken(@SECTION_BG_LIGHT, 10%);
-    }
-    &:active {
-      background-color: darken(@SECTION_BG_LIGHT, 20%);
+    button.btn {
       border: 1px solid @INPUT_BORDER_DARK;
-
     }
-  }
-  .modal-styled-bg {
-    background-color: @MODAL_BG_LIGHT;
-  }
-  .prod-checkbox input[type="checkbox"] {
-    background-color: @INPUT_BG_LIGHT;
-    border-color: @INPUT_BORDER_LIGHT;
-  }
-  .prod-checkbox:hover {
-    input[type='checkbox'] {
-      background-color: lighten(@BUTTON_BG_LIGHT, 45%);
+    button, button.btn {
+      background-color: @BUTTON_BG_LIGHT;
+      border: none;
+      color: @BUTTON_TEXT_LIGHT;
+      &:hover {
+        background-color: darken(@BUTTON_BG_LIGHT, 10%);
+      }
+      &:active {
+        background-color: darken(@BUTTON_BG_LIGHT, 20%);
+      }
     }
-  }
-  .prod-checkbox input[type="checkbox"]:checked {
-    background-color: @BUTTON_BG_LIGHT;
-    border-color: @INPUT_BORDER_LIGHT;
-  }
-  .prod-checkbox input[type="checkbox"]:checked:hover {
-    background-color: lighten(@BUTTON_BG_LIGHT, 10%);
-    border-color: @INPUT_BORDER_LIGHT;
-  }
+    button.prod-edit-btn {
+      background-color: transparent;
+      &:hover {
+        background-color: lighten(@BUTTON_BG_LIGHT, 10%);
+      }
+      &:active {
+        background-color: lighten(@BUTTON_BG_LIGHT, 20%);
+      }
+    }
+    button.active {
+      background-color: darken(@BUTTON_BG_LIGHT, 20%);
 
-  .progress {
-    background-color: @PROGRESS_BAR_UNFILLED_LIGHT;
-  }
-  .progress-bar {
-    background-color: @PROGRESS_BAR_LIGHT;
-  }
-  .progress-count {
-    color: @TEXT_LIGHT;
+      &:hover {
+        background-color: darken(@BUTTON_BG_LIGHT, 25%);
+      }
+    }
+    h1, h2, h3, h4, h5, h6 {
+      color: @TITLE_LIGHT;
+    }
+    .subtitle {
+      color: @SUBTITLE_LIGHT;
+    }
+    .button-as-link {
+      color: @TITLE_LIGHT;
+      &::after {
+        background-color: @TITLE_LIGHT;
+      }
+    }
+    .input-group-text,
+    input[type='text'], input[type='text']:disabled,
+    input[type='password'], input[type='password']:disabled,
+    input[type='number'], input[type='number']:disabled,
+    input[type='email'], input[type='email']:disabled {
+      background-color: @INPUT_BG_LIGHT;
+      color: @INPUT_TEXT_LIGHT;
+      &:hover {
+        background-color: darken(@INPUT_BG_LIGHT, 10%);
+      }
+      &:focus, &:focus-within {
+        background-color: darken(@INPUT_BG_LIGHT, 20%);
+        border-color: @INPUT_BORDER_DARK;
+        color: @INPUT_TEXT_LIGHT;
+        box-shadow: none;
+      }
+      &::placeholder {
+        color: @INPUT_PLACEHOLDER_LIGHT;
+      }
+    }
+
+    input[type='text']:disabled:hover {
+      background-color: inherit;
+    }
+    .section-styled-bg {
+      background-color: @SECTION_BG_LIGHT;
+    }
+    button.section-styled-bg {
+      border: 1px solid @INPUT_BORDER_DARK;
+      background-color: @SECTION_BG_LIGHT;
+      color: @BUTTON_TEXT_LIGHT;
+      &:hover {
+        background-color: darken(@SECTION_BG_LIGHT, 10%);
+      }
+      &:active {
+        background-color: darken(@SECTION_BG_LIGHT, 20%);
+        border: 1px solid @INPUT_BORDER_DARK;
+      }
+    }
+    .modal-styled-bg {
+      background-color: @MODAL_BG_LIGHT;
+    }
+    .prod-checkbox input[type="checkbox"] {
+      background-color: @INPUT_BG_LIGHT;
+      border-color: @INPUT_BORDER_LIGHT;
+    }
+    .prod-checkbox:hover {
+      input[type='checkbox'] {
+        background-color: lighten(@BUTTON_BG_LIGHT, 45%);
+      }
+    }
+    .prod-checkbox input[type="checkbox"]:checked {
+      background-color: @BUTTON_BG_LIGHT;
+      border-color: @INPUT_BORDER_LIGHT;
+    }
+    .prod-checkbox input[type="checkbox"]:checked:hover {
+      background-color: lighten(@BUTTON_BG_LIGHT, 10%);
+      border-color: @INPUT_BORDER_LIGHT;
+    }
+
+    .progress {
+      background-color: @PROGRESS_BAR_UNFILLED_LIGHT;
+    }
+    .progress-bar {
+      background-color: @PROGRESS_BAR_LIGHT;
+    }
+    .progress-count {
+      color: @TEXT_LIGHT;
+    }
   }
 }
