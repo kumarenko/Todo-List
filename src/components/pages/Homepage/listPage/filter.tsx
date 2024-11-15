@@ -1,18 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import {Button, Modal} from "react-bootstrap";
-import allProducts from "../../../../configs/products.json";
-import {onlyUnique} from "../../../../helpers/helper";
 
-const categories = allProducts.map(prod => prod.category).filter(onlyUnique);
-
-const FilterModal = ({isVisible, onClose, onSelectCategory}) => {
+const FilterModal = ({isVisible, onClose, onSelectCategory, categories}) => {
     const [selected, setSelected] = useState([]);
-    const [all, setAll] = useState([]);
+    const [all, setAll] = useState([]);console.log(categories);
     useEffect(() => {
         setSelected([]);
-        setAll([...categories]);
     }, []);
+    useEffect(() => {
+        setAll(categories);
+    }, [categories]);
+
 
     const setSelectedCategory = item => {
         setSelected(prevSelected => {
@@ -24,12 +23,13 @@ const FilterModal = ({isVisible, onClose, onSelectCategory}) => {
         });
     };
     return ReactDOM.createPortal(<Modal show={isVisible} onHide={onClose}>
-        <Modal.Header>
-            Filter Products by categories
+        <Modal.Header closeButton className='d-flex justify-content-center modal-styled-bg'>
+            <Modal.Title className='justify-content-center title'>Filter Products by categories</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className='modal-styled-bg'>
             {all.map((item, index) => (
                 <Button
+                    className={`m-1 ${selected.includes(item) ? 'active' : ''}`}
                     key={index}
                     onClick={() => setSelectedCategory(item)}>
                     <span>
@@ -38,15 +38,15 @@ const FilterModal = ({isVisible, onClose, onSelectCategory}) => {
                 </Button>
             ))}
         </Modal.Body>
-        <Modal.Footer>
-            <Button onClick={() => {
+        <Modal.Footer className='d-flex justify-content-center modal-styled-bg'>
+            <Button className='mx-2' onClick={() => {
                 setSelected([]);
             }}>Reset</Button>
-            <Button onClick={() => {
+            <Button className='mx-2' onClick={() => {
                 onSelectCategory(selected);
                 onClose();
             }}>Apply</Button>
-            <Button onClick={onClose}>Close</Button>
+            <Button className='mx-2' onClick={onClose}>Close</Button>
         </Modal.Footer>
     </Modal>, document.body);
 };

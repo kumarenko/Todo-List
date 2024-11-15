@@ -16,7 +16,7 @@ import FilterModal from "./filter";
 import './categorieSpritePositions.less';
 import './styles.less';
 import {MdFilterListAlt} from "react-icons/md";
-import {debounce, getCurrencySymbol} from "../../../../helpers/helper";
+import {debounce, getCurrencySymbol, onlyUnique} from "../../../../helpers/helper";
 import {FiMoreHorizontal} from "react-icons/fi";
 import ShareListModal from "../shareListModal";
 import {defaultState, setShoppingList} from "../../../../redux/shoppingListsReducer";
@@ -325,6 +325,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
             <FilterModal
                 isVisible={showFilterModal}
                 onClose={handleCloseFilter}
+                categories={list.products.map(prod => prod.category).filter(onlyUnique)}
                 onSelectCategory={filterByCategory} />
             <SortingModal
                 isVisible={toggleSortingModal}

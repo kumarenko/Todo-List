@@ -111,10 +111,11 @@ const AddProductModal = ({show, onHide}) => {
                 {filteredCategories.map((item:any) => renderCategory(item))}
             </Modal.Body>
             <Modal.Footer className='empty-footer modal-styled-bg'/>
-            {toggleFilterModal && <FilterModal
+            {<FilterModal
                 isVisible={toggleFilterModal}
                 onClose={() => setToggleFilterModal(false)}
                 onSelectCategory={filterByCategory}
+                categories={allProducts.map(prod => prod.category).filter(onlyUnique)}
             />}
         </Modal>, document.body);
 };
