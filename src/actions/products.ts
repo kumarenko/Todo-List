@@ -1,11 +1,6 @@
-import {BARCODE_URL, SHOPPING_LISTS_ADD_PROD_URL, SHOPPING_LISTS_EDIT_PROD_URL} from "../configs/urls";
-import {setAllProducts, setBarcodeData, setShoppingList} from "../redux/shoppingListsReducer";
-import products from './../configs/products.json';
-export const getAllProducts = () => {
-    return (dispatch) => {
-        dispatch(setAllProducts(products));
-    }
-}
+import {BARCODE_URL, SHOPPING_LISTS_ADD_PROD_URL, SHOPPING_LISTS_EDIT_PROD_URL, UPLOAD_URL} from "../configs/urls";
+import {setBarcodeData, setShoppingList} from "../redux/shoppingListsReducer";
+
 export const addProductToList = (shoppingListId, product) => {
     return async (dispatch, state) => {
         let currentList = state().items.list;
@@ -56,6 +51,43 @@ export const updateProductsListRequest = (shoppingListId, products) => {
         } else {
             const data = await response.json();
             dispatch(setShoppingList({ ...currentList, products: data }));
+        }
+    };
+};
+
+export const updateProductAvatarRequest = (shoppingListId, selectedFile, item, type) => {
+    return async (dispatch, state) => {
+        const currentList = state().items.list;
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+        formData.append('item', item._id);
+        formData.append('listId', shoppingListId);
+        formData.append('type', type);
+        try {
+            const response = await fetch(UPLOAD_URL, {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error(`Upload failed: ${response.statusText}`);
+            }
+            const result = await response.json();
+            if (result.success) {
+                dispatch(setShoppingList({
+                    ...currentList,
+                    products: currentList.products.map(prod =>
+                        prod._id === result.product._id
+                            ? {
+                                ...result.product,
+                                avatar: `${result.product.avatar}?t=${Date.now()}` // Добавляем уникальный параметр
+                            }
+                            : prod
+                    )
+                }));
+            }
+        } catch (error) {
+            console.error('Error uploading file:', error);
         }
     };
 };

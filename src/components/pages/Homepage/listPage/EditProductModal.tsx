@@ -7,8 +7,10 @@ import { connect, useSelector } from 'react-redux';
 import { MdShoppingCart } from 'react-icons/md';
 import { FaPlusMinus } from 'react-icons/fa6';
 import { useParams } from 'react-router-dom';
-import { debounce, getCurrencySymbol, preventCharacters } from '../../../../helpers/helper';
-import { ProductCategories, ProductCategory } from '../../../../types/types';
+import {debounce, getCurrencySymbol, onlyUnique, preventCharacters} from '../../../../helpers/helper';
+import { ProductCategory } from '../../../../types/types';
+import allProducts from "../../../../configs/products.json";
+const allCategories = allProducts.map(prod => prod.category).filter(onlyUnique);
 
 const EditProductModal = ({ product, show, onHide, deleteProductFromList, updateProductsListRequest }) => {
     const { listId } = useParams();
@@ -34,7 +36,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
             checked: product.checked,
             name, count,
             price: parseFloat(price || '0'),
-            category,
+            category, avatar: product.avatar
         };
         if (price.toString() && name && count.toString()) {
             updateProductsListRequest(listId, [prod]);
@@ -143,7 +145,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
                             }}
                             value={category}
                         >
-                            {ProductCategories.map((category) => (
+                            {allCategories.map((category) => (
                                 <option key={category} value={category}>
                                     {category}
                                 </option>
@@ -160,9 +162,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
     );
 };
 
-const mapStateToProps = (state) => ({
-    list: state.items.list,
-});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
     deleteProductFromList,

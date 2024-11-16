@@ -3,7 +3,6 @@ import {Button, ButtonGroup, Card, Dropdown, ProgressBar} from "react-bootstrap"
 import {IoMdCreate, IoMdPersonAdd, IoMdTrash} from "react-icons/io";
 import {connect, useDispatch} from "react-redux";
 import {removeListRequest, updateListRequest} from "../../../actions/shoppingLists";
-import {getAllProducts} from "../../../actions/products";
 import CreateListModal from "./createListModal";
 import ShareListModal from "./shareListModal";
 import {Link} from "react-router-dom";
@@ -160,13 +159,11 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
 };
 const mapStateToProps = (state) => ({
     lists: state.items.lists,
-    allProducts: state.items.allProducts,
     userId: state.user.user.id,
 });
 const mapDispatchToProps = {
     removeListRequest,
     updateListRequest,
-    getAllProducts
 };
 
 export default connect(mapStateToProps,mapDispatchToProps)(ShoppingLists)

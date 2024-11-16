@@ -22,6 +22,7 @@ import ShareListModal from "../shareListModal";
 import {defaultState, setShoppingList} from "../../../../redux/shoppingListsReducer";
 import DeleteListModal from "../deleteListModal";
 import SortingModal from "./sorting";
+import AvatarModal from "./avatar";
 
 const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updateListRequest, removeListRequest }) => {
     const { listId } = useParams();
@@ -39,6 +40,8 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
     const [showSharingModal, setSharingModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [toggleSortingModal, setToggleSortingModal] = useState(false);
+    const [toggleAvatarModal, setToggleAvatarModal] = useState(false);
+    const [item, setItem] = useState(null);
     const [sortingType, setSortingType] = useState('default');
 
     const handleApply = () => setAddShowModal(false);
@@ -269,11 +272,13 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                     <span className='subtitle'>{prod.count} pc(s)</span>
                                 </div>
                             </button>
-                            {prod.avatar ? <Button className='avatar-container mx-3 section-styled-bg'>
-                                <img src={prod.avatar} alt={prod.category.toLowerCase()}/>
-                            </Button> : <div className='avatar-container mx-3 section-styled-bg'>
-                                <div className={`sprite sprite-${prod.category.toLowerCase()}`} />
-                            </div>}
+                            <Button className='avatar-container mx-3 section-styled-bg' onClick={() => {
+                                setToggleAvatarModal(true);
+                                setItem(prod);
+                            }}>
+                                {prod.avatar ? <img src={prod.avatar} alt={prod.category.toLowerCase()}/> :
+                                    <div className={`sprite sprite-${prod.category.toLowerCase()}`} />}
+                            </Button>
                         </div>
                     </div>)}
                 </FlipMove> : null}
@@ -340,6 +345,16 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                 sortingType={sortingType}
                 onApply={applySort}
             />
+            {item ? <AvatarModal
+                isVisible={toggleAvatarModal}
+                onClose={() => {
+                    setToggleAvatarModal(false);
+                    setItem(null);
+                }}
+                item={item}
+                listId={list._id}
+                type={'products'}
+            /> : null}
         </div>
     );
 };

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import ReactDOM from "react-dom";
 import {Button, Modal, Form, InputGroup} from "react-bootstrap";
-import {addProductToList, findProductByBarcode, getAllProducts} from "../../../../actions/products";
+import {addProductToList} from "../../../../actions/products";
 import {connect} from "react-redux";
 import FilterModal from './filter';
 import allProducts from './../../../../configs/products.json';
@@ -111,7 +111,7 @@ const AddProductModal = ({show, onHide}) => {
                 {filteredCategories.map((item:any) => renderCategory(item))}
             </Modal.Body>
             <Modal.Footer className='empty-footer modal-styled-bg'/>
-            {<FilterModal
+            {toggleFilterModal && <FilterModal
                 isVisible={toggleFilterModal}
                 onClose={() => setToggleFilterModal(false)}
                 onSelectCategory={filterByCategory}
@@ -127,9 +127,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-    getAllProducts,
     addProductToList,
-    findProductByBarcode,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddProductModal);

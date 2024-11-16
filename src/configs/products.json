@@ -85,17 +85,6 @@
     ]
   },
   {
-    "_id": "666cc4c06342aab4bf94e828",
-    "name": "Soap",
-    "category": "CHEMISTRY",
-    "units": [
-      "ml",
-      "l",
-      "g",
-      "kg"
-    ]
-  },
-  {
     "_id": "666cc4c06342aab4bf94e829",
     "name": "Pizza",
     "category": "MEAT",

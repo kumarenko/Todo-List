@@ -2,7 +2,6 @@ import {ShoppingList} from "../types/types";
 
 const SET_LISTS = "SET_LISTS";
 const SET_LIST = "SET_LIST";
-const SET_PRODUCTS = "SET_PRODUCTS";
 const UPDATE_LIST = "UPDATE_LIST";
 const ADD_LIST = "ADD_LIST";
 const DELETE_LIST = "DELETE_LIST";
@@ -41,11 +40,6 @@ export default function todosReducer(state = defaultState, action) {
                 lists: state.lists.map(list =>
                     list._id === action.payload._id ? { ...list, ...action.payload  } : list
                 )
-            }
-        case SET_PRODUCTS:
-            return {
-                ...state,
-                allProducts: action.payload,
             }
 
         case ADD_LIST:
@@ -118,5 +112,4 @@ export default function todosReducer(state = defaultState, action) {
 
 export const setShoppingLists = (lists) => ({type:SET_LISTS, payload:lists})
 export const setShoppingList = (list) => ({type:SET_LIST, payload:list})
-export const setAllProducts = (products) => ({type:SET_PRODUCTS, payload:products})
 export const setBarcodeData = (prod:object) => ({type:ADD_BARCODE_PROD, payload: prod})

@@ -11,3 +11,4 @@ export const PROTECTED_ROUTE_URL = URL + "api/protected-route";
 export const REGISTER_URL = URL + "api/register";
 export const USERS_URL = URL + "api/users";
 export const BARCODE_URL = URL + "api/getProductByBarcode";
+export const UPLOAD_URL = URL + 'api/shoppingLists/upload';
