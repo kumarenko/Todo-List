@@ -45,6 +45,7 @@
     "@react-oauth/google": "^0.12.1",
     "@redux-devtools/extension": "^3.3.0",
     "bootstrap": "^5.3.3",
+    "browser-image-compression": "^2.0.2",
     "fs-constants": "^1.0.0",
     "fs-promise": "^2.0.3",
     "quagga": "^0.12.1",

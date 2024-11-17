@@ -91,6 +91,34 @@ export const updateProductAvatarRequest = (shoppingListId, selectedFile, item, t
         }
     };
 };
+export const removeProductAvatarRequest = (shoppingListId, fileName, type, itemId) => {
+    return async (dispatch, state) => {
+        const currentList = state().items.list;
+        try {
+            const response = await fetch(UPLOAD_URL, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify( {shoppingListId, fileName, type, itemId}),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Upload failed: ${response.statusText}`);
+            }
+            const result = await response.json();
+            if (result.success) {
+                dispatch(setShoppingList({
+                    ...currentList,
+                    products: currentList.products.map(prod => prod._id === result.product._id ? {...result.product, avatar: null} : prod)
+                }));
+            }
+        } catch (e) {
+            console.error('Error deleting file:', e);
+
+        }
+    };
+};
 
 export const findProductByBarcode = (barcode) => {
     return async (dispatch) => {

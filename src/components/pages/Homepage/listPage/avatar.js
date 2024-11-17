@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Image, Modal } from 'react-bootstrap';
-import { FiUpload, FiImage} from "react-icons/fi";
+import { FiUpload, FiImage, FiTrash2 } from "react-icons/fi";
 import {useDispatch} from "react-redux";
-import {updateProductAvatarRequest} from "../../../../actions/products";
+import {removeProductAvatarRequest, updateProductAvatarRequest} from "../../../../actions/products";
+import imageCompression from "browser-image-compression";
 const AvatarModal = ({ isVisible, onClose, item, listId, type }) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [preview, setPreview] = useState(item.avatar || '');
@@ -16,18 +17,41 @@ const AvatarModal = ({ isVisible, onClose, item, listId, type }) => {
         }
     };
 
-    const handleUpload = () => {
-        console.log('selectedFile', selectedFile);
-        if (selectedFile) {
-            dispatch(updateProductAvatarRequest(listId,selectedFile, item, type));
-        }
-    };
-
     useEffect(() => {
+        const compressAndUploadImage = async () => {
+            if (selectedFile) {
+                try {
+                    const maxFileSizeKB = 512;
+                    const fileSizeKB = selectedFile.size / 1024;
 
-        console.log('selectedFile', selectedFile);
-        handleUpload();
+                    if (fileSizeKB > maxFileSizeKB) {
+                        const options = {
+                            maxSizeMB: maxFileSizeKB / 1024,
+                            maxWidthOrHeight: 1024,
+                            useWebWorker: true,
+                        };
+                        const compressedFile = await imageCompression(selectedFile, options);
+                        const compressedFileAsFile = new File([compressedFile], selectedFile.name, {
+                            type: compressedFile.type,
+                        });
+                        dispatch(updateProductAvatarRequest(listId, compressedFileAsFile, item, type));
+                    } else {
+                        dispatch(updateProductAvatarRequest(listId, selectedFile, item, type));
+                    }
+                } catch (error) {
+                    console.error('Error during image compression:', error);
+                }
+            }
+        };
+
+        compressAndUploadImage();
     }, [selectedFile]);
+
+    const removeAvatar = async () => {
+        const fileName = `${type}/${item._id}${item.avatar.split(item._id)[1].split('?')[0]}`;
+       await dispatch(removeProductAvatarRequest(listId, fileName, type, item._id));
+       setPreview('');
+    }
     const closeModal = () => {
         onClose();
         setSelectedFile(null);
@@ -53,6 +77,10 @@ const AvatarModal = ({ isVisible, onClose, item, listId, type }) => {
                     </span>
                 </label>
                 <input type="file" id='file-upload' accept='image/png, image/jpeg' onChange={handleFileChange} />
+                {preview ? <Button className='mx-2' onClick={removeAvatar}>
+                    <FiTrash2 className='mx-1' />
+                    <span className='mx-1'>Remove</span>
+                </Button> : null}
                 <Button className='mx-2' onClick={closeModal}>
                     <span className='mx-1'>Close</span>
                 </Button>
