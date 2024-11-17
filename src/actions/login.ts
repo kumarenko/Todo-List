@@ -1,5 +1,5 @@
 import {
-    defaultState,
+    defaultUserState,
     updateLogin,
     updateProfileData,
     updateProfileErrorMessage,
@@ -7,6 +7,7 @@ import {
 } from "../redux/userReducer";
 import {LOGIN_URL, PROTECTED_ROUTE_URL, REGISTER_URL, USERS_URL} from "../configs/urls";
 import {updateCurrency, updateUnits} from "../redux/settingsReducer";
+import {logout, persistor, store} from "../redux";
 
 export const setUserData = (isAuthorized) => {
     const updatedLoginState = {
@@ -102,7 +103,9 @@ export const checkUserSession:any = () => {
 export const logoutAction = () => {
     return async (dispatch) => {
         sessionStorage.setItem('token', '');
-        dispatch(updateLogin(defaultState));
+        store.dispatch(logout());
+        await persistor.purge();
+        dispatch(updateLogin(defaultUserState));
     };
 };
 
@@ -121,9 +124,9 @@ export const signUpAction = (email, name,lastName, password) => {
         });
         const data = await response.json();
         if (response.status === 201) {
-            dispatch(updateLogin({...defaultState, successMessage: data, loading: false}))
+            dispatch(updateLogin({...defaultUserState, successMessage: data, loading: false}))
         } else {
-            dispatch(updateLogin({...defaultState, errorMessage: data.message, loading: false}))
+            dispatch(updateLogin({...defaultUserState, errorMessage: data.message, loading: false}))
         }
     }
 };

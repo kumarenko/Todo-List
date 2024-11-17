@@ -3,7 +3,6 @@ import {USERS_URL} from "../configs/urls";
 
 export const changeTheme = (newTheme) => {
     return async (dispatch) => {
-        localStorage.setItem('theme', newTheme);
         dispatch(updateTheme(newTheme));
     };
 };

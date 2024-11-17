@@ -5,7 +5,7 @@ const UPDATE_PROFILE = "UPDATE_PROFILE";
 const UPDATE_ERROR_MESSAGE = "UPDATE_ERROR_MESSAGE";
 const UPDATE_SUCCESS_MESSAGE = "UPDATE_SUCCESS_MESSAGE";
 
-export const defaultState:Login = {
+export const defaultUserState:Login = {
     isAuthorized: false,
     user: {
         role: 'GUEST',
@@ -20,7 +20,7 @@ export const defaultState:Login = {
     successMessage: ''
 }
 
-export default function userReducer(state = defaultState, action) {
+export default function userReducer(state = defaultUserState, action) {
     switch (action.type) {
         case UPDATE_LOGIN:
             return action.payload;

@@ -26,31 +26,3 @@ export interface SettingsTypes {
     currency: string,
     isMetric: boolean,
 }
-export type ProductCategory =
-    'FRUITS' | 'VEGETABLES' |
-    'DAIRY' | 'MEAT' |
-    'BAKERY' | 'OTHER' |
-    'SWEETS' | 'SPICES' |
-    'CHEMISTRY' | 'ALCOHOL' |
-    'MILKS' | 'CANNED'
-    | 'CEREALS' |
-    'CHILDREN' |
-    'CLOTHES' | 'COFFEE' | 'DRINKS' | 'FROZEN' | 'HOUSE' | 'KITCHEN' |
-    'OILS' | 'PETS' | 'READY' | 'SEAFOOD' | 'SAUCES' | 'STARTER' |
-    'STATIONERY' | 'TOOLS';
-
-export const ProductCategories: ProductCategory[] = [
-    'FRUITS',
-    'VEGETABLES',
-    'DAIRY',
-    'MEAT',
-    'BAKERY',
-    'OTHER','SWEETS',
-    'SPICES', 'MILKS',
-    'CHEMISTRY', 'ALCOHOL',
-    'CANNED', 'CEREALS',
-    'CHILDREN','CLOTHES','COFFEE', 'DRINKS',
-    'FROZEN', 'HOUSE', 'KITCHEN',
-    'OILS','PETS','READY', 'SEAFOOD',
-    'SAUCES', 'STARTER', 'STATIONERY','TOOLS'
-];

@@ -11,7 +11,7 @@ import {FiMoreHorizontal} from "react-icons/fi";
 import {setShoppingList} from "../../../redux/shoppingListsReducer";
 import DeleteListModal from "./deleteListModal";
 
-const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => {
+const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setShoppingList}) => {
     const [showModal, setShowModal] = useState(false);
     const [showSharingModal, setSharingModal] = useState(false);
     const [showDeleteModal, setDeleteModal] = useState(false);
@@ -49,30 +49,30 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId}) => 
     }
 
     const renderAvatars = (users, creator) => {
-        users = users.sort((a, b) => {
+        const sortedUsers = [...users].sort((a, b) => {
             if (a.name && b.name) {
                 return a.name.localeCompare(b.name);
             }
             return 0;
         });
 
-        users = users.filter(user => user.status !== 'WAIT');
+        const filteredUsers = sortedUsers.filter(user => user.status !== 'WAIT');
         let userAvatars = [];
 
-        for (let index = 0; index < users.length; index++) {
-            const user = users[index];
+        for (let index = 0; index < filteredUsers.length; index++) {
+            const user = filteredUsers[index];
 
             if (user._id === creator || user._id === creator._id) {
                 continue;
             }
             if (index === 3) {
-                if (users.length === 3) {
+                if (filteredUsers.length === 3) {
                     break;
                 }
                 userAvatars.push(
                     <div className="avatar-container d-flex flex-col w-auto" key="user-avatar">
                         <div className="user-avatar" style={{ backgroundColor: '#676767' }}>
-                            <span style={{ fontSize: 10 }}>+{users.length - 3}</span>
+                            <span style={{ fontSize: 10 }}>+{filteredUsers.length - 3}</span>
                         </div>
                     </div>
                 );
@@ -163,6 +163,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = {
     removeListRequest,
+    setShoppingList,
     updateListRequest,
 };
 

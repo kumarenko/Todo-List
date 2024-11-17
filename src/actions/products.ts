@@ -1,5 +1,5 @@
-import {BARCODE_URL, SHOPPING_LISTS_ADD_PROD_URL, SHOPPING_LISTS_EDIT_PROD_URL, UPLOAD_URL} from "../configs/urls";
-import {setBarcodeData, setShoppingList} from "../redux/shoppingListsReducer";
+import {SHOPPING_LISTS_ADD_PROD_URL, SHOPPING_LISTS_EDIT_PROD_URL, UPLOAD_URL} from "../configs/urls";
+import {setShoppingList} from "../redux/shoppingListsReducer";
 
 export const addProductToList = (shoppingListId, product) => {
     return async (dispatch, state) => {
@@ -117,18 +117,5 @@ export const removeProductAvatarRequest = (shoppingListId, fileName, type, itemI
             console.error('Error deleting file:', e);
 
         }
-    };
-};
-
-export const findProductByBarcode = (barcode) => {
-    return async (dispatch) => {
-        const response = await fetch(
-            `${BARCODE_URL}?barcode=${barcode}`,{
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }).then(res=>res.json());
-        dispatch(setBarcodeData(response.products[0]))
     };
 };

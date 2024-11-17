@@ -8,7 +8,6 @@ import { MdShoppingCart } from 'react-icons/md';
 import { FaPlusMinus } from 'react-icons/fa6';
 import { useParams } from 'react-router-dom';
 import {debounce, getCurrencySymbol, onlyUnique, preventCharacters} from '../../../../helpers/helper';
-import { ProductCategory } from '../../../../types/types';
 import allProducts from "../../../../configs/products.json";
 const allCategories = allProducts.map(prod => prod.category).filter(onlyUnique);
 
@@ -17,7 +16,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
     const [name, setName] = useState('');
     const [count, setCount] = useState('1');
     const [price, setPrice] = useState('0');
-    const [category, setCategory] = useState<ProductCategory | string>('');
+    const [category, setCategory] = useState<string>('OTHER');
     const country = useSelector(state => state.user.user.country);
     const [debouncedValues, setDebouncedValues] = useState({ name, count, price });
 
@@ -26,7 +25,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
             setName(product.name);
             setCount(product?.count ? product.count : '1');
             setPrice(product?.price ? product.price : 0);
-            setCategory(product?.category ?? '' as ProductCategory);
+            setCategory(product?.category || 'OTHER');
         }
     }, [product]);
 

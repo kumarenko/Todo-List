@@ -19,7 +19,7 @@ import {MdFilterListAlt} from "react-icons/md";
 import {debounce, getCurrencySymbol, onlyUnique} from "../../../../helpers/helper";
 import {FiMoreHorizontal} from "react-icons/fi";
 import ShareListModal from "../shareListModal";
-import {defaultState, setShoppingList} from "../../../../redux/shoppingListsReducer";
+import {defaultListsState, setShoppingList} from "../../../../redux/shoppingListsReducer";
 import DeleteListModal from "../deleteListModal";
 import SortingModal from "./sorting";
 import AvatarModal from "./avatar";
@@ -56,7 +56,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
 
     useEffect(() => {
         return () => {
-            dispatch(setShoppingList(defaultState.list));
+            dispatch(setShoppingList(defaultListsState.list));
         }
     }, []);
     useEffect(() => {

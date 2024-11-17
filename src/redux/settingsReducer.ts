@@ -4,7 +4,7 @@ const UPDATE_THEME = "UPDATE_THEME";
 const UPDATE_UNITS = "UPDATE_UNITS";
 const UPDATE_CURRENCY = "UPDATE_CURRENCY";
 const defaultState:SettingsTypes = {
-    theme: localStorage.getItem('theme') || 'LIGHT',
+    theme: 'light',
     units: 'METRIC',
     currency: 'usd',
     isMetric: true,
