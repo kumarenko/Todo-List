@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import axios from "axios";
 import {
     SHOPPING_LISTS_URL, SHOPPING_LIST_CREATE_URL,
-    SHOPPING_LIST_SHARE_URL, SYNC_ALL_LISTS_URL
+    SHOPPING_LIST_SHARE_URL, SYNC_ALL_LISTS_URL, UPLOAD_URL, CLOUD_URL
 } from "../configs/urls";
 
 export const getShoppingLists = (userId: string) => {
@@ -150,6 +150,16 @@ export const removeListRequest = (userId, shoppingListId) => {
                 },
                 body: JSON.stringify(obj),
             });
+            const prodsWithAvatarsFromLocalList = lists.find(list => list._id === shoppingListId).products.filter(prod => prod.avatar);
+            prodsWithAvatarsFromLocalList.forEach((prod) => {
+                fetch(UPLOAD_URL, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify( {shoppingListId, fileName: prod.avatar.replace(CLOUD_URL, '').split('?')[0], itemId: prod._id}),
+                });
+            });
             if (response.ok) {
                 dispatch(
                     setShoppingLists(lists.filter(list => list._id !== shoppingListId)),
@@ -158,11 +168,20 @@ export const removeListRequest = (userId, shoppingListId) => {
                 dispatch(setShoppingList(lists));
             }
         } else {
+            const prodsWithAvatarsFromLocalList = lists.find(list => list._id === shoppingListId).products.filter(prod => prod.avatar);
             dispatch(setShoppingLists(lists.filter(list => list._id !== shoppingListId)));
+            prodsWithAvatarsFromLocalList.forEach((prod) => {
+               fetch(UPLOAD_URL, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify( {shoppingListId, fileName: prod.avatar.replace(CLOUD_URL, '').split('?')[0], itemId: prod._id}),
+                });
+            });
         }
     }
 };
-
 
 export const synchronizeLocalLists = (unSynchronizedLists, userId) => {
     return async (dispatch) => {
@@ -187,10 +206,7 @@ export const synchronizeLocalLists = (unSynchronizedLists, userId) => {
                 },
                 body: JSON.stringify(payload),
             }).then(res => res.json());
-            console.log(response);
             dispatch(setShoppingLists(response.updatedLists));
-        } else {
-            // dispatch(setShoppingLists(lists));
         }
     };
 };

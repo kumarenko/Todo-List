@@ -131,7 +131,7 @@ export const updateProductAvatarRequest = (shoppingListId, selectedFile, item, t
         }
     };
 };
-export const removeProductAvatarRequest = (shoppingListId, fileName, type, itemId) => {
+export const removeProductAvatarRequest = (shoppingListId, fileName, itemId) => {
     return async (dispatch, state) => {
         const currentList = state().items.list;
         const userData = state().user;
@@ -141,7 +141,7 @@ export const removeProductAvatarRequest = (shoppingListId, fileName, type, itemI
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify( {shoppingListId, fileName, type, itemId}),
+                body: JSON.stringify( {shoppingListId, fileName, itemId}),
             });
 
             if (!response.ok) {
@@ -152,7 +152,7 @@ export const removeProductAvatarRequest = (shoppingListId, fileName, type, itemI
                 if(userData.user.role === 'USER') {
                     dispatch(setShoppingList({
                         ...currentList,
-                        products: currentList.products.map(prod => prod._id === result.product._id ? {...result.product, avatar: null} : prod)
+                        products: currentList.products.map(prod => prod._id === itemId ? {...prod, avatar: null} : prod)
                     }));
                 } else {
                     dispatch(setShoppingList({

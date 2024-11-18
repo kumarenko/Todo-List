@@ -59,7 +59,7 @@ const AvatarModal = ({ isVisible, onClose, itemId, listId, type }) => {
 
     const removeAvatar = async () => {
         const fileName = item.avatar.replace(CLOUD_URL, '').split(('?'))[0];
-       await dispatch(removeProductAvatarRequest(listId, fileName, type, item._id));
+       await dispatch(removeProductAvatarRequest(listId, fileName, item._id));
        setPreview('');
     }
     const closeModal = () => {
