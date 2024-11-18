@@ -353,7 +353,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                     setToggleAvatarModal(false);
                     setItem(null);
                 }}
-                item={item}
+                itemId={item._id}
                 listId={list._id}
                 type={'products'}
             /> : null}

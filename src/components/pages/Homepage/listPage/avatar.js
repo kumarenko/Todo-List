@@ -2,12 +2,15 @@ import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Image, Modal } from 'react-bootstrap';
 import { FiUpload, FiImage, FiTrash2 } from "react-icons/fi";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {removeProductAvatarRequest, updateProductAvatarRequest} from "../../../../actions/products";
 import imageCompression from "browser-image-compression";
-const AvatarModal = ({ isVisible, onClose, item, listId, type }) => {
+import {CLOUD_URL} from "../../../../configs/urls";
+
+const AvatarModal = ({ isVisible, onClose, itemId, listId, type }) => {
     const [selectedFile, setSelectedFile] = useState(null);
-    const [preview, setPreview] = useState(item.avatar || '');
+    const [preview, setPreview] = useState('');
+    const [item, setItem] = useState({});
     const dispatch = useDispatch();
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -16,6 +19,13 @@ const AvatarModal = ({ isVisible, onClose, item, listId, type }) => {
             setPreview(URL.createObjectURL(file));
         }
     };
+
+    const products = useSelector(state => state.items.list.products);
+    useEffect(() => {
+        const currentProd = products.find(i => i._id === itemId);
+        setPreview(currentProd.avatar);
+        setItem(currentProd);
+    }, [products]);
 
     useEffect(() => {
         const compressAndUploadImage = async () => {
@@ -48,7 +58,7 @@ const AvatarModal = ({ isVisible, onClose, item, listId, type }) => {
     }, [selectedFile]);
 
     const removeAvatar = async () => {
-        const fileName = `${type}/${item._id}${item.avatar.split(item._id)[1].split('?')[0]}`;
+        const fileName = item.avatar.replace(CLOUD_URL, '').split(('?'))[0];
        await dispatch(removeProductAvatarRequest(listId, fileName, type, item._id));
        setPreview('');
     }
