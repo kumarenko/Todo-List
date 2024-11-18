@@ -4,13 +4,13 @@ import {connect} from "react-redux";
 import {
     removeListRequest,
     getShoppingLists,
-    addShoppingList,
+    addShoppingList, synchronizeLocalLists,
 } from '../../../actions/shoppingLists';
 import ShoppingLists from "./shoppingLists";
 import {Button} from "react-bootstrap";
 import {IoMdAdd} from "react-icons/io";
 import './styles.less';
-const HomePage: FC = ({lists, getShoppingLists, title, user, addShoppingList }): ReactElement => {
+const HomePage: FC = ({lists, getShoppingLists, title, user, addShoppingList, synchronizeLocalLists }): ReactElement => {
     const [showModal, setShowModal] = useState(false);
     const handleClose = () => setShowModal(false);
 
@@ -24,7 +24,12 @@ const HomePage: FC = ({lists, getShoppingLists, title, user, addShoppingList }):
     }
     useEffect(()=>{
         document.title = title;
-        getShoppingLists(user.id);
+        const unSynchronizedLists = lists.filter(list => list.temporary);
+        if(user.role ==='USER' && unSynchronizedLists.length >= 1) {
+            synchronizeLocalLists(unSynchronizedLists, user.id)
+        } else {
+            getShoppingLists(user.id);
+        }
     }, []);
 
     return <div className='homepage d-flex flex-column align-items-center'>
@@ -51,6 +56,7 @@ const mapDispatchToProps = {
     removeListRequest,
     getShoppingLists,
     addShoppingList,
+    synchronizeLocalLists,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

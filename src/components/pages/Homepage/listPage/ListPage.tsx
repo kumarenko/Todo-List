@@ -302,11 +302,13 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                     <span className='subtitle'>{prod.count} pc(s)</span>
                                 </div>
                             </Button>
-                            {prod.avatar ? <Button className='avatar-container mx-3 section-styled-bg'>
-                                <img src={prod.avatar} alt={prod.category.toLowerCase()}/>
-                            </Button> : <div className='avatar-container mx-3 section-styled-bg'>
-                                <div className={`sprite sprite-${prod.category.toLowerCase()}`} />
-                            </div>}
+                            <Button className='avatar-container mx-3 section-styled-bg' onClick={() => {
+                                setToggleAvatarModal(true);
+                                setItem(prod);
+                            }}>
+                                {prod.avatar ? <img src={prod.avatar} alt={prod.category.toLowerCase()}/> :
+                                    <div className={`sprite sprite-${prod.category.toLowerCase()}`} />}
+                            </Button>
                         </div>
                     </div>)}
                 </FlipMove> : null}

@@ -31,6 +31,7 @@ const RenderProduct = ({
                         checked: !!item.checked,
                         price: item.price,
                         selectionCount: item.selectionCount || 1,
+                        avatar: elemInList ? item.avatar : null,
                     };
                     addProductToList(list._id, prod);
                 }}>

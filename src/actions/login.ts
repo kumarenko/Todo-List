@@ -3,7 +3,7 @@ import {
     updateLogin,
     updateProfileData,
     updateProfileErrorMessage,
-    updateProfileSuccessMessage
+    updateProfileSuccessMessage, updateRegisterFlag
 } from "../redux/userReducer";
 import {LOGIN_URL, PROTECTED_ROUTE_URL, REGISTER_URL, USERS_URL} from "../configs/urls";
 import {updateCurrency, updateUnits} from "../redux/settingsReducer";
@@ -100,12 +100,14 @@ export const checkUserSession:any = () => {
     }
 }
 
-export const logoutAction = () => {
+export const logoutAction = (role) => {
     return async (dispatch) => {
         sessionStorage.setItem('token', '');
-        store.dispatch(logout());
-        await persistor.purge();
-        dispatch(updateLogin(defaultUserState));
+        if (role === 'USER') {
+            store.dispatch(logout());
+            await persistor.purge();
+        }
+        dispatch(updateRegisterFlag(false));
     };
 };
 

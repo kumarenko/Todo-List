@@ -3,54 +3,77 @@ import {setShoppingList} from "../redux/shoppingListsReducer";
 
 export const addProductToList = (shoppingListId, product) => {
     return async (dispatch, state) => {
-        let currentList = state().items.list;
-
-        const obj = {shoppingListId, product};
-        const response = await fetch(
-            `${SHOPPING_LISTS_ADD_PROD_URL}`,{
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(obj)
-            }).then(res=>res.json());
-        dispatch(setShoppingList({...currentList, products: response}))
+        const currentList = state().items.list;
+        const userData = state().user;
+        if(userData.user.role === 'USER') {
+            const obj = {shoppingListId, product};
+            const response = await fetch(
+                `${SHOPPING_LISTS_ADD_PROD_URL}`,{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(obj)
+                }).then(res=>res.json());
+            dispatch(setShoppingList({...currentList, products: response}));
+        } else {
+            dispatch(setShoppingList({
+                ...currentList,
+                products: [...currentList.products, {...product, _id: Math.floor(Math.random() * 101).toString()}]
+            }));
+        }
     }
 }
 export const deleteProductFromList = (shoppingListId, products) => {
     return async (dispatch, state) => {
         let currentList = state().items.list;
-        const obj = {shoppingListId, products: products};
-        const response = await fetch(
-            `${SHOPPING_LISTS_EDIT_PROD_URL}`,{
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(obj)
-            }).then(res=>res.json());
-        dispatch(setShoppingList({...currentList, products: response}))
+        const userData = state().user;
+        if(userData.user.role === 'USER') {
+
+            const obj = {shoppingListId, products: products};
+            const response = await fetch(
+                `${SHOPPING_LISTS_EDIT_PROD_URL}`,{
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(obj)
+                }).then(res=>res.json());
+            dispatch(setShoppingList({...currentList, products: response}))
+        } else {
+            let productsToDelete =  new Set(products.map(item => item._id));
+            const result = currentList.products.filter(item => !productsToDelete.has(item._id));
+            dispatch(setShoppingList({...currentList, products: result}))
+        }
     }
 }
 
 export const updateProductsListRequest = (shoppingListId, products) => {
     return async (dispatch, state) => {
         let currentList = state().items.list;
-        const objectToUpdate = {
-            shoppingListId, products};
-        const response = await fetch(`${SHOPPING_LISTS_EDIT_PROD_URL}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(objectToUpdate),
-        });
+        const userData = state().user;
+        if(userData.user.role === 'USER') {
+            const objectToUpdate = {shoppingListId, products};
+            const response = await fetch(`${SHOPPING_LISTS_EDIT_PROD_URL}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(objectToUpdate),
+            });
 
-        if (!response.ok) {
-            dispatch(setShoppingList(currentList));
+            if (!response.ok) {
+                dispatch(setShoppingList(currentList));
+            } else {
+                const data = await response.json();
+                dispatch(setShoppingList({ ...currentList, products: data }));
+            }
         } else {
-            const data = await response.json();
-            dispatch(setShoppingList({ ...currentList, products: data }));
+            console.log('prodsss', products);
+
+            let productsToUpdate =  new Set(products.map(item => item._id));
+            const result = currentList.products.map(item => productsToUpdate.has(item._id) ? products.find(i => i._id) : item);
+            dispatch(setShoppingList({...currentList, products: result}))
         }
     };
 };
@@ -59,6 +82,7 @@ export const updateProductAvatarRequest = (shoppingListId, selectedFile, item, t
     return async (dispatch, state) => {
         const currentList = state().items.list;
         const formData = new FormData();
+        const userData = state().user;
         formData.append('file', selectedFile);
         formData.append('item', item._id);
         formData.append('listId', shoppingListId);
@@ -74,17 +98,32 @@ export const updateProductAvatarRequest = (shoppingListId, selectedFile, item, t
             }
             const result = await response.json();
             if (result.success) {
-                dispatch(setShoppingList({
-                    ...currentList,
-                    products: currentList.products.map(prod =>
-                        prod._id === result.product._id
-                            ? {
-                                ...result.product,
-                                avatar: `${result.product.avatar}?t=${Date.now()}` // Добавляем уникальный параметр
-                            }
-                            : prod
-                    )
-                }));
+                if(userData.user.role === 'USER') {
+                    dispatch(setShoppingList({
+                        ...currentList,
+                        products: currentList.products.map(prod =>
+                            prod._id === result.product._id
+                                ? {
+                                    ...result.product,
+                                    avatar: `${result.product.avatar}?t=${Date.now()}` // Добавляем уникальный параметр
+                                }
+                                : prod
+                        )
+                    }));
+                } else {
+                    dispatch(setShoppingList({
+                        ...currentList,
+                        products: currentList.products.map(prod =>
+                            prod._id === item._id
+                                ? {
+                                    ...prod,
+                                    avatar: `${result.fileUrl}?t=${Date.now()}` // Добавляем уникальный параметр
+                                }
+                                : prod
+                        )
+                    }));
+                }
+
             }
         } catch (error) {
             console.error('Error uploading file:', error);
@@ -94,6 +133,7 @@ export const updateProductAvatarRequest = (shoppingListId, selectedFile, item, t
 export const removeProductAvatarRequest = (shoppingListId, fileName, type, itemId) => {
     return async (dispatch, state) => {
         const currentList = state().items.list;
+        const userData = state().user;
         try {
             const response = await fetch(UPLOAD_URL, {
                 method: 'DELETE',
@@ -108,14 +148,20 @@ export const removeProductAvatarRequest = (shoppingListId, fileName, type, itemI
             }
             const result = await response.json();
             if (result.success) {
-                dispatch(setShoppingList({
-                    ...currentList,
-                    products: currentList.products.map(prod => prod._id === result.product._id ? {...result.product, avatar: null} : prod)
-                }));
+                if(userData.user.role === 'USER') {
+                    dispatch(setShoppingList({
+                        ...currentList,
+                        products: currentList.products.map(prod => prod._id === result.product._id ? {...result.product, avatar: null} : prod)
+                    }));
+                } else {
+                    dispatch(setShoppingList({
+                        ...currentList,
+                        products: currentList.products.map(prod => prod._id === itemId ? {...prod, avatar: null} : prod)
+                    }));
+                }
             }
         } catch (e) {
             console.error('Error deleting file:', e);
-
         }
     };
 };

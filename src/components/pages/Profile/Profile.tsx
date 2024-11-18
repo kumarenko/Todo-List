@@ -9,7 +9,7 @@ import ChangePassword from "./changePassword";
 import './styles.less';
 
 interface ProfileInterface extends User {
-    logoutAction: () => void,
+    logoutAction: (role: boolean) => void,
     UpdateProfileInfo: () => void,
     title: string;
 }
@@ -71,8 +71,7 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
         <div className='profile d-flex flex-column align-items-center'>
             <div className="d-flex justify-content-between h3 w-75 p-3">
                 <h1 className='title'>Profile page</h1>
-                <Button size={'md'} onClick={() => logoutAction()}>Logout</Button>
-
+                <Button size={'md'} onClick={() => logoutAction(user.user.role)}>Logout</Button>
             </div>
             {userData.role === 'USER' ?
                 <>

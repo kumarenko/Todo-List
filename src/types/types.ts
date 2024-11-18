@@ -16,6 +16,7 @@ export interface User {
 }
 export interface Login {
     isAuthorized: boolean,
+    loading: boolean,
     user: User,
     errorMessage: string,
     successMessage: string,
