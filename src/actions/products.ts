@@ -1,5 +1,6 @@
 import {SHOPPING_LISTS_ADD_PROD_URL, SHOPPING_LISTS_EDIT_PROD_URL, UPLOAD_URL} from "../configs/urls";
 import {setShoppingList} from "../redux/shoppingListsReducer";
+import {v4 as uuidv4} from "uuid";
 
 export const addProductToList = (shoppingListId, product) => {
     return async (dispatch, state) => {
@@ -19,7 +20,7 @@ export const addProductToList = (shoppingListId, product) => {
         } else {
             dispatch(setShoppingList({
                 ...currentList,
-                products: [...currentList.products, {...product, _id: Math.floor(Math.random() * 101).toString()}]
+                products: [...currentList.products, {...product, _id: uuidv4()}]
             }));
         }
     }

@@ -1,5 +1,7 @@
 import {setShoppingList} from "../redux/shoppingListsReducer";
 import {setShoppingLists} from "../redux/shoppingListsReducer";
+import { v4 as uuidv4 } from 'uuid';
+
 import axios from "axios";
 import {
     SHOPPING_LISTS_URL, SHOPPING_LIST_CREATE_URL,
@@ -56,7 +58,7 @@ export const addShoppingList = (userId, name) => {
         } else {
             let allLists = state().items.lists || [];
             const newList = {
-                _id: Math.floor(Math.random() * 101).toString(),
+                _id: uuidv4(),
                 temporary: true,
                 name: {value: name, temporary: true},
                 products: [],
