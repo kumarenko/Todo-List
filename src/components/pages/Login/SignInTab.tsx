@@ -1,13 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Form from 'react-bootstrap/Form';
 import { Button } from "react-bootstrap";
 import { GoogleLogin } from '@react-oauth/google';
 import {useDispatch, useSelector} from "react-redux";
 import {updateLogin} from "../../../redux/userReducer";
+import {Link} from "react-router-dom";
+import ConfirmEmail from "./forgotPassword/confirmEmail";
+import ForgotPasswordModal from "./forgotPassword/forgotPasswordModal";
 
 const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, loginAsGuest, buttonsVariant, errors, resetErrors }) => {
     const dispatch = useDispatch();
     const userState = useSelector(state => state.user);
+    const [triggerPassword, setTriggerPassword] = useState(false);
     const handleGoogleLoginSuccess = async (response) => {
         const idToken = response.credential;
         const accessToken = response.access_token; // Получите токен доступа здесь
@@ -80,6 +84,9 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
                 <Form.Control.Feedback type="invalid">
                     {errors?.password}
                 </Form.Control.Feedback>
+                <Button className='btn-link' onClick={() => setTriggerPassword(true)}>
+                    Forgot password
+                </Button>
             </Form.Group>
             <Button
                 variant={buttonsVariant}
@@ -97,6 +104,10 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
                 onError={() => {
                     console.log('Login Failed');
                 }}
+            />
+            <ForgotPasswordModal
+                show={triggerPassword}
+                onHide={() => setTriggerPassword(false)}
             />
         </Form>
     );

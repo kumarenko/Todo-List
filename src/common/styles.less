@@ -3,6 +3,7 @@
   left: 50%;
   width: auto;
   top: 30%;
+  z-index: 999;
   animation: 2.5s forwards popup linear;
 }
 .btn.opacity-0-disabled:disabled {
@@ -13,14 +14,36 @@
   border-top: none;
   padding: 0;
 }
-.modal .btn-close {
-  position: absolute;
-  right: 25px;
+.modal {
+ &-dialog {
+   .modal-content {
+     background-color: transparent;
+   }
+   .btn-close {
+     position: absolute;
+     right: 25px;
+   }
+   .sort-btn {
+     width: 100%;
+     max-width: 150px;
+   }
+   &-loader {
+     background: rgba(0, 0, 0, 0.1);
+   }
+   input::-webkit-outer-spin-button,
+   input::-webkit-inner-spin-button {
+     -webkit-appearance: none;
+     margin: 0;
+   }
+
+   input[type=number] {
+     -moz-appearance: textfield;
+     width: 40px;
+     text-align: center;
+   }
+ }
 }
-.modal .sort-btn {
-  width: 100%;
-  max-width: 150px;
-}
+
 input[type="file"] {
   display: none;
 }
@@ -29,6 +52,13 @@ input[type="file"] {
   display: inline-block;
   cursor: pointer;
 }
+.feedback-space {
+  min-height: 1.3em; /* Задает минимальное пространство для ошибки */
+  .invalid-feedback  {
+    display: block;
+  }
+}
+
 @keyframes popup {
   0% {
     opacity: 0;

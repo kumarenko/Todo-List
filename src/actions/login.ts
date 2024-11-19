@@ -5,7 +5,15 @@ import {
     updateProfileErrorMessage,
     updateProfileSuccessMessage, updateRegisterFlag
 } from "../redux/userReducer";
-import {LOGIN_URL, PROTECTED_ROUTE_URL, REGISTER_URL, USERS_URL} from "../configs/urls";
+import {
+    FORGOT_PASSWORD_GENERATE_CODE_URL,
+    FORGOT_PASSWORD_SUBMIT_CODE_URL,
+    FORGOT_PASSWORD_URL,
+    LOGIN_URL,
+    PROTECTED_ROUTE_URL,
+    REGISTER_URL,
+    USERS_URL
+} from "../configs/urls";
 import {updateCurrency, updateUnits} from "../redux/settingsReducer";
 import {logout, persistor, store} from "../redux";
 
@@ -157,3 +165,30 @@ export const updateProfileInfo: any = (userId, data) => {
         }
     };
 }
+export const requestResetPassword = async email => {
+    return await fetch(`${FORGOT_PASSWORD_GENERATE_CODE_URL}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email}),
+    });
+};
+export const sendCode = async (email, code) => {
+    return await fetch(`${FORGOT_PASSWORD_SUBMIT_CODE_URL}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email, code}),
+    });
+};
+export const changePassword = async (email, password) => {
+    return await fetch(`${FORGOT_PASSWORD_URL}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email, password}),
+    });
+};
