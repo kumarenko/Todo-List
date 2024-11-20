@@ -7,6 +7,7 @@ import {updateProfileErrorMessage, updateProfileSuccessMessage} from "../../../r
 import CustomAlert from "../../../common/Alert";
 import ChangePassword from "./changePassword";
 import './styles.less';
+import {t} from "i18next";
 
 interface ProfileInterface extends User {
     logoutAction: (role: boolean) => void,
@@ -70,8 +71,8 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
     return (
         <div className='profile d-flex flex-column align-items-center'>
             <div className="d-flex justify-content-between h3 w-75 p-3">
-                <h1 className='title'>Profile page</h1>
-                <Button size={'md'} onClick={() => logoutAction(user.user.role)}>Logout</Button>
+                <h1 className='title'>{t('Profile')}</h1>
+                <Button size={'md'} onClick={() => logoutAction(user.user.role)}>{t('Logout')}</Button>
             </div>
             {userData.role === 'USER' ?
                 <>
@@ -80,12 +81,12 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
                     </div>
                     <Container fluid="md" className='user-info d-flex w-75 flex-wrap mb-2'>
                         <div>
-                            <h5 className='title'>Name</h5>
+                            <h5 className='title'>{t('Name')}</h5>
                             {isEditing ? <Form.Control
                                 onChange={e => setName(e.target.value)} type="text" value={name}/> : <div className={'subtitle'}>{userData.name}</div>}
                         </div>
                         <div>
-                            <h5 className='title'>Email</h5>
+                            <h5 className='title'>{t('Email')}</h5>
                             {isEditing ? <Form.Control
                                     onChange={e => setEmail(e.target.value)}
                                     disabled value={email}
@@ -95,15 +96,15 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
                     </Container>
                 </> :
                 <div className="w-75">
-                    <h4 className='title'>You are in guest mode now.</h4>
+                    <h4 className='title'>{t("Hello! You're in guest mode. Sign in to access all features!")}</h4>
                 </div>
             }
             <ChangePassword userId={userData.id} googleId={user.user.googleId}/>
             <div className='w-75 controls'>
                 <Button onClick={() => {
                     handleProfileData();
-                }} size="md">{isEditing ? 'Save' : 'Edit'}</Button>
-                {isEditing && <Button onClick={() => resetProfileData()} size="md">Cancel</Button>}
+                }} size="md">{isEditing ? t('Save') : t('Edit')}</Button>
+                {isEditing && <Button onClick={() => resetProfileData()} size="md">{t('Cancel')}</Button>}
             </div>
             <CustomAlert variant={user.errorMessage ? 'danger' : 'success'} className='popup'>
                 {message}

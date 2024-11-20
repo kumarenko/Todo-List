@@ -12,6 +12,7 @@ const Settings = ({theme, changeTheme, title, user, isMetricUnits,updateProfileI
         document.title = title;
     }, []);
     const toggle = () => {
+        console.log('dddd');
         const newTheme = theme === 'light' ? 'dark': 'light';
         changeTheme(newTheme);
     }
@@ -27,25 +28,34 @@ const Settings = ({theme, changeTheme, title, user, isMetricUnits,updateProfileI
                 <h1 className='title'>{t('Settings')}</h1>
             </div>
             <div className="w-75 p-3">
-                <h5 className='m-1 title'>Dark mode</h5>
-                <Form.Check
-                    type="switch"
-                    defaultChecked={theme !== 'light'}
-                    onChange={() => toggle()}
-                    className='my-2'
-                />
+                <h5 className='m-1 title'>{t('Appearance')}</h5>
+                <div className="form-check">
+                    <input className="form-check-input" onChange={toggle} type="radio" name="light" id="light" checked={theme === 'light'}/>
+                        <label className="subtitle" htmlFor="light">
+                            {t('light')}
+                        </label>
+                </div>
+                <div className="form-check">
+                    <input className="form-check-input" onChange={() =>toggle()} type="radio" name="dark" id="dark"
+                           checked={theme === 'dark'}/>
+                        <label className="subtitle" htmlFor="dark">
+                            {t('dark')}
+                        </label>
+                </div>
                 <div>
-                    <h5 className='m-1 title'>Select Units</h5>
+                    <h5 className='m-1 title'>{t('Select Units')}</h5>
                     <Form.Select aria-label="Units" value={isMetricUnits ? 'metric' : 'imperial'} onChange={toggleUnits} className='w-25'>
-                        <option value="metric">Metric</option>
-                        <option value="imperial">Imperial</option>
+                        <option value="metric">{t('Metric')}</option>
+                        <option value="imperial">{t('Imperial')}</option>
                     </Form.Select>
                 </div>
                 <div className="div">
-                    <h5 className='m-1 title'>Select language</h5>
+                    <h5 className='m-1 title'>{t('Change language')}</h5>
                     <Form.Select aria-label="language" defaultValue={settings.language} onChange={(e) => changeLang(e.target.value)} className='w-25'>
                         <option value="en">English</option>
                         <option value="ua">Ukrainian</option>
+                        <option value="fr">French</option>
+                        <option value="ru">Russian</option>
                         <option value="de">German</option>
                     </Form.Select>
                 </div>

@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import {validateEmail} from "../../../../helpers/validator";
 import {requestResetPassword} from "../../../../actions/login";
 import Message from "../../../../common/message";
+import {t} from "i18next";
 
 const ConfirmEmail = ({onHide, onApply, email, setEmail}) => {
     const [error, setError] = useState('');
@@ -17,12 +18,12 @@ const ConfirmEmail = ({onHide, onApply, email, setEmail}) => {
             if (result.ok) {
                 onApply();
             } else if(result.status === 404) {
-                setResponseMessage('User does not found');
+                setResponseMessage(t('User not found'));
                 setTimeout(() => {
                     setResponseMessage('');
                 }, 2500)
             } else {
-                setResponseMessage('Server error');
+                setResponseMessage(t('Server error'));
             }
             setLoading(false);
         } else {
@@ -33,7 +34,7 @@ const ConfirmEmail = ({onHide, onApply, email, setEmail}) => {
     return <>
         <Modal.Header className='modal-styled-bg justify-content-center'>
             <Message text={responseMessage}/>
-            <Modal.Title className='title'>Enter your email</Modal.Title>
+            <Modal.Title className='title'>{t('Enter your email to reset password')}</Modal.Title>
         </Modal.Header>
         <Modal.Body className='modal-styled-bg'>
             {loading && (
@@ -41,7 +42,7 @@ const ConfirmEmail = ({onHide, onApply, email, setEmail}) => {
                     <Spinner animation="border" />
                 </div>
             )}
-            <Form.Label htmlFor="email" className='subtitle'>Your Email: </Form.Label>
+            <Form.Label htmlFor="email" className='subtitle'>{t('Email')}</Form.Label>
             <Form.Control
                 type="email"
                 id="email"
@@ -60,10 +61,10 @@ const ConfirmEmail = ({onHide, onApply, email, setEmail}) => {
         </Modal.Body>
         <Modal.Footer className='modal-styled-bg justify-content-around'>
             <Button onClick={onHide}>
-                Cancel
+                {t('Cancel')}
             </Button>
             <Button onClick={confirmEmail}>
-                Apply
+                {t('Apply')}
             </Button>
         </Modal.Footer>
     </>;

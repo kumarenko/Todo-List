@@ -23,6 +23,7 @@ import {defaultListsState, setShoppingList} from "../../../../redux/shoppingList
 import DeleteListModal from "../deleteListModal";
 import SortingModal from "./sorting";
 import AvatarModal from "./avatar";
+import {t} from "i18next";
 
 const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updateListRequest, removeListRequest }) => {
     const { listId } = useParams();
@@ -190,23 +191,23 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                         <IoMdSearch className='name-icon title' />
                     </InputGroup>
                     <div className="actions d-flex flex-row flex-nowrap">
-                        <Button onClick={() => setAddShowModal(true)} className='add'>Add Product</Button>
+                        <Button onClick={() => setAddShowModal(true)} className='add'>{t('Add product')}</Button>
                         <Dropdown as={ButtonGroup} className='extra-actions'>
                             <Dropdown.Toggle className='dropdown-without-arrow'>
                                 <FiMoreHorizontal />
                             </Dropdown.Toggle>
                             <Dropdown.Menu className='section-styled-bg'>
                                 <Dropdown.Item eventKey="1" onClick={()=> setSharingModal(true)}>
-                                    <IoMdPersonAdd /> Share
+                                    <IoMdPersonAdd /> {t('Share')}
                                 </Dropdown.Item>
                                 <Dropdown.Item eventKey="2" onClick={()=> setToggleSortingModal(true)}>
-                                    <FaSortAmountDown/> Sort
+                                    <FaSortAmountDown/> {t('Sort')}
                                 </Dropdown.Item>
                                 <Dropdown.Item eventKey="2" onClick={()=> setFilterShowModal(true)}>
-                                    <MdFilterListAlt/> Filter
+                                    <MdFilterListAlt/> {t('Filter')}
                                 </Dropdown.Item>
                                 <Dropdown.Item eventKey="3" onClick={() => setShowDeleteModal(true)}>
-                                    <IoMdTrash /> Delete
+                                    <IoMdTrash /> {t('Delete')}
                                 </Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
@@ -224,21 +225,21 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                         </div>
                         <div className='prices mx-auto subtitle'>
                             <div>
-                                <span>Purchased</span>
+                                <span>{t('Purchased')}</span>
                                 <span className='title'>{list.products?.length && list.products.reduce(
                                     (accumulator, prod) => prod.checked ? accumulator + parseFloat(prod.price) : accumulator, 0
                                 )} {getCurrencySymbol(user.country)}
                                 </span>
                             </div>
                             <div>
-                                <span>Remaining</span>
+                                <span>{t('Remaining')}</span>
                                 <span className='title' >{list.products?.length && list.products.reduce(
                                     (accumulator, prod) => !prod.checked ? accumulator + parseFloat(prod.price ?? 0) : accumulator, 0
                                 )} {getCurrencySymbol(user.country)}
                                 </span>
                             </div>
                             <div>
-                                <span>Total</span>
+                                <span>{t('Total')}</span>
                                 <span className='title'>
                                     {list.products?.length && list.products.reduce(
                                     (accumulator, prod) => accumulator + parseFloat(prod.price ?? 0), 0
@@ -247,9 +248,9 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                             </div>
                         </div>
                     </>
-                    : <div className='text-center my-2 mx-auto title'>This list is empty</div>}
+                    : <div className='text-center my-2 mx-auto title'>{t('Your list is currently empty. Add your items to make sure you don’t forget anything!')}</div>}
                 {filteredCategories.length >= 1 ? <div className='my-2'>
-                    {filteredCategories.map(cat => <Button className='mx-2' onClick={() => removeCategoryToFilter(cat)}><IoMdClose/>{cat}</Button>)}
+                    {filteredCategories.map(cat => <Button className='mx-2' onClick={() => removeCategoryToFilter(cat)}><IoMdClose/>{t(cat)}</Button>)}
                 </div> : null}
             </h3>
             <div className='list'>
@@ -266,10 +267,10 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                             <button
                                 className='my-1 w-100 section-styled-bg'
                                 onClick={() => selectProduct(prod)}>
-                                <h5 className='title'>{prod.name}</h5>
+                                <h5 className='title'>{t(prod.name)}</h5>
                                 <div>
                                     <span className='subtitle'>{prod.price} {getCurrencySymbol(user.country)} <span className='x'>✕</span> </span>
-                                    <span className='subtitle'>{prod.count} pc(s)</span>
+                                    <span className='subtitle'>{prod.count} {t('pcs')}</span>
                                 </div>
                             </button>
                             <Button className='avatar-container mx-3 section-styled-bg' onClick={() => {
@@ -296,10 +297,10 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                             <Button
                                 className='my-1 w-100 section-styled-bg'
                                 onClick={() => selectProduct(prod)}>
-                                <h5 className='title'>{prod.name}</h5>
+                                <h5 className='title'>{t(prod.name)}</h5>
                                 <div>
                                     <span className='subtitle'>{prod.price} {getCurrencySymbol(user.country)} <span className='x'>✕</span> </span>
-                                    <span className='subtitle'>{prod.count} pc(s)</span>
+                                    <span className='subtitle'>{prod.count} {t('pc(s)')}</span>
                                 </div>
                             </Button>
                             <Button className='avatar-container mx-3 section-styled-bg' onClick={() => {

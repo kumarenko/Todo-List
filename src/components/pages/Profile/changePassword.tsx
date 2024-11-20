@@ -3,6 +3,7 @@ import {Button, Container, Form} from "react-bootstrap";
 import {validateChangePassword} from "../../../helpers/validator";
 import {useDispatch} from "react-redux";
 import {updateProfileInfo} from "../../../actions/login";
+import {t} from "i18next";
 
 const ChangePassword = ({userId, googleId}) => {
 
@@ -30,7 +31,7 @@ const ChangePassword = ({userId, googleId}) => {
             {allowChange ? <>
                     {googleId}
                     {!googleId ? <div>
-                        <h5 className='title'>{googleId ? 'Your Current password' : 'Your Current password'}</h5>
+                        <h5 className='title'>{googleId ? t('Your current password') : t('Your current password')}</h5>
                         <Form.Control
                             isInvalid={!!validationErrors.password}
                             onChange={(e) => {
@@ -42,7 +43,7 @@ const ChangePassword = ({userId, googleId}) => {
                         </Form.Control.Feedback>
                     </div> : null}
                     <div>
-                        <h5 className='title'>Enter new password</h5>
+                        <h5 className='title'>{t('Enter new password')}</h5>
                         <Form.Control
                             isInvalid={!!validationErrors.newPassword}
                             onChange={(e) => {
@@ -54,7 +55,7 @@ const ChangePassword = ({userId, googleId}) => {
                         </Form.Control.Feedback>
                     </div>
                     <div>
-                    <h5 className='title'>Confirm password</h5>
+                    <h5 className='title'>{t('Confirm new password')}</h5>
                     <Form.Control
                         isInvalid={!!validationErrors.confirmPassword}
                         onChange={(e) => {
@@ -66,18 +67,18 @@ const ChangePassword = ({userId, googleId}) => {
                     </Form.Control.Feedback>
                 </div>
                 <div className='d-flex justify-content-between'>
-                    <Button onClick={()=>changePasswordHandler()}>Apply</Button>
+                    <Button onClick={()=>changePasswordHandler()}>{t('Apply')}</Button>
                     <Button onClick={() => {
                         setCurrentPassword('');
                         setNewPassword('');
                         setConfirmNewPassword('');
                         resetErrors();
                         setAllowChange(false)
-                    }}>Cancel</Button>
+                    }}>{t('Cancel')}</Button>
                 </div>
             </> :
                 <div>
-                    <span className='button-as-link' onClick={() => setAllowChange(true)}>Change password</span>
+                    <span className='button-as-link' onClick={() => setAllowChange(true)}>{t('Change Password')}</span>
                 </div>}
         </Container>
     );

@@ -1,13 +1,13 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import { Button } from "react-bootstrap";
+import {t} from "i18next";
 
 const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, confirmPassword, setConfirmPassword, signUpHandler, buttonsVariant, errors, resetErrors }) => {
     return (
         <Form className='d-flex flex-column'>
-            <h2>Please sign up</h2>
             <Form.Group className="mb-2">
-                <Form.Label className='subtitle'>Email address</Form.Label>
+                <Form.Label className='subtitle'>{t('Email')}</Form.Label>
                 <Form.Control
                     type="email"
                     value={email}
@@ -23,7 +23,7 @@ const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, conf
                 </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-2">
-                <Form.Label className='subtitle'>Name</Form.Label>
+                <Form.Label className='subtitle'>{t('Name')}</Form.Label>
                 <Form.Control
                     type="text"
                     value={name}
@@ -39,7 +39,7 @@ const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, conf
                 </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-2" controlId="passSignUp">
-                <Form.Label className='subtitle'>Password</Form.Label>
+                <Form.Label className='subtitle'>{t('Password')}</Form.Label>
                 <Form.Control
                     type="password"
                     value={password}
@@ -55,7 +55,7 @@ const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, conf
                 </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-2" controlId="confirmPassSignUp">
-                <Form.Label className='subtitle'>Confirm Password</Form.Label>
+                <Form.Label className='subtitle'>{t('Confirm Password')}</Form.Label>
                 <Form.Control
                     type="password"
                     value={confirmPassword}
@@ -74,7 +74,7 @@ const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, conf
                 variant={buttonsVariant}
                 onClick={signUpHandler}
                 className='w-50 my-2 mx-auto'
-            >Sign Up</Button>
+            >{t('Sign Up')}</Button>
         </Form>
     );
 }

@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Modal, Button, Form, Spinner } from 'react-bootstrap';
 import Message from "../../../../common/message";
 import {sendCode} from "../../../../actions/login";
+import {t} from "i18next";
 
 const ConfirmCode = ({ email, onApply, onBack, code, setCode }) => {
     const [loading, setLoading] = useState(false);
@@ -26,7 +27,7 @@ const ConfirmCode = ({ email, onApply, onBack, code, setCode }) => {
     const handleConfirmCode = async () => {
         const completedCode = code.join('');
         if (completedCode.length < 4) {
-            setResponseMessage('The code must be 4 digits long');
+            setResponseMessage(t('The code must be 4 digits long'));
             setTimeout(() => {
                 setResponseMessage('');
             }, 2500);
@@ -37,10 +38,19 @@ const ConfirmCode = ({ email, onApply, onBack, code, setCode }) => {
                 if(result.ok) {
                     onApply();
                 } else {
-                    setResponseMessage('Invalid code');
-                    setTimeout(() => {
-                        setResponseMessage('');
-                    }, 2500);
+                    const data = await result.json();
+                    if(data.message) {
+                        setResponseMessage(t('Too many attempts. Code expired'));
+                        setTimeout(() => {
+                            setResponseMessage('');
+                        }, 2500);
+                    } else {
+                        setResponseMessage(t('invalidСode', {attempts: data.attempts}));
+                        setTimeout(() => {
+                            setResponseMessage('');
+                        }, 2500);
+                    }
+
                 }
             } catch (error) {
                 setTimeout(() => {
@@ -56,7 +66,7 @@ const ConfirmCode = ({ email, onApply, onBack, code, setCode }) => {
        <>
            <Message text={responseMessage}/>
            <Modal.Header closeButton className='modal-styled-bg'>
-               <Modal.Title className='title'>Confirm Code</Modal.Title>
+               <Modal.Title className='title'>{t('Code was sent to your e-mail address, please enter it below')}</Modal.Title>
            </Modal.Header>
            <Modal.Body className='modal-styled-bg'>
                {loading && (
@@ -64,7 +74,6 @@ const ConfirmCode = ({ email, onApply, onBack, code, setCode }) => {
                        <Spinner animation="border" />
                    </div>
                )}
-               <h5 className='subtitle'>Code was sent to your e-mail address, please enter it below:</h5>
                <div className="d-flex justify-content-center gap-2">
                    {code.map((digit, index) => (
                        <Form.Control
@@ -81,10 +90,10 @@ const ConfirmCode = ({ email, onApply, onBack, code, setCode }) => {
            </Modal.Body>
            <Modal.Footer className='modal-styled-bg'>
                <Button variant="secondary" onClick={onBack}>
-                   Back
+                   {t('Back')}
                </Button>
                <Button variant="primary" onClick={()=> handleConfirmCode()} disabled={loading}>
-                   Confirm
+                   {t('Confirm')}
                </Button>
            </Modal.Footer>
        </>

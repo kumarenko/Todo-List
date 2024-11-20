@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Modal, Button, Form, Spinner, Alert } from 'react-bootstrap';
+import { Modal, Button, Form, Spinner } from 'react-bootstrap';
 import {changePassword} from "../../../../actions/login";
 import Message from "../../../../common/message";
+import {t} from "i18next";
 
 const ChangePassword = ({ email, onApply, onBack }) => {
     const [password, setPassword] = useState('');
@@ -12,13 +13,13 @@ const ChangePassword = ({ email, onApply, onBack }) => {
 
     const handlePasswordChange = async () => {
         if (confirmPassword !== password) {
-            setErrors({...errors, match: 'Passwords does not match'});
+            setErrors({...errors, match: t('Passwords do not match')});
             return;
         } if (confirmPassword.length < 8) {
-            setErrors({...errors, confirmPassword: 'New password is too short'});
+            setErrors({...errors, confirmPassword: t('New password is too short')});
             return;
         } if (password.length < 8) {
-            setErrors({...errors, password: 'Password is too short'});
+            setErrors({...errors, password: t('Password is too short')});
         } else {
             setLoading(true);
             setErrors({});
@@ -26,19 +27,19 @@ const ChangePassword = ({ email, onApply, onBack }) => {
                 try {
                     const result = await changePassword(email, password);
                     if(result.ok) {
-                        setMessage('Password successfully changed');
+                        setMessage(t('Password successfully changed'));
                         setTimeout(() => {
                             setMessage('');
                             onApply();
                         }, 2500);
                     } else {
-                        setMessage('An error occurred while changing the password');
+                        setMessage(t('An error occurred while changing the password'));
                         setTimeout(() => {
                             setMessage('');
                         }, 2500);
                     }
                 } catch (err) {
-                    setMessage('An error occurred while changing the password');
+                    setMessage(t('An error occurred while changing the password'));
                     setTimeout(() => {
                         setMessage('');
                     }, 2500);
@@ -53,7 +54,7 @@ const ChangePassword = ({ email, onApply, onBack }) => {
         <>
             <Message text={message}/>
             <Modal.Header closeButton className='modal-styled-bg'>
-                <Modal.Title className='title'>Change Password</Modal.Title>
+                <Modal.Title className='title'>{t('Change Password')}</Modal.Title>
             </Modal.Header>
             <Modal.Body className='modal-styled-bg'>
                 {loading && (
@@ -63,10 +64,9 @@ const ChangePassword = ({ email, onApply, onBack }) => {
                 )}
                 <Form>
                     <Form.Group className="mb-3">
-                        <Form.Label className='subtitle'>New Password</Form.Label>
+                        <Form.Label className='subtitle'>{t('New Password')}</Form.Label>
                         <Form.Control
                             type="password"
-                            placeholder="Enter new password"
                             value={password}
                             onChange={e => {
                                 setPassword(e.target.value);
@@ -80,10 +80,9 @@ const ChangePassword = ({ email, onApply, onBack }) => {
                         </div>
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label className='subtitle'>Confirm New Password</Form.Label>
+                        <Form.Label className='subtitle'>{t('Confirm new password')}</Form.Label>
                         <Form.Control
                             type="password"
-                            placeholder="Confirm new password"
                             isInvalid={errors.match || errors.confirmPassword}
                             value={confirmPassword}
                             onChange={e => {
@@ -104,10 +103,10 @@ const ChangePassword = ({ email, onApply, onBack }) => {
             </Modal.Body>
             <Modal.Footer className='modal-styled-bg'>
                 <Button variant="secondary" onClick={onBack}>
-                    Cancel
+                    {t('Cancel')}
                 </Button>
                 <Button variant="primary" onClick={handlePasswordChange} disabled={loading}>
-                    Change Password
+                    {t('Change Password')}
                 </Button>
             </Modal.Footer>
         </>

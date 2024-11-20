@@ -8,6 +8,7 @@ import allProducts from './../../../../configs/products.json';
 import {onlyUnique} from "../../../../helpers/helper";
 import RenderProduct from "./renderProduct";
 import { IoMdArrowDropdown } from "react-icons/io";
+import {t} from "i18next";
 const allCategories = allProducts.map(prod => prod.category).filter(onlyUnique);
 const AddProductModal = ({show, onHide}) => {
 
@@ -74,7 +75,7 @@ const AddProductModal = ({show, onHide}) => {
             <div key={item} className='w-100'>
                 <button onClick={() => toggleCategory(item)} className={'d-flex justify-content-between align-items-center w-100 section-styled-bg my-1 p-1 rounded'}>
                     <div>
-                        {item} <span>({selectedProductsCount})</span>
+                        {t(item)} <span>({selectedProductsCount})</span>
                     </div>
                     <IoMdArrowDropdown  style={{transform: `rotate(${isExpanded ? 180 : 0}deg)`}}/>
                 </button>
@@ -87,17 +88,17 @@ const AddProductModal = ({show, onHide}) => {
     return ReactDOM.createPortal(
         <Modal show={show} onHide={onHide} className='w-100 rounded' centered>
             <Modal.Header className='modal-styled-bg d-flex flex-column justify-content-center'>
-                <Modal.Title className='title'>Adding new Product to List</Modal.Title>
+                <Modal.Title className='title'>{t('Add product')}</Modal.Title>
                 <Form.Group className='d-flex flex-row flex-nowrap w-100 mx-1'>
                     <InputGroup className='w-75'>
                         <input
-                            placeholder={'Enter product name'}
                             value={searchValue}
+                            placeholder={t('Enter product name')}
                             onChange={searchProduct}
                         />
                         <Button
                             onClick={() => setToggleFilterModal(true)}
-                        >filter</Button>
+                        >{t('Filter')}</Button>
                     </InputGroup>
 
                 </Form.Group>
@@ -105,7 +106,7 @@ const AddProductModal = ({show, onHide}) => {
             <Modal.Body className='d-flex align-items-start flex-column modal-fixed-height modal-styled-bg'>
                 {filteredCategories.length === 0 && (
                     <RenderProduct
-                        item={{_id: null, name: searchValue, category: 'OTHER'}}
+                        item={{_id: null, name: searchValue, category: t('OTHER')}}
                     />
                 )}
                 {filteredCategories.map((item:any) => renderCategory(item))}

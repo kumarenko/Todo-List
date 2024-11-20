@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {removeProductAvatarRequest, updateProductAvatarRequest} from "../../../../actions/products";
 import imageCompression from "browser-image-compression";
 import {CLOUD_URL} from "../../../../configs/urls";
+import {t} from "i18next";
 
 const AvatarModal = ({ isVisible, onClose, itemId, listId, type }) => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -83,16 +84,16 @@ const AvatarModal = ({ isVisible, onClose, itemId, listId, type }) => {
                 <label htmlFor="file-upload" className="custom-file-upload btn d-flex justify-content-center align-items-center">
                     <FiUpload className='mx-1' />
                     <span className='mx-1'>
-                        Upload
+                        {t('Upload')}
                     </span>
                 </label>
                 <input type="file" id='file-upload' accept='image/png, image/jpeg' onChange={handleFileChange} />
                 {preview ? <Button className='mx-2' onClick={removeAvatar}>
                     <FiTrash2 className='mx-1' />
-                    <span className='mx-1'>Remove</span>
+                    <span className='mx-1'>{t('Delete')}</span>
                 </Button> : null}
                 <Button className='mx-2' onClick={closeModal}>
-                    <span className='mx-1'>Close</span>
+                    <span className='mx-1'>{t('Close')}</span>
                 </Button>
             </Modal.Footer>
         </Modal>,

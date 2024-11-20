@@ -6,6 +6,7 @@ import { FiPlus, FiMinus } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 
 import {addProductToList, deleteProductFromList, updateProductsListRequest} from "../../../../actions/products";
+import {t} from "i18next";
 
 const RenderProduct = ({
                            item,
@@ -38,9 +39,9 @@ const RenderProduct = ({
                 <div className='position-relative d-flex justify-content-between align-items-center'>
                     <FiPlus/>
                     <span>
-                        {item.name}
+                        {t(item.name)}
                     </span>
-                    <span style={{minWidth: 50, marginRight: 25}}>{elemInList?.count ? `${elemInList.count} pcs` : ''}</span>
+                    <span style={{minWidth: 50, marginRight: 25}}>{elemInList?.count ? `${elemInList.count} ${t('pcs')}` : ''}</span>
                 </div>
             </Button>
             {elemInList && elemInList.count > 1 && (

@@ -9,11 +9,12 @@ import { FaPlusMinus } from 'react-icons/fa6';
 import { useParams } from 'react-router-dom';
 import {debounce, getCurrencySymbol, onlyUnique, preventCharacters} from '../../../../helpers/helper';
 import allProducts from "../../../../configs/products.json";
+import {t} from "i18next";
 const allCategories = allProducts.map(prod => prod.category).filter(onlyUnique);
 
 const EditProductModal = ({ product, show, onHide, deleteProductFromList, updateProductsListRequest }) => {
     const { listId } = useParams();
-    const [name, setName] = useState('');
+    const [name, setName] = useState(t(product.name));
     const [count, setCount] = useState('1');
     const [price, setPrice] = useState('0');
     const [category, setCategory] = useState<string>('OTHER');
@@ -22,7 +23,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
 
     useEffect(() => {
         if (Object.keys(product).length) {
-            setName(product.name);
+            setName(t(product.name));
             setCount(product?.count ? product.count : '1');
             setPrice(product?.price ? product.price : 0);
             setCategory(product?.category || 'OTHER');
@@ -85,13 +86,13 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
             centered
         >
             <Modal.Header className='d-flex justify-content-center modal-styled-bg'>
-                <Modal.Title className='justify-content-center title'>Product Editing</Modal.Title>
+                <Modal.Title className='justify-content-center title'>{t('Edit Product')}</Modal.Title>
             </Modal.Header>
             <Modal.Body className='d-flex align-items-start flex-column modal-fixed-height modal-styled-bg'>
                 <Form.Group as={Col} className='mx-auto'>
                     <InputGroup className='my-2'>
                         <Form.Label column sm="2" className='subtitle mx-2 w-25'>
-                            Name
+                            {t('Name')}
                         </Form.Label>
                         <Form.Control
                             type="text"
@@ -104,7 +105,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
                     </InputGroup>
                     <InputGroup className='my-2'>
                         <Form.Label column sm="2" className='subtitle mx-2 w-25'>
-                            Count
+                            {t('Count')}
                         </Form.Label>
                         <Form.Control
                             type="number"
@@ -119,7 +120,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
                     </InputGroup>
                     <InputGroup className='my-2'>
                         <Form.Label column sm="2" className='subtitle mx-2 w-25'>
-                            Price
+                            {t('Price')}
                         </Form.Label>
                         <Form.Control
                             type="number"
@@ -135,18 +136,16 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
                     </InputGroup>
                     <InputGroup className='my-2'>
                         <Form.Label column sm="2" className='subtitle mx-2 w-25'>
-                            Category
+                            {t('Category')}
                         </Form.Label>
                         <Form.Select
                             aria-label="gender"
-                            onChange={(e) => {
-                                setCategory(e.target.value);
-                            }}
+                            onChange={(e) => {setCategory(e.target.value)}}
                             value={category}
                         >
                             {allCategories.map((category) => (
                                 <option key={category} value={category}>
-                                    {category}
+                                    {t(category)}
                                 </option>
                             ))}
                         </Form.Select>
@@ -154,7 +153,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
                 </Form.Group>
             </Modal.Body>
             <Modal.Footer className='modal-styled-bg justify-content-around'>
-                <Button onClick={() => deleteProduct()}>Remove Product</Button>
+                <Button onClick={() => deleteProduct()}>{t('Delete')}</Button>
             </Modal.Footer>
         </Modal>,
         document.body

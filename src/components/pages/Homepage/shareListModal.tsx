@@ -8,6 +8,7 @@ import {inviteUsersRequest} from "../../../actions/shoppingLists";
 import {connect} from "react-redux";
 import {copyTextToClipboard} from "../../../helpers/helper";
 import CustomAlert from "../../../common/Alert";
+import {t} from "i18next";
 
 const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
     const [email, setEmail] = useState('');
@@ -45,11 +46,11 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
         copyTextToClipboard(str)
             .then(result => {
                 if (result === 'success') {
-                    setMessage('List copied to clipboard');
+                    setMessage(t('List copied to clipboard'));
                 }
             })
             .catch(error => {
-                setMessage(`Error copying to clipboard: ${error}`);
+                setMessage(`${t('Error copying to clipboard')}: ${error}`);
             });
         setTimeout(() => setMessage(''), 2500);
     }
@@ -58,19 +59,19 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
     }
     const renderBadge = (user) => {
         if(list.creator._id === user._id) {
-           return <Badge bg="secondary">Owner</Badge>
+           return <Badge bg="secondary">{t('Owner')}</Badge>
         }
         if(user.status === 'WAIT') {
-            return <Badge bg="secondary">Pending</Badge>
+            return <Badge bg="secondary">{t('Waiting')}</Badge>
         }
         else {
-           return <Badge bg="secondary">Shared</Badge>
+           return <Badge bg="secondary">{t('Shared')}</Badge>
         }
     }
 
     return ReactDOM.createPortal(<Modal show={show} onHide={onHide} className='share-modal' centered>
         <Modal.Header className='modal-styled-bg justify-content-center'>
-            <Modal.Title className='title'>{list.name.value}</Modal.Title>
+            <Modal.Title className='title'>{t('Invite Friends to List')}</Modal.Title>
         </Modal.Header>
         <Modal.Body className='modal-styled-bg justify-content-center'>
             <Container className='d-flex justify-content-between align-items-start'>
@@ -93,16 +94,18 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
 
 
                 <Button className={'mx-2'} onClick={() => invite()}>
-                    Invite
+                    {t('Invite')}
                 </Button>
                 <Button className={'mx-2'} onClick={() => copyList()}>
-                    Copy
+                    {t('Copy')}
                 </Button>
             </Container>
             <Container className='d-flex justify-content-between flex-column'>
                 {owners.length > 1 ?
                 <>
-                    <h3 className='title'>List shared with {owners.length - 1} {owners.length > 2 ? 'person' : 'people'}</h3>
+                    <h3 className='title'>{owners.length > 2 ?
+                        t(`List shared with people`, {count: owners.length - 1}) :
+                        t('List shared with 1 person')}</h3>
                     <Container className=' flex-row items-center'>
                         {owners.map(owner => <Container key={owner._id} className='d-flex flex-nowrap justify-content-between'>
                             <div className='d-flex'>
@@ -116,7 +119,7 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
                                 </div>
                                 <span className='mx-2'>
                                     <span className='subtitle'>{owner.email}</span>
-                                    {user.id === owner._id && <Badge bg="secondary ms-1">You</Badge>}
+                                    {user.id === owner._id && <Badge bg="secondary ms-1">{t('You')}</Badge>}
                                 </span>
                             </div>
                             {list.creator !== owner._id && <div>
@@ -133,7 +136,7 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
                 </> : null}
                 {waitingOwners.length ?
                 <>
-                    <h3 className='title'>Invites sent to {waitingOwners.length} {waitingOwners.length > 1 ? 'person' : 'people'}</h3>
+                    <h3 className='title'>Invites sent to {waitingOwners.length} {waitingOwners.length > 1 ? t('person') : t('people')}</h3>
                     <Container className=' flex-row items-center'>
                         {waitingOwners.map(user => <Container key={user._id} className='d-flex flex-nowrap justify-content-between'>
                             <div className='d-flex'>

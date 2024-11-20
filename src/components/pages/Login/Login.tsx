@@ -8,6 +8,7 @@ import SignUpTab from './SignUpTab';
 import {validateSignInForm, validateSignUpForm} from "../../../helpers/validator";
 import {updateLogin} from "../../../redux/userReducer";
 import Spinner from "../../../common/spinner";
+import {t} from "i18next";
 
 const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => {
     const dispatch = useDispatch();
@@ -81,7 +82,7 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
                         }}
                         className="mb-3"
                     >
-                        <Tab eventKey={"login"} title="Sign In">
+                        <Tab eventKey={"login"} title={t("Login")}>
                             {key === 'login' && <SignInTab
                                 email={email} setEmail={setEmail}
                                 password={password} setPassword={setPassword}
@@ -92,7 +93,7 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
                                 resetErrors={reset}
                             />}
                         </Tab>
-                        <Tab eventKey={"register"} title="Sign Up">
+                        <Tab eventKey={"register"} title={t("Sign Up")}>
                             {key === 'register' && <SignUpTab
                                 email={email} setEmail={setEmail}
                                 name={name} setName={setName}
@@ -117,7 +118,7 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
                     setShowSuccessPopup(false);
                     dispatch(updateLogin({...user, successMessage: ''}))
                 }} variant='success' className='popup position-fixed'>
-                    {successMessage}
+                    {t(successMessage)}
                 </Alert> : null}
             </div>
         );

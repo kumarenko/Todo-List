@@ -4,9 +4,8 @@ import { Button } from "react-bootstrap";
 import { GoogleLogin } from '@react-oauth/google';
 import {useDispatch, useSelector} from "react-redux";
 import {updateLogin} from "../../../redux/userReducer";
-import {Link} from "react-router-dom";
-import ConfirmEmail from "./forgotPassword/confirmEmail";
 import ForgotPasswordModal from "./forgotPassword/forgotPasswordModal";
+import {t} from "i18next";
 
 const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, loginAsGuest, buttonsVariant, errors, resetErrors }) => {
     const dispatch = useDispatch();
@@ -14,7 +13,7 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
     const [triggerPassword, setTriggerPassword] = useState(false);
     const handleGoogleLoginSuccess = async (response) => {
         const idToken = response.credential;
-        const accessToken = response.access_token; // Получите токен доступа здесь
+        const accessToken = response.access_token;
         dispatch(updateLogin({...userState, loading: true}));
 
         try {
@@ -52,9 +51,8 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
 
     return (
         <Form className='d-flex flex-column'>
-            <h2>Please log in</h2>
             <Form.Group className="mb-2">
-                <Form.Label className='subtitle'>Email address</Form.Label>
+                <Form.Label className='subtitle'>{t('Email')}</Form.Label>
                 <Form.Control
                     type="email"
                     value={email}
@@ -70,7 +68,7 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
                 </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-2" controlId="passLogin">
-                <Form.Label className='subtitle'>Password</Form.Label>
+                <Form.Label className='subtitle'>{t('Password')}</Form.Label>
                 <Form.Control
                     type="password"
                     value={password}
@@ -85,20 +83,20 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
                     {errors?.password}
                 </Form.Control.Feedback>
                 <Button className='btn-link' onClick={() => setTriggerPassword(true)}>
-                    Forgot password
+                    {t('Forgot password')}
                 </Button>
             </Form.Group>
             <Button
                 variant={buttonsVariant}
                 onClick={signInHandler}
                 className='w-50 my-2 mx-auto'
-            >Sign In</Button>
+            >{t('Login')}</Button>
             <div className='text-center subtitle'>Or</div>
             <Button
                 variant={buttonsVariant}
                 className='w-75 my-1 mx-auto'
                 onClick={loginAsGuest}
-            >Enter as a Guest</Button>
+            >{t('Continue as guest')}</Button>
             <GoogleLogin
                 onSuccess={handleGoogleLoginSuccess}
                 onError={() => {

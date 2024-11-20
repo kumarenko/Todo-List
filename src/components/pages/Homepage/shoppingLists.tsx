@@ -10,6 +10,7 @@ import {getColorById} from "../../../helpers/validator";
 import {FiMoreHorizontal} from "react-icons/fi";
 import {setShoppingList} from "../../../redux/shoppingListsReducer";
 import DeleteListModal from "./deleteListModal";
+import {t} from "i18next";
 
 const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setShoppingList}) => {
     const [showModal, setShowModal] = useState(false);
@@ -124,13 +125,13 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setS
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu className='section-styled-bg'>
                                     <Dropdown.Item eventKey="2" onClick={()=> openSharingModal(list)}>
-                                        <IoMdPersonAdd /> Share
+                                        <IoMdPersonAdd /> {t('Share')}
                                     </Dropdown.Item>
                                     <Dropdown.Item eventKey="2" onClick={()=> editList(list)}>
-                                        <IoMdCreate/> Edit
+                                        <IoMdCreate/> {t('Rename')}
                                     </Dropdown.Item>
                                     <Dropdown.Item eventKey="3" onClick={()=> openDeleteModal(list)}>
-                                        <IoMdTrash /> Delete
+                                        <IoMdTrash /> {t('Delete')}
                                     </Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import {Button, Modal} from "react-bootstrap";
+import {t} from "i18next";
 
 const FilterModal = ({isVisible, onClose, onSelectCategory, categories, filteredCats = []}) => {
     const [selected, setSelected] = useState([]);
@@ -33,7 +34,7 @@ const FilterModal = ({isVisible, onClose, onSelectCategory, categories, filtered
     return ReactDOM.createPortal(
         <Modal show={isVisible} onHide={onClose}>
             <Modal.Header closeButton className="d-flex justify-content-center modal-styled-bg">
-                <Modal.Title className="justify-content-center title">Filter Products by Categories</Modal.Title>
+                <Modal.Title className="justify-content-center title">{t('Filter Products by categories')}</Modal.Title>
             </Modal.Header>
             <Modal.Body className="modal-styled-bg">
                 {all.map((item, index) => (
@@ -42,7 +43,7 @@ const FilterModal = ({isVisible, onClose, onSelectCategory, categories, filtered
                         key={index}
                         onClick={() => setSelectedCategory(item)}
                     >
-                        <span>{item}</span>
+                        <span>{t(item)}</span>
                     </Button>
                 ))}
             </Modal.Body>
@@ -55,10 +56,10 @@ const FilterModal = ({isVisible, onClose, onSelectCategory, categories, filtered
                         onClose();
                     }}
                 >
-                    Reset
+                    {t('Reset')}
                 </Button>
                 <Button className="mx-2" onClick={onClose}>
-                    Close
+                    {t('Close')}
                 </Button>
             </Modal.Footer>
         </Modal>,

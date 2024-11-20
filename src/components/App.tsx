@@ -41,6 +41,7 @@ const App = () => {
                 <div className={`col vh-100 overflow-auto px-0 ${theme}`}>
                     <Routes>
                         <Route index element={isAuthorized ? <HomePage title="Home" /> : <Navigate to={'/login'} />} />
+                        <Route path='/lists' element={isAuthorized ?  <HomePage title="Home" /> : <Navigate to={'/login'} />} />
                         <Route path='/profile' element={isAuthorized ? <Profile title='Profile' /> : <Navigate to={'/login'} />} />
                         <Route path='/settings' element={isAuthorized ? <Settings title='Settings' /> : <Navigate to={'/login'} />} />
                         <Route path='/lists/:listId' element={isAuthorized ? <ListPage title='List' /> : <Navigate to={'/login'} />} />
