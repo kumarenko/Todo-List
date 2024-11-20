@@ -26,4 +26,5 @@ export interface SettingsTypes {
     units: string,
     currency: string,
     isMetric: boolean,
+    language: string,
 }

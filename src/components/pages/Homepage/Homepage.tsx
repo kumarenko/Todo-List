@@ -10,6 +10,8 @@ import ShoppingLists from "./shoppingLists";
 import {Button} from "react-bootstrap";
 import {IoMdAdd} from "react-icons/io";
 import './styles.less';
+import {t} from "i18next";
+
 const HomePage: FC = ({lists, getShoppingLists, title, user, addShoppingList, synchronizeLocalLists }): ReactElement => {
     const [showModal, setShowModal] = useState(false);
     const handleClose = () => setShowModal(false);
@@ -34,7 +36,7 @@ const HomePage: FC = ({lists, getShoppingLists, title, user, addShoppingList, sy
 
     return <div className='homepage d-flex flex-column align-items-center'>
         <div className="d-flex justify-content-between h3 w-75 p-3">
-            <h1 className='title'>My shopping lists</h1>
+            <h1 className='title'>{t('Lists')}</h1>
             <Button onClick={() => addNewList()}><IoMdAdd size={16}/> Add new List</Button>
         </div>
         {lists?.length ? <ShoppingLists lists={lists}/> :

@@ -7,7 +7,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import App from "./components/App";
 import './styles.less';
-
+import './locales/i18next.js';
 const root = createRoot(document.getElementById('root'));
 root.render(
     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>

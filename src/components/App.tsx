@@ -12,19 +12,24 @@ import ListPage from "./pages/Homepage/listPage/ListPage";
 import { checkUserSession } from "../actions/login";
 import './../styles.less';
 import './../common/theme.less';
+import i18n from "i18next";
 
 const App = () => {
     const theme = useSelector(state => state.settings.theme); // Получение темы из Redux
     const isAuthorized = useSelector(state => state.user.isAuthorized);
+    const settings = useSelector(state => state.settings);
     const dispatch = useDispatch();
-
+    useEffect(() => {
+        if (i18n.language !== settings.language) {
+            i18n.changeLanguage(settings.language);
+        }
+    }, []);
     useEffect(() => {
         dispatch(checkUserSession());
         document.title = 'Home';
     }, [dispatch]);
 
     useEffect(() => {
-        // Добавляем класс темы на body
         document.body.classList.remove('light', 'dark'); // Удаляем старые классы
         document.body.classList.add(theme); // Добавляем класс для новой темы
     }, [theme]);

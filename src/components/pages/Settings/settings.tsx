@@ -1,10 +1,13 @@
 import React, {useEffect} from 'react';
 import {connect} from "react-redux";
-import {changeTheme} from "../../../actions/settings";
+import {changeLanguage, changeTheme} from "../../../actions/settings";
 import Form from "react-bootstrap/Form";
 import {updateProfileInfo} from "../../../actions/login";
+import {t} from 'i18next';
 
-const Settings = ({theme, changeTheme, title, user, isMetricUnits,updateProfileInfo}) => {
+const Settings = ({theme, changeTheme, title, user, isMetricUnits,updateProfileInfo,settings,changeLanguage}) => {
+    // const { t } = useTranslation();
+
     useEffect(() => {
         document.title = title;
     }, []);
@@ -15,10 +18,13 @@ const Settings = ({theme, changeTheme, title, user, isMetricUnits,updateProfileI
     const toggleUnits = (event) => {
         updateProfileInfo(user.id, {metricUnits: event.target.value === 'metric'});
     }
+    const changeLang = (value) => {
+        changeLanguage(value);
+    }
     return (
         <div className='homepage d-flex flex-column align-items-center'>
             <div className="d-flex justify-content-between h3 w-75 p-3">
-                <h1 className='title'>Settings</h1>
+                <h1 className='title'>{t('Settings')}</h1>
             </div>
             <div className="w-75 p-3">
                 <h5 className='m-1 title'>Dark mode</h5>
@@ -37,10 +43,10 @@ const Settings = ({theme, changeTheme, title, user, isMetricUnits,updateProfileI
                 </div>
                 <div className="div">
                     <h5 className='m-1 title'>Select language</h5>
-                    <Form.Select aria-label="language" defaultValue={'en'} className='w-25'>
+                    <Form.Select aria-label="language" defaultValue={settings.language} onChange={(e) => changeLang(e.target.value)} className='w-25'>
                         <option value="en">English</option>
                         <option value="ua">Ukrainian</option>
-                        <option value="pl">Polish</option>
+                        <option value="de">German</option>
                     </Form.Select>
                 </div>
             </div>
@@ -52,11 +58,13 @@ const mapStateToProps = (state) => ({
     theme: state.settings.theme,
     isMetricUnits: state.settings.isMetric,
     user: state.user.user,
+    settings: state.settings,
 })
 
 const mapDispatchToProps = {
     changeTheme,
     updateProfileInfo,
+    changeLanguage,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
