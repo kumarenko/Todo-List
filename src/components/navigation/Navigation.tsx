@@ -18,8 +18,8 @@ const Navigation = () => {
         return location.pathname === path ? 'active' : '';
     };
     return (
-        <nav className={'col-auto col-md-3 col-xl-2 p-0'}>
-            <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-3 min-vh-100 justify-content-between">
+        <nav className={'col-3  col-sm-3  col-md-2 col-xl-2 p-0'}>
+            <div className="d-flex flex-column align-items-center align-items-sm-start pt-3 px-sm-3 px-2 min-vh-100 justify-content-between">
                 <div>
                     <Link to={'/'} className='logo-link'>
                         <div className='d-flex flex-nowrap justify-content-center mb-2'>
@@ -30,7 +30,7 @@ const Navigation = () => {
                     <ul className='list-unstyled'>
                         <li>
                             <Link
-                                className={`d-flex align-items-center pb-3 mb-md-0 me-md-auto text-decoration-none ${getActiveClass('/')}`}
+                                className={`d-flex align-items-center pb-3 mb-md-0 me-md-auto text-decoration-none justify-content-sm-start justify-content-center ${getActiveClass('/')}`}
                                 to={'/'}
                             >
                                 <IoMdHome className="fs-4"/> <span className="ms-1 d-none d-sm-inline">{t('Lists')}</span>
@@ -38,7 +38,7 @@ const Navigation = () => {
                         </li>
                         <li>
                             <Link
-                                className={`d-flex align-items-center pb-3 mb-md-0 me-md-auto text-decoration-none ${getActiveClass('/profile')}`}
+                                className={`d-flex align-items-center pb-3 mb-md-0 me-md-auto text-decoration-none justify-content-sm-start justify-content-center  ${getActiveClass('/profile')}`}
                                 to={'/profile'}
                             >
                                 <IoMdPerson className="fs-4"/> <span className="ms-1 d-none d-sm-inline">{t('Profile')}</span>
@@ -46,7 +46,7 @@ const Navigation = () => {
                         </li>
                         <li>
                             <Link
-                                className={`d-flex align-items-center pb-3 mb-md-0 me-md-auto text-decoration-none ${getActiveClass('/settings')}`}
+                                className={`d-flex align-items-center pb-3 mb-md-0 me-md-auto text-decoration-none justify-content-sm-start justify-content-center ${getActiveClass('/settings')}`}
                                 to={'/settings'}
                             >
                                 <IoMdSettings className="fs-4"/> <span className="ms-1 d-none d-sm-inline">{t('Settings')}</span>

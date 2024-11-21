@@ -59,12 +59,12 @@ const ConfirmEmail = ({onHide, onApply, email, setEmail}) => {
                 </Form.Control.Feedback>
             </div>
         </Modal.Body>
-        <Modal.Footer className='modal-styled-bg justify-content-around'>
-            <Button onClick={onHide}>
+        <Modal.Footer className='modal-styled-bg d-flex justify-content-center'>
+            <Button onClick={onHide} className='mx-2'>
                 {t('Cancel')}
             </Button>
-            <Button onClick={confirmEmail}>
-                {t('Apply')}
+            <Button onClick={confirmEmail} className='mx-2'>
+                {t('Next')}
             </Button>
         </Modal.Footer>
     </>;

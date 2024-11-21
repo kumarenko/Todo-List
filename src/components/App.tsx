@@ -35,7 +35,7 @@ const App = () => {
     }, [theme]);
 
     return (
-        <div className='row flex-nowrap'>
+        <div className='d-flex flex-nowrap'>
             <Router>
                 {isAuthorized ? <Navigation /> : null}
                 <div className={`col vh-100 overflow-auto px-0 ${theme}`}>

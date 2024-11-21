@@ -110,6 +110,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
                         <Form.Control
                             className='text-start'
                             type="number"
+                            inputMode="decimal"
                             min={1}
                             onKeyPress={event => preventCharacters(event)}
                             onChange={(e) => setCount(e.target.value)}

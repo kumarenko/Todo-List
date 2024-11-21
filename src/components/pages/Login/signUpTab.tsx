@@ -55,7 +55,7 @@ const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, conf
                 </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-2" controlId="confirmPassSignUp">
-                <Form.Label className='subtitle'>{t('Confirm Password')}</Form.Label>
+                <Form.Label className='subtitle'>{t('Confirm password')}</Form.Label>
                 <Form.Control
                     type="password"
                     value={confirmPassword}
@@ -73,7 +73,7 @@ const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, conf
             <Button
                 variant={buttonsVariant}
                 onClick={signUpHandler}
-                className='w-50 my-2 mx-auto'
+                className='my-2 mx-auto'
             >{t('Sign Up')}</Button>
         </Form>
     );

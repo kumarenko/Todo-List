@@ -428,7 +428,7 @@
   "Error copying to clipboard": "Fehler beim Kopieren in die Zwischenablage",
   "List copied to clipboard": "Liste in die Zwischenablage kopiert",
   "Purchased": "Gekauft",
-  "Remaining": "Verbleibend",
+  "Remaining": "Nicht gekauft",
   "Total": "Gesamt",
   "Password": "Passwort",
   "Server error": "Serverfehler",
@@ -442,5 +442,9 @@
   "An error occurred while changing the password": "Ein Fehler ist beim Ändern des Passworts aufgetreten",
   "Enter new password": "Neues Passwort eingeben",
   "Edit": "Bearbeiten",
-  "Select Units": "Einheiten auswählen"
+  "Select Units": "Einheiten auswählen",
+  "List": "Liste",
+  "Upload": "Hochladen",
+  "Get it on": "Hol es dir auf",
+  "Download on the": "Herunterladen auf dem"
 }

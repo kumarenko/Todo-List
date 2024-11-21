@@ -429,7 +429,7 @@
   "Error copying to clipboard": "Помилка під час копіювання до буфера обміну",
   "List copied to clipboard": "Список скопійовано до буфера обміну",
   "Purchased": "Придбано",
-  "Remaining": "Залишилось",
+  "Remaining": "Не придбано",
   "Total": "Всього",
   "Password": "Пароль",
   "Server error": "Помилка сервера",
@@ -443,5 +443,9 @@
   "An error occurred while changing the password": "Сталася помилка під час зміни пароля",
   "Enter new password": "Введіть новий пароль",
   "Edit": "Редагувати",
-  "Select Units": "Виберіть одиниці виміру"
+  "Select Units": "Виберіть одиниці виміру",
+  "List": "Список",
+  "Upload": "Завантажити",
+  "Get it on": "Отримати у",
+  "Download on the": "Завантажити у"
 }

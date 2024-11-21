@@ -101,9 +101,9 @@ const ChangePassword = ({ email, onApply, onBack }) => {
                     </Form.Group>
                 </Form>
             </Modal.Body>
-            <Modal.Footer className='modal-styled-bg'>
+            <Modal.Footer className='modal-styled-bg d-flex justify-content-center'>
                 <Button variant="secondary" onClick={onBack}>
-                    {t('Cancel')}
+                    {t('Back')}
                 </Button>
                 <Button variant="primary" onClick={handlePasswordChange} disabled={loading}>
                     {t('Change Password')}

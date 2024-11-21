@@ -8,11 +8,11 @@ const DeleteListModal = ({name, show, onHide, onApply}) => {
         <Modal.Header className='modal-styled-bg justify-content-center'>
             <Modal.Title className='title'>{t('Are you sure to delete list')} <strong>{name}</strong>?</Modal.Title>
         </Modal.Header>
-        <Modal.Footer className='modal-styled-bg justify-content-around'>
-            <Button onClick={onHide}>
+        <Modal.Footer className='modal-styled-bg justify-content-center'>
+            <Button onClick={onHide} className='mx-2'>
                 {t('No')}
             </Button>
-            <Button onClick={onApply}>
+            <Button onClick={onApply} className='mx-2'>
                 {t('Yes')}
             </Button>
         </Modal.Footer>

@@ -23,16 +23,15 @@ const CreateListModal = ({value = null, show, onHide, onApply}) => {
             <Form.Control
                 type="text"
                 id="name"
-                placeholder={t('Name')}
                 defaultValue={value?.name.value || ''}
                 onChange={(e)=> setData(e.target.value)}
             />
         </Modal.Body>
-        <Modal.Footer className='modal-styled-bg justify-content-around'>
-            <Button onClick={onHide}>
+        <Modal.Footer className='modal-styled-bg justify-content-center'>
+            <Button onClick={onHide} className='mx-2'>
                 {t('Cancel')}
             </Button>
-            <Button onClick={handleClick} disabled={data.length === 0}>
+            <Button onClick={handleClick} disabled={data.length === 0} className='mx-2'>
                 {t('Apply')}
             </Button>
         </Modal.Footer>

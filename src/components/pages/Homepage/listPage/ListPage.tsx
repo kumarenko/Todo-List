@@ -254,7 +254,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                     </>
                     : <div className='text-center my-2 mx-auto title'>{t('Your list is currently empty. Add your items to make sure you don’t forget anything!')}</div>}
                 {filteredCategories.length >= 1 ? <div className='my-2'>
-                    {filteredCategories.map(cat => <Button className='mx-2' onClick={() => removeCategoryToFilter(cat)}><IoMdClose/>{t(cat)}</Button>)}
+                    {filteredCategories.map(cat => <Button key={cat} className='mx-2' onClick={() => removeCategoryToFilter(cat)}><IoMdClose/>{t(cat)}</Button>)}
                 </div> : null}
             </h3>
             <div className='list'>

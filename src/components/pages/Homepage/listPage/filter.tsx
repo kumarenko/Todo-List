@@ -2,21 +2,19 @@ import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import {Button, Modal} from "react-bootstrap";
 import {t} from "i18next";
+import {IoMdClose} from "react-icons/io";
+import { RiFilterOffFill } from "react-icons/ri";
 
 const FilterModal = ({isVisible, onClose, onSelectCategory, categories, filteredCats = []}) => {
     const [selected, setSelected] = useState([]);
     const [all, setAll] = useState([]);
 
     useEffect(() => {
-        setSelected([]);
+        setSelected(filteredCats);
     }, []);
     useEffect(() => {
         setAll(categories);
     }, [categories]);
-
-    useEffect(() => {
-        setSelected(filteredCats);
-    }, [filteredCats]);
 
     const setSelectedCategory = (item) => {
         setSelected((prevSelected) => {
@@ -32,7 +30,7 @@ const FilterModal = ({isVisible, onClose, onSelectCategory, categories, filtered
     };
 
     return ReactDOM.createPortal(
-        <Modal show={isVisible} onHide={onClose}>
+        <Modal show={isVisible} onHide={onClose} centered className='px-2' style={{transform: 'scale(0.95)'}}>
             <Modal.Header closeButton className="d-flex justify-content-center modal-styled-bg">
                 <Modal.Title className="justify-content-center title">{t('Filter Products by categories')}</Modal.Title>
             </Modal.Header>
@@ -49,16 +47,18 @@ const FilterModal = ({isVisible, onClose, onSelectCategory, categories, filtered
             </Modal.Body>
             <Modal.Footer className="d-flex justify-content-center modal-styled-bg">
                 <Button
-                    className="mx-2"
+                    className="d-flex align-items-center mx-2"
                     onClick={() => {
                         setSelected([]);
                         onSelectCategory([]);
                         onClose();
                     }}
                 >
+                    <RiFilterOffFill className='me-2'/>
                     {t('Reset')}
                 </Button>
-                <Button className="mx-2" onClick={onClose}>
+                <Button className="d-flex align-items-center mx-2" onClick={onClose}>
+                    <IoMdClose className='me-2'/>
                     {t('Close')}
                 </Button>
             </Modal.Footer>

@@ -92,9 +92,7 @@ const AvatarModal = ({ isVisible, onClose, itemId, listId, type }) => {
                     <FiTrash2 className='mx-1' />
                     <span className='mx-1'>{t('Delete')}</span>
                 </Button> : null}
-                <Button className='mx-2' onClick={closeModal}>
-                    <span className='mx-1'>{t('Close')}</span>
-                </Button>
+
             </Modal.Footer>
         </Modal>,
         document.body

@@ -88,11 +88,11 @@ const ConfirmCode = ({ email, onApply, onBack, code, setCode }) => {
                    ))}
                </div>
            </Modal.Body>
-           <Modal.Footer className='modal-styled-bg'>
-               <Button variant="secondary" onClick={onBack}>
+           <Modal.Footer className='modal-styled-bg d-flex justify-content-center'>
+               <Button onClick={onBack} className='mx-2'>
                    {t('Back')}
                </Button>
-               <Button variant="primary" onClick={()=> handleConfirmCode()} disabled={loading}>
+               <Button onClick={()=> handleConfirmCode()} disabled={loading} className='mx-2'>
                    {t('Confirm')}
                </Button>
            </Modal.Footer>

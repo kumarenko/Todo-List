@@ -82,7 +82,7 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
                 <Form.Control.Feedback type="invalid">
                     {errors?.password}
                 </Form.Control.Feedback>
-                <Button className='btn-link' onClick={() => setTriggerPassword(true)}>
+                <Button className='btn-link p-1 bg-transparent' onClick={() => setTriggerPassword(true)}>
                     {t('Forgot password')}
                 </Button>
             </Form.Group>

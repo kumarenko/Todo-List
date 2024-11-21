@@ -7,7 +7,7 @@ import FilterModal from './filter';
 import allProducts from './../../../../configs/products.json';
 import {onlyUnique} from "../../../../helpers/helper";
 import RenderProduct from "./renderProduct";
-import { IoMdArrowDropdown } from "react-icons/io";
+import {IoMdArrowDropdown, IoMdClose} from "react-icons/io";
 import {t} from "i18next";
 const allCategories = allProducts.map(prod => prod.category).filter(onlyUnique);
 const AddProductModal = ({show, onHide}) => {
@@ -34,7 +34,7 @@ const AddProductModal = ({show, onHide}) => {
         }
 
         let filtered = allProducts.filter(prod => {
-            const matchesSearch = prod.name
+            const matchesSearch = t(prod.name)
                 .toLowerCase()
                 .includes(searchValue.toLowerCase());
             const matchesCategory =
@@ -67,6 +67,10 @@ const AddProductModal = ({show, onHide}) => {
     const countSelectedProducts = (category: string) => {
         return filteredItems.filter((prod: any) => prod.category === category).length;
     };
+    const removeCategoryToFilter = (cat) => {
+        const updatedCategories = filteredCategories.filter((category) => category !== cat);
+        filterByCategory(updatedCategories);
+    };
 
     const renderCategory = (item: any) => {
         const isExpanded = expandedCategories.includes(item);
@@ -80,7 +84,7 @@ const AddProductModal = ({show, onHide}) => {
                     <IoMdArrowDropdown  style={{transform: `rotate(${isExpanded ? 180 : 0}deg)`}}/>
                 </button>
                 <div className='d-flex flex-column'>
-                    {isExpanded && filteredItems.filter(product => product.category === item).map(prod => <RenderProduct item={prod} />)}
+                    {isExpanded && filteredItems.filter(product => product.category === item).map(prod => <RenderProduct item={prod} key={prod._id} />)}
                 </div>
             </div>
         );
@@ -102,6 +106,9 @@ const AddProductModal = ({show, onHide}) => {
                     </InputGroup>
 
                 </Form.Group>
+                {selectedCategories.length >= 1 ? <div className='w-100'>
+                    {selectedCategories.map(cat => <Button key={cat} className='m-1' onClick={() => removeCategoryToFilter(cat)}><IoMdClose/>{t(cat)}</Button>)}
+                </div> : null}
             </Modal.Header>
             <Modal.Body className='d-flex align-items-start flex-column modal-fixed-height modal-styled-bg'>
                 {filteredCategories.length === 0 && (
@@ -116,6 +123,7 @@ const AddProductModal = ({show, onHide}) => {
                 isVisible={toggleFilterModal}
                 onClose={() => setToggleFilterModal(false)}
                 onSelectCategory={filterByCategory}
+                filteredCats={selectedCategories}
                 categories={allProducts.map(prod => prod.category).filter(onlyUnique)}
             />}
         </Modal>, document.body);

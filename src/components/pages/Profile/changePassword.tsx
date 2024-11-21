@@ -78,7 +78,7 @@ const ChangePassword = ({userId, googleId}) => {
                     }}>{t('Cancel')}</Button>
                 </div>
             </> :
-                <span className='button-as-link' onClick={() => setAllowChange(true)}>{t('Change Password')}</span>}
+                <Button className='btn-link p-1 bg-transparent' onClick={() => setAllowChange(true)}>{t('Change Password')}</Button>}
         </Container>
     );
 };

@@ -427,7 +427,7 @@
   "Error copying to clipboard": "Erreur lors de la copie dans le presse-papier",
   "List copied to clipboard": "Liste copiée dans le presse-papier",
   "Purchased": "Acheté",
-  "Remaining": "Restant",
+  "Remaining": "Non acheté",
   "Total": "Total",
   "Password": "Mot de passe",
   "Server error": "Erreur du serveur",
@@ -441,5 +441,9 @@
   "An error occurred while changing the password": "Une erreur est survenue lors du changement du mot de passe",
   "Enter new password": "Entrez un nouveau mot de passe",
   "Edit": "Modifier",
-  "Select Units": "Sélectionner les unités"
+  "Select Units": "Sélectionner les unités",
+  "List": "Liste",
+  "Upload": "Télécharger",
+  "Get it on": "Obtenez-le sur",
+  "Download on the": "Téléchargez sur le"
 }
