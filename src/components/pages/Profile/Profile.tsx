@@ -69,23 +69,23 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
     }
 
     return (
-        <div className='profile d-flex flex-column align-items-center'>
-            <div className="d-flex justify-content-between h3 w-75 p-3">
+        <div className='profile content d-flex flex-column align-items-center mx-auto my-0'>
+            <div className="d-flex justify-content-between h3 w-100 p-3 align-items-center justify-content-between flex-column flex-sm-row">
                 <h1 className='title'>{t('Profile')}</h1>
                 <Button size={'md'} onClick={() => logoutAction(user.user.role)}>{t('Logout')}</Button>
             </div>
             {userData.role === 'USER' ?
                 <>
-                    <div>
+                    <div className='d-flex justify-content-center w-100 px-3 py-1'>
                         <Image src={user.user.avatar} roundedCircle className='avatar mb-1'/>
                     </div>
-                    <Container fluid="md" className='user-info d-flex w-75 flex-wrap mb-2'>
-                        <div>
+                    <Container fluid="md" className='user-info d-flex w-100 flex-wrap mb-2 px-3 py-1 justify-content-center'>
+                        <div className='mx-2'>
                             <h5 className='title'>{t('Name')}</h5>
                             {isEditing ? <Form.Control
                                 onChange={e => setName(e.target.value)} type="text" value={name}/> : <div className={'subtitle'}>{userData.name}</div>}
                         </div>
-                        <div>
+                        <div className='mx-2'>
                             <h5 className='title'>{t('Email')}</h5>
                             {isEditing ? <Form.Control
                                     onChange={e => setEmail(e.target.value)}
@@ -95,17 +95,17 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
                         </div>
                     </Container>
                 </> :
-                <div className="w-75">
+                <div className="w-100 px-3 py-1">
                     <h4 className='title'>{t("Hello! You're in guest mode. Sign in to access all features!")}</h4>
                 </div>
             }
-            <ChangePassword userId={userData.id} googleId={user.user.googleId}/>
-            <div className='w-75 controls'>
+            <div className='d-flex justify-content-center w-100 controls px-3 py-1'>
                 <Button onClick={() => {
                     handleProfileData();
-                }} size="md">{isEditing ? t('Save') : t('Edit')}</Button>
-                {isEditing && <Button onClick={() => resetProfileData()} size="md">{t('Cancel')}</Button>}
+                }} size="md" className='me-1'>{isEditing ? t('Save') : t('Edit')}</Button>
+                {isEditing && <Button className='ms-1' onClick={() => resetProfileData()} size="md">{t('Cancel')}</Button>}
             </div>
+            <ChangePassword userId={userData.id} googleId={user.user.googleId}/>
             <CustomAlert variant={user.errorMessage ? 'danger' : 'success'} className='popup'>
                 {message}
             </CustomAlert>

@@ -34,8 +34,8 @@ const HomePage: FC = ({lists, getShoppingLists, title, user, addShoppingList, sy
         }
     }, []);
 
-    return <div className='homepage d-flex flex-column align-items-center'>
-        <div className="d-flex justify-content-between h3 w-75 p-3">
+    return <div className='content d-flex flex-column align-items-center mx-auto my-0'>
+        <div className="d-flex justify-content-between h3 w-100 p-3 align-items-center justify-content-between flex-column flex-sm-row">
             <h1 className='title'>{t('Lists')}</h1>
             <Button onClick={() => addNewList()}><IoMdAdd size={16}/>{t('Add list')}</Button>
         </div>

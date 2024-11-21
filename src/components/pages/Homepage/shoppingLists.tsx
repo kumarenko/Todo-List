@@ -8,7 +8,7 @@ import ShareListModal from "./shareListModal";
 import {Link} from "react-router-dom";
 import {getColorById} from "../../../helpers/validator";
 import {FiMoreHorizontal} from "react-icons/fi";
-import {setShoppingList} from "../../../redux/shoppingListsReducer";
+import {defaultListsState, setShoppingList} from "../../../redux/shoppingListsReducer";
 import DeleteListModal from "./deleteListModal";
 import {t} from "i18next";
 
@@ -16,11 +16,11 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setS
     const [showModal, setShowModal] = useState(false);
     const [showSharingModal, setSharingModal] = useState(false);
     const [showDeleteModal, setDeleteModal] = useState(false);
-    const [selectedList, setSelectedList] = useState(null);
+    const [selectedList, setSelectedList] = useState(defaultListsState.list);
     const dispatch = useDispatch();
 
     const handleClose = () => {
-        setSelectedList(null);
+        setSelectedList(defaultListsState.list);
         setShowModal(false);
         setDeleteModal(false);
     };
@@ -94,7 +94,7 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setS
     return (
         <>
             <div className='lists w-100 p-3 my-2'>
-                {lists.map(list => <div className=' w-100 my-2 p-2' key={list._id}>
+                {lists.map(list => <div className=' w-100 my-2 py-2' key={list._id}>
                     <Card className='w-100 d-flex flex-row align-items-stretch p-2 section-styled-bg'>
                         <Link to={`/lists/${list._id}`} className='w-75'>
                             <h5 className='title'>{list.name.value}</h5>
@@ -139,22 +139,22 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setS
                     </Card>
                 </div>)}
             </div>
-            {showModal && <CreateListModal
+            <CreateListModal
                 value={selectedList}
                 show={showModal}
                 onHide={handleClose}
                 onApply={handleApply}
-            />}
-            {showDeleteModal && <DeleteListModal
+            />
+            <DeleteListModal
                 name={selectedList.name.value}
                 show={showDeleteModal}
                 onHide={handleClose}
                 onApply={() => removeList(selectedList._id)}
-            />}
-            {showSharingModal && <ShareListModal
+            />
+            <ShareListModal
                 show={showSharingModal}
                 onHide={handleCloseSharingModal}
-            />}
+            />
         </>
     );
 };

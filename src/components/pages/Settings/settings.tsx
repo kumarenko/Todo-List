@@ -23,11 +23,11 @@ const Settings = ({theme, changeTheme, title, user, isMetricUnits,updateProfileI
         changeLanguage(value);
     }
     return (
-        <div className='homepage d-flex flex-column align-items-center'>
-            <div className="d-flex justify-content-between h3 w-75 p-3">
+        <div className='content d-flex flex-column align-items-center mx-auto my-0'>
+            <div className="d-flex justify-content-between h3 w-100 p-3 align-items-center justify-content-between flex-column flex-sm-row">
                 <h1 className='title'>{t('Settings')}</h1>
             </div>
-            <div className="w-75 p-3">
+            <div className="w-100 p-3">
                 <h5 className='m-1 title'>{t('Appearance')}</h5>
                 <div className="form-check">
                     <input className="form-check-input" onChange={toggle} type="radio" name="light" id="light" checked={theme === 'light'}/>

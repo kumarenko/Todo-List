@@ -50,6 +50,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
     const handleApplyEdit = () => setEditShowModal(false);
     const handleCloseEdit = () => setEditShowModal(false);
     const handleCloseFilter = () => setFilterShowModal(false);
+    const handleCloseDelete = () => setShowDeleteModal(false);
 
     useEffect(() => {
         getShoppingList(listId, user.id, navigate);
@@ -62,6 +63,9 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
     }, []);
     useEffect(() => {
         setListName(list.name.value);
+        if (list.name.value) {
+            document.title = `${t('List')} - ${list.name.value}`;
+        }
     }, [list.name]);
 
     const selectProduct = (prod) => {
@@ -87,11 +91,11 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
             let filteredProducts = list.products.filter(
                 prod =>
                     filteredCategories.includes(prod.category) &&
-                    prod.name.toLowerCase().includes(searchValue.toLowerCase()),
+                    prod.name.toLowerCase().includes(t(searchValue.toLowerCase())),
             );
             if (filteredCategories.length === 0) {
                 filteredProducts = list.products.filter(prod =>
-                    prod.name.toLowerCase().includes(searchValue.toLowerCase()),
+                    prod.name.toLowerCase().includes(t(searchValue.toLowerCase())),
                 );
             }
             setProds(sortProds(filteredProducts));
@@ -181,7 +185,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                         />
                         <IoMdCreate className='name-icon title'/>
                     </InputGroup>
-                    <InputGroup className='input-wrapper search rounded'>
+                    <InputGroup className={`input-wrapper search rounded ${searchValue.length ? 'focused' : ''}`}>
                         <Form.Control
                             value={searchValue}
                             className='name-input rounded'
@@ -227,14 +231,14 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                             <div>
                                 <span>{t('Purchased')}</span>
                                 <span className='title'>{list.products?.length && list.products.reduce(
-                                    (accumulator, prod) => prod.checked ? accumulator + parseFloat(prod.price) : accumulator, 0
+                                    (accumulator, prod) => prod.checked ? accumulator + parseFloat(prod.price) * prod.count : accumulator, 0
                                 )} {getCurrencySymbol(user.country)}
                                 </span>
                             </div>
                             <div>
                                 <span>{t('Remaining')}</span>
                                 <span className='title' >{list.products?.length && list.products.reduce(
-                                    (accumulator, prod) => !prod.checked ? accumulator + parseFloat(prod.price ?? 0) : accumulator, 0
+                                    (accumulator, prod) => !prod.checked ? accumulator + parseFloat(prod.price ?? 0) * prod.count : accumulator, 0
                                 )} {getCurrencySymbol(user.country)}
                                 </span>
                             </div>
@@ -242,7 +246,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                 <span>{t('Total')}</span>
                                 <span className='title'>
                                     {list.products?.length && list.products.reduce(
-                                    (accumulator, prod) => accumulator + parseFloat(prod.price ?? 0), 0
+                                    (accumulator, prod) => accumulator + parseFloat(prod.price ?? 0) * prod.count, 0
                                     )} {getCurrencySymbol(user.country)}
                                 </span>
                             </div>
@@ -333,7 +337,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
             <DeleteListModal
                 name={list.name.value}
                 show={showDeleteModal}
-                onHide={handleClose}
+                onHide={handleCloseDelete}
                 onApply={() => removeList()}
             />
             <FilterModal

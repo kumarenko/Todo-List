@@ -6,7 +6,7 @@ import {t} from "i18next";
 const DeleteListModal = ({name, show, onHide, onApply}) => {
     return ReactDOM.createPortal(<Modal show={show} onHide={onHide} centered>
         <Modal.Header className='modal-styled-bg justify-content-center'>
-            <Modal.Title>{t('Are you sure to delete list')} <strong>{name}</strong>?</Modal.Title>
+            <Modal.Title className='title'>{t('Are you sure to delete list')} <strong>{name}</strong>?</Modal.Title>
         </Modal.Header>
         <Modal.Footer className='modal-styled-bg justify-content-around'>
             <Button onClick={onHide}>

@@ -64,7 +64,7 @@ const ChangePassword = ({ email, onApply, onBack }) => {
                 )}
                 <Form>
                     <Form.Group className="mb-3">
-                        <Form.Label className='subtitle'>{t('New Password')}</Form.Label>
+                        <Form.Label className='subtitle'>{t('New password')}</Form.Label>
                         <Form.Control
                             type="password"
                             value={password}

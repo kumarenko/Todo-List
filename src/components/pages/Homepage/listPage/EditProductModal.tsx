@@ -105,9 +105,10 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
                     </InputGroup>
                     <InputGroup className='my-2'>
                         <Form.Label column sm="2" className='subtitle mx-2 w-25'>
-                            {t('Count')}
+                            {t('Quantity')}
                         </Form.Label>
                         <Form.Control
+                            className='text-start'
                             type="number"
                             min={1}
                             onKeyPress={event => preventCharacters(event)}
@@ -123,9 +124,10 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
                             {t('Price')}
                         </Form.Label>
                         <Form.Control
+                            className={'text-start'}
                             type="number"
                             inputMode="decimal"
-                            min={1}
+                            min={0}
                             onKeyPress={event => preventCharacters(event)}
                             onChange={(e) => setPrice(e.target.value)}
                             value={price}

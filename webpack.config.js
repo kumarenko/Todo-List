@@ -26,7 +26,10 @@ module.exports = {
         extensions: ['.jsx', '.tsx', '.js', '.ts', '.json']
     },
     plugins: [
-        new HTMLWebpackPlugin({template: './src/index.html'}),
+        new HTMLWebpackPlugin({
+            template: './src/index.html', // HTML-шаблон
+            favicon: './src/media/logo.ico', // Путь к файлу фавиконки
+        }),
         new CleanWebpackPlugin(),
         new Dotenv(),
     ],

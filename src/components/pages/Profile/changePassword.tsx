@@ -27,7 +27,7 @@ const ChangePassword = ({userId, googleId}) => {
         setValidationErrors({});
     }
     return (
-        <Container  fluid="md" className='user-info d-flex w-75 flex-wrap flex-column mb-2'>
+        <Container fluid="md" className='user-info d-flex w-100 flex-wrap flex-column mb-2 px-3 py-1 justify-content-center align-items-center'>
             {allowChange ? <>
                     {googleId}
                     {!googleId ? <div>
@@ -67,8 +67,9 @@ const ChangePassword = ({userId, googleId}) => {
                     </Form.Control.Feedback>
                 </div>
                 <div className='d-flex justify-content-between'>
-                    <Button onClick={()=>changePasswordHandler()}>{t('Apply')}</Button>
-                    <Button onClick={() => {
+                    <Button onClick={()=>changePasswordHandler()} className='my-2 me-1'>{t('Apply')}</Button>
+                    <Button className='my-2 ms-1'
+                            onClick={() => {
                         setCurrentPassword('');
                         setNewPassword('');
                         setConfirmNewPassword('');
@@ -77,9 +78,7 @@ const ChangePassword = ({userId, googleId}) => {
                     }}>{t('Cancel')}</Button>
                 </div>
             </> :
-                <div>
-                    <span className='button-as-link' onClick={() => setAllowChange(true)}>{t('Change Password')}</span>
-                </div>}
+                <span className='button-as-link' onClick={() => setAllowChange(true)}>{t('Change Password')}</span>}
         </Container>
     );
 };

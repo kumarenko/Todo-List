@@ -1,44 +1,6 @@
-
 .content {
-  overflow: auto;
-  padding: 0;
-  width: 100%;
-  background: #fff;
-  .button-as-link::after {
-    background: #000;
-  }
-  &.dark {
-    background: #000;
-    span, div:not(.alert), h1, h2,h3, a, .button-as-link {
-      &::after {
-        background: #fff; // underline color
-      }
-      color: #fff;
-    }
-    .card {
-      background-color: rgb(60, 60, 60);
-    }
-    .accordion {
-      &-button:not(.collapsed) {
-        background-color: #2d2d2d;
-      }
-      &-button.collapsed {
-        background-color: #2d2d2d;
+  max-width: 800px;
 
-      }
-      &-body {
-        background-color: black;
-      }
-    }
-    &+.barcode {
-      span, div:not(.alert), h1, h2,h3, a, .button-as-link, p {
-        &::after {
-          background: #fff; // underline color
-        }
-        color: #fff;
-      }
-    }
-  }
 }
 a {
   &:focus, &:hover, &:visited, &:link, &:active {
