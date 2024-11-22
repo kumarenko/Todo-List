@@ -8,6 +8,7 @@ import CustomAlert from "../../../common/Alert";
 import ChangePassword from "./changePassword";
 import './styles.less';
 import {t} from "i18next";
+import Footer from "../../../common/footer";
 
 interface ProfileInterface extends User {
     logoutAction: (role: boolean) => void,
@@ -72,7 +73,7 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
         <div className='profile content d-flex flex-column align-items-center mx-auto my-0'>
             <div className="d-flex justify-content-between h3 w-100 p-3 align-items-center justify-content-between flex-column flex-sm-row">
                 <h1 className='title'>{t('Profile')}</h1>
-                <Button size={'md'} onClick={() => logoutAction(user.user.role)}>{t('Logout')}</Button>
+                <Button size={'md'} onClick={() => logoutAction(user.user.role)}>{user.user.role === 'USER' ? t('Logout') : t('Login')}</Button>
             </div>
             {userData.role === 'USER' ?
                 <>
@@ -109,6 +110,7 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
             <CustomAlert variant={user.errorMessage ? 'danger' : 'success'} className='popup'>
                 {message}
             </CustomAlert>
+            <Footer/>
         </div>
     );
 };

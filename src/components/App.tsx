@@ -35,10 +35,10 @@ const App = () => {
     }, [theme]);
 
     return (
-        <div className='d-flex flex-nowrap'>
+        <div className='d-flex flex-nowrap flex-column flex-sm-row'>
             <Router>
                 {isAuthorized ? <Navigation /> : null}
-                <div className={`col vh-100 overflow-auto px-0 ${theme}`}>
+                <div className={'col vh-100 overflow-auto px-0'}>
                     <Routes>
                         <Route index element={isAuthorized ? <HomePage title="Home" /> : <Navigate to={'/login'} />} />
                         <Route path='/lists' element={isAuthorized ?  <HomePage title="Home" /> : <Navigate to={'/login'} />} />

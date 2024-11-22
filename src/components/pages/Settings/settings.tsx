@@ -4,15 +4,13 @@ import {changeLanguage, changeTheme} from "../../../actions/settings";
 import Form from "react-bootstrap/Form";
 import {updateProfileInfo} from "../../../actions/login";
 import {t} from 'i18next';
+import Footer from "../../../common/footer";
 
 const Settings = ({theme, changeTheme, title, user, isMetricUnits,updateProfileInfo,settings,changeLanguage}) => {
-    // const { t } = useTranslation();
-
     useEffect(() => {
         document.title = title;
     }, []);
     const toggle = () => {
-        console.log('dddd');
         const newTheme = theme === 'light' ? 'dark': 'light';
         changeTheme(newTheme);
     }
@@ -24,8 +22,8 @@ const Settings = ({theme, changeTheme, title, user, isMetricUnits,updateProfileI
     }
     return (
         <div className='content d-flex flex-column align-items-center mx-auto my-0'>
-            <div className="d-flex justify-content-between h3 w-100 p-3 align-items-center justify-content-between flex-column flex-sm-row">
-                <h1 className='title'>{t('Settings')}</h1>
+            <div className="d-flex justify-content-between h3 w-100 align-items-center justify-content-between flex-column flex-sm-row pt-5 pt-sm-3 px-3 mb-0">
+                <h1 className='title pt-2'>{t('Settings')}</h1>
             </div>
             <div className="w-100 p-3">
                 <h5 className='m-1 title'>{t('Appearance')}</h5>
@@ -60,6 +58,7 @@ const Settings = ({theme, changeTheme, title, user, isMetricUnits,updateProfileI
                     </Form.Select>
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 };

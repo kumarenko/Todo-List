@@ -93,7 +93,7 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setS
 
     return (
         <>
-            <div className='lists w-100 p-3 my-2'>
+            <div className='lists w-100 px-3 pb-5 my-2'>
                 {lists.map(list => <div className=' w-100 my-2 py-2' key={list._id}>
                     <Card className='w-100 d-flex flex-row align-items-stretch p-2 section-styled-bg'>
                         <Link to={`/lists/${list._id}`} className='w-75'>
@@ -110,9 +110,9 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setS
                                 : null}
                         </Link>
 
-                        <div className="buttons d-flex align-items-center justify-content-around justify-content-sm-end  flex-column-reverse  flex-sm-row  w-25">
+                        <div className="buttons d-flex align-items-center justify-content-around justify-content-sm-end  flex-column-reverse  flex-sm-row w-sm-25 w-auto">
                             {list.userOwners.length > 0  &&
-                            <Button className='avatars-btn rounded-4 p-0 me-1'
+                            <Button className='avatars-btn rounded-4 p-0 me-1 d-sm-block d-none'
                                     onClick={() => openSharingModal(list)}
                             >
                                 <div className="avatars d-flex flex-row w-auto items-center">

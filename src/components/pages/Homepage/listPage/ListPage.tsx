@@ -24,6 +24,7 @@ import DeleteListModal from "../deleteListModal";
 import SortingModal from "./sorting";
 import AvatarModal from "./avatar";
 import {t} from "i18next";
+import Footer from "../../../../common/footer";
 
 const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updateListRequest, removeListRequest }) => {
     const { listId } = useParams();
@@ -174,8 +175,8 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
 
     return (
         <div className='list-page'>
-            <h3 className='list-header p-3'>
-                <div className="d-flex  flex-sm-row flex-column justify-content-between ">
+            <h3 className='list-header pt-5 pt-sm-3 px-3'>
+                <div className="d-flex  flex-sm-row flex-column justify-content-between mt-2 mt-sm-0">
                     <InputGroup className='input-wrapper rounded-2'>
                         <Form.Control
                             value={listName}
@@ -194,7 +195,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                             type="text" />
                         <IoMdSearch className='name-icon title' />
                     </InputGroup>
-                    <div className="actions d-flex flex-row flex-nowrap">
+                    <div className="actions d-flex flex-row flex-nowrap justify-content-between">
                         <Button onClick={() => setAddShowModal(true)} className='add'>{t('Add product')}</Button>
                         <Dropdown as={ButtonGroup} className='extra-actions'>
                             <Dropdown.Toggle className='dropdown-without-arrow'>
@@ -288,7 +289,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                     </div>)}
                 </FlipMove> : null}
                 {prods.filter(i => i.checked).length ? <div className='separator section-styled-bg'/> : null}
-                {prods.filter(i => i.checked).length ? <FlipMove className='flip'>
+                {prods.filter(i => i.checked).length ? <FlipMove className='flip pb-5'>
                     {prods.filter(i => i.checked).map(prod => <div className='d-flex justify-content-between mb-2 w-100' key={prod._id}>
                         <div className='d-flex w-100 align-items-center ml-2'>
                             <Form.Check
@@ -362,6 +363,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                 listId={list._id}
                 type={'products'}
             /> : null}
+            <Footer/>
         </div>
     );
 };

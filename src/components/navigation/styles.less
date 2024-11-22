@@ -17,11 +17,6 @@
       width: 95%;
       height: auto;
     }
-    &.brand {
-      max-width: 80px;
-      width: 80%;
-      height: auto;
-    }
   }
 }
 .nav-footer {
@@ -46,6 +41,34 @@
         bottom: 3px;
         font-size: 14px;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 576px){
+  .nav-container {
+    position: absolute;
+    width: 100%;
+    z-index: 20;
+    overflow: hidden;
+    height: 100%;
+    border-bottom: 1px solid #acacac;
+    .logo-link {
+      img {
+        &.brand-with-icon {
+          max-width: 130px;
+          position: relative;
+          top: 5px;
+        }
+      }
+    }
+    &.open {
+      height: 180px;
+      transition: 0.25s height;
+    }
+    &.close {
+      height: 50px;
+      transition: 0.25s height;
     }
   }
 }

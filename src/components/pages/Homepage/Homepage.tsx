@@ -11,6 +11,7 @@ import {Button} from "react-bootstrap";
 import {IoMdAdd} from "react-icons/io";
 import './styles.less';
 import {t} from "i18next";
+import Footer from "../../../common/footer";
 
 const HomePage: FC = ({lists, getShoppingLists, title, user, addShoppingList, synchronizeLocalLists }): ReactElement => {
     const [showModal, setShowModal] = useState(false);
@@ -34,9 +35,9 @@ const HomePage: FC = ({lists, getShoppingLists, title, user, addShoppingList, sy
         }
     }, []);
 
-    return <div className='content d-flex flex-column align-items-center mx-auto my-0'>
-        <div className="d-flex justify-content-between h3 w-100 p-3 align-items-center justify-content-between flex-column flex-sm-row">
-            <h1 className='title'>{t('Lists')}</h1>
+    return <div className='content h-100vh w-100 d-flex flex-column align-items-center mx-auto my-0'>
+        <div className="d-flex justify-content-between h3 w-100 align-items-center justify-content-between flex-column flex-sm-row  pt-5 pt-sm-3 px-3 mb-0">
+            <h1 className='title pt-2 pt-sm-0'>{t('Lists')}</h1>
             <Button onClick={() => addNewList()}><IoMdAdd size={16}/>{t('Add list')}</Button>
         </div>
         {lists?.length ? <ShoppingLists lists={lists}/> :
@@ -46,6 +47,7 @@ const HomePage: FC = ({lists, getShoppingLists, title, user, addShoppingList, sy
                 onHide={handleClose}
                 onApply={handleApply}
             />
+        <Footer/>
     </div>
 };
 
