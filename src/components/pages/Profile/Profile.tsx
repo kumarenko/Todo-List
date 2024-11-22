@@ -70,7 +70,7 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
     }
 
     return (
-        <div className='profile content d-flex flex-column align-items-center mx-auto my-0'>
+        <div className='profile content d-flex flex-column align-items-center mx-auto my-0 pb-5'>
             <div className="d-flex justify-content-between h3 w-100 p-3 align-items-center justify-content-between flex-column flex-sm-row">
                 <h1 className='title'>{t('Profile')}</h1>
                 <Button size={'md'} onClick={() => logoutAction(user.user.role)}>{user.user.role === 'USER' ? t('Logout') : t('Login')}</Button>
