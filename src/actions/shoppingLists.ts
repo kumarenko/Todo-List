@@ -88,28 +88,30 @@ export const addShoppingList = (userId, name) => {
 export const updateListRequest = (list, newValue) => {
     return async (dispatch, state) => {
         const userData = state().user;
-        if (userData.user.role === 'USER') {
-            const newObject = {
-                shoppingListId: list._id,
-                name: newValue
-            }
-            const response = await fetch(
-                `${SHOPPING_LIST_CREATE_URL}`,{
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(newObject)
-                }).then(res=>res.json());
-            dispatch(setShoppingList({...list, name: response.name}));
-        } else {
-            dispatch(setShoppingList({
-                ...list,
-                name: {
-                    value: newValue,
-                    temporary: true,
+        if(newValue.length > 0) {
+            if (userData.user.role === 'USER') {
+                const newObject = {
+                    shoppingListId: list._id,
+                    name: newValue
                 }
-            }));
+                const response = await fetch(
+                    `${SHOPPING_LIST_CREATE_URL}`,{
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(newObject)
+                    }).then(res=>res.json());
+                dispatch(setShoppingList({...list, name: response.name}));
+            } else {
+                dispatch(setShoppingList({
+                    ...list,
+                    name: {
+                        value: newValue,
+                        temporary: true,
+                    }
+                }));
+            }
         }
     };
 };
