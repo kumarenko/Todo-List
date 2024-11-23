@@ -2,7 +2,7 @@ import React, {useEffect, useState, useCallback} from 'react';
 import {connect, useDispatch} from "react-redux";
 import FlipMove from "react-flip-move";
 import {useNavigate, useParams} from 'react-router-dom';
-import {IoMdCreate, IoMdPersonAdd, IoMdSearch, IoMdTrash, IoMdClose} from "react-icons/io";
+import {IoMdCreate, IoMdPersonAdd, IoMdSearch, IoMdTrash, IoMdClose, IoIosCopy} from "react-icons/io";
 import {Button, ButtonGroup, Dropdown, Form, InputGroup, ProgressBar} from "react-bootstrap";
 import { FaSortAmountDown } from "react-icons/fa";
 
@@ -25,6 +25,7 @@ import SortingModal from "./sorting";
 import AvatarModal from "./avatar";
 import {t} from "i18next";
 import Footer from "../../../../common/footer";
+import CopyListModal from "../copyListModal";
 
 const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updateListRequest, removeListRequest }) => {
     const { listId } = useParams();
@@ -40,6 +41,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
     const [showFilterModal, setFilterShowModal] = useState(false);
     const [filteredCategories, setFilteredCategories] = useState([]);
     const [showSharingModal, setSharingModal] = useState(false);
+    const [showCopyModal, setCopyModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [toggleSortingModal, setToggleSortingModal] = useState(false);
     const [toggleAvatarModal, setToggleAvatarModal] = useState(false);
@@ -163,6 +165,9 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
     const handleCloseSharingModal = () => {
         setSharingModal(false);
     };
+    const handleCloseCopyModal = () => {
+        setCopyModal(false);
+    };
     const removeList = async () => {
         setShowDeleteModal(false);
         await removeListRequest(user.id, list._id);
@@ -205,13 +210,16 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                 <Dropdown.Item eventKey="1" onClick={()=> setSharingModal(true)}>
                                     <IoMdPersonAdd /> {t('Share')}
                                 </Dropdown.Item>
-                                <Dropdown.Item eventKey="2" onClick={()=> setToggleSortingModal(true)}>
+                                <Dropdown.Item eventKey="2" onClick={()=> setCopyModal(true)}>
+                                    <IoIosCopy /> {t('Copy')}
+                                </Dropdown.Item>
+                                <Dropdown.Item eventKey="3" onClick={()=> setToggleSortingModal(true)}>
                                     <FaSortAmountDown/> {t('Sort')}
                                 </Dropdown.Item>
-                                <Dropdown.Item eventKey="2" onClick={()=> setFilterShowModal(true)}>
+                                <Dropdown.Item eventKey="4" onClick={()=> setFilterShowModal(true)}>
                                     <MdFilterListAlt/> {t('Filter')}
                                 </Dropdown.Item>
-                                <Dropdown.Item eventKey="3" onClick={() => setShowDeleteModal(true)}>
+                                <Dropdown.Item eventKey="5" onClick={() => setShowDeleteModal(true)}>
                                     <IoMdTrash /> {t('Delete')}
                                 </Dropdown.Item>
                             </Dropdown.Menu>
@@ -319,11 +327,16 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                     </div>)}
                 </FlipMove> : null}
             </div>
-            {showSharingModal && <ShareListModal
+            <ShareListModal
                 show={showSharingModal}
                 onHide={handleCloseSharingModal}
                 onApply={handleApply}
-            />}
+            />
+            <CopyListModal
+                show={showCopyModal}
+                onHide={handleCloseCopyModal}
+                list={list}
+            />
             <AddProductModal
                 show={showAddModal}
                 onHide={handleClose}

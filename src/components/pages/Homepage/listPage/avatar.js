@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Image, Modal } from 'react-bootstrap';
 import { FiUpload, FiImage, FiTrash2 } from "react-icons/fi";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {removeProductAvatarRequest, updateProductAvatarRequest} from "../../../../actions/products";
 import imageCompression from "browser-image-compression";
 import {CLOUD_URL} from "../../../../configs/urls";

@@ -6,7 +6,6 @@ import {getColorById, validateEmail} from "../../../helpers/validator";
 import {IoMdClose} from "react-icons/io";
 import {inviteUsersRequest} from "../../../actions/shoppingLists";
 import {connect} from "react-redux";
-import {copyTextToClipboard} from "../../../helpers/helper";
 import CustomAlert from "../../../common/Alert";
 import {t} from "i18next";
 
@@ -29,31 +28,13 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
     }, [list]);
 
     const invite = () => {
-        validateEmail(email) ?
-            setErrorMessage(validateEmail(email)) :
-            inviteUsersRequest(list._id, user.id, email, 'POST');
+        if(validateEmail(email)){
+            setErrorMessage(validateEmail(email))
+        } else {
+            inviteUsersRequest(list._id, user.id, email, 'POST')
+        }
     }
-    const copyList = () => {
-        let str = `${list.name.value}\n`;
-        list.products.forEach(prod => {
-            const prodStr = `${prod.name} ${prod.count > 2 ? ` (${prod.count} pcs)` : ''}`
-            if(prod.checked) {
-                str = str + `• ${prodStr.split('').map(char => char + '\u0336').join('')}\n`
-            } else {
-                str = str + `• ${prod.name}\n`
-            }
-        });
-        copyTextToClipboard(str)
-            .then(result => {
-                if (result === 'success') {
-                    setMessage(t('List copied to clipboard'));
-                }
-            })
-            .catch(error => {
-                setMessage(`${t('Error copying to clipboard')}: ${error}`);
-            });
-        setTimeout(() => setMessage(''), 2500);
-    }
+
     const removeInvite = (email) => {
         inviteUsersRequest(list._id, user.id, email, 'DELETE');
     }
@@ -75,7 +56,7 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
         </Modal.Header>
         <Modal.Body className='modal-styled-bg justify-content-center'>
             <Container className='d-flex justify-content-between align-items-start'>
-                <Form.Group className="mb-2 w-75">
+                <Form.Group className="mb-2 w-100 me-2">
                     <Form.Control
                         type="email"
                         id="name"
@@ -96,9 +77,6 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
                 <Button className={'mx-2'} onClick={() => invite()}>
                     {t('Invite')}
                 </Button>
-                <Button className={'mx-2'} onClick={() => copyList()}>
-                    {t('Copy')}
-                </Button>
             </Container>
             <Container className='d-flex justify-content-between flex-column'>
                 {owners.length > 1 ?
@@ -106,16 +84,18 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
                     <h3 className='title'>{owners.length > 2 ?
                         t(`List shared with people`, {count: owners.length - 1}) :
                         t('List shared with 1 person')}</h3>
-                    <Container className=' flex-row items-center'>
-                        {owners.map(owner => <Container key={owner._id} className='d-flex flex-nowrap justify-content-between'>
+                    <div className='flex-row items-center'>
+                        {owners.map(owner => <div key={owner._id} className='d-flex flex-nowrap justify-content-between mb-2'>
                             <div className='d-flex'>
-                                <div className={'user-avatar -ml-2'}
+                                <div className={'user-avatar ml-2'}
                                      style={{
                                          backgroundColor: getColorById(owner._id),
                                      }}>
-                                    <div className='user-avatar-info'>
+                                    {owner.avatar ? <div className='user-avatar-info'>
+                                        <img src={owner.avatar} alt=""/>
+                                    </div> : <div className='user-avatar-info'>
                                         {owner.name ? owner.name[0] : owner.email[0]}
-                                    </div>
+                                    </div>}
                                 </div>
                                 <span className='mx-2'>
                                     <span className='subtitle'>{owner.email}</span>
@@ -131,23 +111,15 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
                                     <IoMdClose/>
                                 </Button>
                             </div>}
-                        </Container>)}
-                    </Container>
+                        </div>)}
+                    </div>
                 </> : null}
                 {waitingOwners.length ?
                 <>
                     <h3 className='title'>Invites sent to {waitingOwners.length} {waitingOwners.length > 1 ? t('person') : t('people')}</h3>
-                    <Container className=' flex-row items-center'>
-                        {waitingOwners.map(user => <Container key={user._id} className='d-flex flex-nowrap justify-content-between'>
+                    <div className=' flex-row items-center'>
+                        {waitingOwners.map(user => <div key={user._id} className='d-flex flex-nowrap justify-content-between mb-2'>
                             <div className='d-flex'>
-                                <div className={'user-avatar -ml-2'}
-                                     style={{
-                                         backgroundColor: getColorById(user._id),
-                                     }}>
-                                    <div className='user-avatar-info'>
-                                        {user.name ? user.name[0] : user.email[0]}
-                                    </div>
-                                </div>
                                 <span className='mx-2'>
                                     <span className='subtitle'>{user.email}</span>
                                 </span>
@@ -162,8 +134,8 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
                                     <IoMdClose />
                                 </Button>
                             </div>
-                        </Container>)}
-                    </Container>
+                        </div>)}
+                    </div>
                 </> : null}
             </Container>
         </Modal.Body>
