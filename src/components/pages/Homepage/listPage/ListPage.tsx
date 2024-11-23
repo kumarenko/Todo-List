@@ -90,7 +90,6 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
     }, [searchValue, filteredCategories, list, sortingType]);
     const applyFilters = () => {
         if (list.products?.length) {
-            console.log(filteredCategories);
             let filteredProducts = list.products.filter(
                 prod =>
                     filteredCategories.includes(prod.category) &&

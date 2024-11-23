@@ -10,6 +10,7 @@ import {t} from "i18next";
 const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, loginAsGuest, buttonsVariant, errors, resetErrors }) => {
     const dispatch = useDispatch();
     const userState = useSelector(state => state.user);
+    const currentLanguage = useSelector(state => state.settings.language);
     const [triggerPassword, setTriggerPassword] = useState(false);
     const handleGoogleLoginSuccess = async (response) => {
         const idToken = response.credential;
@@ -67,7 +68,7 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
                     {errors?.email}
                 </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="mb-2" controlId="passLogin">
+            <Form.Group className="mb-2 d-flex flex-column" controlId="passLogin">
                 <Form.Label className='subtitle'>{t('Password')}</Form.Label>
                 <Form.Control
                     type="password"
@@ -82,7 +83,7 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
                 <Form.Control.Feedback type="invalid">
                     {errors?.password}
                 </Form.Control.Feedback>
-                <Button className='btn-link p-1 bg-transparent' onClick={() => setTriggerPassword(true)}>
+                <Button className='btn-link p-1 bg-transparent d-flex align-self-end' onClick={() => setTriggerPassword(true)}>
                     {t('Forgot password')}
                 </Button>
             </Form.Group>
@@ -91,18 +92,22 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
                 onClick={signInHandler}
                 className='w-50 my-2 mx-auto'
             >{t('Login')}</Button>
-            <div className='text-center subtitle'>Or</div>
+            <div className='text-center subtitle'>{t('Or')}</div>
             <Button
                 variant={buttonsVariant}
                 className='w-75 my-1 mx-auto'
                 onClick={loginAsGuest}
             >{t('Continue as guest')}</Button>
-            <GoogleLogin
-                onSuccess={handleGoogleLoginSuccess}
-                onError={() => {
-                    console.log('Login Failed');
-                }}
-            />
+            <div className='d-flex justify-content-center'>
+                <GoogleLogin
+                    theme={'filled_black'}
+                    locale={currentLanguage}
+                    onSuccess={handleGoogleLoginSuccess}
+                    onError={() => {
+                        console.log('Login Failed');
+                    }}
+                />
+            </div>
             <ForgotPasswordModal
                 show={triggerPassword}
                 onHide={() => setTriggerPassword(false)}

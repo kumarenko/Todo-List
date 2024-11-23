@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Tab, Tabs } from "react-bootstrap";
+import {Alert, Button, Tab, Tabs} from "react-bootstrap";
 import {connect, useDispatch, useSelector} from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { setUserData, signInAction, signUpAction } from "../../../actions/login";
@@ -9,6 +9,8 @@ import {validateSignInForm, validateSignUpForm} from "../../../helpers/validator
 import {updateLogin} from "../../../redux/userReducer";
 import Spinner from "../../../common/spinner";
 import {t} from "i18next";
+import {IoMdSettings} from "react-icons/io";
+import SettingsModal from "./settingsModal";
 
 const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => {
     const dispatch = useDispatch();
@@ -22,6 +24,7 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
 
     const [showErrorPopup, setShowErrorPopup] = useState(false);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+    const [showSettingsModal, setShowSettingsModal] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState([]);
     const [key, setKey] = useState('login');
@@ -71,8 +74,14 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
     if (!user.isAuthorized) {
         return (
             <div className='login container-sm my-auto h-100 d-flex align-items-start justify-content-center pt-5'>
-                <div className="login-content d-flex flex-column align-items-center justify-content-center">
-                    {user.loading ? <Spinner/> : null}
+                {user.loading ? <Spinner/> : null}
+                <div className="login-content d-flex flex-column align-items-stretch justify-content-center position-relative">
+                    <Button className={'position-absolute end-0 d-flex align-items-center justify-content-center bg-transparent'}
+                            style={{top: '-10%'}}
+                            onClick={() => setShowSettingsModal(true)}>
+                        <IoMdSettings className="fs-4 me-2"/>
+                    </Button>
+                    <SettingsModal show={showSettingsModal} onHide={() => setShowSettingsModal(false)}/>
                     <Tabs
                         id="controlled-tab-example"
                         activeKey={key}
@@ -80,7 +89,7 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
                             setKey(k);
                             reset();
                         }}
-                        className="mb-3"
+                        className="mb-3 w-100"
                     >
                         <Tab eventKey={"login"} title={t("Login")}>
                             {key === 'login' && <SignInTab
