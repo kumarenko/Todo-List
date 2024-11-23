@@ -109,7 +109,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
             case 'alphabetical': {
                 return sortedArray.sort((a, b) => {
                     if (a.checked === b.checked) {
-                        return a.name.localeCompare(b.name);
+                        return t(a.name).localeCompare(t(b.name));
                     }
                     return a.checked ? 1 : -1;
                 });
@@ -209,16 +209,18 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                 <Dropdown.Item eventKey="1" onClick={()=> setSharingModal(true)}>
                                     <IoMdPersonAdd /> {t('Share')}
                                 </Dropdown.Item>
-                                {list.products.length > 0 ?
-                                    <Dropdown.Item eventKey="2" onClick={()=> setCopyModal(true)}>
-                                    <IoIosCopy /> {t('Copy')}
-                                </Dropdown.Item> : null}
-                                <Dropdown.Item eventKey="3" onClick={()=> setToggleSortingModal(true)}>
-                                    <FaSortAmountDown/> {t('Sort')}
-                                </Dropdown.Item>
-                                <Dropdown.Item eventKey="4" onClick={()=> setFilterShowModal(true)}>
-                                    <MdFilterListAlt/> {t('Filter')}
-                                </Dropdown.Item>
+                                {list.products.length > 0 ? <>
+                                        <Dropdown.Item eventKey="2" onClick={()=> setCopyModal(true)}>
+                                            <IoIosCopy /> {t('Copy')}
+                                        </Dropdown.Item>
+                                        <Dropdown.Item eventKey="3" onClick={()=> setToggleSortingModal(true)}>
+                                            <FaSortAmountDown/> {t('Sort')}
+                                        </Dropdown.Item>
+                                        <Dropdown.Item eventKey="4" onClick={()=> setFilterShowModal(true)}>
+                                            <MdFilterListAlt/> {t('Filter')}
+                                        </Dropdown.Item>
+                                    </>
+                                     : null}
                                 <Dropdown.Item eventKey="5" onClick={() => setShowDeleteModal(true)}>
                                     <IoMdTrash /> {t('Delete')}
                                 </Dropdown.Item>
