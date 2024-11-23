@@ -6,8 +6,8 @@ import {t} from "i18next";
 
 const CreateListModal = ({value = null, show, onHide, onApply}) => {
     const [data, setData] = useState("");
-    function handleClick() {
-        onApply(data || value?.name.value);
+    const handleClick = () => {
+        onApply(value?.name.value || data);
         setData('');
     }
     const onCloseHandler = () => {
@@ -31,7 +31,7 @@ const CreateListModal = ({value = null, show, onHide, onApply}) => {
             <Button onClick={onHide} className='mx-2'>
                 {t('Cancel')}
             </Button>
-            <Button onClick={handleClick} disabled={data.length === 0} className='mx-2'>
+            <Button onClick={handleClick} className='mx-2'>
                 {t('Apply')}
             </Button>
         </Modal.Footer>

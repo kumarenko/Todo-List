@@ -7,6 +7,7 @@ import {
     SHOPPING_LISTS_URL, SHOPPING_LIST_CREATE_URL,
     SHOPPING_LIST_SHARE_URL, SYNC_ALL_LISTS_URL, UPLOAD_URL, CLOUD_URL
 } from "../configs/urls";
+import {t} from "i18next";
 
 export const getShoppingLists = (userId: string) => {
     return async (dispatch, state) => {
@@ -44,6 +45,9 @@ export const getShoppingList = (listId, userId, navigate) => {
 export const addShoppingList = (userId, name) => {
     return async (dispatch, state) => {
         const userData = state().user;
+        if(!name || name.trim() === '') {
+            name = t('New list');
+        }
         const obj = {userId,name};
         if(userData.user.role === 'USER') {
             const response = await fetch(
