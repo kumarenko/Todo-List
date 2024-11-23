@@ -9,6 +9,8 @@ import ChangePassword from "./changePassword";
 import './styles.less';
 import {t} from "i18next";
 import Footer from "../../../common/footer";
+import AvatarModal from "../Homepage/listPage/avatar";
+import { FaCamera } from "react-icons/fa";
 
 interface ProfileInterface extends User {
     logoutAction: (role: boolean) => void,
@@ -22,6 +24,7 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
     const [lastName, setLastName] = useState(userData.lastName);
     const [email, setEmail] = useState(userData.email);
     const [isEditing, setIsEditing] = useState(false);
+    const [toggleAvatarModal, setToggleAvatarModal] = useState(false);
     const [message, setMessage] = useState('');
     useEffect(() => {
         document.title = title;
@@ -77,8 +80,14 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
             </div>
             {userData.role === 'USER' ?
                 <>
-                    <div className='d-flex justify-content-center w-100 px-3 py-1'>
-                        <Image src={user.user.avatar} roundedCircle className='avatar mb-1'/>
+                    <div onClick={() => setToggleAvatarModal(true)} className='d-flex justify-content-center w-100 px-3 py-1'>
+                        {user.user.avatar ?
+                            <div className='avatar mb-1 rounded-circle section-styled-bg d-flex align-items-center justify-content-center'>
+                                <Image src={user.user.avatar} className='avatar mb-1 section-styled-bg'/>
+                            </div> :
+                            <div className='avatar mb-1 rounded-circle section-styled-bg d-flex align-items-center justify-content-center'>
+                                <FaCamera size={48} className={'subtitle'} />
+                            </div>}
                     </div>
                     <Container fluid="md" className='user-info d-flex w-100 flex-wrap mb-2 px-3 py-1 justify-content-center'>
                         <div className='mx-2'>
@@ -107,6 +116,15 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
                 {isEditing && <Button className='ms-1' onClick={() => resetProfileData()} size="md">{t('Cancel')}</Button>}
             </div>
             <ChangePassword userId={userData.id} googleId={user.user.googleId}/>
+            <AvatarModal
+                isVisible={toggleAvatarModal}
+                onClose={() => {
+                    setToggleAvatarModal(false);
+                }}
+                product={{_id: user.user.id, name: user.user.name, avatar: user.user.avatar}}
+                listId={null}
+                type={'avatars'}
+            />
             <CustomAlert variant={user.errorMessage ? 'danger' : 'success'} className='popup'>
                 {message}
             </CustomAlert>

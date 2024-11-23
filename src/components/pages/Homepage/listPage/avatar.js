@@ -7,8 +7,9 @@ import {removeProductAvatarRequest, updateProductAvatarRequest} from "../../../.
 import imageCompression from "browser-image-compression";
 import {CLOUD_URL} from "../../../../configs/urls";
 import {t} from "i18next";
+import {removeUserAvatarRequest, updateUserAvatarRequest} from "../../../../actions/login";
 
-const AvatarModal = ({ isVisible, onClose, itemId, listId, type }) => {
+const AvatarModal = ({ isVisible, onClose, listId, type, product }) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [preview, setPreview] = useState('');
     const [item, setItem] = useState({});
@@ -21,12 +22,10 @@ const AvatarModal = ({ isVisible, onClose, itemId, listId, type }) => {
         }
     };
 
-    const products = useSelector(state => state.items.list.products);
     useEffect(() => {
-        const currentProd = products.find(i => i._id === itemId);
-        setPreview(currentProd.avatar);
-        setItem(currentProd);
-    }, [products]);
+        setPreview(product.avatar);
+        setItem(product);
+    }, [product]);
 
     useEffect(() => {
         const compressAndUploadImage = async () => {
@@ -45,9 +44,17 @@ const AvatarModal = ({ isVisible, onClose, itemId, listId, type }) => {
                         const compressedFileAsFile = new File([compressedFile], selectedFile.name, {
                             type: compressedFile.type,
                         });
-                        dispatch(updateProductAvatarRequest(listId, compressedFileAsFile, item, type));
+                        if(type === 'products') {
+                            dispatch(updateProductAvatarRequest(listId, compressedFileAsFile, product._id, type));
+                        } else {
+                            dispatch(updateUserAvatarRequest(compressedFileAsFile, product._id));
+                        }
                     } else {
-                        dispatch(updateProductAvatarRequest(listId, selectedFile, item, type));
+                        if(type === 'products') {
+                            dispatch(updateProductAvatarRequest(listId, selectedFile, product._id, type));
+                        } else {
+                            dispatch(updateUserAvatarRequest(selectedFile, product._id));
+                        }
                     }
                 } catch (error) {
                     console.error('Error during image compression:', error);
@@ -60,7 +67,11 @@ const AvatarModal = ({ isVisible, onClose, itemId, listId, type }) => {
 
     const removeAvatar = async () => {
         const fileName = item.avatar.replace(CLOUD_URL, '').split(('?'))[0];
-       await dispatch(removeProductAvatarRequest(listId, fileName, item._id));
+        if(type === 'products') {
+            await dispatch(removeProductAvatarRequest(listId, fileName, item._id));
+        } else {
+            await dispatch(removeUserAvatarRequest(fileName, item._id));
+        }
        setPreview('');
     }
     const closeModal = () => {

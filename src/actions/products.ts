@@ -1,6 +1,8 @@
 import {SHOPPING_LISTS_ADD_PROD_URL, SHOPPING_LISTS_EDIT_PROD_URL, UPLOAD_URL} from "../configs/urls";
 import {setShoppingList} from "../redux/shoppingListsReducer";
 import {v4 as uuidv4} from "uuid";
+import {updateUnits} from "../redux/settingsReducer";
+import {updateProfileData, updateProfileSuccessMessage} from "../redux/userReducer";
 
 export const addProductToList = (shoppingListId, product) => {
     return async (dispatch, state) => {
@@ -79,15 +81,14 @@ export const updateProductsListRequest = (shoppingListId, products) => {
     };
 };
 
-export const updateProductAvatarRequest = (shoppingListId, selectedFile, item, type) => {
+export const updateProductAvatarRequest = (shoppingListId, selectedFile, itemId) => {
     return async (dispatch, state) => {
         const currentList = state().items.list;
         const formData = new FormData();
         const userData = state().user;
         formData.append('file', selectedFile);
-        formData.append('item', item._id);
+        formData.append('item', itemId);
         formData.append('listId', shoppingListId);
-        formData.append('type', type);
         try {
             const response = await fetch(UPLOAD_URL, {
                 method: 'POST',
@@ -115,7 +116,7 @@ export const updateProductAvatarRequest = (shoppingListId, selectedFile, item, t
                     dispatch(setShoppingList({
                         ...currentList,
                         products: currentList.products.map(prod =>
-                            prod._id === item._id
+                            prod._id === itemId
                                 ? {
                                     ...prod,
                                     avatar: `${result.fileUrl}?t=${Date.now()}` // Добавляем уникальный параметр
@@ -124,7 +125,6 @@ export const updateProductAvatarRequest = (shoppingListId, selectedFile, item, t
                         )
                     }));
                 }
-
             }
         } catch (error) {
             console.error('Error uploading file:', error);

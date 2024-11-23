@@ -12,6 +12,7 @@ export const REGISTER_URL = URL + "api/register";
 export const USERS_URL = URL + "api/users";
 export const SYNC_ALL_LISTS_URL = URL + 'api/shoppingLists/syncAllLists';
 export const UPLOAD_URL = URL + 'api/shoppingLists/upload';
+export const UPLOAD_AVATAR_URL = URL + 'api/users/uploadAvatar';
 export const FORGOT_PASSWORD_GENERATE_CODE_URL = URL + 'api/users/forgotPassword/generateCode';
 export const FORGOT_PASSWORD_SUBMIT_CODE_URL = URL + 'api/users/forgotPassword/submitCode';
 export const FORGOT_PASSWORD_URL = URL + 'api/users/forgotPassword/changePassword';

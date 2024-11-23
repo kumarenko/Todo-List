@@ -11,11 +11,12 @@ import {
     FORGOT_PASSWORD_URL,
     LOGIN_URL,
     PROTECTED_ROUTE_URL,
-    REGISTER_URL,
+    REGISTER_URL, UPLOAD_AVATAR_URL, UPLOAD_URL,
     USERS_URL
 } from "../configs/urls";
 import {updateCurrency, updateUnits} from "../redux/settingsReducer";
 import {logout, persistor, store} from "../redux";
+import {setShoppingList} from "../redux/shoppingListsReducer";
 
 export const setUserData = (isAuthorized) => {
     const updatedLoginState = {
@@ -191,4 +192,60 @@ export const changePassword = async (email, password) => {
         },
         body: JSON.stringify({email, password}),
     });
+};
+
+export const updateUserAvatarRequest = (selectedFile, itemId) => {
+    return async (dispatch) => {
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+        formData.append('item', itemId);
+        try {
+            const response = await fetch(UPLOAD_AVATAR_URL, {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error(`Upload failed: ${response.statusText}`);
+            }
+            const result = await response.json();
+            if (result.success) {
+                const data = result.user;
+                sessionStorage.setItem('token', result.token); // Получаем токен из хранилища
+                dispatch(updateUnits(data.metricUnits));
+                dispatch(updateProfileData(data));
+                dispatch(updateProfileSuccessMessage(result.message));
+
+            }
+        } catch (error) {
+            console.error('Error uploading file:', error);
+        }
+    };
+};
+export const removeUserAvatarRequest = (fileName, itemId) => {
+    return async (dispatch) => {
+        try {
+            const response = await fetch(UPLOAD_AVATAR_URL, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify( {fileName, itemId}),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Upload failed: ${response.statusText}`);
+            }
+            const result = await response.json();
+            if (result.success) {
+                const data = result.user;
+                sessionStorage.setItem('token', result.token); // Получаем токен из хранилища
+                dispatch(updateProfileData(data));
+                dispatch(updateProfileSuccessMessage(result.message));
+
+            }
+        } catch (e) {
+            console.error('Error deleting file:', e);
+        }
+    };
 };
