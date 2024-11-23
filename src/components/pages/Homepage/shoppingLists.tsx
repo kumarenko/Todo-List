@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Button, ButtonGroup, Card, Dropdown, ProgressBar} from "react-bootstrap";
-import {IoMdCreate, IoMdPersonAdd, IoMdTrash} from "react-icons/io";
+import {IoIosCopy, IoMdCreate, IoMdPersonAdd, IoMdTrash} from "react-icons/io";
 import {connect, useDispatch} from "react-redux";
 import {removeListRequest, updateListRequest} from "../../../actions/shoppingLists";
 import CreateListModal from "./createListModal";
@@ -11,11 +11,13 @@ import {FiMoreHorizontal} from "react-icons/fi";
 import {defaultListsState, setShoppingList} from "../../../redux/shoppingListsReducer";
 import DeleteListModal from "./deleteListModal";
 import {t} from "i18next";
+import CopyListModal from "./copyListModal";
 
 const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setShoppingList}) => {
     const [showModal, setShowModal] = useState(false);
     const [showSharingModal, setSharingModal] = useState(false);
     const [showDeleteModal, setDeleteModal] = useState(false);
+    const [showCopyModal, setCopyModal] = useState(false);
     const [selectedList, setSelectedList] = useState(defaultListsState.list);
     const dispatch = useDispatch();
 
@@ -23,8 +25,7 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setS
         setSelectedList(defaultListsState.list);
         setShowModal(false);
         setDeleteModal(false);
-    };
-    const handleCloseSharingModal = () => {
+        setCopyModal(false);
         setSharingModal(false);
     };
     const handleApply = (text) => {
@@ -47,6 +48,10 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setS
     const openDeleteModal = (list) => {
         setSelectedList(list);
         setDeleteModal(true);
+    }
+    const openCopyModal = (list) => {
+        setSelectedList(list);
+        setCopyModal(true);
     }
 
     const renderAvatars = (users, creator) => {
@@ -82,7 +87,9 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setS
                 userAvatars.push(
                     <div className="avatar-container d-flex-col w-auto" key={user._id}>
                         <div className="user-avatar" style={{ backgroundColor: getColorById(user._id) }}>
-                            <span>{user.name ? user.name[0] : user.email[0]}</span>
+                            {user.avatar ?
+                                <img src={user.avatar} alt='' /> :
+                                <span>{user.name[0]}</span>}
                         </div>
                     </div>
                 );
@@ -127,6 +134,10 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setS
                                     <Dropdown.Item eventKey="2" onClick={()=> openSharingModal(list)}>
                                         <IoMdPersonAdd /> {t('Share')}
                                     </Dropdown.Item>
+                                    {list.products.length > 0 ?
+                                        <Dropdown.Item eventKey="2" onClick={()=> openCopyModal(list)}>
+                                        <IoIosCopy /> {t('Copy')}
+                                    </Dropdown.Item> : null}
                                     <Dropdown.Item eventKey="2" onClick={()=> editList(list)}>
                                         <IoMdCreate/> {t('Rename')}
                                     </Dropdown.Item>
@@ -153,7 +164,12 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setS
             />
             <ShareListModal
                 show={showSharingModal}
-                onHide={handleCloseSharingModal}
+                onHide={handleClose}
+            />
+            <CopyListModal
+                show={showCopyModal}
+                onHide={handleClose}
+                list={selectedList}
             />
         </>
     );

@@ -210,9 +210,10 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                 <Dropdown.Item eventKey="1" onClick={()=> setSharingModal(true)}>
                                     <IoMdPersonAdd /> {t('Share')}
                                 </Dropdown.Item>
-                                <Dropdown.Item eventKey="2" onClick={()=> setCopyModal(true)}>
+                                {list.products.length > 0 ?
+                                    <Dropdown.Item eventKey="2" onClick={()=> setCopyModal(true)}>
                                     <IoIosCopy /> {t('Copy')}
-                                </Dropdown.Item>
+                                </Dropdown.Item> : null}
                                 <Dropdown.Item eventKey="3" onClick={()=> setToggleSortingModal(true)}>
                                     <FaSortAmountDown/> {t('Sort')}
                                 </Dropdown.Item>
