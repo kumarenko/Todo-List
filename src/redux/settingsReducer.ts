@@ -1,11 +1,12 @@
 import {SettingsTypes} from "../types/types";
+import {getSystemTheme} from "../helpers/helper";
 
 const UPDATE_THEME = "UPDATE_THEME";
 const UPDATE_UNITS = "UPDATE_UNITS";
 const UPDATE_CURRENCY = "UPDATE_CURRENCY";
 const UPDATE_LANGUAGE = "UPDATE_LANGUAGE";
 const defaultState:SettingsTypes = {
-    theme: 'light',
+    theme: getSystemTheme(),
     units: 'METRIC',
     currency: 'usd',
     isMetric: true,
