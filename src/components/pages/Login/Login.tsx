@@ -11,7 +11,7 @@ import Spinner from "../../../common/spinner";
 import {t} from "i18next";
 import {IoMdSettings} from "react-icons/io";
 import SettingsModal from "./settingsModal";
-
+import './styles.less';
 const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -73,7 +73,7 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
     const reset = () => setErrors({});
     if (!user.isAuthorized) {
         return (
-            <div className='login container-sm my-auto h-100 d-flex align-items-start justify-content-center pt-5'>
+            <div className='login my-auto mx-auto h-100 d-flex align-items-start justify-content-center pt-5'>
                 {user.loading ? <Spinner/> : null}
                 <div className="login-content d-flex flex-column align-items-stretch justify-content-center position-relative">
                     <Button className={'position-absolute end-0 d-flex align-items-center justify-content-center bg-transparent'}
@@ -83,7 +83,6 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
                     </Button>
                     <SettingsModal show={showSettingsModal} onHide={() => setShowSettingsModal(false)}/>
                     <Tabs
-                        id="controlled-tab-example"
                         activeKey={key}
                         onSelect={(k) => {
                             setKey(k);

@@ -67,7 +67,7 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
                     </div>
                     <span className='mx-2'>
                     <span className='subtitle'>{creator.email} </span>
-                        {user.id === creator._id ? <span> ({t('You')})</span> : null}
+                        {user.id === creator._id ? <span className='subtitle'> ({t('You')})</span> : null}
                 </span>
                 </div>
             </div>
@@ -145,7 +145,9 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
                 </> : null}
                 {waitingOwners.length ?
                 <>
-                    <h3 className='title'>Invites sent to {waitingOwners.length} {waitingOwners.length > 1 ? t('person') : t('people')}</h3>
+                    <h3 className='title'>{waitingOwners.length > 1 ?
+                        t(`Invites sent to people`, {count: waitingOwners.length}) :
+                        t('Invite sent to 1 person')}</h3>
                     <div className=' flex-row items-center'>
                         {waitingOwners.map(user => <div key={user._id} className='d-flex flex-nowrap justify-content-between mb-2'>
                             <div className='d-flex'>

@@ -35,10 +35,10 @@ const Navigation = () => {
                     </div>
                 </Link>
                     <div className='d-flex mx-sm-auto mx-0'>
-                        <Button
+                        {userRole === 'GUEST' ? <Button
                             className='mx-2'
                             onClick={() => dispatch(logoutAction(userRole))}
-                        >{t('Login')}</Button>
+                        >{t('Login')}</Button> : null}
                         <Button onClick={() => {setOpen(!open)}} className='d-flex d-sm-none btn btn-primary align-items-center mx-2'>
                             {open ? <IoMdClose /> : <IoMdMenu/>}
                         </Button>

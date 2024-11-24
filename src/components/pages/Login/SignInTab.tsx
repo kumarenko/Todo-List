@@ -90,12 +90,12 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
             <Button
                 variant={buttonsVariant}
                 onClick={signInHandler}
-                className='w-50 my-2 mx-auto'
+                className='my-2 mx-auto'
             >{t('Login')}</Button>
             <div className='text-center subtitle'>{t('Or')}</div>
             <Button
                 variant={buttonsVariant}
-                className='w-75 my-1 mx-auto'
+                className='my-1 mx-auto'
                 onClick={loginAsGuest}
             >{t('Continue as guest')}</Button>
             <div className='d-flex justify-content-center'>
