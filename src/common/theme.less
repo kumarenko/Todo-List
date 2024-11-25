@@ -119,6 +119,28 @@ body {
     .progress-count {
       color: @TEXT_LIGHT;
     }
+    .placeholder-list {
+      &:before {
+        background:
+                linear-gradient(
+                        to right,
+                        @SECTION_BG_DARK 0%,
+                        @SECTION_BG_DARK 40%,
+                        rgba(255, 255, 255, 0.5) 50%,
+                        @SECTION_BG_DARK 60%,
+                        @SECTION_BG_DARK 100%
+                );
+      }
+      &-text, &-progress {
+        background: @INPUT_PLACEHOLDER_DARK;
+      }
+      &-progress {
+        background: @PROGRESS_BAR_DARK;
+      }
+      &-button {
+        background: @BUTTON_BG_DARK;
+      }
+    }
   }
 
   // light styles
@@ -240,6 +262,28 @@ body {
     }
     .progress-count {
       color: @TEXT_LIGHT;
+    }
+    .placeholder-list {
+      &:before {
+        background:
+                linear-gradient(
+                        to right,
+                        @SECTION_BG_LIGHT 0%,
+                        @SECTION_BG_LIGHT 40%,
+                        rgba(255, 255, 255, 0.5) 50%,
+                        @SECTION_BG_LIGHT 60%,
+                        @SECTION_BG_LIGHT 100%
+                );
+      }
+      &-text, &-progress {
+        background: @INPUT_PLACEHOLDER_LIGHT;
+      }
+      &-progress {
+        background: @PROGRESS_BAR_LIGHT;
+      }
+      &-button {
+        background: @BUTTON_BG_LIGHT;
+      }
     }
   }
 }

@@ -1,0 +1,42 @@
+@import "colors";
+
+.placeholder-list {
+  position: relative;
+  &:before {
+    content: '';
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: loading-placeholder 2s infinite linear;
+  }
+  &-text, &-progress {
+    height: 24px;
+  }
+  &-progress {
+    height: 20px;
+    opacity: 0.25;
+  }
+  &-button {
+    opacity: 0.25;
+    &.avatars {
+      width: 50px;
+      height: 24px;
+      border-radius: 48px;
+    }
+    &.extra {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
+@keyframes loading-placeholder  {
+  0% {
+    transform: translateX(-100%);
+
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
