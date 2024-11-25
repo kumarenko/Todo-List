@@ -12,6 +12,7 @@ import {t} from "i18next";
 import {IoMdSettings} from "react-icons/io";
 import SettingsModal from "./settingsModal";
 import './styles.less';
+
 const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -29,7 +30,7 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
     const [successMessage, setSuccessMessage] = useState([]);
     const [key, setKey] = useState('login');
     const [errors, setErrors] = useState({});
-
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         document.title = title;
@@ -48,21 +49,23 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
         }
     }, [user, navigate]);
 
-    const signUpHandler = () => {
+    const signUpHandler = async () => {
         setErrors(validateSignUpForm({ email, password, confirmPassword, name }));
         if (!Object.keys(validateSignUpForm({ email, password, confirmPassword, name })).length) {
-            signUpAction(email,name, password);
+            setLoading(true);
+            await signUpAction(email,name, password);
+            setLoading(false);
         }
     }
 
-    const signInHandler = () => {
+    const signInHandler = async () => {
         setErrors(validateSignInForm({ email, password }));
         // setErrorMessage(errors);
         if (Object.keys(validateSignInForm({ email, password })).length) {
-            // setShowPopup(true);
-
         } else {
-            signInAction({ email, password });
+            setLoading(true);
+            await signInAction({ email, password });
+            setLoading(false);
         }
     }
 
@@ -74,13 +77,8 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
     if (!user.isAuthorized) {
         return (
             <div className='login my-auto mx-auto h-100 d-flex align-items-start justify-content-center pt-5'>
-                {user.loading ? <Spinner/> : null}
-                <div className="login-content d-flex flex-column align-items-stretch justify-content-center position-relative">
-                    <Button className={'position-absolute end-0 d-flex align-items-center justify-content-center bg-transparent'}
-                            style={{top: '-10%'}}
-                            onClick={() => setShowSettingsModal(true)}>
-                        <IoMdSettings className="fs-4 me-2"/>
-                    </Button>
+                {loading ? <Spinner/> : null}
+                <div className="login-content d-flex flex-column align-items-stretch justify-content-center position-relative px-2">
                     <SettingsModal show={showSettingsModal} onHide={() => setShowSettingsModal(false)}/>
                     <Tabs
                         activeKey={key}
@@ -90,28 +88,41 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
                         }}
                         className="mb-3 w-100"
                     >
+
                         <Tab eventKey={"login"} title={t("Login")}>
-                            {key === 'login' && <SignInTab
-                                email={email} setEmail={setEmail}
-                                password={password} setPassword={setPassword}
-                                signInHandler={signInHandler}
-                                loginAsGuest={loginAsGuest}
-                                buttonsVariant={buttonsVariant}
-                                errors={errors}
-                                resetErrors={reset}
-                            />}
+                            {key === 'login' && <>
+                                <Button className={'d-flex align-items-center justify-content-center align-self-end'}
+                                        onClick={() => setShowSettingsModal(true)}>
+                                    <IoMdSettings className="fs-4" color={'#000'}/>
+                                </Button>
+                                <SignInTab
+                                    email={email} setEmail={setEmail}
+                                    password={password} setPassword={setPassword}
+                                    signInHandler={signInHandler}
+                                    loginAsGuest={loginAsGuest}
+                                    buttonsVariant={buttonsVariant}
+                                    errors={errors}
+                                    resetErrors={reset}
+                                />
+                                </>}
                         </Tab>
                         <Tab eventKey={"register"} title={t("Sign Up")}>
-                            {key === 'register' && <SignUpTab
-                                email={email} setEmail={setEmail}
-                                name={name} setName={setName}
-                                password={password} setPassword={setPassword}
-                                confirmPassword={confirmPassword} setConfirmPassword={setConfirmPassword}
-                                signUpHandler={signUpHandler}
-                                buttonsVariant={buttonsVariant}
-                                errors={errors}
-                                resetErrors={reset}
-                            />}
+                            {key === 'register' && <>
+                                <Button className={'d-flex align-items-center justify-content-center align-self-end'}
+                                        onClick={() => setShowSettingsModal(true)}>
+                                    <IoMdSettings className="fs-4" color={'#000'}/>
+                                </Button>
+                                <SignUpTab
+                                    email={email} setEmail={setEmail}
+                                    name={name} setName={setName}
+                                    password={password} setPassword={setPassword}
+                                    confirmPassword={confirmPassword} setConfirmPassword={setConfirmPassword}
+                                    signUpHandler={signUpHandler}
+                                    buttonsVariant={buttonsVariant}
+                                    errors={errors}
+                                    resetErrors={reset}
+                                />
+                                </>}
                         </Tab>
                     </Tabs>
                 </div>

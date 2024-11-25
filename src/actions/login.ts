@@ -16,7 +16,6 @@ import {
 } from "../configs/urls";
 import {updateCurrency, updateUnits} from "../redux/settingsReducer";
 import {logout, persistor, store} from "../redux";
-import {setShoppingList} from "../redux/shoppingListsReducer";
 
 export const setUserData = (isAuthorized) => {
     const updatedLoginState = {
@@ -33,40 +32,42 @@ export const setUserData = (isAuthorized) => {
 export const signInAction = (user) => {
     return async (dispatch, state) => {
         const userState = state().user;
-        dispatch(updateLogin({...userState, loading: true}));
-        const response = await fetch(LOGIN_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email: user.email, password:user.password })
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            const {token, user} = data;
-            const updatedLoginState = {
-                isAuthorized: true,
-                loading: false,
-                user: {
-                    role: 'USER',
-                    id: user._id || user.id || user.userId,
-                    email: user.email,
-                    name: user?.name || '',
-                    lastName: user?.lastName || '',
-                    avatar: user.avatar || '',
-                    country: data.user.country,
+        try {
+            const response = await fetch(LOGIN_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
                 },
-            }
-            dispatch(updateCurrency(user.currency));
-            updateUnits(user.metricUnits);
-            sessionStorage.setItem('token', token);
-            dispatch(updateLogin(updatedLoginState));
+                body: JSON.stringify({ email: user.email, password:user.password })
+            });
 
-        } else {
+            if (response.ok) {
+                const data = await response.json();
+                const {token, user} = data;
+                const updatedLoginState = {
+                    isAuthorized: true,
+                    user: {
+                        role: 'USER',
+                        id: user._id || user.id || user.userId,
+                        email: user.email,
+                        name: user?.name || '',
+                        lastName: user?.lastName || '',
+                        avatar: user.avatar || '',
+                        country: data.user.country,
+                    },
+                }
+                dispatch(updateCurrency(user.currency));
+                updateUnits(user.metricUnits);
+                sessionStorage.setItem('token', token);
+                dispatch(updateLogin(updatedLoginState));
+
+            } else {
+                alert('Login failed!');
+                dispatch(updateLogin({...userState, loading: false}));
+            }
+        } catch (e) {
             alert('Login failed!');
             dispatch(updateLogin({...userState, loading: false}));
-
         }
     };
 };
@@ -74,38 +75,44 @@ export const signInAction = (user) => {
 export const checkUserSession:any = () => {
     const token = sessionStorage.getItem('token');
     return (dispatch) => {
-        fetch(PROTECTED_ROUTE_URL, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+        if(token) {
+            fetch(PROTECTED_ROUTE_URL, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 }
-                return response.json();
             })
-            .then(data => {
-                //user data retrieving
-                const updatedLoginState = {
-                    isAuthorized: true,
-                    user: {
-                        role: 'USER',
-                        id: data.user.id,
-                        email: data.user.email,
-                        name: data.user.name,
-                        avatar: data.user.avatar,
-                        googleId: data.user.googleId,
-                        country: data.user.country,
-                    },
-                }
-                dispatch(updateCurrency(data.user.currency));
-                dispatch(updateLogin(updatedLoginState));
-                dispatch(updateUnits(data.user.metricUnits));
-            })
-            .catch(error => console.error('There was a problem with your fetch operation:', error));
+                .then(response => {
+                    if (!response.ok) {
+                        dispatch(logoutAction('USER'));
+
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    //user data retrieving
+                    const updatedLoginState = {
+                        isAuthorized: true,
+                        user: {
+                            role: 'USER',
+                            id: data.user.id,
+                            email: data.user.email,
+                            name: data.user.name,
+                            avatar: data.user.avatar,
+                            googleId: data.user.googleId,
+                            country: data.user.country,
+                        },
+                    }
+                    dispatch(updateCurrency(data.user.currency));
+                    dispatch(updateLogin(updatedLoginState));
+                    dispatch(updateUnits(data.user.metricUnits));
+                })
+                .catch(error => console.error('There was a problem with your fetch operation:', error));
+        } else {
+            dispatch(logoutAction('USER'));
+        }
     }
 }
 
@@ -120,25 +127,25 @@ export const logoutAction = (role) => {
     };
 };
 
-export const signUpAction = (email, name,lastName, password) => {
-    return async (dispatch, state) => {
-        const userState = state().user;
-
-        dispatch(updateLogin({...userState, loading: true}));
-
-        const response = await fetch(REGISTER_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, name, lastName, password })
-        });
-        const data = await response.json();
-        if (response.status === 201) {
-            dispatch(updateLogin({...defaultUserState, successMessage: data, loading: false}))
-        } else {
-            dispatch(updateLogin({...defaultUserState, errorMessage: data.message, loading: false}))
-        }
+export const signUpAction = (email, name, password) => {
+    return async (dispatch) => {
+       try {
+           const response = await fetch(REGISTER_URL, {
+               method: 'POST',
+               headers: {
+                   'Content-Type': 'application/json',
+               },
+               body: JSON.stringify({ email, name, password })
+           });
+           const data = await response.json();
+           if (response.status === 201) {
+               dispatch(updateLogin({...defaultUserState, successMessage: data}))
+           } else {
+               dispatch(updateLogin({...defaultUserState, errorMessage: data.message}))
+           }
+       } catch (e) {
+           dispatch(updateLogin({...defaultUserState, errorMessage: 'Internal server error'}))
+       }
     }
 };
 
