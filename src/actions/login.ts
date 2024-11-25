@@ -24,7 +24,8 @@ export const setUserData = (isAuthorized) => {
             role: 'GUEST',
         }
     }
-    return async (dispatch) => {
+    return (dispatch) => {
+        console.log('eeeeee');
         dispatch(updateLogin(updatedLoginState));
     };
 };
@@ -74,44 +75,48 @@ export const signInAction = (user) => {
 
 export const checkUserSession:any = () => {
     const token = sessionStorage.getItem('token');
-    return (dispatch) => {
-        if(token) {
-            fetch(PROTECTED_ROUTE_URL, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        dispatch(logoutAction('USER'));
+    return (dispatch, state) => {
+        const role = state().user.user.role;
+        console.log('role', role, token);
+        if(role === 'USER') {
+            if(token) {
+                fetch(PROTECTED_ROUTE_URL, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            dispatch(logoutAction('USER'));
 
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    //user data retrieving
-                    const updatedLoginState = {
-                        isAuthorized: true,
-                        user: {
-                            role: 'USER',
-                            id: data.user.id,
-                            email: data.user.email,
-                            name: data.user.name,
-                            avatar: data.user.avatar,
-                            googleId: data.user.googleId,
-                            country: data.user.country,
-                        },
-                    }
-                    dispatch(updateCurrency(data.user.currency));
-                    dispatch(updateLogin(updatedLoginState));
-                    dispatch(updateUnits(data.user.metricUnits));
-                })
-                .catch(error => console.error('There was a problem with your fetch operation:', error));
-        } else {
-            dispatch(logoutAction('USER'));
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        //user data retrieving
+                        const updatedLoginState = {
+                            isAuthorized: true,
+                            user: {
+                                role: 'USER',
+                                id: data.user.id,
+                                email: data.user.email,
+                                name: data.user.name,
+                                avatar: data.user.avatar,
+                                googleId: data.user.googleId,
+                                country: data.user.country,
+                            },
+                        }
+                        dispatch(updateCurrency(data.user.currency));
+                        dispatch(updateLogin(updatedLoginState));
+                        dispatch(updateUnits(data.user.metricUnits));
+                    })
+                    .catch(error => console.error('There was a problem with your fetch operation:', error));
+            } else {
+                dispatch(logoutAction('USER'));
+            }
         }
     }
 }

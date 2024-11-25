@@ -7,7 +7,7 @@ import {updateLogin} from "../../../redux/userReducer";
 import ForgotPasswordModal from "./forgotPassword/forgotPasswordModal";
 import {t} from "i18next";
 
-const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, loginAsGuest, buttonsVariant, errors, resetErrors }) => {
+const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, loginAsGuest, errors, resetErrors }) => {
     const dispatch = useDispatch();
     const userState = useSelector(state => state.user);
     const currentLanguage = useSelector(state => state.settings.language);
@@ -88,13 +88,11 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
                 </Button>
             </Form.Group>
             <Button
-                variant={buttonsVariant}
                 onClick={signInHandler}
                 className='my-2 mx-auto'
             >{t('Login')}</Button>
             <div className='text-center subtitle'>{t('Or')}</div>
             <Button
-                variant={buttonsVariant}
                 className='my-1 mx-auto'
                 onClick={loginAsGuest}
             >{t('Continue as guest')}</Button>

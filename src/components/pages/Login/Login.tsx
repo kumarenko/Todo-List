@@ -16,8 +16,6 @@ import './styles.less';
 const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const theme = useSelector(state => state.settings.theme);
-    const buttonsVariant = theme === 'light' ? 'primary' : 'dark';
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
@@ -70,7 +68,7 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
     }
 
     const loginAsGuest = () => {
-        setUserData(!user.isAuthorized);
+        setUserData(true);
     }
 
     const reset = () => setErrors({});
@@ -93,14 +91,13 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
                             {key === 'login' && <>
                                 <Button className={'d-flex align-items-center justify-content-center align-self-end'}
                                         onClick={() => setShowSettingsModal(true)}>
-                                    <IoMdSettings className="fs-4" color={'#000'}/>
+                                    <IoMdSettings className="fs-4"/>
                                 </Button>
                                 <SignInTab
                                     email={email} setEmail={setEmail}
                                     password={password} setPassword={setPassword}
                                     signInHandler={signInHandler}
                                     loginAsGuest={loginAsGuest}
-                                    buttonsVariant={buttonsVariant}
                                     errors={errors}
                                     resetErrors={reset}
                                 />
@@ -110,7 +107,7 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
                             {key === 'register' && <>
                                 <Button className={'d-flex align-items-center justify-content-center align-self-end'}
                                         onClick={() => setShowSettingsModal(true)}>
-                                    <IoMdSettings className="fs-4" color={'#000'}/>
+                                    <IoMdSettings className="fs-4"/>
                                 </Button>
                                 <SignUpTab
                                     email={email} setEmail={setEmail}

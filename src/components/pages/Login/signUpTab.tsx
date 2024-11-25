@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import { Button } from "react-bootstrap";
 import {t} from "i18next";
 
-const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, confirmPassword, setConfirmPassword, signUpHandler, buttonsVariant, errors, resetErrors }) => {
+const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, confirmPassword, setConfirmPassword, signUpHandler, errors, resetErrors }) => {
     return (
         <Form className='d-flex flex-column'>
             <Form.Group className="mb-2">
@@ -71,7 +71,6 @@ const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, conf
                 </Form.Control.Feedback>
             </Form.Group>
             <Button
-                variant={buttonsVariant}
                 onClick={signUpHandler}
                 className='my-2 mx-auto'
             >{t('Sign Up')}</Button>
