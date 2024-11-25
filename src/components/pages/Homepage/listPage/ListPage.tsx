@@ -26,6 +26,7 @@ import AvatarModal from "./avatar";
 import {t} from "i18next";
 import Footer from "../../../../common/footer";
 import CopyListModal from "../copyListModal";
+import ProductPlaceholder from "../../../../common/productPlaceholder";
 
 const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updateListRequest, removeListRequest }) => {
     const { listId } = useParams();
@@ -47,6 +48,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
     const [toggleAvatarModal, setToggleAvatarModal] = useState(false);
     const [item, setItem] = useState(null);
     const [sortingType, setSortingType] = useState('default');
+    const [loading, setLoading] = useState(false);
 
     const handleApply = () => setAddShowModal(false);
     const handleClose = () => setAddShowModal(false);
@@ -56,8 +58,13 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
     const handleCloseDelete = () => setShowDeleteModal(false);
 
     useEffect(() => {
-        getShoppingList(listId, user.id, navigate);
-    }, [listId, getShoppingList]);
+        const fetchData = async () => {
+            setLoading(true);
+            await getShoppingList(listId, user.id, navigate);
+            setLoading(false);
+        };
+        fetchData();
+    }, []);
 
     useEffect(() => {
         return () => {
@@ -177,6 +184,73 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
         setFilteredCategories(updatedCategories);
     };
 
+    const renderProducts = () => {
+        if(loading) {
+            return <ProductPlaceholder/>
+        } else {
+            return <div className='list'>
+                {prods.filter(i => !i.checked).length ? <FlipMove className='flip mx-auto my-1'>
+                    {prods.filter(i => !i.checked).map(prod => <div className='d-flex justify-content-between mb-2 w-100' key={prod._id}>
+                        <div className='d-flex w-100 align-items-center ml-2'>
+                            <Form.Check
+                                type={'checkbox'}
+                                className='prod-checkbox mx-3'
+                                checked={prod.checked}
+                                onChange={() => checkProduct(prod)}
+                                id={prod._id}
+                            />
+                            <button
+                                className='my-1 w-100 section-styled-bg'
+                                onClick={() => selectProduct(prod)}>
+                                <h5 className='title'>{t(prod.name)}</h5>
+                                <div>
+                                    <span className='subtitle'>{prod.price} {getCurrencySymbol(user.country)} <span className='x'>✕</span> </span>
+                                    <span className='subtitle'>{prod.count} {t('pcs')}</span>
+                                </div>
+                            </button>
+                            <Button className='avatar-container mx-3 section-styled-bg' onClick={() => {
+                                setToggleAvatarModal(true);
+                                setItem(prod);
+                            }}>
+                                {prod.avatar ? <img src={prod.avatar} alt={prod.category.toLowerCase()}/> :
+                                    <div className={`sprite sprite-${prod.category.toLowerCase()}`} />}
+                            </Button>
+                        </div>
+                    </div>)}
+                </FlipMove> : null}
+                {prods.filter(i => i.checked).length ? <div className='flip px-3'><div className='separator section-styled-bg'/></div> : null}
+                {prods.filter(i => i.checked).length ? <FlipMove className='flip pb-5'>
+                    {prods.filter(i => i.checked).map(prod => <div className='d-flex justify-content-between mb-2 w-100' key={prod._id}>
+                        <div className='d-flex w-100 align-items-center ml-2'>
+                            <Form.Check
+                                id={prod._id}
+                                type={'checkbox'}
+                                className='prod-checkbox mx-3'
+                                checked={prod.checked}
+                                onChange={() => checkProduct(prod)}
+                            />
+                            <Button
+                                className='my-1 w-100 section-styled-bg'
+                                onClick={() => selectProduct(prod)}>
+                                <h5 className='title'>{t(prod.name)}</h5>
+                                <div>
+                                    <span className='subtitle'>{prod.price} {getCurrencySymbol(user.country)} <span className='x'>✕</span> </span>
+                                    <span className='subtitle'>{prod.count} {t('pc(s)')}</span>
+                                </div>
+                            </Button>
+                            <Button className='avatar-container mx-3 section-styled-bg' onClick={() => {
+                                setToggleAvatarModal(true);
+                                setItem(prod);
+                            }}>
+                                {prod.avatar ? <img src={prod.avatar} alt={prod.category.toLowerCase()}/> :
+                                    <div className={`sprite sprite-${prod.category.toLowerCase()}`} />}
+                            </Button>
+                        </div>
+                    </div>)}
+                </FlipMove> : null}
+            </div>
+        }
+    }
     return (
         <div className='list-page'>
             <h3 className='list-header pt-5 pt-sm-3 px-3'>
@@ -268,67 +342,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                     {filteredCategories.map(cat => <Button key={cat} className='mx-2' onClick={() => removeCategoryToFilter(cat)}><IoMdClose/>{t(cat)}</Button>)}
                 </div> : null}
             </h3>
-            <div className='list'>
-                {prods.filter(i => !i.checked).length ? <FlipMove className='flip'>
-                    {prods.filter(i => !i.checked).map(prod => <div className='d-flex justify-content-between mb-2 w-100' key={prod._id}>
-                        <div className='d-flex w-100 align-items-center ml-2'>
-                            <Form.Check
-                                type={'checkbox'}
-                                className='prod-checkbox mx-3'
-                                checked={prod.checked}
-                                onChange={() => checkProduct(prod)}
-                                id={prod._id}
-                            />
-                            <button
-                                className='my-1 w-100 section-styled-bg'
-                                onClick={() => selectProduct(prod)}>
-                                <h5 className='title'>{t(prod.name)}</h5>
-                                <div>
-                                    <span className='subtitle'>{prod.price} {getCurrencySymbol(user.country)} <span className='x'>✕</span> </span>
-                                    <span className='subtitle'>{prod.count} {t('pcs')}</span>
-                                </div>
-                            </button>
-                            <Button className='avatar-container mx-3 section-styled-bg' onClick={() => {
-                                setToggleAvatarModal(true);
-                                setItem(prod);
-                            }}>
-                                {prod.avatar ? <img src={prod.avatar} alt={prod.category.toLowerCase()}/> :
-                                    <div className={`sprite sprite-${prod.category.toLowerCase()}`} />}
-                            </Button>
-                        </div>
-                    </div>)}
-                </FlipMove> : null}
-                {prods.filter(i => i.checked).length ? <div className='flip px-3'><div className='separator section-styled-bg'/></div> : null}
-                {prods.filter(i => i.checked).length ? <FlipMove className='flip pb-5'>
-                    {prods.filter(i => i.checked).map(prod => <div className='d-flex justify-content-between mb-2 w-100' key={prod._id}>
-                        <div className='d-flex w-100 align-items-center ml-2'>
-                            <Form.Check
-                                id={prod._id}
-                                type={'checkbox'}
-                                className='prod-checkbox mx-3'
-                                checked={prod.checked}
-                                onChange={() => checkProduct(prod)}
-                            />
-                            <Button
-                                className='my-1 w-100 section-styled-bg'
-                                onClick={() => selectProduct(prod)}>
-                                <h5 className='title'>{t(prod.name)}</h5>
-                                <div>
-                                    <span className='subtitle'>{prod.price} {getCurrencySymbol(user.country)} <span className='x'>✕</span> </span>
-                                    <span className='subtitle'>{prod.count} {t('pc(s)')}</span>
-                                </div>
-                            </Button>
-                            <Button className='avatar-container mx-3 section-styled-bg' onClick={() => {
-                                setToggleAvatarModal(true);
-                                setItem(prod);
-                            }}>
-                                {prod.avatar ? <img src={prod.avatar} alt={prod.category.toLowerCase()}/> :
-                                    <div className={`sprite sprite-${prod.category.toLowerCase()}`} />}
-                            </Button>
-                        </div>
-                    </div>)}
-                </FlipMove> : null}
-            </div>
+            {renderProducts()}
             <ShareListModal
                 show={showSharingModal}
                 onHide={handleCloseSharingModal}

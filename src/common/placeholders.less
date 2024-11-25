@@ -31,6 +31,38 @@
     }
   }
 }
+.placeholder-product {
+  position: relative;
+  &-text {
+    height: 21px;
+  }
+  &-small-text {
+    height: 19px;
+  }
+  &:before {
+    content: '';
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: loading-placeholder 2s infinite linear;
+  }
+  &-avatar {
+    &:after {
+      content: '';
+      width: 200%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translateX(-100%);
+      animation: loading-placeholder 2s infinite linear;
+      animation-delay: 1.4s;
+
+    }
+  }
+}
 @keyframes loading-placeholder  {
   0% {
     transform: translateX(-100%);
