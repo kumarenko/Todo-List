@@ -218,8 +218,8 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                         </div>
                     </div>)}
                 </FlipMove> : null}
-                {prods.filter(i => i.checked).length ? <div className='flip px-3'><div className='separator section-styled-bg'/></div> : null}
-                {prods.filter(i => i.checked).length ? <FlipMove className='flip pb-5'>
+                {prods.filter(i => i.checked).length ? <div className='flip px-3 mx-auto mb-2'><div className='separator section-styled-bg'/></div> : null}
+                {prods.filter(i => i.checked).length ? <FlipMove className='flip pb-5 mx-auto'>
                     {prods.filter(i => i.checked).map(prod => <div className='d-flex justify-content-between mb-2 w-100' key={prod._id}>
                         <div className='d-flex w-100 align-items-center ml-2'>
                             <Form.Check
