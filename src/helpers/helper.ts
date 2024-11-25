@@ -49,3 +49,9 @@ export const debounce = (func, delay) => {
 export function onlyUnique(value, index, array) {
     return array.indexOf(value) === index;
 }
+export function getSystemTheme() {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
+    }
+    return 'light';
+};
