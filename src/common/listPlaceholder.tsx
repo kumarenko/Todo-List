@@ -4,7 +4,7 @@ import './placeholders.less';
 
 const ListPlaceholder = () => {
     return (
-        <div className='lists w-100 px-3 my-2'>
+        <div className='lists w-100 my-2'>
             <Card className='placeholder-list w-100 d-flex flex-row align-items-stretch justify-content-between p-2 section-styled-bg overflow-hidden'>
                 <div className=' position-relative w-75 z-1'>
                     <h5 className='placeholder-list-text w-50 rounded'/>

@@ -16,12 +16,12 @@ import ListPlaceholder from "../../../common/listPlaceholder";
 
 const HomePage: FC = ({lists, getShoppingLists, title, user, addShoppingList, synchronizeLocalLists }): ReactElement => {
     const [showModal, setShowModal] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const handleClose = () => setShowModal(false);
 
-    const handleApply = (name) => {
-        addShoppingList(user.id, name);
+    const handleApply = async (name) => {
         setShowModal(false);
+        await addShoppingList(user.id, name);
     };
 
     const addNewList = () => {
@@ -48,7 +48,7 @@ const HomePage: FC = ({lists, getShoppingLists, title, user, addShoppingList, sy
             return <ListPlaceholder/>
         } else {
             if(lists.length) {
-                return <><ShoppingLists lists={lists}/></>
+                return <ShoppingLists lists={lists}/>
             } else {
                return <h3 className='title'>{t("Here is no lists. Press '+' to create new one!")}</h3>
             }

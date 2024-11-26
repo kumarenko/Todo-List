@@ -102,8 +102,8 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setS
         <>
             <div className='lists w-100 px-3 pb-5 my-2'>
                 {lists.map(list => <div className=' w-100 my-2 py-2' key={list._id}>
-                    <Card className='w-100 d-flex flex-row align-items-stretch p-2 section-styled-bg'>
-                        <Link to={`/lists/${list._id}`} className='w-75'>
+                    <Card className={`${list.loading ? 'placeholder-list overflow-hidden' : ''} w-100 d-flex flex-row align-items-stretch p-2 section-styled-bg`}>
+                        <Link to={`/lists/${list._id}`} className={`w-75 ${list.loading ? 'pe-none' : ''}`}>
                             <h5 className='title'>{list.name.value}</h5>
                             {list.products?.length ?
                                 <div className='position-relative d-flex justify-content-center flex-wrap align-items-stretch'>
@@ -127,7 +127,7 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setS
                                 </div>
                             </Button>}
                             <Dropdown as={ButtonGroup} className='me-1'>
-                                <Dropdown.Toggle className='dropdown-without-arrow'>
+                                <Dropdown.Toggle className='dropdown-without-arrow' disabled={list.loading}>
                                     <FiMoreHorizontal />
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu className='section-styled-bg'>

@@ -1,4 +1,4 @@
-import {setShoppingList} from "../redux/shoppingListsReducer";
+import {defaultListsState, setShoppingList} from "../redux/shoppingListsReducer";
 import {setShoppingLists} from "../redux/shoppingListsReducer";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -45,11 +45,15 @@ export const getShoppingList = (listId, userId, navigate) => {
 export const addShoppingList = (userId, name) => {
     return async (dispatch, state) => {
         const userData = state().user;
+        let allLists = state().items.lists || [];
         if(!name || name.trim() === '') {
             name = t('New list');
         }
         const obj = {userId,name};
         if(userData.user.role === 'USER') {
+            const newPlaceholderList = defaultListsState.list;
+            dispatch(setShoppingLists([...allLists, {...newPlaceholderList, loading: true}]));
+
             const response = await fetch(
                 `${SHOPPING_LIST_CREATE_URL}`,{
                     method: 'POST',
@@ -60,7 +64,6 @@ export const addShoppingList = (userId, name) => {
                 }).then(res=>res.json());
             dispatch(setShoppingLists(response.shoppingLists))
         } else {
-            let allLists = state().items.lists || [];
             const newList = {
                 _id: uuidv4(),
                 temporary: true,
@@ -89,6 +92,7 @@ export const updateListRequest = (list, newValue) => {
     return async (dispatch, state) => {
         const userData = state().user;
         if(newValue.length > 0) {
+            dispatch(setShoppingList({...list, loading: true}));
             if (userData.user.role === 'USER') {
                 const newObject = {
                     shoppingListId: list._id,

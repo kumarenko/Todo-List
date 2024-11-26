@@ -7,7 +7,7 @@ import {t} from "i18next";
 const CreateListModal = ({value = null, show, onHide, onApply}) => {
     const [data, setData] = useState("");
     const handleClick = () => {
-        onApply(value?.name.value || data);
+        onApply( data || value?.name.value);
         setData('');
     }
     const onCloseHandler = () => {
