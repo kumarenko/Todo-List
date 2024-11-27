@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {Alert, Button, Tab, Tabs} from "react-bootstrap";
-import {connect, useDispatch, useSelector} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { setUserData, signInAction, signUpAction } from "../../../actions/login";
 import SignInTab from './SignInTab';
@@ -115,7 +115,6 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
                                     password={password} setPassword={setPassword}
                                     confirmPassword={confirmPassword} setConfirmPassword={setConfirmPassword}
                                     signUpHandler={signUpHandler}
-                                    buttonsVariant={buttonsVariant}
                                     errors={errors}
                                     resetErrors={reset}
                                 />
