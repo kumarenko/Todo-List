@@ -7,7 +7,7 @@ const CustomAlert = ({...props}) => {
         return (
             visible && <Alert variant={props.variant}
                               onAnimationEnd={() => setVisible(false)}
-                              className='popup position-fixed'>
+                              className='popup position-absolute'>
                 {props.children}
             </Alert>
         );

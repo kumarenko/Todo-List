@@ -5,7 +5,7 @@ import {useDispatch} from "react-redux";
 import {updateProfileInfo} from "../../../actions/login";
 import {t} from "i18next";
 
-const ChangePassword = ({userId, googleId}) => {
+const ChangePassword = ({setLoading, userId, googleId}) => {
 
     const dispatch = useDispatch();
     const [allowChange, setAllowChange] = useState(false);
@@ -14,13 +14,15 @@ const ChangePassword = ({userId, googleId}) => {
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const [validationErrors, setValidationErrors] = useState({});
 
-    const changePasswordHandler = () => {
+    const changePasswordHandler = async () => {
         let errors = validateChangePassword(currentPassword, newPassword, confirmNewPassword, googleId);
         console.log(errors,Object.keys(errors));
         if(Object.keys(errors).length) {
             setValidationErrors(errors);
         } else {
-            dispatch(updateProfileInfo(userId, {password: currentPassword, newPassword: newPassword}));
+            setLoading(true);
+            await dispatch(updateProfileInfo(userId, {password: currentPassword, newPassword: newPassword}));
+            setLoading(false);
         }
     }
     const resetErrors =() => {
@@ -30,8 +32,8 @@ const ChangePassword = ({userId, googleId}) => {
         <Container fluid="md" className='user-info d-flex w-100 flex-wrap flex-column mb-2 px-3 py-1 justify-content-center align-items-center'>
             {allowChange ? <>
                     {googleId}
-                    {!googleId ? <div>
-                        <h5 className='title'>{googleId ? t('Your current password') : t('Your current password')}</h5>
+                    {!googleId ? <div className='input-container mb-2 mt-2'>
+                        <h5 className='title mb-1'>{googleId ? t('Your current password') : t('Your current password')}</h5>
                         <Form.Control
                             isInvalid={!!validationErrors.password}
                             onChange={(e) => {
@@ -42,8 +44,8 @@ const ChangePassword = ({userId, googleId}) => {
                             {validationErrors.password}
                         </Form.Control.Feedback>
                     </div> : null}
-                    <div>
-                        <h5 className='title'>{t('Enter new password')}</h5>
+                    <div className='input-container mb-2'>
+                        <h5 className='title mb-1'>{t('Enter new password')}</h5>
                         <Form.Control
                             isInvalid={!!validationErrors.newPassword}
                             onChange={(e) => {
@@ -54,8 +56,8 @@ const ChangePassword = ({userId, googleId}) => {
                             {validationErrors.newPassword}
                         </Form.Control.Feedback>
                     </div>
-                    <div>
-                    <h5 className='title'>{t('Confirm new password')}</h5>
+                    <div className='input-container mb-2'>
+                    <h5 className='title mb-1'>{t('Confirm new password')}</h5>
                     <Form.Control
                         isInvalid={!!validationErrors.confirmPassword}
                         onChange={(e) => {

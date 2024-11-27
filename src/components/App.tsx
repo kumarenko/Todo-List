@@ -38,7 +38,7 @@ const App = () => {
         <div className='d-flex flex-nowrap flex-column flex-sm-row h-100'>
             <Router>
                 {isAuthorized ? <Navigation /> : null}
-                <div className={'col vh-100 overflow-auto px-0'}>
+                <div className={'position-relative col vh-100 overflow-auto px-0'}>
                     <Routes>
                         <Route index element={isAuthorized ? <HomePage title="Home" /> : <Navigate to={'/login'} />} />
                         <Route path='/lists' element={isAuthorized ?  <HomePage title="Home" /> : <Navigate to={'/login'} />} />

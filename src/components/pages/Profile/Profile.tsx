@@ -11,6 +11,7 @@ import {t} from "i18next";
 import Footer from "../../../common/footer";
 import AvatarModal from "../Homepage/listPage/avatar";
 import { FaCamera } from "react-icons/fa";
+import Spinner from "../../../common/spinner";
 
 interface ProfileInterface extends User {
     logoutAction: (role: boolean) => void,
@@ -26,11 +27,12 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
     const [isEditing, setIsEditing] = useState(false);
     const [toggleAvatarModal, setToggleAvatarModal] = useState(false);
     const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
         document.title = title;
     }, []);
 
-    function handleProfileData() {
+    async function handleProfileData() {
         if(isEditing) {
             let updatedData = {};
             if (userData.name !== name) {
@@ -42,7 +44,9 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
             if (userData.email !== email) {
                 updatedData = {...updatedData, email};
             }
-            updateProfileInfo(userData.id, updatedData);
+            setLoading(true);
+            await updateProfileInfo(userData.id, updatedData);
+            setLoading(false);
             setIsEditing(false);
         } else {
             setIsEditing(true);
@@ -73,7 +77,8 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
     }
 
     return (
-        <div className='profile content d-flex flex-column align-items-center mx-auto my-0 pb-5'>
+        <div className='profile content d-flex flex-column align-items-center mx-auto my-0 pb-5 h-100'>
+            {loading ? <Spinner/> : null}
             <div className="d-flex justify-content-between h3 w-100 p-3 align-items-center justify-content-between flex-column flex-sm-row">
                 <h1 className='title'>{t('Profile')}</h1>
                 <Button size={'md'} onClick={() => logoutAction(user.user.role)}>{user.user.role === 'USER' ? t('Logout') : t('Login')}</Button>
@@ -115,12 +120,10 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
                 }} size="md" className='me-1'>{isEditing ? t('Save') : t('Edit')}</Button>
                 {isEditing && <Button className='ms-1' onClick={() => resetProfileData()} size="md">{t('Cancel')}</Button>}
             </div>
-            <ChangePassword userId={userData.id} googleId={user.user.googleId}/>
+            <ChangePassword setLoading={(state) => setLoading(state)} userId={userData.id} googleId={user.user.googleId}/>
             <AvatarModal
                 isVisible={toggleAvatarModal}
-                onClose={() => {
-                    setToggleAvatarModal(false);
-                }}
+                onClose={() => setToggleAvatarModal(false)}
                 product={{_id: user.user.id, name: user.user.name, avatar: user.user.avatar}}
                 listId={null}
                 type={'avatars'}
