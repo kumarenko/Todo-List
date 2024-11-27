@@ -85,7 +85,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
             className='w-100'
             centered
         >
-            <Modal.Header className='d-flex justify-content-center modal-styled-bg'>
+            <Modal.Header closeButton className='d-flex justify-content-center modal-styled-bg'>
                 <Modal.Title className='justify-content-center title'>{t('Edit Product')}</Modal.Title>
             </Modal.Header>
             <Modal.Body className='d-flex align-items-start flex-column modal-fixed-height modal-styled-bg'>
@@ -99,7 +99,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
                             onChange={(e) => setName(e.target.value)}
                             value={name}
                         />
-                        <InputGroup.Text>
+                        <InputGroup.Text className='pe-none'>
                             <MdShoppingCart />
                         </InputGroup.Text>
                     </InputGroup>
@@ -116,7 +116,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
                             onChange={(e) => setCount(e.target.value)}
                             value={count}
                         />
-                        <InputGroup.Text>
+                        <InputGroup.Text className='pe-none'>
                             <FaPlusMinus />
                         </InputGroup.Text>
                     </InputGroup>
@@ -133,8 +133,8 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
                             onChange={(e) => setPrice(e.target.value)}
                             value={price}
                         />
-                        <InputGroup.Text>
-                            <span>{getCurrencySymbol(country)}</span>
+                        <InputGroup.Text className='pe-none'>
+                            <span style={{width: 16}}>{getCurrencySymbol(country)}</span>
                         </InputGroup.Text>
                     </InputGroup>
                     <InputGroup className='my-2'>
