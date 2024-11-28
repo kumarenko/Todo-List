@@ -15,6 +15,12 @@ a {
   max-height: 70vh;
   overflow: auto;
 }
+.label-with-length-numbers {
+  opacity: 0;
+}
+.input-with-length-numbers:focus-within + .label-with-length-numbers {
+  opacity: 1;
+}
 .dropdown-without-arrow.dropdown-toggle {
   &:after {
     display: none;

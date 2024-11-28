@@ -151,7 +151,7 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setS
                 </div>)}
             </div>
             <CreateListModal
-                value={selectedList}
+                value={selectedList.name?.value ?? ''}
                 show={showModal}
                 onHide={handleClose}
                 onApply={handleApply}

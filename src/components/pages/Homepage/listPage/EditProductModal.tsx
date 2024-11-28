@@ -97,6 +97,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
                         <Form.Control
                             type="text"
                             onChange={(e) => setName(e.target.value)}
+                            maxLength={100}
                             value={name}
                         />
                         <InputGroup.Text className='pe-none'>

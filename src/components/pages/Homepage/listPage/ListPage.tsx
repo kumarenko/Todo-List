@@ -202,7 +202,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                             <button
                                 className='my-1 w-100 section-styled-bg'
                                 onClick={() => selectProduct(prod)}>
-                                <h5 className='title'>{t(prod.name)}</h5>
+                                <h5 className='title text-break'>{t(prod.name)}</h5>
                                 <div>
                                     <span className='subtitle'>{prod.price} {getCurrencySymbol(user.country)} <span className='x'>✕</span> </span>
                                     <span className='subtitle'>{prod.count} {t('pcs')}</span>
@@ -232,7 +232,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                             <Button
                                 className='my-1 w-100 section-styled-bg'
                                 onClick={() => selectProduct(prod)}>
-                                <h5 className='title'>{t(prod.name)}</h5>
+                                <h5 className='title text-break'>{t(prod.name)}</h5>
                                 <div>
                                     <span className='subtitle'>{prod.price} {getCurrencySymbol(user.country)} <span className='x'>✕</span> </span>
                                     <span className='subtitle'>{prod.count} {t('pc(s)')}</span>
@@ -258,10 +258,12 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                     <InputGroup className='input-wrapper rounded-2'>
                         <Form.Control
                             value={listName}
-                            className='name-input rounded'
+                            className='input-with-length-numbers name-input rounded pe-5'
+                            maxLength={100}
                             onChange={handleInputChange}
                             type="text"
                         />
+                        <Form.Label htmlFor="name" className='label-with-length-numbers subtitle'>{listName.length} / 100</Form.Label>
                         <IoMdCreate className='name-icon title'/>
                     </InputGroup>
                     <InputGroup className={`input-wrapper search rounded ${searchValue.length ? 'focused' : ''}`}>

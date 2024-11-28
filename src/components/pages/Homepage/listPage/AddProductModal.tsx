@@ -93,18 +93,23 @@ const AddProductModal = ({show, onHide}) => {
         <Modal show={show} onHide={onHide} className='w-100 rounded' centered>
             <Modal.Header className='modal-styled-bg d-flex flex-column justify-content-center'>
                 <Modal.Title className='title'>{t('Add product')}</Modal.Title>
-                <Form.Group className='d-flex flex-row flex-nowrap w-100 mx-1'>
-                    <InputGroup className='w-75'>
-                        <input
+                <Form.Group className='d-flex flex-row flex-nowrap w-100 mx-1 mb-3'>
+                    <InputGroup className=' w-75 d-fex flex-column'>
+                        <Form.Control
                             value={searchValue}
+                            className='input-with-length-numbers add-prod-input w-100'
+                            type='text'
+                            maxLength={100}
                             placeholder={t('Enter product name')}
                             onChange={searchProduct}
                         />
-                        <Button
-                            onClick={() => setToggleFilterModal(true)}
-                        >{t('Filter')}</Button>
+                        <Form.Label className='label-with-length-numbers subtitle text-right d-flex align-self-end' style={{fontSize: 10}}>
+                            {searchValue.length} / 100
+                        </Form.Label>
                     </InputGroup>
-
+                    <Button
+                        onClick={() => setToggleFilterModal(true)}
+                    >{t('Filter')}</Button>
                 </Form.Group>
                 {selectedCategories.length >= 1 ? <div className='w-100'>
                     {selectedCategories.map(cat => <Button key={cat} className='m-1' onClick={() => removeCategoryToFilter(cat)}><IoMdClose/>{t(cat)}</Button>)}
