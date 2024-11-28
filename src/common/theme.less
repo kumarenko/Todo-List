@@ -91,7 +91,18 @@ body {
     .modal-styled-bg {
       background-color: @MODAL_BG_DARK;
     }
-
+    .modal-content {
+      border: 2px solid @SUBTITLE_DARK;
+      .modal-header {
+        border-bottom: 2px solid @SUBTITLE_DARK;
+      }
+      .modal-footer {
+        border: none;
+      }
+      .modal-footer:not(.empty-footer):not(:nth-child(2)) {
+        border-top: 2px solid @SUBTITLE_DARK;
+      }
+    }
     .prod-checkbox input[type="checkbox"] {
       background-color: @INPUT_BG_DARK;
       border-color: @INPUT_BORDER_DARK;
@@ -175,6 +186,18 @@ body {
       &-button {
         background: @BUTTON_BG_DARK;
       }
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: @SECTION_BG_DARK;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: lighten(@SECTION_BG_DARK, 10%);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: lighten(@SECTION_BG_DARK, 15%);
     }
   }
 
@@ -271,6 +294,18 @@ body {
     .modal-styled-bg {
       background-color: @MODAL_BG_LIGHT;
     }
+    .modal-content {
+      border: 2px solid @SUBTITLE_LIGHT;
+      .modal-header {
+        border-bottom: 2px solid @SUBTITLE_LIGHT;
+      }
+      .modal-footer {
+        border: none;
+      }
+      .modal-footer:not(.empty-footer):not(:nth-child(2)) {
+        border-top: 2px solid @SUBTITLE_LIGHT;
+      }
+    }
     .prod-checkbox input[type="checkbox"] {
       background-color: @INPUT_BG_LIGHT;
       border-color: @INPUT_BORDER_LIGHT;
@@ -355,5 +390,17 @@ body {
         background: @BUTTON_BG_LIGHT;
       }
     }
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: darken(@SECTION_BG_LIGHT, 7.5%);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: darken(@SECTION_BG_LIGHT, 35%);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: darken(@SECTION_BG_LIGHT, 25%);
   }
 }

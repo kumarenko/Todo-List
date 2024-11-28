@@ -2,7 +2,7 @@ import React, {useEffect, useState, useCallback} from 'react';
 import {connect, useDispatch} from "react-redux";
 import FlipMove from "react-flip-move";
 import {useNavigate, useParams} from 'react-router-dom';
-import {IoMdCreate, IoMdPersonAdd, IoMdSearch, IoMdTrash, IoMdClose, IoIosCopy} from "react-icons/io";
+import {IoMdCreate, IoMdPersonAdd, IoMdSearch, IoMdTrash, IoMdClose, IoIosCopy, IoMdAdd} from "react-icons/io";
 import {Button, ButtonGroup, Dropdown, Form, InputGroup, ProgressBar} from "react-bootstrap";
 import { FaSortAmountDown } from "react-icons/fa";
 
@@ -274,7 +274,10 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                         <IoMdSearch className='name-icon title' />
                     </InputGroup>
                     <div className="actions d-flex flex-row flex-nowrap justify-content-between">
-                        <Button onClick={() => setAddShowModal(true)} className='add'>{t('Add product')}</Button>
+                        <Button onClick={() => setAddShowModal(true)} className='add'>
+                            <IoMdAdd size={16} className='me-1'/>
+                            {t('Add product')}
+                        </Button>
                         <Dropdown as={ButtonGroup} className='extra-actions'>
                             <Dropdown.Toggle className='dropdown-without-arrow'>
                                 <FiMoreHorizontal />

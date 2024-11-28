@@ -59,10 +59,21 @@ input[type="file"] {
   cursor: pointer;
 }
 .feedback-space {
-  min-height: 1.3em; /* Задает минимальное пространство для ошибки */
+  min-height: 1.3em;
   .invalid-feedback  {
     display: block;
   }
+}
+::-webkit-scrollbar {
+  width: 10px
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
 }
 
 @keyframes popup {
