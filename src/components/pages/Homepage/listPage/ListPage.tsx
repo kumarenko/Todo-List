@@ -204,8 +204,10 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                 onClick={() => selectProduct(prod)}>
                                 <h5 className='title text-break'>{t(prod.name)}</h5>
                                 <div>
-                                    <span className='subtitle'>{prod.price} {getCurrencySymbol(user.country)} <span className='x'>✕</span> </span>
-                                    <span className='subtitle'>{prod.count} {t('pcs')}</span>
+                                    {console.log(prod.price)}
+                                    <span className={`subtitle ${parseInt(prod.price) === 0 ? 'd-none' : 'd-inline'}`}>{prod.price} {getCurrencySymbol(user.country)}</span>
+                                    {<span className={`x subtitle ${parseInt(prod.price) === 0 || parseInt(prod.count) === 0 ? 'opacity-0' : 'opacity-1'}`}> ✕ </span>}
+                                    <span className={`subtitle`}>{prod.count} {t('pc(s)')}</span>
                                 </div>
                             </button>
                             <Button className='avatar-container mx-3 section-styled-bg' onClick={() => {
@@ -234,8 +236,10 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                 onClick={() => selectProduct(prod)}>
                                 <h5 className='title text-break'>{t(prod.name)}</h5>
                                 <div>
-                                    <span className='subtitle'>{prod.price} {getCurrencySymbol(user.country)} <span className='x'>✕</span> </span>
-                                    <span className='subtitle'>{prod.count} {t('pc(s)')}</span>
+                                    {console.log(prod.price)}
+                                    <span className={`subtitle ${parseInt(prod.price) === 0 ? 'd-none' : 'd-inline'}`}>{prod.price} {getCurrencySymbol(user.country)}</span>
+                                    {<span className={`x subtitle ${parseInt(prod.price) === 0 || parseInt(prod.count) === 0 ? 'opacity-0' : 'opacity-1'}`}> ✕ </span>}
+                                    <span className={`subtitle`}>{prod.count} {t('pc(s)')}</span>
                                 </div>
                             </Button>
                             <Button className='avatar-container mx-3 section-styled-bg' onClick={() => {
