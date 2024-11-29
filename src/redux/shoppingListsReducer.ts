@@ -28,6 +28,7 @@ export default function todosReducer(state = defaultListsState, action) {
                 lists: action.payload,
             };
         case SET_LIST:
+            console.log('SET_LIST', action.payload);
             return {
                 ...state,
                 list: action.payload,

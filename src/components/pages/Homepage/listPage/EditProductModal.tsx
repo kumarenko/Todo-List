@@ -24,21 +24,21 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
     useEffect(() => {
         if (Object.keys(product).length) {
             setName(t(product.name));
-            setCount(product?.count ? product.count : '1');
+            setCount(product?.count ? parseFloat(product.count) : '1');
             setPrice(product?.price ? product.price : 0);
             setCategory(product?.category || 'OTHER');
         }
-    }, [product]);
+    }, [product, show]);
 
     const applyUpdate = () => {
         const prod = {
             _id: product._id,
             checked: product.checked,
-            name, count,
+            name, count: parseFloat(count || '0'),
             price: parseFloat(price || '0'),
             category, avatar: product.avatar
         };
-        if (price.toString() && name && count.toString()) {
+        if (price.toString() && name && count.toString() && parseFloat(count) !== 0) {
             updateProductsListRequest(listId, [prod]);
         }
     };
@@ -56,7 +56,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
 
     useEffect(() => {
         if (debouncedValues.name || debouncedValues.count || debouncedValues.price) {
-            if(product.name !== debouncedValues.name ||product.count !== debouncedValues.count ||product.price !== debouncedValues.price) {
+            if(product.name !== debouncedValues.name || product.count !== debouncedValues.count || product.price !== debouncedValues.price) {
                 applyUpdate();
             }
         }
@@ -73,15 +73,49 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
         onHide();
     };
 
+    const handlePaste = (event) => {
+        let pastedText = event.clipboardData.getData('Text');
+        pastedText = pastedText.replace(/[^0-9.]/g, '');
+        event.preventDefault();
+        document.execCommand('insertText', false, pastedText);
+    };
+
+    const handleInput = (event, setValue) => {
+        let inputValue = event.target.value;
+
+        inputValue = inputValue.replace(/[^0-9.]/g, '');
+
+        const parts = inputValue.split('.');
+
+        if (parts.length > 2) {
+            inputValue = parts[0] + '.' + parts[1];
+        }
+
+        if (inputValue.startsWith('.')) {
+            inputValue = '0' + inputValue;
+        }
+
+        if (/^0{2,}/.test(parts[0])) {
+            parts[0] = parts[0].replace(/^0+/, '0');
+        }
+
+        if (parts[0].length > 6) {
+            parts[0] = parts[0].slice(0, 6);
+        }
+
+        if (parts[1]?.length > 2) {
+            parts[1] = parts[1].slice(0, 2);
+        }
+
+        inputValue = parts[0] + (parts[1] !== undefined ? '.' + parts[1] : '');
+        setValue(inputValue);
+    };
+
+
     return ReactDOM.createPortal(
         <Modal
             show={show}
-            onHide={() => {
-                onHide();
-                if (price === '') setPrice(product.price);
-                if (count === '') setCount(product.count);
-                if (name === '') setCount(product.name);
-            }}
+            onHide={onHide}
             className='w-100'
             centered
         >
@@ -112,9 +146,10 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
                             className='text-start'
                             type="number"
                             inputMode="decimal"
-                            min={1}
+                            min={0}
+                            onPaste={handlePaste}
+                            onInput={(e) => handleInput(e, setCount)}
                             onKeyPress={event => preventCharacters(event)}
-                            onChange={(e) => setCount(e.target.value)}
                             value={count}
                         />
                         <InputGroup.Text className='pe-none'>
@@ -130,8 +165,9 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
                             type="number"
                             inputMode="decimal"
                             min={0}
+                            onPaste={handlePaste}
                             onKeyPress={event => preventCharacters(event)}
-                            onChange={(e) => setPrice(e.target.value)}
+                            onInput={(e) => handleInput(e, setPrice)}
                             value={price}
                         />
                         <InputGroup.Text className='pe-none'>
