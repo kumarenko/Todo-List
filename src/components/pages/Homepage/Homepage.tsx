@@ -27,21 +27,35 @@ const HomePage: FC = ({lists, getShoppingLists, title, user, addShoppingList, sy
     const addNewList = () => {
         setShowModal(true);
     }
+
     useEffect(() => {
-        const fetchData = async () => {
-            document.title = title;
+        document.title = title;
+    }, []);
+
+    useEffect(() => {
+        const synchronizeLists = async () => {
             const unSynchronizedLists = lists.filter(list => list.temporary);
-            if (user.role === 'USER' && unSynchronizedLists.length >= 1) {
-                await synchronizeLocalLists(unSynchronizedLists, user.id);
-            } else {
+            if (unSynchronizedLists.length > 0) {
                 setLoading(true);
-                await getShoppingLists(user.id);
+                await synchronizeLocalLists(unSynchronizedLists, user.id);
                 setLoading(false);
             }
         };
 
-        fetchData();
-    }, []);
+        if (user.role === 'USER') {
+            synchronizeLists();
+        }
+    }, [lists]);
+
+    useEffect(() => {
+        const fetchLists = async () => {
+            if (loading) {
+                await getShoppingLists(user.id);
+                setLoading(false);
+            }
+        };
+        fetchLists();
+    }, [loading]);
 
     const renderLists = () => {
         if (loading) {
