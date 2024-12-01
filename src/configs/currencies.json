@@ -1,0 +1,18 @@
+[
+  { "code": "USD", "symbol": "$", "country": "US" },
+  { "code": "CAD", "symbol": "$", "country": "CA" },
+  { "code": "PLN", "symbol": "zł", "country": "PL" },
+  { "code": "GBP", "symbol": "£", "country": "GB" },
+  { "code": "EUR", "symbol": "€", "country": "EU" },
+  { "code": "JPY", "symbol": "¥", "country": "JP" },
+  { "code": "CNY", "symbol": "¥", "country": "CN" },
+  { "code": "UAH", "symbol": "₴", "country": "UA" },
+  { "code": "RUB", "symbol": "₽", "country": "RU" },
+  { "code": "INR", "symbol": "₹", "country": "IN" },
+  { "code": "AUD", "symbol": "$", "country": "AU" },
+  { "code": "TRY", "symbol": "₺", "country": "TR" },
+  { "code": "MXN", "symbol": "$", "country": "MX" },
+  { "code": "HKD", "symbol": "$", "country": "HK" },
+  { "code": "SGD", "symbol": "$", "country": "SG" },
+  { "code": "CHF", "symbol": "CHF", "country": "CH" }
+]

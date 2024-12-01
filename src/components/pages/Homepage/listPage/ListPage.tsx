@@ -2,7 +2,16 @@ import React, {useEffect, useState, useCallback} from 'react';
 import {connect, useDispatch} from "react-redux";
 import FlipMove from "react-flip-move";
 import {useNavigate, useParams} from 'react-router-dom';
-import {IoMdCreate, IoMdPersonAdd, IoMdSearch, IoMdTrash, IoMdClose, IoIosCopy, IoMdAdd} from "react-icons/io";
+import {
+    IoMdCreate,
+    IoMdPersonAdd,
+    IoMdSearch,
+    IoMdTrash,
+    IoMdClose,
+    IoIosCopy,
+    IoMdAdd,
+    IoMdSettings
+} from "react-icons/io";
 import {Button, ButtonGroup, Dropdown, Form, InputGroup, ProgressBar} from "react-bootstrap";
 import { FaSortAmountDown } from "react-icons/fa";
 
@@ -15,6 +24,7 @@ import FilterModal from "./filter";
 
 import './categorieSpritePositions.less';
 import './styles.less';
+import currencies from './../../../../configs/currencies.json';
 import {MdFilterListAlt} from "react-icons/md";
 import {debounce, getCurrencySymbol, onlyUnique} from "../../../../helpers/helper";
 import {FiMoreHorizontal} from "react-icons/fi";
@@ -27,6 +37,7 @@ import {t} from "i18next";
 import Footer from "../../../../common/footer";
 import CopyListModal from "../copyListModal";
 import ProductPlaceholder from "../../../../common/productPlaceholder";
+import ParametersListModal from "./parameters";
 
 const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updateListRequest, removeListRequest }) => {
     const { listId } = useParams();
@@ -44,6 +55,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
     const [showSharingModal, setSharingModal] = useState(false);
     const [showCopyModal, setCopyModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showParametersModal, setShowParametersModal] = useState(false);
     const [toggleSortingModal, setToggleSortingModal] = useState(false);
     const [toggleAvatarModal, setToggleAvatarModal] = useState(false);
     const [item, setItem] = useState(null);
@@ -56,6 +68,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
     const handleCloseEdit = () => setEditShowModal(false);
     const handleCloseFilter = () => setFilterShowModal(false);
     const handleCloseDelete = () => setShowDeleteModal(false);
+    const handleCloseParameters = () => setShowParametersModal(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -204,10 +217,10 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                 onClick={() => selectProduct(prod)}>
                                 <h5 className='title text-break'>{t(prod.name)}</h5>
                                 <div>
-                                    {console.log(prod.price)}
-                                    <span className={`subtitle ${parseInt(prod.price) === 0 ? 'd-none' : 'd-inline'}`}>{prod.price} {getCurrencySymbol(user.country)}</span>
+                                    <span className={`subtitle ${parseInt(prod.price) === 0 ? 'd-none' : 'd-inline'}`}>{prod.price}
+                                    {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}</span>
                                     {<span className={`x subtitle ${parseInt(prod.price) === 0 || parseInt(prod.count) === 0 ? 'opacity-0' : 'opacity-1'}`}> ✕ </span>}
-                                    <span className={`subtitle`}>{prod.count} {t('pc(s)')}</span>
+                                    <span className={`subtitle`}>{prod.count} {prod.selectedUnits || t('pc(s)')}</span>
                                 </div>
                             </button>
                             <Button className='avatar-container mx-3 section-styled-bg' onClick={() => {
@@ -236,10 +249,11 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                 onClick={() => selectProduct(prod)}>
                                 <h5 className='title text-break'>{t(prod.name)}</h5>
                                 <div>
-                                    {console.log(prod.price)}
-                                    <span className={`subtitle ${parseInt(prod.price) === 0 ? 'd-none' : 'd-inline'}`}>{prod.price} {getCurrencySymbol(user.country)}</span>
+                                    <span className={`subtitle ${parseInt(prod.price) === 0 ? 'd-none' : 'd-inline'}`}>
+                                        {prod.price}
+                                        {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}</span>
                                     {<span className={`x subtitle ${parseInt(prod.price) === 0 || parseInt(prod.count) === 0 ? 'opacity-0' : 'opacity-1'}`}> ✕ </span>}
-                                    <span className={`subtitle`}>{prod.count} {t('pc(s)')}</span>
+                                    <span className={`subtitle`}>{prod.count} {prod.selectedUnits || t('pc(s)')}</span>
                                 </div>
                             </Button>
                             <Button className='avatar-container mx-3 section-styled-bg' onClick={() => {
@@ -304,7 +318,10 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                         </Dropdown.Item>
                                     </>
                                      : null}
-                                <Dropdown.Item eventKey="5" onClick={() => setShowDeleteModal(true)}>
+                                <Dropdown.Item eventKey="5" onClick={() => setShowParametersModal(true)}>
+                                    <IoMdSettings /> {t('Parameters')}
+                                </Dropdown.Item>
+                                <Dropdown.Item eventKey="6" onClick={() => setShowDeleteModal(true)}>
                                     <IoMdTrash /> {t('Delete')}
                                 </Dropdown.Item>
                             </Dropdown.Menu>
@@ -326,14 +343,14 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                 <span>{t('Purchased')}</span>
                                 <span className='title'>{list.products?.length && list.products.reduce(
                                     (accumulator, prod) => prod.checked ? accumulator + parseFloat(prod.price) * prod.count : accumulator, 0
-                                )} {getCurrencySymbol(user.country)}
+                                )} {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}
                                 </span>
                             </div>
                             <div>
                                 <span>{t('Remaining')}</span>
                                 <span className='title' >{list.products?.length && list.products.reduce(
                                     (accumulator, prod) => !prod.checked ? accumulator + parseFloat(prod.price ?? 0) * prod.count : accumulator, 0
-                                )} {getCurrencySymbol(user.country)}
+                                )} {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}
                                 </span>
                             </div>
                             <div>
@@ -341,7 +358,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                 <span className='title'>
                                     {list.products?.length && list.products.reduce(
                                     (accumulator, prod) => accumulator + parseFloat(prod.price ?? 0) * prod.count, 0
-                                    )} {getCurrencySymbol(user.country)}
+                                    )} {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}
                                 </span>
                             </div>
                         </div>
@@ -378,6 +395,13 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                 show={showDeleteModal}
                 onHide={handleCloseDelete}
                 onApply={() => removeList()}
+            />
+            <ParametersListModal
+                name={list.name.value}
+                show={showParametersModal}
+                onHide={handleCloseParameters}
+                defaultCurrency={currencies.find(curr => curr.country === user.country).code}
+                list={list}
             />
             <FilterModal
                 isVisible={showFilterModal}

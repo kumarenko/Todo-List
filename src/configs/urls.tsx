@@ -3,6 +3,7 @@ import ServerConfig from "./serverConfig";
 export const URL = ServerConfig.getUrl();
 export const SHOPPING_LISTS_URL = URL + "api/shoppingLists";
 export const SHOPPING_LIST_CREATE_URL = URL + "api/shoppingLists/add";
+export const SHOPPING_LIST_CURRENCY_URL = URL + "api/shoppingLists/updateCurrency";
 export const SHOPPING_LISTS_ADD_PROD_URL = URL + "api/shoppingLists/addProduct";
 export const SHOPPING_LISTS_EDIT_PROD_URL = URL + "api/shoppingLists/editProduct";
 export const SHOPPING_LIST_SHARE_URL = URL + "api/shoppingLists/invite";

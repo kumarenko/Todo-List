@@ -250,10 +250,9 @@
     "name": "Cheese",
     "category": "MILKS",
     "units": [
-      "ml",
-      "l",
-      "pt",
-      "gal"
+      "g",
+      "kg",
+      "lb"
     ]
   },
   {

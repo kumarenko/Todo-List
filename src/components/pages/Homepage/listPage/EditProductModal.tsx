@@ -1,23 +1,25 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { Button, Modal, Form, InputGroup, Col } from 'react-bootstrap';
-import { updateProductsListRequest } from '../../../../actions/products';
-import { deleteProductFromList } from '../../../../actions/products';
-import { connect, useSelector } from 'react-redux';
-import { MdShoppingCart } from 'react-icons/md';
-import { FaPlusMinus } from 'react-icons/fa6';
+import { Button, Modal, Form, InputGroup, Col, ButtonGroup } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import {debounce, getCurrencySymbol, onlyUnique, preventCharacters} from '../../../../helpers/helper';
-import allProducts from "../../../../configs/products.json";
-import {t} from "i18next";
+import { debounce, getCurrencySymbol, onlyUnique, preventCharacters } from '../../../../helpers/helper';
+import {connect, useSelector} from 'react-redux';
+import { MdShoppingCart } from 'react-icons/md';
+import { t } from 'i18next';
+import allProducts from '../../../../configs/products.json';
+import {deleteProductFromList, updateProductsListRequest} from "../../../../actions/products";
+
 const allCategories = allProducts.map(prod => prod.category).filter(onlyUnique);
+const customProductsUnits = ['ps(s)', 'g', 'kg', 'oz', 'lb', 'ml', 'l', 'gal'];
 
 const EditProductModal = ({ product, show, onHide, deleteProductFromList, updateProductsListRequest }) => {
     const { listId } = useParams();
     const [name, setName] = useState(t(product.name));
     const [count, setCount] = useState('1');
     const [price, setPrice] = useState('0');
-    const [category, setCategory] = useState<string>('OTHER');
+    const [availableUnits, setAvailableUnits] = useState([]);
+    const [selectedUnits, setSelectedUnits] = useState('');
+    const [category, setCategory] = useState('OTHER');
     const country = useSelector(state => state.user.user.country);
     const [debouncedValues, setDebouncedValues] = useState({ name, count, price });
 
@@ -27,18 +29,25 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
             setCount(product?.count ? parseFloat(product.count) : '1');
             setPrice(product?.price ? product.price : 0);
             setCategory(product?.category || 'OTHER');
+            setAvailableUnits(product.availableUnits || []);
+            setSelectedUnits(product.selectedUnits ? product.selectedUnits : 'pc(s)');
         }
     }, [product, show]);
 
-    const applyUpdate = () => {
-        const prod = {
+    const applyUpdate = (updatedProduct = null) => {
+        const prod = updatedProduct || {
             _id: product._id,
             checked: product.checked,
-            name, count: parseFloat(count || '0'),
+            name,
+            count: parseFloat(count || '0'),
             price: parseFloat(price || '0'),
-            category, avatar: product.avatar
+            selectedUnits,
+            availableUnits,
+            category,
+            avatar: product.avatar,
         };
-        if (price.toString() && name && count.toString() && parseFloat(count) !== 0) {
+
+        if (prod.price.toString() && prod.name && prod.count.toString() && parseFloat(prod.count) !== 0) {
             updateProductsListRequest(listId, [prod]);
         }
     };
@@ -56,7 +65,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
 
     useEffect(() => {
         if (debouncedValues.name || debouncedValues.count || debouncedValues.price) {
-            if(product.name !== debouncedValues.name || product.count !== debouncedValues.count || product.price !== debouncedValues.price) {
+            if (product.name !== debouncedValues.name || product.count !== debouncedValues.count || product.price !== debouncedValues.price) {
                 applyUpdate();
             }
         }
@@ -111,6 +120,14 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
         setValue(inputValue);
     };
 
+    const changeUnits = (unit) => {
+        setSelectedUnits(unit);
+        applyUpdate({
+            ...product,
+            selectedUnits: unit,
+            availableUnits: [...availableUnits],
+        });
+    };
 
     return ReactDOM.createPortal(
         <Modal
@@ -152,10 +169,35 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
                             onKeyPress={event => preventCharacters(event)}
                             value={count}
                         />
-                        <InputGroup.Text className='pe-none'>
-                            <FaPlusMinus />
+                        <InputGroup.Text className='pe-none d-block p-1' style={{width: 42}}>
+                            {t(selectedUnits)}
                         </InputGroup.Text>
                     </InputGroup>
+                    {availableUnits?.length ? (
+                            <InputGroup className='flex-nowrap'>
+                                <Form.Label column sm="2" className='subtitle mx-2 w-25'>
+                                    {t('Units')}
+                                </Form.Label>
+                                {allProducts.find(prod => prod.name === product.name) ? <ButtonGroup>
+                                    {allProducts.find(prod => prod.name === product.name).units.map( unit => <Button
+                                        className={`${unit === selectedUnits ? 'active' : ''}`}
+                                        key={unit}
+                                        onClick={() => changeUnits(unit)}
+                                    >
+                                        {t(unit)}
+                                    </Button>)}
+                                </ButtonGroup> : <ButtonGroup className='w-100'>
+                                    {customProductsUnits.map(unit => <Button
+                                        className={`${unit === selectedUnits ? 'active' : ''} px-1`}
+                                        key={unit}
+                                        onClick={() => changeUnits(unit)}
+                                    >
+                                        {t(unit)}
+                                    </Button>)}
+                                </ButtonGroup>
+                                }
+                            </InputGroup>
+                    ) : null}
                     <InputGroup className='my-2'>
                         <Form.Label column sm="2" className='subtitle mx-2 w-25'>
                             {t('Price')}

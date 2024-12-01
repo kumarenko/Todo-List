@@ -4,10 +4,16 @@ import { v4 as uuidv4 } from 'uuid';
 
 import axios from "axios";
 import {
-    SHOPPING_LISTS_URL, SHOPPING_LIST_CREATE_URL,
-    SHOPPING_LIST_SHARE_URL, SYNC_ALL_LISTS_URL, UPLOAD_URL, CLOUD_URL
+    SHOPPING_LISTS_URL,
+    SHOPPING_LIST_CREATE_URL,
+    SHOPPING_LIST_SHARE_URL,
+    SYNC_ALL_LISTS_URL,
+    UPLOAD_URL,
+    CLOUD_URL,
+    SHOPPING_LIST_CURRENCY_URL,
 } from "../configs/urls";
 import {t} from "i18next";
+import {getCurrencyCode} from "../helpers/helper";
 
 export const getShoppingLists = (userId: string) => {
     return async (dispatch, state) => {
@@ -49,7 +55,8 @@ export const addShoppingList = (userId, name) => {
         if(!name || name.trim() === '') {
             name = t('New list');
         }
-        const obj = {userId,name};
+        const currency = getCurrencyCode(userData.user.country);
+        const obj = {userId, name, currency};
         if(userData.user.role === 'USER') {
             const newPlaceholderList = defaultListsState.list;
             dispatch(setShoppingLists([...allLists, {...newPlaceholderList, loading: true}]));
@@ -69,6 +76,7 @@ export const addShoppingList = (userId, name) => {
                 temporary: true,
                 name: {value: name, temporary: true},
                 products: [],
+                currency,
                 creator: {
                     id: userId,
                     name: userData.user.name,
@@ -116,6 +124,36 @@ export const updateListRequest = (list, newValue) => {
                     }
                 }));
             }
+        }
+    };
+};
+
+export const updateListCurrencyRequest = (list, currency) => {
+    return async (dispatch, state) => {
+        const userData = state().user;
+        dispatch(setShoppingList({...list, loading: true}));
+        if (userData.user.role === 'USER') {
+            const newObject = {
+                shoppingListId: list._id,
+                currency,
+            }
+            const response = await fetch(
+                `${SHOPPING_LIST_CURRENCY_URL}`,{
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(newObject)
+                }).then(res=>res.json());
+            dispatch(setShoppingList({...list, currency: response.currency}));
+        } else {
+            dispatch(setShoppingList({
+                ...list,
+                name: {
+                    currency,
+                    temporary: true,
+                }
+            }));
         }
     };
 };

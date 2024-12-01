@@ -1,3 +1,4 @@
+import currencies from './../configs/currencies.json';
 export const preventCharacters = (event) => {
     if (event.key === '-' || event.key === '+' || event.key === 'e' || event.key === 'E') {
         event.preventDefault();
@@ -19,20 +20,23 @@ export const copyTextToClipboard = (text) => {
 };
 
 export const getCurrencySymbol = (countryCode) => {
-    const currencySymbols = {
-        US: "$",
-        CA: "$",
-        PL: "zł",
-        GB: "£",
-        EU: "€",
-        JP: "¥",
-        CN: "¥",
-        UA: "₴",
-        RU: "₽",
-        IN: "₹",
-        AU: "$",
-    };
-    return currencySymbols[countryCode] || "$";
+    const selectedCurrency = currencies.find(currency => currency.country === countryCode);
+
+    if(selectedCurrency) {
+        return selectedCurrency.symbol;
+    } else {
+        return '$'
+    }
+};
+
+export const getCurrencyCode = (countryCode) => {
+    const selectedCurrency = currencies.find(currency => currency.country === countryCode);
+
+    if(selectedCurrency) {
+        return selectedCurrency.code;
+    } else {
+        return '$'
+    }
 };
 
 export const debounce = (func, delay) => {
