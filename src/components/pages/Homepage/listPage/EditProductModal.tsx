@@ -1,19 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Modal, Form, InputGroup, Col, ButtonGroup } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
 import { debounce, getCurrencySymbol, onlyUnique, preventCharacters } from '../../../../helpers/helper';
 import {connect, useSelector} from 'react-redux';
 import { MdShoppingCart } from 'react-icons/md';
 import { t } from 'i18next';
-import allProducts from '../../../../configs/products.json';
 import {deleteProductFromList, updateProductsListRequest} from "../../../../actions/products";
 
+import allProducts from '../../../../configs/products.json';
+import currencies from "../../../../configs/currencies.json";
 const allCategories = allProducts.map(prod => prod.category).filter(onlyUnique);
 const customProductsUnits = ['ps(s)', 'g', 'kg', 'oz', 'lb', 'ml', 'l', 'gal'];
 
-const EditProductModal = ({ product, show, onHide, deleteProductFromList, updateProductsListRequest }) => {
-    const { listId } = useParams();
+const EditProductModal = ({ product, show, onHide, deleteProductFromList, updateProductsListRequest, list }) => {
     const [name, setName] = useState(t(product.name));
     const [count, setCount] = useState('1');
     const [price, setPrice] = useState('0');
@@ -48,7 +47,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
         };
 
         if (prod.price.toString() && prod.name && prod.count.toString() && parseFloat(prod.count) !== 0) {
-            updateProductsListRequest(listId, [prod]);
+            updateProductsListRequest(list._id, [prod]);
         }
     };
 
@@ -78,7 +77,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
     }, [category]);
 
     const deleteProduct = () => {
-        deleteProductFromList(listId, [{ _id: product._id }]);
+        deleteProductFromList(list._id, [{ _id: product._id }]);
         onHide();
     };
 
@@ -213,7 +212,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
                             value={price}
                         />
                         <InputGroup.Text className='pe-none'>
-                            <span style={{width: 16}}>{getCurrencySymbol(country)}</span>
+                            <span style={{width: 16}}> {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(country)}</span>
                         </InputGroup.Text>
                     </InputGroup>
                     <InputGroup className='my-2'>
@@ -242,7 +241,9 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
     );
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state) => ({
+    list: state.items.list,
+});
 
 const mapDispatchToProps = {
     deleteProductFromList,

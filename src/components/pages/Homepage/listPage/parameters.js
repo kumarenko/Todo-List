@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import {Button, Col, Form, InputGroup, Modal} from "react-bootstrap";
 import {t} from "i18next";
-import {IoMdClose, IoMdRemoveCircle} from "react-icons/io";
+import {IoMdRemoveCircle} from "react-icons/io";
 import {ImCheckboxUnchecked} from "react-icons/im";
 import currencies from './../../../../configs/currencies.json';
 import {useDispatch} from "react-redux";
@@ -65,7 +65,6 @@ const ParametersListModal = ({show, onHide, list, defaultCurrency}) => {
             </Modal.Body>
             <Modal.Footer className="d-flex justify-content-center modal-styled-bg">
                 <Button className="d-flex align-items-center mx-2" onClick={onHide}>
-                    <IoMdClose className='me-2'/>
                     {t('Close')}
                 </Button>
             </Modal.Footer>
