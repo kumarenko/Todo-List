@@ -7,6 +7,7 @@ import {ImCheckboxUnchecked} from "react-icons/im";
 import currencies from './../../../../configs/currencies.json';
 import {useDispatch} from "react-redux";
 import {updateListCurrencyRequest} from "../../../../actions/shoppingLists";
+import {deleteProductFromList, updateProductsListRequest} from "../../../../actions/products";
 
 const ParametersListModal = ({show, onHide, list, defaultCurrency}) => {
     const dispatch = useDispatch();
@@ -19,6 +20,14 @@ const ParametersListModal = ({show, onHide, list, defaultCurrency}) => {
         dispatch(updateListCurrencyRequest(list, value));
     }
 
+    const uncheckProducts = (products) => {
+        const prodsToUpdate = products.map(prod => ({...prod, checked: false}));
+        dispatch(updateProductsListRequest(list._id, prodsToUpdate));
+    }
+    const deleteCheckedProducts = (products) => {
+        const prodsToUpdate = products.map(prod => ({...prod, checked: false}));
+        dispatch(deleteProductFromList(list._id, prodsToUpdate));
+    }
     return ReactDOM.createPortal(
         <Modal show={show} onHide={onHide} centered className='px-2'>
             <Modal.Header closeButton className="d-flex justify-content-center modal-styled-bg">
@@ -41,13 +50,17 @@ const ParametersListModal = ({show, onHide, list, defaultCurrency}) => {
                         </Form.Select>
                     </InputGroup>
                 </Form.Group>
-                <Button  className="d-flex align-items-center mx-2 mb-3" >
+                <Button className="d-flex align-items-center mx-2 mb-3"
+                        disabled={list.products.filter(prod => prod.checked).length === 0}
+                         onClick={() => uncheckProducts(list.products.filter(prod => prod.checked))}>
                     <ImCheckboxUnchecked className='me-2' />
-                    Uncheck all products
+                    {t('Uncheck all products')} {list.products.filter(prod => prod.checked).length ? `(${list.products.filter(prod => prod.checked).length})` : ''}
                 </Button>
-                <Button className="d-flex align-items-center mx-2 mb-1" >
+                <Button className="d-flex align-items-center mx-2 mb-1"
+                        disabled={list.products.filter(prod => prod.checked).length === 0}
+                        onClick={() => deleteCheckedProducts(list.products.filter(prod => prod.checked))}>
                     <IoMdRemoveCircle className='me-2' />
-                    Delete checked products
+                    {t('Delete checked products')} {list.products.filter(prod => prod.checked).length ? `(${list.products.filter(prod => prod.checked).length})` : ''}
                 </Button>
             </Modal.Body>
             <Modal.Footer className="d-flex justify-content-center modal-styled-bg">

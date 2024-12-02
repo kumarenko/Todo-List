@@ -109,19 +109,17 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
         applyFilters();
     }, [searchValue, filteredCategories, list, sortingType]);
     const applyFilters = () => {
-        if (list.products?.length) {
-            let filteredProducts = list.products.filter(
-                prod =>
-                    filteredCategories.includes(prod.category) &&
-                    prod.name.toLowerCase().includes(t(searchValue.toLowerCase())),
+        let filteredProducts = list.products.filter(
+            prod =>
+                filteredCategories.includes(prod.category) &&
+                prod.name.toLowerCase().includes(t(searchValue.toLowerCase())),
+        );
+        if (filteredCategories.length === 0) {
+            filteredProducts = list.products.filter(prod =>
+                prod.name.toLowerCase().includes(t(searchValue.toLowerCase())),
             );
-            if (filteredCategories.length === 0) {
-                filteredProducts = list.products.filter(prod =>
-                    prod.name.toLowerCase().includes(t(searchValue.toLowerCase())),
-                );
-            }
-            setProds(sortProds(filteredProducts));
         }
+        setProds(sortProds(filteredProducts));
     };
     const sortProds = array => {
         const sortedArray = [...array];
