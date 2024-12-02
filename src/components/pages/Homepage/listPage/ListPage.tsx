@@ -211,7 +211,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                 id={prod._id}
                             />
                             <button
-                                className='my-1 w-100 section-styled-bg'
+                                className='my-1 w-100 section-styled-bg rounded'
                                 onClick={() => selectProduct(prod)}>
                                 <h5 className='title text-break'>{t(prod.name)}</h5>
                                 <div>

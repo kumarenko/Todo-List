@@ -16,6 +16,7 @@ import {
 } from "../configs/urls";
 import {updateCurrency, updateUnits} from "../redux/settingsReducer";
 import {logout, persistor, store} from "../redux";
+import {getCountryCodeByIP} from "../helpers/helper";
 
 export const setUserData = (isAuthorized) => {
     const updatedLoginState = {
@@ -45,6 +46,7 @@ export const signInAction = (user) => {
             if (response.ok) {
                 const data = await response.json();
                 const {token, user} = data;
+                const country = await getCountryCodeByIP();
                 const updatedLoginState = {
                     isAuthorized: true,
                     user: {
@@ -54,7 +56,7 @@ export const signInAction = (user) => {
                         name: user?.name || '',
                         lastName: user?.lastName || '',
                         avatar: user.avatar || '',
-                        country: data.user.country,
+                        country,
                     },
                 }
                 dispatch(updateCurrency(user.currency));
@@ -95,8 +97,9 @@ export const checkUserSession:any = () => {
                         }
                         return response.json();
                     })
-                    .then(data => {
+                    .then(async (data) => {
                         //user data retrieving
+                        const country = await getCountryCodeByIP();
                         const updatedLoginState = {
                             isAuthorized: true,
                             user: {
@@ -106,7 +109,7 @@ export const checkUserSession:any = () => {
                                 name: data.user.name,
                                 avatar: data.user.avatar,
                                 googleId: data.user.googleId,
-                                country: data.user.country,
+                                country,
                             },
                         }
                         dispatch(updateCurrency(data.user.currency));

@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateLogin} from "../../../redux/userReducer";
 import ForgotPasswordModal from "./forgotPassword/forgotPasswordModal";
 import {t} from "i18next";
+import {getCountryCodeByIP} from "../../../helpers/helper";
 
 const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, loginAsGuest, errors, resetErrors }) => {
     const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
             if (serverResponse.ok) {
                 const { token, user } = await serverResponse.json();
                 sessionStorage.setItem('token', token);
+                const country = await getCountryCodeByIP();
                 const updatedLoginState = {
                     isAuthorized: true,
                     loading: false,
@@ -36,8 +38,9 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
                         email: user.email,
                         name: user.name,
                         lastName: user.lastName,
-                        image: user.image,
-                        googleId: user.googleId
+                        avatar: user.avatar,
+                        googleId: user.googleId,
+                        country
                     },
                 }
                 dispatch(updateLogin(updatedLoginState));

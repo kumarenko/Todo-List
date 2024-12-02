@@ -34,7 +34,7 @@ const ParametersListModal = ({show, onHide, list, defaultCurrency}) => {
                 <Modal.Title className="justify-content-center title">Parameters</Modal.Title>
             </Modal.Header>
             <Modal.Body className="modal-styled-bg">
-                <Form.Group as={Col} className='mx-auto'>
+                <Form.Group as={Col} className='mx-auto mb-3'>
                     <InputGroup className='my-2'>
                         <Form.Label column sm="2" className='subtitle mx-2 w-25'>
                             {t('Currency')}

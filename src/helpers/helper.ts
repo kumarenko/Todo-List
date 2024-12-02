@@ -55,3 +55,13 @@ export function getSystemTheme() {
     }
     return 'light';
 }
+export async function getCountryCodeByIP()  {
+    try {
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        return data.country; // Возвращает код страны (например, "US", "PL")
+    } catch (error) {
+        console.error("Ошибка получения кода страны по IP:", error);
+        return '';
+    }
+}
