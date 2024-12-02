@@ -66,7 +66,8 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
                         </div>}
                     </div>
                     <span className='mx-2'>
-                    <span className='subtitle'>{creator.email} </span>
+                    <span className='subtitle'>{creator.name} </span>
+                    <span className='subtitle'> ({creator.email})</span>
                         {user.id === creator._id ? <span className='subtitle'> ({t('You')})</span> : null}
                 </span>
                 </div>
@@ -88,7 +89,8 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
                     </div>}
                 </div>
                 <span className='mx-2'>
-                                    <span className='subtitle'>{owner.email}</span>
+                                    <span className='subtitle'>{owner.name} </span>
+                                    <span className='subtitle'> ({owner.email})</span>
                     {user.id === owner._id && <Badge bg="secondary ms-1">{t('You')}</Badge>}
                                 </span>
             </div>
