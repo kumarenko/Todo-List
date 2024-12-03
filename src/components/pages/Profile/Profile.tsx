@@ -95,19 +95,22 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
                             </div>}
                     </div>
                     <Container fluid="md" className='user-info d-flex w-100 flex-wrap mb-2 px-3 py-1 justify-content-center'>
-                        <div className='mx-2'>
-                            <h5 className='title'>{t('Name')}</h5>
-                            {isEditing ? <Form.Control
-                                onChange={e => setName(e.target.value)} type="text" value={name}/> : <div className={'subtitle'}>{userData.name}</div>}
-                        </div>
-                        <div className='mx-2'>
-                            <h5 className='title'>{t('Email')}</h5>
-                            {isEditing ? <Form.Control
-                                    onChange={e => setEmail(e.target.value)}
-                                    disabled value={email}
-                                    type="text"/> :
-                                <div className='subtitle'>{userData.email}</div>}
-                        </div>
+                       <div className='w-50'>
+                           <div className=''>
+                               <h5 className='title mb-1 mt-2'>{t('Name')}</h5>
+                               {isEditing ? <Form.Control
+                                   maxLength={20}
+                                   onChange={e => setName(e.target.value)} type="text" value={name}/> : <div className={'subtitle'}>{userData.name}</div>}
+                           </div>
+                           <div className=''>
+                               <h5 className='title mb-1 mt-2'>{t('Email')}</h5>
+                               {isEditing ? <Form.Control
+                                       onChange={e => setEmail(e.target.value)}
+                                       disabled value={email}
+                                       type="text"/> :
+                                   <div className='subtitle'>{userData.email}</div>}
+                           </div>
+                       </div>
                     </Container>
                     <div className='d-flex justify-content-center w-100 controls px-3 py-1'>
                         <Button

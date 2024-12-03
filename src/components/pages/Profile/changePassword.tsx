@@ -33,7 +33,7 @@ const ChangePassword = ({setLoading, userId, googleId}) => {
         <Container fluid="md" className='user-info d-flex w-100 flex-wrap flex-column mb-2 px-3 py-1 justify-content-center align-items-center'>
             {allowChange ? <>
                     {googleId}
-                    {!googleId ? <div className='input-container mb-2 mt-2'>
+                    {!googleId ? <div className='input-container mb-2 mt-2 w-50'>
                         <h5 className='title mb-1'>{googleId ? t('Your current password') : t('Your current password')}</h5>
                         <PasswordInput
                             isInvalid={!!validationErrors.password}
@@ -44,7 +44,7 @@ const ChangePassword = ({setLoading, userId, googleId}) => {
                             }}
                             value={currentPassword}/>
                     </div> : null}
-                    <div className='input-container mb-2'>
+                    <div className='input-container mb-2 w-50'>
                         <h5 className='title mb-1'>{t('Enter new password')}</h5>
                         <PasswordInput
                             isInvalid={!!validationErrors.newPassword}
@@ -54,18 +54,17 @@ const ChangePassword = ({setLoading, userId, googleId}) => {
                                 setNewPassword(e.target.value)
                             }} value={newPassword}/>
                     </div>
-                    <div className='input-container mb-2'>
-                    <h5 className='title mb-1'>{t('Confirm new password')}</h5>
-                    <PasswordInput
-                        isInvalid={!!validationErrors.confirmPassword}
-                        validationErrorsMessage={validationErrors.confirmPassword}
-                        onChange={(e) => {
-                            resetErrors();
-                            setConfirmNewPassword(e.target.value)
-                        }}
-                        value={confirmNewPassword}/>
-
-                </div>
+                    <div className='input-container mb-2 w-50'>
+                        <h5 className='title mb-1'>{t('Confirm new password')}</h5>
+                        <PasswordInput
+                            isInvalid={!!validationErrors.confirmPassword}
+                            validationErrorsMessage={validationErrors.confirmPassword}
+                            onChange={(e) => {
+                                resetErrors();
+                                setConfirmNewPassword(e.target.value)
+                            }}
+                            value={confirmNewPassword}/>
+                    </div>
                 <div className='d-flex justify-content-between'>
                     <Button onClick={()=>changePasswordHandler()} className='my-2 me-1'>{t('Apply')}</Button>
                     <Button className='my-2 ms-1'
