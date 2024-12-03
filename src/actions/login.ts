@@ -117,7 +117,10 @@ export const checkUserSession:any = () => {
                         dispatch(updateLogin(updatedLoginState));
                         dispatch(updateUnits(data.user.metricUnits));
                     })
-                    .catch(error => console.error('There was a problem with your fetch operation:', error));
+                    .catch(error => {
+                        console.error('There was a problem with your fetch operation:', error);
+                        dispatch(logoutAction('USER'));
+                    });
             } else {
                 dispatch(logoutAction('USER'));
             }
