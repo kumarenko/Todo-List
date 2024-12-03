@@ -6,6 +6,7 @@ import {copyTextToClipboard} from "../../../helpers/helper";
 import {useState} from "react";
 import CustomAlert from "../../../common/Alert";
 import {defaultListsState} from "../../../redux/shoppingListsReducer";
+import {IoMdClose} from "react-icons/io";
 
 const CopyListModal = ({list, show, onHide}) => {
     const [message, setMessage] = useState('');
@@ -70,8 +71,11 @@ const CopyListModal = ({list, show, onHide}) => {
         setTimeout(() => setMessage(''), 2500);
     }
     return (ReactDOM.createPortal(<Modal show={show} onHide={onHide} centered>
-        <Modal.Header closeButton className='d-flex justify-content-center modal-styled-bg'>
+        <Modal.Header className='d-flex justify-content-center modal-styled-bg'>
             <Modal.Title className='justify-content-center title'>{t('Copy List to clipboard')}</Modal.Title>
+            <Button type="button" className="btn custom-close" aria-label="Close" onClick={onHide}>
+                <IoMdClose size={20}/>
+            </Button>
         </Modal.Header>
         <Modal.Body className='d-flex flex-column align-items-center modal-styled-bg'>
             <Button className={`sort-btn my-1`} onClick={() => copyAllList()}>{t('Copy all list')}</Button>

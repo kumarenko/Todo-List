@@ -2,11 +2,15 @@ import React from 'react';
 import ReactDOM from "react-dom";
 import {Button, Modal} from "react-bootstrap";
 import {t} from "i18next";
+import {IoMdClose} from "react-icons/io";
 
 const SortingModal = ({isVisible, onClose, onApply, sortingType}) => {
     return (ReactDOM.createPortal(<Modal show={isVisible} onHide={onClose} centered>
-            <Modal.Header closeButton className='d-flex justify-content-center modal-styled-bg'>
+            <Modal.Header className='d-flex justify-content-center modal-styled-bg'>
                 <Modal.Title className='justify-content-center title'>{t('Sort Products')}</Modal.Title>
+                <Button type="button" className="btn custom-close" aria-label="Close" onClick={onClose}>
+                    <IoMdClose size={20}/>
+                </Button>
             </Modal.Header>
             <Modal.Body className='d-flex flex-column align-items-center modal-styled-bg'>
                 <Button className={`sort-btn my-1 ${sortingType === 'alphabetical' ? 'active' : ''}`} onClick={() => onApply('alphabetical')}>{t('Alphabetical')}</Button>

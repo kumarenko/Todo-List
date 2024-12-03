@@ -80,7 +80,7 @@ const ChangePassword = ({setLoading, userId, googleId}) => {
                     }}>{t('Cancel')}</Button>
                 </div>
             </> :
-                <Button className='btn-link p-1 bg-transparent' onClick={() => setAllowChange(true)}>{t('Change Password')}</Button>}
+                <Button className='btn-link p-1 button-as-link' onClick={() => setAllowChange(true)}>{t('Change Password')}</Button>}
         </Container>
     );
 };

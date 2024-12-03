@@ -84,7 +84,7 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
                             setKey(k);
                             reset();
                         }}
-                        className="mb-3 w-100"
+                        className="w-100"
                     >
 
                         <Tab eventKey={"login"} title={t("Login")}>

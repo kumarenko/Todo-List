@@ -31,8 +31,11 @@ const FilterModal = ({isVisible, onClose, onSelectCategory, categories, filtered
 
     return ReactDOM.createPortal(
         <Modal show={isVisible} onHide={onClose} centered className='px-2' style={{transform: 'scale(0.95)'}}>
-            <Modal.Header closeButton className="d-flex justify-content-center modal-styled-bg">
+            <Modal.Header className="d-flex justify-content-center modal-styled-bg">
                 <Modal.Title className="justify-content-center title">{t('Filter Products by categories')}</Modal.Title>
+                <Button type="button" className="btn custom-close" aria-label="Close" onClick={onClose}>
+                    <IoMdClose size={20}/>
+                </Button>
             </Modal.Header>
             <Modal.Body className="modal-styled-bg">
                 {all.map((item, index) => (

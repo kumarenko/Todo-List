@@ -92,14 +92,14 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
             </Form.Group>
             <Button
                 onClick={signInHandler}
-                className='my-2 mx-auto'
+                className='my-2 mx-auto mt-0'
             >{t('Login')}</Button>
             <div className='text-center subtitle'>{t('Or')}</div>
             <Button
-                className='my-1 mx-auto'
+                className='my-2 mx-auto'
                 onClick={loginAsGuest}
             >{t('Continue as guest')}</Button>
-            <div className='d-flex justify-content-center'>
+            <div className='d-flex justify-content-center mt-2'>
                 <GoogleLogin
                     theme={'filled_black'}
                     locale={currentLanguage}

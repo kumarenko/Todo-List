@@ -9,6 +9,7 @@ import {deleteProductFromList, updateProductsListRequest} from "../../../../acti
 
 import allProducts from '../../../../configs/products.json';
 import currencies from "../../../../configs/currencies.json";
+import {IoMdClose} from "react-icons/io";
 const allCategories = allProducts.map(prod => prod.category).filter(onlyUnique);
 const customProductsUnits = ['pc(s)', 'g', 'kg', 'oz', 'lb', 'ml', 'l', 'gal'];
 
@@ -135,7 +136,11 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
             className='w-100'
             centered
         >
-            <Modal.Header closeButton className='d-flex justify-content-center modal-styled-bg'>
+            <Modal.Header className='d-flex justify-content-center modal-styled-bg'>
+                <Button type="button" className="btn custom-close" aria-label="Close" onClick={onHide}>
+                    <IoMdClose size={20}/>
+                </Button>
+
                 <Modal.Title className='justify-content-center title'>{t('Edit Product')}</Modal.Title>
             </Modal.Header>
             <Modal.Body className='d-flex align-items-start flex-column modal-fixed-height modal-styled-bg'>

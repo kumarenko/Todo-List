@@ -5,7 +5,7 @@ import {t} from "i18next";
 
 const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, confirmPassword, setConfirmPassword, signUpHandler, errors, resetErrors }) => {
     return (
-        <Form className='d-flex flex-column'>
+        <Form className='d-flex flex-column p-3'>
             <Form.Group className="mb-2">
                 <Form.Label className='subtitle'>{t('Email')}</Form.Label>
                 <Form.Control

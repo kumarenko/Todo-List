@@ -8,6 +8,7 @@ import imageCompression from "browser-image-compression";
 import {CLOUD_URL} from "../../../../configs/urls";
 import {t} from "i18next";
 import {removeUserAvatarRequest, updateUserAvatarRequest} from "../../../../actions/login";
+import {IoMdClose} from "react-icons/io";
 
 const AvatarModal = ({ isVisible, onClose, listId, type, product }) => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -82,9 +83,11 @@ const AvatarModal = ({ isVisible, onClose, listId, type, product }) => {
 
     return ReactDOM.createPortal(
         <Modal show={isVisible} onHide={closeModal} centered>
-            <Modal.Header closeButton className='modal-styled-bg'>
-                <Modal.Title className='title'>{item.name}</Modal.Title>
-            </Modal.Header>
+            <Modal.Header className='modal-styled-bg'>
+                <Modal.Title className='title  text-break px-5'>{item.name}</Modal.Title>
+                <Button type="button" className="btn custom-close" aria-label="Close" onClick={closeModal}>
+                    <IoMdClose size={20}/>
+                </Button></Modal.Header>
             <Modal.Body className="d-flex flex-column justify-content-center align-items-center modal-styled-bg">
                 {preview ? <Image src={preview} fluid /> : <div className='d-flex align-items-center justify-content-center' style={{width: 64, height: 64}}>
                     <FiImage size={64} className='subtitle'/>

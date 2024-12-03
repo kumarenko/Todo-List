@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import {Button, Col, Form, InputGroup, Modal} from "react-bootstrap";
 import {t} from "i18next";
-import {IoMdRemoveCircle} from "react-icons/io";
+import {IoMdClose, IoMdRemoveCircle} from "react-icons/io";
 import {ImCheckboxUnchecked} from "react-icons/im";
 import currencies from './../../../../configs/currencies.json';
 import {useDispatch} from "react-redux";
@@ -30,8 +30,11 @@ const ParametersListModal = ({show, onHide, list, defaultCurrency}) => {
     }
     return ReactDOM.createPortal(
         <Modal show={show} onHide={onHide} centered className='px-2'>
-            <Modal.Header closeButton className="d-flex justify-content-center modal-styled-bg">
+            <Modal.Header className="d-flex justify-content-center modal-styled-bg">
                 <Modal.Title className="justify-content-center title">Parameters</Modal.Title>
+                <Button type="button" className="btn custom-close" aria-label="Close" onClick={onHide}>
+                    <IoMdClose size={20}/>
+                </Button>
             </Modal.Header>
             <Modal.Body className="modal-styled-bg">
                 <Form.Group as={Col} className='mx-auto mb-3'>
