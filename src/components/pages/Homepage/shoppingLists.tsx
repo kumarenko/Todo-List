@@ -78,7 +78,7 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setS
                 userAvatars.push(
                     <div className="avatar-container d-flex flex-col w-auto" key="user-avatar">
                         <div className="user-avatar" style={{ backgroundColor: '#676767' }}>
-                            <span style={{ fontSize: 10 }}>+{filteredUsers.length - 3}</span>
+                            <span className='subtitle' style={{ fontSize: 10 }}>+{filteredUsers.length - 3}</span>
                         </div>
                     </div>
                 );
@@ -87,9 +87,14 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setS
                 userAvatars.push(
                     <div className="avatar-container d-flex-col w-auto" key={user._id}>
                         <div className="user-avatar" style={{ backgroundColor: getColorById(user._id) }}>
-                            {user.avatar ?
-                                <img src={user.avatar} alt='' /> :
-                                <span>{user.name[0]}</span>}
+                            {user.avatar &&
+                                <img src={user.avatar}
+                                     alt=''
+                                     onError={(e) => {
+                                         e.target.style.display = 'none';
+                                         e.target.nextSibling.style.display = 'block';
+                                     }}/>}
+                                <span className='subtitle'>{user.name[0]}</span>
                         </div>
                     </div>
                 );

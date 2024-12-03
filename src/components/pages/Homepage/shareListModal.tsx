@@ -75,35 +75,57 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
     }
     const renderOwners = (userOwners) => {
         const ownersWithoutCreator = userOwners.filter(user => user._id !== list.creator && user.status !== 'WAIT');
-        return ownersWithoutCreator.map(owner => <div key={owner._id} className='d-flex flex-nowrap justify-content-between mb-2'>
-            <div className='d-flex'>
-                <div className={'user-avatar ml-2'}
-                     style={{
-                         backgroundColor: getColorById(owner._id),
-                     }}>
-                    {owner.avatar ? <div className='user-avatar-info'>
-                        <img src={owner.avatar} alt=''/>
-                    </div> : <div className='user-avatar-info'>
-                        {owner.name[0]}
-                    </div>}
+        return ownersWithoutCreator.map(owner => (
+            <div key={owner._id} className='d-flex flex-nowrap justify-content-between mb-2'>
+                <div className='d-flex'>
+                    <div
+                        className={'user-avatar ml-2'}
+                        style={{
+                            backgroundColor: getColorById(owner._id),
+                        }}
+                    >
+                        {owner.avatar ? (
+                            <div className='user-avatar-info'>
+                                <img
+                                    src={owner.avatar}
+                                    alt=''
+                                    onError={(e) => {
+                                        e.target.style.display = 'none';
+                                        e.target.nextSibling.style.display = 'block';
+                                    }}
+                                />
+                                <div style={{ display: 'none' }} className='user-avatar-info subtitle'>
+                                    {owner.name[0]}
+                                </div>
+                            </div>
+                        ) : (
+                            <div className='user-avatar-info subtitle'>
+                                {owner.name[0]}
+                            </div>
+                        )}
+                    </div>
+                    <span className='mx-2'>
+                    <span className='subtitle'>{owner.name} </span>
+                    <span className='subtitle'> ({owner.email})</span>
+                        {user.id === owner._id && <Badge bg="secondary ms-1">{t('You')}</Badge>}
+                </span>
                 </div>
-                <span className='mx-2'>
-                                    <span className='subtitle'>{owner.name} </span>
-                                    <span className='subtitle'> ({owner.email})</span>
-                    {user.id === owner._id && <Badge bg="secondary ms-1">{t('You')}</Badge>}
-                                </span>
+                {list.creator !== owner._id && (
+                    <div>
+                        {renderBadge(owner)}
+                        <Button
+                            className={'mx-2'}
+                            size="sm"
+                            onClick={() => removeInvite(owner.email)}
+                        >
+                            <IoMdClose/>
+                        </Button>
+                    </div>
+                )}
             </div>
-            {list.creator !== owner._id && <div>
-                {renderBadge(owner)}
-                <Button
-                    className={'mx-2'}
-                    size="sm"
-                    onClick={() => removeInvite(owner.email)}>
-                    <IoMdClose/>
-                </Button>
-            </div>}
-        </div>)
-    }
+        ));
+    };
+
     return ReactDOM.createPortal(<Modal show={show} onHide={onHide} className='share-modal' centered>
         <Modal.Header className='modal-styled-bg justify-content-center'>
             <Modal.Title className='title'>{t('Invite Friends to List')}</Modal.Title>

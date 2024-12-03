@@ -6,7 +6,7 @@ import {updateProfileInfo} from "../../../actions/login";
 import {t} from 'i18next';
 import Footer from "../../../common/footer";
 
-const Settings = ({theme, changeTheme, title, user, isMetricUnits,updateProfileInfo,settings,changeLanguage, isLoginPage}) => {
+const Settings = ({theme, changeTheme, title, settings, changeLanguage, isLoginPage}) => {
     useEffect(() => {
         if(!isLoginPage) {
             document.title = title;
@@ -16,9 +16,7 @@ const Settings = ({theme, changeTheme, title, user, isMetricUnits,updateProfileI
         const newTheme = theme === 'light' ? 'dark': 'light';
         changeTheme(newTheme);
     }
-    const toggleUnits = (event) => {
-        updateProfileInfo(user.id, {metricUnits: event.target.value === 'metric'});
-    }
+
     const changeLang = (value) => {
         changeLanguage(value);
     }
@@ -44,13 +42,6 @@ const Settings = ({theme, changeTheme, title, user, isMetricUnits,updateProfileI
                         </label>
                     </div>
                 </div>
-                {!isLoginPage && <div>
-                    <h5 className='m-1 title'>{t('Select Units')}</h5>
-                    <Form.Select className={isLoginPage? 'w-auto' : 'w-50'} aria-label="Units" value={isMetricUnits ? 'metric' : 'imperial'} onChange={toggleUnits}>
-                        <option value="metric">{t('Metric')}</option>
-                        <option value="imperial">{t('Imperial')}</option>
-                    </Form.Select>
-                </div>}
                 <div className="div">
                     <h5 className='m-1 title'>{t('Change language')}</h5>
                     <Form.Select className={isLoginPage? 'w-auto' : 'w-50'} aria-label="language" defaultValue={settings.language} onChange={(e) => changeLang(e.target.value)}>
