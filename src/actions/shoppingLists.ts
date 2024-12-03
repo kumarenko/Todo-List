@@ -14,6 +14,7 @@ import {
 } from "../configs/urls";
 import {t} from "i18next";
 import {getCurrencyCode} from "../helpers/helper";
+import {updateProfileSuccessMessage} from "../redux/userReducer";
 
 export const getShoppingLists = (userId: string) => {
     return async (dispatch, state) => {
@@ -170,7 +171,8 @@ export const inviteUsersRequest = (shoppingListId, userId, invitedUser, method) 
             });
         if(response.ok) {
             const data = await response.json();
-            dispatch(setShoppingList({...currentList, userOwners: data.userOwners}))
+            dispatch(setShoppingList({...currentList, userOwners: data.userOwners}));
+            dispatch(updateProfileSuccessMessage(data.message));
         }
     };
 };

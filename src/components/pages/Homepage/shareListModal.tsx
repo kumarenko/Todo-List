@@ -6,13 +6,12 @@ import {getColorById, validateEmail} from "../../../helpers/validator";
 import {IoMdClose} from "react-icons/io";
 import {inviteUsersRequest} from "../../../actions/shoppingLists";
 import {connect} from "react-redux";
-import CustomAlert from "../../../common/Alert";
 import {t} from "i18next";
+import CustomMessage from "../../../common/customMessage";
 
 const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
     const [email, setEmail] = useState('');
     const [owners, setOwners] = useState([]);
-    const [message, setMessage] = useState('');
     const [waitingOwners, setWaitingOwners] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -173,9 +172,7 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
             </Container>
         </Modal.Body>
         <Modal.Footer className='modal-styled-bg empty-footer'/>
-        {message ? <CustomAlert className='popup'>
-            {message}
-        </CustomAlert> : null}
+        <CustomMessage/>
     </Modal>, document.body);
 };
 const mapStateToProps = (state) => ({
