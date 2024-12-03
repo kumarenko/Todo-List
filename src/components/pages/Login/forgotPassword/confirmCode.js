@@ -3,8 +3,9 @@ import { Modal, Button, Form, Spinner } from 'react-bootstrap';
 import Message from "../../../../common/message";
 import {sendCode} from "../../../../actions/login";
 import {t} from "i18next";
+import {IoMdClose} from "react-icons/io";
 
-const ConfirmCode = ({ email, onApply, onBack, code, setCode }) => {
+const ConfirmCode = ({ email, onApply, onBack, code, setCode, onHide }) => {
     const [loading, setLoading] = useState(false);
     const inputRefs = useRef([]);
     const [responseMessage, setResponseMessage] = useState('');
@@ -65,8 +66,11 @@ const ConfirmCode = ({ email, onApply, onBack, code, setCode }) => {
     return (
        <>
            <Message text={responseMessage}/>
-           <Modal.Header closeButton className='modal-styled-bg'>
+           <Modal.Header className='modal-styled-bg'>
                <Modal.Title className='title'>{t('Code was sent to your e-mail address, please enter it below')}</Modal.Title>
+               <Button type="button" className="btn custom-close" aria-label="Close" onClick={onHide}>
+                   <IoMdClose size={20}/>
+               </Button>
            </Modal.Header>
            <Modal.Body className='modal-styled-bg'>
                {loading && (

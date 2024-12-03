@@ -3,8 +3,9 @@ import { Modal, Button, Form, Spinner } from 'react-bootstrap';
 import {changePassword} from "../../../../actions/login";
 import Message from "../../../../common/message";
 import {t} from "i18next";
+import {IoMdClose} from "react-icons/io";
 
-const ChangePassword = ({ email, onApply, onBack }) => {
+const ChangePassword = ({ email, onApply, onBack, onHide }) => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -53,8 +54,11 @@ const ChangePassword = ({ email, onApply, onBack }) => {
     return (
         <>
             <Message text={message}/>
-            <Modal.Header closeButton className='modal-styled-bg'>
+            <Modal.Header className='modal-styled-bg'>
                 <Modal.Title className='title'>{t('Change Password')}</Modal.Title>
+                <Button type="button" className="btn custom-close" aria-label="Close" onClick={onHide}>
+                    <IoMdClose size={20}/>
+                </Button>
             </Modal.Header>
             <Modal.Body className='modal-styled-bg'>
                 {loading && (

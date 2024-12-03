@@ -32,8 +32,8 @@ const ForgotPasswordModal = ({show, onHide}) => {
         setCode(['', '', '', '']);
     }
     return ReactDOM.createPortal(<Modal show={show} onHide={closeAndResetData} centered>
-        {state === 'email' && <ConfirmEmail onApply={confirmEmail} onBack={goBack} email={email} setEmail={setEmail}/>}
-        {state === 'code' && <ConfirmCode onApply={confirmCode} onBack={goBack} code={code} setCode={setCode} email={email}/>}
+        {state === 'email' && <ConfirmEmail onApply={confirmEmail} onBack={goBack} email={email} setEmail={setEmail} onHide={closeAndResetData}/>}
+        {state === 'code' && <ConfirmCode onApply={confirmCode} onBack={goBack} code={code} setCode={setCode} email={email} onHide={closeAndResetData} />}
         {state === 'password' && <ChangePassword onApply={closeAndResetData} onBack={goBack} onHide={closeAndResetData} email={email}/>}
     </Modal>, document.body);
 };

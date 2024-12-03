@@ -241,6 +241,11 @@ body {
     ::-webkit-scrollbar-thumb:hover {
       background: lighten(@SECTION_BG_DARK, 15%);
     }
+
+    .spinner-border {
+      border-color: @BUTTON_BG_DARK;
+      border-right-color: transparent;
+    }
   }
 
   // light styles
@@ -486,5 +491,9 @@ body {
 
   ::-webkit-scrollbar-thumb:hover {
     background: darken(@SECTION_BG_LIGHT, 25%);
+  }
+  .spinner-border {
+    border-color: @BUTTON_BG_DARK;
+    border-right-color: transparent;
   }
 }
