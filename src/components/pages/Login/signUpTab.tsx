@@ -2,6 +2,7 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import { Button } from "react-bootstrap";
 import {t} from "i18next";
+import PasswordInput from "../../../common/passwordInput";
 
 const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, confirmPassword, setConfirmPassword, signUpHandler, errors, resetErrors }) => {
     return (
@@ -40,35 +41,27 @@ const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, conf
             </Form.Group>
             <Form.Group className="mb-2" controlId="passSignUp">
                 <Form.Label className='subtitle'>{t('Password')}</Form.Label>
-                <Form.Control
-                    type="password"
+                <PasswordInput
                     value={password}
                     isInvalid={!!errors?.password}
                     onChange={event => {
                         resetErrors();
                         setPassword(event.target.value)
                     }}
-                    autoComplete={'passSignUp'}
+                    validationErrorsMessage={errors?.password}
                 />
-                <Form.Control.Feedback type="invalid">
-                    {errors?.password}
-                </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-2" controlId="confirmPassSignUp">
                 <Form.Label className='subtitle'>{t('Confirm password')}</Form.Label>
-                <Form.Control
-                    type="password"
+                <PasswordInput
                     value={confirmPassword}
                     isInvalid={!!errors?.confirmPassword}
                     onChange={event => {
                         resetErrors();
                         setConfirmPassword(event.target.value)
                     }}
-                    autoComplete={'confirmPassSignUp'}
+                    validationErrorsMessage={errors?.confirmPassword}
                 />
-                <Form.Control.Feedback type="invalid">
-                    {errors?.confirmPassword}
-                </Form.Control.Feedback>
             </Form.Group>
             <Button
                 onClick={signUpHandler}

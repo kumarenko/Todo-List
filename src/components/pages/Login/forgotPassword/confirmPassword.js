@@ -4,6 +4,7 @@ import {changePassword} from "../../../../actions/login";
 import Message from "../../../../common/message";
 import {t} from "i18next";
 import {IoMdClose} from "react-icons/io";
+import PasswordInput from "../../../../common/passwordInput";
 
 const ChangePassword = ({ email, onApply, onBack, onHide }) => {
     const [password, setPassword] = useState('');
@@ -69,39 +70,26 @@ const ChangePassword = ({ email, onApply, onBack, onHide }) => {
                 <Form>
                     <Form.Group className="mb-3">
                         <Form.Label className='subtitle'>{t('New password')}</Form.Label>
-                        <Form.Control
-                            type="password"
+                        <PasswordInput
                             value={password}
                             onChange={e => {
                                 setPassword(e.target.value);
                                 setErrors({});
                             }}
+                            validationErrorsMessage={errors.password}
                         />
-                        <div className='feedback-space'>
-                            <Form.Control.Feedback type="invalid">
-                                {errors.password}
-                            </Form.Control.Feedback>
-                        </div>
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label className='subtitle'>{t('Confirm new password')}</Form.Label>
-                        <Form.Control
-                            type="password"
+                        <PasswordInput
                             isInvalid={errors.match || errors.confirmPassword}
                             value={confirmPassword}
                             onChange={e => {
                                 setConfirmPassword(e.target.value);
                                 setErrors({});
                             }}
+                            validationErrorsMessage={errors.match}
                         />
-                        <div className='feedback-space'>
-                            <Form.Control.Feedback type="invalid">
-                                {errors.match}
-                            </Form.Control.Feedback>
-                            <Form.Control.Feedback type="invalid">
-                                {errors.confirmPassword}
-                            </Form.Control.Feedback>
-                        </div>
                     </Form.Group>
                 </Form>
             </Modal.Body>

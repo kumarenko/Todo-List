@@ -91,8 +91,8 @@ body {
     }
     .input-group-text, select,
     input[type='number'], input[type='number']:disabled,
-    input[type='password'], input[type='password']:disabled,
-    input[type='text'], input[type='text']:disabled,
+    input[type='password']:not(.is-invalid), input[type='password']:disabled,
+    input[type='text']:not(.is-invalid), input[type='text']:disabled,
     input[type='email'], input[type='email']:disabled {
       background-color: @INPUT_BG_DARK;
       color: @INPUT_TEXT_DARK;
@@ -102,7 +102,22 @@ body {
       }
       &:focus, &:focus-within {
         background-color: lighten(@INPUT_BG_DARK, 20%);
-        border-color: @INPUT_BORDER_DARK;
+        color: @INPUT_TEXT_DARK;
+        box-shadow: none;
+      }
+
+      &::placeholder {
+        color: @INPUT_PLACEHOLDER_LIGHT;
+      }
+    }
+    input.is-invalid {
+      background-color: @INPUT_BG_DARK;
+      color: @INPUT_TEXT_DARK;
+      &:hover {
+        background-color: lighten(@INPUT_BG_DARK, 10%);
+      }
+      &:focus, &:focus-within {
+        background-color: lighten(@INPUT_BG_DARK, 20%);
         color: @INPUT_TEXT_DARK;
         box-shadow: none;
       }
@@ -354,7 +369,6 @@ body {
       }
       &:focus, &:focus-within {
         background-color: darken(@INPUT_BG_LIGHT, 20%);
-        border-color: @INPUT_BORDER_DARK;
         color: @INPUT_TEXT_LIGHT;
         box-shadow: none;
       }

@@ -7,6 +7,7 @@ import {updateLogin} from "../../../redux/userReducer";
 import ForgotPasswordModal from "./forgotPassword/forgotPasswordModal";
 import {t} from "i18next";
 import {getCountryCodeByIP} from "../../../helpers/helper";
+import PasswordInput from "../../../common/passwordInput";
 
 const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, loginAsGuest, errors, resetErrors }) => {
     const dispatch = useDispatch();
@@ -73,19 +74,15 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
             </Form.Group>
             <Form.Group className="mb-2 d-flex flex-column" controlId="passLogin">
                 <Form.Label className='subtitle'>{t('Password')}</Form.Label>
-                <Form.Control
-                    type="password"
+                <PasswordInput
                     value={password}
                     isInvalid={!!errors.password}
+                    validationErrorsMessage={errors?.password}
                     onChange={event => {
                         resetErrors();
                         setPassword(event.target.value);
                     }}
-                    autoComplete={'passLogin'}
                 />
-                <Form.Control.Feedback type="invalid">
-                    {errors?.password}
-                </Form.Control.Feedback>
                 <Button className='btn-link p-1 bg-transparent d-flex align-self-end' onClick={() => setTriggerPassword(true)}>
                     {t('Forgot password')}
                 </Button>
