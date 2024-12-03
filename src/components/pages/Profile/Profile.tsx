@@ -110,9 +110,15 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
                         </div>
                     </Container>
                     <div className='d-flex justify-content-center w-100 controls px-3 py-1'>
-                        <Button onClick={() => {
-                            handleProfileData();
-                        }} size="md" className='me-1'>{isEditing ? t('Save') : t('Edit')}</Button>
+                        <Button
+                            onClick={() => {
+                                handleProfileData();
+                            }}
+                            size="md"
+                            disabled={isEditing && name.length === 0}
+                            className='me-1'>
+                            {isEditing ? t('Save') : t('Edit')}
+                        </Button>
                         {isEditing && <Button className='ms-1' onClick={() => resetProfileData()} size="md">{t('Cancel')}</Button>}
                     </div>
                     <ChangePassword setLoading={(state) => setLoading(state)} userId={userData.id} googleId={user.user.googleId}/>
