@@ -132,8 +132,8 @@ export const logoutAction = (role) => {
     return async (dispatch) => {
         sessionStorage.setItem('token', '');
         if (role === 'USER') {
-            store.dispatch(logout());
             await persistor.purge();
+            store.dispatch(logout());
         }
         dispatch(updateRegisterFlag(false));
     };
