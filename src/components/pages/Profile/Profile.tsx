@@ -109,25 +109,25 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
                                 <div className='subtitle'>{userData.email}</div>}
                         </div>
                     </Container>
+                    <div className='d-flex justify-content-center w-100 controls px-3 py-1'>
+                        <Button onClick={() => {
+                            handleProfileData();
+                        }} size="md" className='me-1'>{isEditing ? t('Save') : t('Edit')}</Button>
+                        {isEditing && <Button className='ms-1' onClick={() => resetProfileData()} size="md">{t('Cancel')}</Button>}
+                    </div>
+                    <ChangePassword setLoading={(state) => setLoading(state)} userId={userData.id} googleId={user.user.googleId}/>
+                    <AvatarModal
+                        isVisible={toggleAvatarModal}
+                        onClose={() => setToggleAvatarModal(false)}
+                        product={{_id: user.user.id, name: user.user.name, avatar: user.user.avatar}}
+                        listId={null}
+                        type={'avatars'}
+                    />
                 </> :
                 <div className="w-100 px-3 py-1">
                     <h4 className='title'>{t("Hello! You're in guest mode. Sign in to access all features!")}</h4>
                 </div>
             }
-            <div className='d-flex justify-content-center w-100 controls px-3 py-1'>
-                <Button onClick={() => {
-                    handleProfileData();
-                }} size="md" className='me-1'>{isEditing ? t('Save') : t('Edit')}</Button>
-                {isEditing && <Button className='ms-1' onClick={() => resetProfileData()} size="md">{t('Cancel')}</Button>}
-            </div>
-            <ChangePassword setLoading={(state) => setLoading(state)} userId={userData.id} googleId={user.user.googleId}/>
-            <AvatarModal
-                isVisible={toggleAvatarModal}
-                onClose={() => setToggleAvatarModal(false)}
-                product={{_id: user.user.id, name: user.user.name, avatar: user.user.avatar}}
-                listId={null}
-                type={'avatars'}
-            />
             <CustomAlert variant={user.errorMessage ? 'danger' : 'success'} className='popup'>
                 {message}
             </CustomAlert>
