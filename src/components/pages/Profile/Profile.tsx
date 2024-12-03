@@ -45,7 +45,9 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
                 updatedData = {...updatedData, email};
             }
             setLoading(true);
-            await updateProfileInfo(userData.id, updatedData);
+            if(Object.keys(updatedData).length) {
+                await updateProfileInfo(userData.id, updatedData);
+            }
             setLoading(false);
             setIsEditing(false);
         } else {
