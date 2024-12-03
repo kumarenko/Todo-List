@@ -19,14 +19,15 @@ import {logout, persistor, store} from "../redux";
 import {getCountryCodeByIP} from "../helpers/helper";
 
 export const setUserData = (isAuthorized) => {
-    const updatedLoginState = {
-        isAuthorized: isAuthorized,
-        user: {
-            role: 'GUEST',
+    return async (dispatch) => {
+        const country = await getCountryCodeByIP();
+        const updatedLoginState = {
+            isAuthorized: isAuthorized,
+            user: {
+                role: 'GUEST',
+                country,
+            }
         }
-    }
-    return (dispatch) => {
-        console.log('eeeeee');
         dispatch(updateLogin(updatedLoginState));
     };
 };

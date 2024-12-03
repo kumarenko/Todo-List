@@ -149,10 +149,7 @@ export const updateListCurrencyRequest = (list, currency) => {
         } else {
             dispatch(setShoppingList({
                 ...list,
-                name: {
-                    currency,
-                    temporary: true,
-                }
+                currency,
             }));
         }
     };
@@ -242,6 +239,7 @@ export const synchronizeLocalLists = (unSynchronizedLists, userId) => {
                         _id: list._id,
                         name: {value: list.name.value},
                         products: list.products,
+                        currency: list.currency,
                         userOwners: [],
                     },
                 ];

@@ -11,10 +11,10 @@ import {deleteProductFromList, updateProductsListRequest} from "../../../../acti
 
 const ParametersListModal = ({show, onHide, list, defaultCurrency}) => {
     const dispatch = useDispatch();
-    const [currency, setCurrency] = useState('');
+    const [currency, setCurrency] = useState('')
     useEffect(() => {
         setCurrency(list.currency || defaultCurrency);
-    }, []);
+    }, [list.currency]);
     const changeCurrency = value => {
         setCurrency(value);
         dispatch(updateListCurrencyRequest(list, value));
