@@ -444,9 +444,6 @@
   "Edit": "Edit",
   "Select Units": "Select Units",
   "List": "List",
-  "Upload": "Upload",
-  "Get it on": "Get it on",
-  "Download on the": "Download on the",
   "Next": "Next",
   "No purchased products copied to clipboard": "No purchased products copied to clipboard",
   "Purchased products copied to clipboard": "Purchased products copied to clipboard",
@@ -488,5 +485,10 @@
   "Units": "Units",
   "Parameters": "Parameters",
   "Uncheck all products": "Uncheck all products",
-  "Delete checked products": "Delete checked products"
+  "Delete checked products": "Delete checked products",
+  "Get it on": "Get it on",
+  "Download on the": "Download on the",
+  "Currency": "Currency",
+  "Copy all list": "Copy all list",
+  "Copy List to clipboard": "Copy List to clipboard"
 }

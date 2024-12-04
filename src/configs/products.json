@@ -4,7 +4,7 @@
     "name": "Bread",
     "category": "BAKERY",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -43,7 +43,7 @@
     "name": "Eggs",
     "category": "MILKS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -61,7 +61,7 @@
     "name": "Sweets",
     "category": "SWEETS",
     "units": [
-      "pc(s)",
+      "pcs",
       "g",
       "kg"
     ]
@@ -71,7 +71,7 @@
     "name": "Sauce",
     "category": "OTHER",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -90,7 +90,7 @@
     "name": "Waffers",
     "category": "SWEETS",
     "units": [
-      "pc(s)",
+      "pcs",
       "g",
       "kg"
     ]
@@ -304,7 +304,7 @@
     "name": "Apple",
     "category": "FRUITS",
     "units": [
-      "pc(s)",
+      "pcs",
       "g",
       "kg",
       "lb"
@@ -315,7 +315,7 @@
     "name": "Banana",
     "category": "FRUITS",
     "units": [
-      "pc(s)",
+      "pcs",
       "g",
       "kg",
       "lb"
@@ -326,7 +326,7 @@
     "name": "Orange",
     "category": "FRUITS",
     "units": [
-      "pc(s)",
+      "pcs",
       "g",
       "kg",
       "lb"
@@ -337,7 +337,7 @@
     "name": "Grapes",
     "category": "FRUITS",
     "units": [
-      "pc(s)",
+      "pcs",
       "g",
       "kg",
       "lb"
@@ -348,7 +348,7 @@
     "name": "Strawberry",
     "category": "FRUITS",
     "units": [
-      "pc(s)",
+      "pcs",
       "g",
       "kg",
       "lb"
@@ -359,7 +359,7 @@
     "name": "Blueberry",
     "category": "FRUITS",
     "units": [
-      "pc(s)",
+      "pcs",
       "g",
       "kg",
       "lb"
@@ -370,7 +370,7 @@
     "name": "Pineapple",
     "category": "FRUITS",
     "units": [
-      "pc(s)",
+      "pcs",
       "g",
       "kg",
       "lb"
@@ -381,7 +381,7 @@
     "name": "Watermelon",
     "category": "FRUITS",
     "units": [
-      "pc(s)",
+      "pcs",
       "g",
       "kg",
       "lb"
@@ -392,7 +392,7 @@
     "name": "Peach",
     "category": "FRUITS",
     "units": [
-      "pc(s)",
+      "pcs",
       "g",
       "kg",
       "lb"
@@ -403,7 +403,7 @@
     "name": "Mango",
     "category": "FRUITS",
     "units": [
-      "pc(s)",
+      "pcs",
       "g",
       "kg",
       "lb"
@@ -772,7 +772,7 @@
     "name": "Salmon",
     "category": "FISH",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -780,7 +780,7 @@
     "name": "Tuna",
     "category": "FISH",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -788,7 +788,7 @@
     "name": "Cod",
     "category": "FISH",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -796,7 +796,7 @@
     "name": "Trout",
     "category": "FISH",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -804,7 +804,7 @@
     "name": "Herring",
     "category": "FISH",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -812,7 +812,7 @@
     "name": "Sardines",
     "category": "FISH",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -820,7 +820,7 @@
     "name": "Mackerel",
     "category": "FISH",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -898,7 +898,7 @@
     "name": "Smartphone",
     "category": "ELECTRONICS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -906,7 +906,7 @@
     "name": "Laptop",
     "category": "ELECTRONICS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -914,7 +914,7 @@
     "name": "Television",
     "category": "ELECTRONICS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -922,7 +922,7 @@
     "name": "Headphones",
     "category": "ELECTRONICS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -930,7 +930,7 @@
     "name": "Tablet",
     "category": "ELECTRONICS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -938,7 +938,7 @@
     "name": "Camera",
     "category": "ELECTRONICS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -946,7 +946,7 @@
     "name": "Smartwatch",
     "category": "ELECTRONICS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -954,7 +954,7 @@
     "name": "All-purpose Cleaner",
     "category": "HOUSEHOLD_CHEMICALS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -962,7 +962,7 @@
     "name": "Dishwashing Liquid",
     "category": "HOUSEHOLD_CHEMICALS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -970,7 +970,7 @@
     "name": "Laundry Detergent",
     "category": "HOUSEHOLD_CHEMICALS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -978,7 +978,7 @@
     "name": "Glass Cleaner",
     "category": "HOUSEHOLD_CHEMICALS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -986,7 +986,7 @@
     "name": "Toilet Cleaner",
     "category": "HOUSEHOLD_CHEMICALS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -994,7 +994,7 @@
     "name": "Multipurpose Cleaner",
     "category": "HOUSEHOLD_CHEMICALS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1002,7 +1002,7 @@
     "name": "Fabric Softener",
     "category": "HOUSEHOLD_CHEMICALS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1010,7 +1010,7 @@
     "name": "Coffee Beans",
     "category": "COFFEE_TEA",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1018,7 +1018,7 @@
     "name": "Ground Coffee",
     "category": "COFFEE_TEA",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1026,7 +1026,7 @@
     "name": "Instant Coffee",
     "category": "COFFEE_TEA",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1034,7 +1034,7 @@
     "name": "Black Tea",
     "category": "COFFEE_TEA",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1042,7 +1042,7 @@
     "name": "Green Tea",
     "category": "COFFEE_TEA",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1050,7 +1050,7 @@
     "name": "Herbal Tea",
     "category": "COFFEE_TEA",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1058,7 +1058,7 @@
     "name": "Oolong Tea",
     "category": "COFFEE_TEA",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1066,7 +1066,7 @@
     "name": "Potato Chips",
     "category": "SNACKS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1074,7 +1074,7 @@
     "name": "Pretzels",
     "category": "SNACKS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1082,7 +1082,7 @@
     "name": "Nuts",
     "category": "SNACKS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1090,7 +1090,7 @@
     "name": "Popcorn",
     "category": "SNACKS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1098,7 +1098,7 @@
     "name": "Crackers",
     "category": "SNACKS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1106,7 +1106,7 @@
     "name": "Granola Bars",
     "category": "SNACKS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1114,7 +1114,7 @@
     "name": "Rice Cakes",
     "category": "SNACKS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1122,7 +1122,7 @@
     "name": "Chocolate",
     "category": "SWEETS",
     "units": [
-      "pc(s)",
+      "pcs",
       "g",
       "kg"
     ]
@@ -1132,7 +1132,7 @@
     "name": "Candy",
     "category": "SWEETS",
     "units": [
-      "pc(s)",
+      "pcs",
       "g",
       "kg"
     ]
@@ -1142,7 +1142,7 @@
     "name": "Cookies",
     "category": "SWEETS",
     "units": [
-      "pc(s)",
+      "pcs",
       "g",
       "kg"
     ]
@@ -1152,7 +1152,7 @@
     "name": "Cake",
     "category": "SWEETS",
     "units": [
-      "pc(s)",
+      "pcs",
       "g",
       "kg"
     ]
@@ -1162,7 +1162,7 @@
     "name": "Donuts",
     "category": "SWEETS",
     "units": [
-      "pc(s)",
+      "pcs",
       "g",
       "kg"
     ]
@@ -1172,7 +1172,7 @@
     "name": "Ice Cream",
     "category": "SWEETS",
     "units": [
-      "pc(s)",
+      "pcs",
       "g",
       "kg"
     ]
@@ -1182,7 +1182,7 @@
     "name": "Pastries",
     "category": "SWEETS",
     "units": [
-      "pc(s)",
+      "pcs",
       "g",
       "kg"
     ]
@@ -1192,7 +1192,7 @@
     "name": "Notebooks",
     "category": "STATIONERY",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1200,7 +1200,7 @@
     "name": "Pens",
     "category": "STATIONERY",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1208,7 +1208,7 @@
     "name": "Pencils",
     "category": "STATIONERY",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1216,7 +1216,7 @@
     "name": "Markers",
     "category": "STATIONERY",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1224,7 +1224,7 @@
     "name": "Paper Clips",
     "category": "STATIONERY",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1232,7 +1232,7 @@
     "name": "Stapler",
     "category": "STATIONERY",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1240,7 +1240,7 @@
     "name": "Folders",
     "category": "STATIONERY",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1248,7 +1248,7 @@
     "name": "Shrimp",
     "category": "SEAFOOD",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1256,7 +1256,7 @@
     "name": "Crab",
     "category": "SEAFOOD",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1264,7 +1264,7 @@
     "name": "Lobster",
     "category": "SEAFOOD",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1272,7 +1272,7 @@
     "name": "Mussels",
     "category": "SEAFOOD",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1280,7 +1280,7 @@
     "name": "Oysters",
     "category": "SEAFOOD",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1288,7 +1288,7 @@
     "name": "Clams",
     "category": "SEAFOOD",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1296,7 +1296,7 @@
     "name": "Scallops",
     "category": "SEAFOOD",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1304,7 +1304,7 @@
     "name": "Canned Tuna",
     "category": "CANNED",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1312,7 +1312,7 @@
     "name": "Canned Beans",
     "category": "CANNED",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1320,7 +1320,7 @@
     "name": "Canned Tomatoes",
     "category": "CANNED",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1328,7 +1328,7 @@
     "name": "Canned Corn",
     "category": "CANNED",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1336,7 +1336,7 @@
     "name": "Canned Soup",
     "category": "CANNED",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1344,7 +1344,7 @@
     "name": "Canned Fruit",
     "category": "CANNED",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1352,7 +1352,7 @@
     "name": "Canned Vegetables",
     "category": "CANNED",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1360,7 +1360,7 @@
     "name": "Buns",
     "category": "BAKERY",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1368,7 +1368,7 @@
     "name": "Pita",
     "category": "BAKERY",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1376,7 +1376,7 @@
     "name": "Bagels",
     "category": "BAKERY",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1384,7 +1384,7 @@
     "name": "Croissants",
     "category": "BAKERY",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1392,7 +1392,7 @@
     "name": "Muffins",
     "category": "BAKERY",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1400,7 +1400,7 @@
     "name": "Tortillas",
     "category": "BAKERY",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1408,7 +1408,7 @@
     "name": "Pain Reliever",
     "category": "MEDICATION",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1416,7 +1416,7 @@
     "name": "Cold Medicine",
     "category": "MEDICATION",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1424,7 +1424,7 @@
     "name": "Antibiotics",
     "category": "MEDICATION",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1432,7 +1432,7 @@
     "name": "Allergy Medication",
     "category": "MEDICATION",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1440,7 +1440,7 @@
     "name": "Cough Syrup",
     "category": "MEDICATION",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1448,7 +1448,7 @@
     "name": "Antacids",
     "category": "MEDICATION",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1456,7 +1456,7 @@
     "name": "Vitamins",
     "category": "MEDICATION",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1464,7 +1464,7 @@
     "name": "Diapers",
     "category": "CHILDREN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1472,7 +1472,7 @@
     "name": "Baby Formula",
     "category": "CHILDREN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1480,7 +1480,7 @@
     "name": "Children's CLOTHES",
     "category": "CHILDREN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1488,7 +1488,7 @@
     "name": "Toys",
     "category": "CHILDREN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1496,7 +1496,7 @@
     "name": "Baby Lotion",
     "category": "CHILDREN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1504,7 +1504,7 @@
     "name": "Strollers",
     "category": "CHILDREN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1512,7 +1512,7 @@
     "name": "Cribs",
     "category": "CHILDREN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1520,7 +1520,7 @@
     "name": "Pet Food",
     "category": "PETS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1528,7 +1528,7 @@
     "name": "Cat Litter",
     "category": "PETS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1536,7 +1536,7 @@
     "name": "Dog Toys",
     "category": "PETS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1544,7 +1544,7 @@
     "name": "Pet Shampoo",
     "category": "PETS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1552,7 +1552,7 @@
     "name": "Pet Beds",
     "category": "PETS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1560,7 +1560,7 @@
     "name": "Pet Collars",
     "category": "PETS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1568,7 +1568,7 @@
     "name": "Pet Leashes",
     "category": "PETS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1576,7 +1576,7 @@
     "name": "Pet Carriers",
     "category": "PETS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1584,7 +1584,7 @@
     "name": "Aquarium Supplies",
     "category": "PETS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1592,7 +1592,7 @@
     "name": "Bird Cages",
     "category": "PETS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1600,7 +1600,7 @@
     "name": "T-Shirts",
     "category": "CLOTHES",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1608,7 +1608,7 @@
     "name": "Jeans",
     "category": "CLOTHES",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1616,7 +1616,7 @@
     "name": "Dresses",
     "category": "CLOTHES",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1624,7 +1624,7 @@
     "name": "Jackets",
     "category": "CLOTHES",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1632,7 +1632,7 @@
     "name": "Shoes",
     "category": "CLOTHES",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1640,7 +1640,7 @@
     "name": "Hats",
     "category": "CLOTHES",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1648,7 +1648,7 @@
     "name": "Socks",
     "category": "CLOTHES",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1656,7 +1656,7 @@
     "name": "Underwear",
     "category": "CLOTHES",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1664,7 +1664,7 @@
     "name": "Sweaters",
     "category": "CLOTHES",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1672,7 +1672,7 @@
     "name": "Shorts",
     "category": "CLOTHES",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1680,7 +1680,7 @@
     "name": "Frozen Vegetables",
     "category": "FROZEN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1688,7 +1688,7 @@
     "name": "Frozen Pizza",
     "category": "FROZEN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1696,7 +1696,7 @@
     "name": "Ice Cream",
     "category": "FROZEN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1704,7 +1704,7 @@
     "name": "Frozen Fruit",
     "category": "FROZEN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1712,7 +1712,7 @@
     "name": "Frozen Meals",
     "category": "FROZEN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1720,7 +1720,7 @@
     "name": "Frozen Fish",
     "category": "FROZEN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1728,7 +1728,7 @@
     "name": "Frozen Chicken",
     "category": "FROZEN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1736,7 +1736,7 @@
     "name": "Frozen Potatoes",
     "category": "FROZEN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1744,7 +1744,7 @@
     "name": "Frozen Waffles",
     "category": "FROZEN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1752,7 +1752,7 @@
     "name": "Frozen Desserts",
     "category": "FROZEN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1760,7 +1760,7 @@
     "name": "Cleaning Supplies",
     "category": "HOUSE",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1768,7 +1768,7 @@
     "name": "Batteries",
     "category": "HOUSE",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1776,7 +1776,7 @@
     "name": "Light Bulbs",
     "category": "HOUSE",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1784,7 +1784,7 @@
     "name": "Garbage Bags",
     "category": "HOUSE",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1792,7 +1792,7 @@
     "name": "Toilet Paper",
     "category": "HOUSE",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1800,7 +1800,7 @@
     "name": "Paper Towels",
     "category": "HOUSE",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1808,7 +1808,7 @@
     "name": "Laundry Detergent",
     "category": "HOUSE",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1816,7 +1816,7 @@
     "name": "Fabric Softener",
     "category": "HOUSE",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1824,7 +1824,7 @@
     "name": "Air Fresheners",
     "category": "HOUSE",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1832,7 +1832,7 @@
     "name": "Storage Containers",
     "category": "HOUSE",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1840,7 +1840,7 @@
     "name": "Pots and Pans",
     "category": "KITCHEN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1848,7 +1848,7 @@
     "name": "Utensils",
     "category": "KITCHEN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1856,7 +1856,7 @@
     "name": "Cutlery",
     "category": "KITCHEN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1864,7 +1864,7 @@
     "name": "Plates",
     "category": "KITCHEN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1872,7 +1872,7 @@
     "name": "Cups",
     "category": "KITCHEN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1880,7 +1880,7 @@
     "name": "Bowls",
     "category": "KITCHEN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1888,7 +1888,7 @@
     "name": "Cutting Boards",
     "category": "KITCHEN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1896,7 +1896,7 @@
     "name": "Kitchen Towels",
     "category": "KITCHEN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1904,7 +1904,7 @@
     "name": "Measuring Cups",
     "category": "KITCHEN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1912,7 +1912,7 @@
     "name": "Food Storage Containers",
     "category": "KITCHEN",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1920,7 +1920,7 @@
     "name": "Bed Sheets",
     "category": "BEDDING",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1928,7 +1928,7 @@
     "name": "Pillows",
     "category": "BEDDING",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1936,7 +1936,7 @@
     "name": "Pillowcases",
     "category": "BEDDING",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1944,7 +1944,7 @@
     "name": "Blankets",
     "category": "BEDDING",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1952,7 +1952,7 @@
     "name": "Duvet Covers",
     "category": "BEDDING",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1960,7 +1960,7 @@
     "name": "Comforters",
     "category": "BEDDING",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1968,7 +1968,7 @@
     "name": "Mattress Protectors",
     "category": "BEDDING",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1976,7 +1976,7 @@
     "name": "Bed Skirts",
     "category": "BEDDING",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1984,7 +1984,7 @@
     "name": "Throw Blankets",
     "category": "BEDDING",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -1992,7 +1992,7 @@
     "name": "Quilts",
     "category": "BEDDING",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2000,7 +2000,7 @@
     "name": "Pizza",
     "category": "READY_MEALS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2008,7 +2008,7 @@
     "name": "Prepared Salads",
     "category": "READY_MEALS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2016,7 +2016,7 @@
     "name": "Prepared Sandwiches",
     "category": "READY_MEALS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2024,7 +2024,7 @@
     "name": "Microwave Meals",
     "category": "READY_MEALS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2032,7 +2032,7 @@
     "name": "Sushi",
     "category": "READY_MEALS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2040,7 +2040,7 @@
     "name": "Prepared Pasta",
     "category": "READY_MEALS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2048,7 +2048,7 @@
     "name": "Rotisserie Chicken",
     "category": "READY_MEALS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2056,7 +2056,7 @@
     "name": "Prepared Soups",
     "category": "READY_MEALS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2064,7 +2064,7 @@
     "name": "Bento Boxes",
     "category": "READY_MEALS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2072,7 +2072,7 @@
     "name": "Prepared Desserts",
     "category": "READY_MEALS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2080,7 +2080,7 @@
     "name": "Hammer",
     "category": "TOOLS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2088,7 +2088,7 @@
     "name": "Screwdriver",
     "category": "TOOLS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2096,7 +2096,7 @@
     "name": "Wrench",
     "category": "TOOLS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2104,7 +2104,7 @@
     "name": "Drill",
     "category": "TOOLS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2112,7 +2112,7 @@
     "name": "Saw",
     "category": "TOOLS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2120,7 +2120,7 @@
     "name": "Pliers",
     "category": "TOOLS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2128,7 +2128,7 @@
     "name": "Tape Measure",
     "category": "TOOLS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2136,7 +2136,7 @@
     "name": "Level",
     "category": "TOOLS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2144,7 +2144,7 @@
     "name": "Utility Knife",
     "category": "TOOLS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2152,7 +2152,7 @@
     "name": "Screws and Nails",
     "category": "TOOLS",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2160,7 +2160,7 @@
     "name": "Ketchup",
     "category": "SAUCES",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2168,7 +2168,7 @@
     "name": "Mayonnaise",
     "category": "SAUCES",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2176,7 +2176,7 @@
     "name": "Barbecue Sauce",
     "category": "SAUCES",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2184,7 +2184,7 @@
     "name": "Soy Sauce",
     "category": "SAUCES",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2192,7 +2192,7 @@
     "name": "Hot Sauce",
     "category": "SAUCES",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2200,7 +2200,7 @@
     "name": "Mustard",
     "category": "SAUCES",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2208,7 +2208,7 @@
     "name": "Pasta Sauce",
     "category": "SAUCES",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2216,7 +2216,7 @@
     "name": "Ranch Dressing",
     "category": "SAUCES",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2224,7 +2224,7 @@
     "name": "Sweet and Sour Sauce",
     "category": "SAUCES",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {
@@ -2232,7 +2232,7 @@
     "name": "Salsa",
     "category": "SAUCES",
     "units": [
-      "pc(s)"
+      "pcs"
     ]
   },
   {

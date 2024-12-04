@@ -218,7 +218,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                     <span className={`subtitle ${parseInt(prod.price) === 0 ? 'd-none' : 'd-inline'}`}>{prod.price}
                                     {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}</span>
                                     {<span className={`x subtitle ${parseInt(prod.price) === 0 || parseInt(prod.count) === 0 ? 'opacity-0' : 'opacity-1'}`}> ✕ </span>}
-                                    <span className={`subtitle`}>{prod.count} {prod.selectedUnits || t('pc(s)')}</span>
+                                    <span className={`subtitle`}>{prod.count} {prod.selectedUnits || t('pcs')}</span>
                                 </div>
                             </button>
                             <Button className='avatar-container mx-3 section-styled-bg' onClick={() => {
@@ -251,7 +251,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                         {prod.price}
                                         {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}</span>
                                     {<span className={`x subtitle ${parseInt(prod.price) === 0 || parseInt(prod.count) === 0 ? 'opacity-0' : 'opacity-1'}`}> ✕ </span>}
-                                    <span className={`subtitle`}>{prod.count} {prod.selectedUnits || t('pc(s)')}</span>
+                                    <span className={`subtitle`}>{prod.count} {prod.selectedUnits || t('pcs')}</span>
                                 </div>
                             </Button>
                             <Button className='avatar-container mx-3 section-styled-bg' onClick={() => {

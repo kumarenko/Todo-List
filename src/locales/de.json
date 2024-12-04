@@ -445,8 +445,6 @@
   "Select Units": "Einheiten auswählen",
   "List": "Liste",
   "Upload": "Hochladen",
-  "Get it on": "Holen Sie es auf",
-  "Download on the": "Herunterladen auf",
   "Next": "Weiter",
   "No purchased products copied to clipboard": "Keine gekauften Produkte in die Zwischenablage kopiert",
   "Purchased products copied to clipboard": "Gekaufte Produkte in die Zwischenablage kopiert",
@@ -488,5 +486,8 @@
   "Units": "Einheiten",
   "Parameters": "Parameter",
   "Uncheck all products": "Alle Produkte abwählen",
-  "Delete checked products": "Markierte Produkte löschen"
+  "Delete checked products": "Markierte Produkte löschen",
+  "Get it on": "Holen Sie es auf",
+  "Download on the": "Herunterladen auf",
+  "Currency": "Währung"
 }

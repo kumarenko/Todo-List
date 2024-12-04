@@ -477,12 +477,15 @@
   "g": "г",
   "kg": "кг",
   "lb": "фунт",
-  "oz": "унция",
-  "gal": "галлон",
+  "oz": "унц",
+  "gal": "гал",
   "l": "л",
   "ml": "мл",
   "Units": "Единицы измерения",
   "Parameters": "Параметры",
   "Uncheck all products": "Снять отметки со всех продуктов",
-  "Delete checked products": "Удалить отмеченные продукты"
+  "Delete checked products": "Удалить отмеченные продукты",
+  "Get it on": "Скачать в",
+  "Download on the": "Скачать в",
+  "Currency": "Валюта"
 }

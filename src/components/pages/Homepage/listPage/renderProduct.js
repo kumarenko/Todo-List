@@ -31,8 +31,8 @@ const RenderProduct = ({
                         count: elemInList?.count ?? 1,
                         checked: !!item.checked,
                         price: item.price,
-                        selectedUnits: elemInList ? item.units[0] : 'pc(s)',
-                        availableUnits: elemInList ? item.units : ['pc(s)'],
+                        selectedUnits: elemInList ? item.units[0] : 'pcs',
+                        availableUnits: elemInList ? item.units : ['pcs'],
                         selectionCount: item.selectionCount || 1,
                         avatar: elemInList ? item.avatar : null,
                     };

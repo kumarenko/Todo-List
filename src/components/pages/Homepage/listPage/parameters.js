@@ -31,7 +31,7 @@ const ParametersListModal = ({show, onHide, list, defaultCurrency}) => {
     return ReactDOM.createPortal(
         <Modal show={show} onHide={onHide} centered className='px-2'>
             <Modal.Header className="d-flex justify-content-center modal-styled-bg">
-                <Modal.Title className="justify-content-center title">Parameters</Modal.Title>
+                <Modal.Title className="justify-content-center title">{t('Parameters')}</Modal.Title>
                 <Button type="button" className="btn custom-close" aria-label="Close" onClick={onHide}>
                     <IoMdClose size={20}/>
                 </Button>
@@ -66,11 +66,7 @@ const ParametersListModal = ({show, onHide, list, defaultCurrency}) => {
                     {t('Delete checked products')} {list.products.filter(prod => prod.checked).length ? `(${list.products.filter(prod => prod.checked).length})` : ''}
                 </Button>
             </Modal.Body>
-            <Modal.Footer className="d-flex justify-content-center modal-styled-bg">
-                <Button className="d-flex align-items-center mx-2" onClick={onHide}>
-                    {t('Close')}
-                </Button>
-            </Modal.Footer>
+            <Modal.Footer className="modal-styled-bg empty-footer"/>
         </Modal>,
         document.body
     );

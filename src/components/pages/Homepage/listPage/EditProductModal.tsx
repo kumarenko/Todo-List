@@ -11,7 +11,7 @@ import allProducts from '../../../../configs/products.json';
 import currencies from "../../../../configs/currencies.json";
 import {IoMdClose} from "react-icons/io";
 const allCategories = allProducts.map(prod => prod.category).filter(onlyUnique);
-const customProductsUnits = ['pc(s)', 'g', 'kg', 'oz', 'lb', 'ml', 'l', 'gal'];
+const customProductsUnits = ['pcs', 'g', 'kg', 'oz', 'lb', 'ml', 'l', 'gal'];
 
 const EditProductModal = ({ product, show, onHide, deleteProductFromList, updateProductsListRequest, list }) => {
     const [name, setName] = useState(t(product.name));
@@ -30,7 +30,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
             setPrice(product?.price ? product.price : 0);
             setCategory(product?.category || 'OTHER');
             setAvailableUnits(product.availableUnits || []);
-            setSelectedUnits(product.selectedUnits ? product.selectedUnits : 'pc(s)');
+            setSelectedUnits(product.selectedUnits ? product.selectedUnits : 'pcs');
         }
     }, [product, show]);
 
