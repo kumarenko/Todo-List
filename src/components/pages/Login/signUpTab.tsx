@@ -33,7 +33,6 @@ const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, conf
                         resetErrors();
                         setName(event.target.value)
                     }}
-                    placeholder="John"
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors?.name}

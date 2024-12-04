@@ -13,7 +13,7 @@ import DeleteListModal from "./deleteListModal";
 import {t} from "i18next";
 import CopyListModal from "./copyListModal";
 
-const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setShoppingList}) => {
+const ShoppingLists = ({lists, removeListRequest,updateListRequest, user, setShoppingList}) => {
     const [showModal, setShowModal] = useState(false);
     const [showSharingModal, setSharingModal] = useState(false);
     const [showDeleteModal, setDeleteModal] = useState(false);
@@ -33,7 +33,7 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setS
         setShowModal(false);
     };
     const removeList = (id) => {
-        removeListRequest(userId,id);
+        removeListRequest(user.id,id);
         setDeleteModal(false);
     }
     const editList = (list) => {
@@ -136,9 +136,9 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setS
                                     <FiMoreHorizontal />
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu className='section-styled-bg'>
-                                    <Dropdown.Item eventKey="2" onClick={()=> openSharingModal(list)}>
+                                    {user.role === 'USER' && <Dropdown.Item eventKey="2" onClick={()=> openSharingModal(list)}>
                                         <IoMdPersonAdd /> {t('Share')}
-                                    </Dropdown.Item>
+                                    </Dropdown.Item>}
                                     {list.products.length > 0 ?
                                         <Dropdown.Item eventKey="2" onClick={()=> openCopyModal(list)}>
                                         <IoIosCopy /> {t('Copy')}
@@ -181,7 +181,7 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, userId, setS
 };
 const mapStateToProps = (state) => ({
     lists: state.items.lists,
-    userId: state.user.user.id,
+    user: state.user.user,
 });
 const mapDispatchToProps = {
     removeListRequest,

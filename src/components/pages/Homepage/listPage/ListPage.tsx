@@ -301,9 +301,9 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                 <FiMoreHorizontal />
                             </Dropdown.Toggle>
                             <Dropdown.Menu className='section-styled-bg'>
-                                <Dropdown.Item eventKey="1" onClick={()=> setSharingModal(true)}>
+                                {user.role === 'USER' ? <Dropdown.Item eventKey="1" onClick={()=> setSharingModal(true)}>
                                     <IoMdPersonAdd /> {t('Share')}
-                                </Dropdown.Item>
+                                </Dropdown.Item> : null}
                                 {list.products.length > 0 ? <>
                                         <Dropdown.Item eventKey="2" onClick={()=> setCopyModal(true)}>
                                             <IoIosCopy /> {t('Copy')}
