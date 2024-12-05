@@ -338,22 +338,22 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                         </div>
                         <div className='prices mx-auto subtitle'>
                             <div>
-                                <span>{t('Purchased')}</span>
-                                <span className='title'>{list.products?.length && list.products.reduce(
+                                <span className='text-center'>{t('Purchased')}</span>
+                                <span className='title text-center'>{list.products?.length && list.products.reduce(
                                     (accumulator, prod) => prod.checked ? accumulator + parseFloat(prod.price) * prod.count : accumulator, 0
                                 )} {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}
                                 </span>
                             </div>
                             <div>
-                                <span>{t('Remaining')}</span>
-                                <span className='title' >{list.products?.length && list.products.reduce(
+                                <span className='text-center'>{t('Remaining')}</span>
+                                <span className='title text-center' >{list.products?.length && list.products.reduce(
                                     (accumulator, prod) => !prod.checked ? accumulator + parseFloat(prod.price ?? 0) * prod.count : accumulator, 0
                                 )} {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}
                                 </span>
                             </div>
                             <div>
-                                <span>{t('Total')}</span>
-                                <span className='title'>
+                                <span className='text-center'>{t('Total')}</span>
+                                <span className='title text-center'>
                                     {list.products?.length && list.products.reduce(
                                     (accumulator, prod) => accumulator + parseFloat(prod.price ?? 0) * prod.count, 0
                                     )} {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}

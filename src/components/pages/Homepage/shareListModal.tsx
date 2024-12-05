@@ -104,14 +104,14 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
                             </div>
                         )}
                     </div>
-                    <span className='mx-2'>
-                    <span className='subtitle'>{owner.name} </span>
-                    <span className='subtitle'> ({owner.email})</span>
-                        {user.id === owner._id && <Badge bg="secondary ms-1">{t('You')}</Badge>}
-                </span>
+                    <span className='mx-2 d-flex flex-column flex-sm-row'>
+                        <span className='subtitle text-break'>{owner.name} </span>
+                        <span className='subtitle text-break'> ({owner.email})</span>
+                            {user.id === owner._id && <Badge bg="secondary ms-1">{t('You')}</Badge>}
+                    </span>
                 </div>
                 {list.creator !== owner._id && (
-                    <div>
+                    <div className='d-flex align-items-center'>
                         {renderBadge(owner)}
                         <Button
                             className={'mx-2'}
