@@ -8,6 +8,7 @@ import ForgotPasswordModal from "./forgotPassword/forgotPasswordModal";
 import {t} from "i18next";
 import {getCountryCodeByIP} from "../../../helpers/helper";
 import PasswordInput from "../../../common/passwordInput";
+import ServerConfig from "../../../configs/serverConfig";
 
 const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, loginAsGuest, errors, resetErrors }) => {
     const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
         dispatch(updateLogin({...userState, loading: true}));
 
         try {
-            const serverResponse = await fetch('http://localhost:4000/api/google-login', {
+            const serverResponse = await fetch(`${ServerConfig.getUrl()}api/google-login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ idToken, accessToken }),
