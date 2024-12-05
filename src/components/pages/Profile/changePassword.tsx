@@ -32,7 +32,6 @@ const ChangePassword = ({setLoading, userId, googleId}) => {
     return (
         <Container fluid="md" className='user-info d-flex w-100 flex-wrap flex-column mb-2 px-3 py-1 justify-content-center align-items-center'>
             {allowChange ? <>
-                    {googleId}
                     {!googleId ? <div className='input-container mb-2 mt-2 w-50'>
                         <h5 className='title mb-1'>{googleId ? t('Your current password') : t('Your current password')}</h5>
                         <PasswordInput
