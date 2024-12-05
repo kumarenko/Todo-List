@@ -1,9 +1,6 @@
 import {SHOPPING_LISTS_ADD_PROD_URL, SHOPPING_LISTS_EDIT_PROD_URL, UPLOAD_URL} from "../configs/urls";
 import {setShoppingList} from "../redux/shoppingListsReducer";
 import {v4 as uuidv4} from "uuid";
-import {updateUnits} from "../redux/settingsReducer";
-import {updateProfileData, updateProfileSuccessMessage} from "../redux/userReducer";
-
 export const addProductToList = (shoppingListId, product) => {
     return async (dispatch, state) => {
         const currentList = state().items.list;
@@ -20,9 +17,13 @@ export const addProductToList = (shoppingListId, product) => {
                 }).then(res=>res.json());
             dispatch(setShoppingList({...currentList, products: response}));
         } else {
+            const isElemInList = !!currentList.products.find(prod => prod._id === product._id);
+            const updatedProducts = isElemInList ?
+                currentList.products.map(prod => prod._id === product._id ? {...product, count: product.count + 1} : prod) :
+                [...currentList.products, {...product, _id: uuidv4()}];
             dispatch(setShoppingList({
                 ...currentList,
-                products: [...currentList.products, {...product, _id: uuidv4()}]
+                products: updatedProducts
             }));
         }
     }
