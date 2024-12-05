@@ -10,6 +10,7 @@ import RenderProduct from "./renderProduct";
 import {IoMdArrowDropdown, IoMdClose} from "react-icons/io";
 import {t} from "i18next";
 const allCategories = allProducts.map(prod => prod.category).filter(onlyUnique);
+const customProductsUnits = ['pcs', 'g', 'kg', 'oz', 'lb', 'ml', 'l', 'gal'];
 const AddProductModal = ({show, onHide}) => {
 
     const [searchValue, setSearchValue] = useState('');
@@ -93,32 +94,37 @@ const AddProductModal = ({show, onHide}) => {
         <Modal show={show} onHide={onHide} className='w-100 rounded' centered>
             <Modal.Header className='modal-styled-bg d-flex flex-column justify-content-center'>
                 <Modal.Title className='title'>{t('Add product')}</Modal.Title>
-                <Form.Group className='d-flex flex-row flex-nowrap w-100 mx-1 mb-3'>
-                    <InputGroup className=' w-75 d-fex flex-column'>
-                        <Form.Control
-                            value={searchValue}
-                            className='input-with-length-numbers add-prod-input w-100'
-                            type='text'
-                            maxLength={100}
-                            placeholder={t('Enter product name')}
-                            onChange={searchProduct}
-                        />
-                        <Form.Label className='label-with-length-numbers subtitle text-right d-flex align-self-end' style={{fontSize: 10}}>
-                            {searchValue.length} / 100
-                        </Form.Label>
-                    </InputGroup>
-                    <Button
-                        onClick={() => setToggleFilterModal(true)}
-                    >{t('Filter')}</Button>
-                </Form.Group>
+
+                <Button type="button" className="position-absolute top-3 end-3 btn custom-close" aria-label="Close" onClick={onHide}>
+                    <IoMdClose size={20}/>
+                </Button>
+
                 {selectedCategories.length >= 1 ? <div className='w-100'>
                     {selectedCategories.map(cat => <Button key={cat} className='m-1' onClick={() => removeCategoryToFilter(cat)}><IoMdClose/>{t(cat)}</Button>)}
                 </div> : null}
             </Modal.Header>
+            <Form.Group className='d-flex flex-row flex-nowrap py-3 modal-styled-bg'>
+                <InputGroup className=' w-75 d-fex flex-column me-3'>
+                    <Form.Control
+                        value={searchValue}
+                        className='input-with-length-numbers add-prod-input w-100'
+                        type='text'
+                        maxLength={100}
+                        placeholder={t('Enter product name')}
+                        onChange={searchProduct}
+                    />
+                    <Form.Label className='position-absolute top-100 label-with-length-numbers subtitle text-right d-flex align-self-end' style={{fontSize: 10}}>
+                        {searchValue.length} / 100
+                    </Form.Label>
+                </InputGroup>
+                <Button
+                    onClick={() => setToggleFilterModal(true)}
+                >{t('Filter')}</Button>
+            </Form.Group>
             <Modal.Body className='d-flex align-items-start flex-column modal-fixed-height modal-styled-bg'>
                 {filteredCategories.length === 0 && (
                     <RenderProduct
-                        item={{_id: null, name: searchValue, category: t('OTHER')}}
+                        item={{_id: null, name: searchValue, category: t('OTHER'), units: customProductsUnits}}
                     />
                 )}
                 {filteredCategories.map((item:any) => renderCategory(item))}

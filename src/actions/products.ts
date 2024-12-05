@@ -73,8 +73,6 @@ export const updateProductsListRequest = (shoppingListId, products) => {
                 dispatch(setShoppingList({ ...currentList, products: data }));
             }
         } else {
-            console.log('prodsss', products);
-
             let productsToUpdate =  new Set(products.map(item => item._id));
             const result = currentList.products.map(item => productsToUpdate.has(item._id) ? products.find(i => i._id) : item);
             dispatch(setShoppingList({...currentList, products: result}))
