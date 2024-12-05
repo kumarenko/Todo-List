@@ -45,7 +45,7 @@ const HomePage: FC = ({lists, getShoppingLists, title, user, addShoppingList, sy
         if (user.role === 'USER') {
             synchronizeLists();
         }
-    }, [lists]);
+    }, []);
 
     useEffect(() => {
         const fetchLists = async () => {
