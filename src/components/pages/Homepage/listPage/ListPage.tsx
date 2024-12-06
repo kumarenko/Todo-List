@@ -215,9 +215,11 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                 onClick={() => selectProduct(prod)}>
                                 <h5 className='title text-break'>{t(prod.name)}</h5>
                                 <div>
-                                    <span className={`subtitle ${parseInt(prod.price) === 0 ? 'd-none' : 'd-inline'}`}>{prod.price}
-                                    {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}</span>
-                                    {<span className={`x subtitle ${parseInt(prod.price) === 0 || parseInt(prod.count) === 0 ? 'opacity-0' : 'opacity-1'}`}> ✕ </span>}
+                                    {prod.price > 0 ? <span className={`subtitle ${parseFloat(prod.price) === 0 ? 'd-none' : 'd-inline'}`}>
+                                        {prod.price}
+                                        {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}
+                                    </span> : null}
+                                    {<span className={`x subtitle`}> ✕ </span>}
                                     <span className={`subtitle`}>{prod.count} {prod.selectedUnits || t('pcs')}</span>
                                 </div>
                             </button>
@@ -231,7 +233,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                         </div>
                     </div>)}
                 </FlipMove> : null}
-                {prods.filter(i => i.checked).length ? <div className='flip px-3 mx-auto mb-2'><div className='separator section-styled-bg'/></div> : null}
+                {prods.filter(i => i.checked).length ? <div className='separator-container flip px-3 mx-auto mb-2'><div className='separator section-styled-bg'/></div> : null}
                 {prods.filter(i => i.checked).length ? <FlipMove className='flip pb-5 mx-auto'>
                     {prods.filter(i => i.checked).map(prod => <div className='d-flex justify-content-between mb-2 w-100' key={prod._id}>
                         <div className='d-flex w-100 align-items-center ml-2'>
@@ -247,10 +249,11 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                 onClick={() => selectProduct(prod)}>
                                 <h5 className='title text-break'>{t(prod.name)}</h5>
                                 <div>
-                                    <span className={`subtitle ${parseInt(prod.price) === 0 ? 'd-none' : 'd-inline'}`}>
+                                    {prod.price > 0 ? <span className={`subtitle ${parseFloat(prod.price) === 0 ? 'd-none' : 'd-inline'}`}>
                                         {prod.price}
-                                        {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}</span>
-                                    {<span className={`x subtitle ${parseInt(prod.price) === 0 || parseInt(prod.count) === 0 ? 'opacity-0' : 'opacity-1'}`}> ✕ </span>}
+                                        {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}
+                                    </span> : null}
+                                    {<span className={`x subtitle`}> ✕ </span>}
                                     <span className={`subtitle`}>{prod.count} {prod.selectedUnits || t('pcs')}</span>
                                 </div>
                             </Button>
@@ -339,24 +342,23 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                         <div className='prices mx-auto subtitle'>
                             <div>
                                 <span className='text-center'>{t('Purchased')}</span>
-                                <span className='title text-center'>{list.products?.length && list.products.reduce(
-                                    (accumulator, prod) => prod.checked ? accumulator + parseFloat(prod.price) * prod.count : accumulator, 0
-                                )} {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}
+                                <span className='title text-center'>{list.products?.length &&
+                                list.products.reduce((accumulator, prod) => prod.checked ? accumulator + parseFloat(prod.price) * prod.count : accumulator, 0).toFixed(2)}
+                                {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}
                                 </span>
                             </div>
                             <div>
                                 <span className='text-center'>{t('Remaining')}</span>
-                                <span className='title text-center' >{list.products?.length && list.products.reduce(
-                                    (accumulator, prod) => !prod.checked ? accumulator + parseFloat(prod.price ?? 0) * prod.count : accumulator, 0
-                                )} {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}
+                                <span className='title text-center' >{list.products?.length &&
+                                list.products.reduce((accumulator, prod) => !prod.checked ? accumulator + parseFloat(prod.price ?? 0) * prod.count : accumulator, 0).toFixed(2)}
+                                {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}
                                 </span>
                             </div>
                             <div>
                                 <span className='text-center'>{t('Total')}</span>
                                 <span className='title text-center'>
-                                    {list.products?.length && list.products.reduce(
-                                    (accumulator, prod) => accumulator + parseFloat(prod.price ?? 0) * prod.count, 0
-                                    )} {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}
+                                    {list.products?.length && list.products.reduce((accumulator, prod) => accumulator + parseFloat(prod.price ?? 0) * prod.count, 0).toFixed(2)}
+                                    {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}
                                 </span>
                             </div>
                         </div>

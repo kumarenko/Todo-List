@@ -29,6 +29,8 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
     const invite = () => {
         if(validateEmail(email)){
             setErrorMessage(validateEmail(email))
+        } else if (list.userOwners.find(owner => owner.email === email)) {
+            setErrorMessage(t('This email is already in the list'))
         } else {
             inviteUsersRequest(list._id, user.id, email, 'POST')
         }

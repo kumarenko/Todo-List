@@ -21,11 +21,16 @@
   align-items: center;
   max-width: 800px;
 }
-  .separator {
-    max-width: 800px;
-    width: 100%;
-    margin: 0 auto;
-    height: 3px;
+  .separator-container {
+    &:nth-child(1) {
+      display: none;
+    }
+    .separator {
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+      height: 3px;
+    }
   }
   .progress-count {
     position: absolute;
@@ -130,6 +135,9 @@
   }
   .x {
     font-size: 10px;
+    &:first-of-type {
+      display: none;
+    }
   }
 }
 @media screen and (max-width: 576px) {
