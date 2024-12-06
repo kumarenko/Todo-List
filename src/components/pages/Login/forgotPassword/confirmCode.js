@@ -70,7 +70,6 @@ const ConfirmCode = ({ email, onApply, onBack, code, setCode, onHide }) => {
                             setResponseMessage('');
                         }, 2500);
                     }
-
                 }
             } catch (error) {
                 setTimeout(() => {
@@ -86,7 +85,7 @@ const ConfirmCode = ({ email, onApply, onBack, code, setCode, onHide }) => {
        <>
            <Message text={responseMessage}/>
            <Modal.Header className='modal-styled-bg'>
-               <Modal.Title className='title'>{t('Code was sent to your e-mail address, please enter it below')}</Modal.Title>
+               <Modal.Title className='title text-break'>{t('Code was sent to your e-mail address, please enter it below')}</Modal.Title>
                <Button type="button" className="btn custom-close" aria-label="Close" onClick={onHide}>
                    <IoMdClose size={20}/>
                </Button>

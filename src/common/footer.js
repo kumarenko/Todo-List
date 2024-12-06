@@ -6,7 +6,7 @@ import playMarket from "../media/google-play.png";
 
 const Footer = () => {
     return (
-        <div className='position-absolute bottom-0 start-0 w-100 d-sm-none d-flex nav-footer w-100 flex-row justify-content-around align-items-center section-styled-bg' style={{bottom: 10, left: 0}}>
+        <div className='position-fixed bottom-0 start-0 d-sm-none d-flex nav-footer w-100 flex-row justify-content-around align-items-center section-styled-bg' style={{bottom: 10, left: 0}}>
             <Link to={'/'} className='px-2 my-1'>
                 <img src={appStore} alt="app-store"/>
                 <span className='w-100 text-white'>{t('Get it on')} <div className=''><strong>App Store</strong></div></span>
