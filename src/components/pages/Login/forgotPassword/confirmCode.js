@@ -18,6 +18,25 @@ const ConfirmCode = ({ email, onApply, onBack, code, setCode, onHide }) => {
             inputRefs.current[index + 1].focus();
         }
     };
+    const handlePaste = (event) => {
+        let pastedText = event.clipboardData.getData('Text');
+        pastedText = pastedText.replace(/[^0-9]/g, '');
+        event.preventDefault();
+
+        const newCode = [...code];
+
+        for (let i = 0; i < Math.min(pastedText.length, 4); i++) {
+            newCode[i] = pastedText[i];
+        }
+        setCode(newCode);
+
+        const nextIndex = newCode.findIndex(digit => !digit);
+        if (nextIndex !== -1 && inputRefs.current[nextIndex]) {
+            inputRefs.current[nextIndex].focus();
+        } else if (inputRefs.current[3]) {
+            inputRefs.current[3].blur();
+        }
+    };
 
     const handleKeyPress = (e, index) => {
         if (e.key === 'Backspace' && !code[index] && index > 0) {
@@ -85,6 +104,7 @@ const ConfirmCode = ({ email, onApply, onBack, code, setCode, onHide }) => {
                            type="number"
                            maxLength="1"
                            value={digit}
+                           onPaste={handlePaste}
                            onChange={e => handleChange(e.target.value, index)}
                            onKeyDown={e => handleKeyPress(e, index)}
                            ref={el => (inputRefs.current[index] = el)}
