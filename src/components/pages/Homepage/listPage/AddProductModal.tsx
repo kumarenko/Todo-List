@@ -28,12 +28,6 @@ const AddProductModal = ({show, onHide}) => {
     }, [searchValue, selectedCategories]);
 
     const applyFilters = () => {
-        if (searchValue === '' && selectedCategories.length === 0) {
-            setFilteredItems(allProducts);
-            setFilteredCategories(allCategories);
-            return;
-        }
-
         let filtered = allProducts.filter(prod => {
             const matchesSearch = t(prod.name)
                 .toLowerCase()
@@ -44,14 +38,38 @@ const AddProductModal = ({show, onHide}) => {
             return matchesSearch && matchesCategory;
         });
 
+        if (searchValue.trim()) {
+            const customProduct = {
+                _id: null,
+                name: searchValue,
+                category: 'OTHER',
+                units: customProductsUnits,
+            };
+
+            const isCustomProductAdded = filtered.some(
+                prod => t(prod.name).toLowerCase() === searchValue.toLowerCase() && prod.category === 'OTHER',
+            );
+
+            if (!isCustomProductAdded) {
+                filtered.push(customProduct);
+            }
+        }
+
         setFilteredItems(filtered);
 
+        // Определяем категории на основе фильтрованных продуктов
         const filteredProductsCats = allCategories.filter(category =>
             filtered.some(prod => prod.category === category),
         );
 
+        // Всегда добавляем категорию OTHER, если есть поисковый запрос
+        if (searchValue.trim() && !filteredProductsCats.includes('OTHER')) {
+            filteredProductsCats.push('OTHER');
+        }
+
         setFilteredCategories(filteredProductsCats);
     };
+
 
     const filterByCategory = (categories: Array<string>) => {
         setSelectedCategories(categories);
@@ -65,9 +83,6 @@ const AddProductModal = ({show, onHide}) => {
         );
     };
 
-    const countSelectedProducts = (category: string) => {
-        return filteredItems.filter((prod: any) => prod.category === category).length;
-    };
     const removeCategoryToFilter = (cat) => {
         const updatedCategories = filteredCategories.filter((category) => category !== cat);
         filterByCategory(updatedCategories);
@@ -75,21 +90,32 @@ const AddProductModal = ({show, onHide}) => {
 
     const renderCategory = (item: any) => {
         const isExpanded = expandedCategories.includes(item);
-        const selectedProductsCount = countSelectedProducts(item);
+        const selectedProducts = filteredItems.filter(
+            (prod: any) => prod.category === item
+        );
+        const selectedProductsCount = selectedProducts.length;
+
         return (
-            <div key={item} className='w-100'>
-                <button onClick={() => toggleCategory(item)} className={'d-flex justify-content-between align-items-center w-100 section-styled-bg my-1 p-1 rounded'}>
+            <div key={item} className="w-100">
+                <button
+                    onClick={() => toggleCategory(item)}
+                    className="d-flex justify-content-between align-items-center w-100 section-styled-bg my-1 p-1 rounded"
+                >
                     <div>
                         {t(item)} <span>({selectedProductsCount})</span>
                     </div>
-                    <IoMdArrowDropdown  style={{transform: `rotate(${isExpanded ? 180 : 0}deg)`}}/>
+                    <IoMdArrowDropdown style={{ transform: `rotate(${isExpanded ? 180 : 0}deg)` }} />
                 </button>
-                <div className='d-flex flex-column'>
-                    {isExpanded && filteredItems.filter(product => product.category === item).map(prod => <RenderProduct item={prod} key={prod._id} />)}
+                <div className="d-flex flex-column">
+                    {isExpanded &&
+                    selectedProducts.map((prod: any) => (
+                        <RenderProduct item={prod} key={prod._id || prod.name} />
+                    ))}
                 </div>
             </div>
         );
     };
+
     return ReactDOM.createPortal(
         <Modal show={show} onHide={onHide} className='w-100 rounded' centered>
             <Modal.Header className='modal-styled-bg d-flex flex-column justify-content-center'>
@@ -122,12 +148,20 @@ const AddProductModal = ({show, onHide}) => {
                 >{t('Filter')}</Button>
             </Form.Group>
             <Modal.Body className='d-flex align-items-start flex-column modal-fixed-height modal-styled-bg'>
-                {filteredCategories.length === 0 && (
-                    <RenderProduct
-                        item={{_id: null, name: searchValue, category: t('OTHER'), units: customProductsUnits}}
-                    />
+                {filteredCategories.length === 0 && searchValue && (
+                    <div className="w-100">
+                        {renderCategory(t('OTHER'))}
+                        <RenderProduct
+                            item={{
+                                _id: null,
+                                name: searchValue,
+                                category: 'OTHER',
+                                units: customProductsUnits,
+                            }}
+                        />
+                    </div>
                 )}
-                {filteredCategories.map((item:any) => renderCategory(item))}
+                {filteredCategories.map((item: any) => renderCategory(item))}
             </Modal.Body>
             <Modal.Footer className='empty-footer modal-styled-bg'/>
             {toggleFilterModal && <FilterModal
