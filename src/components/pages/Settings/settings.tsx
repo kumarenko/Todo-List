@@ -42,7 +42,7 @@ const Settings = ({theme, changeTheme, title, settings, changeLanguage, isLoginP
                         </label>
                     </div>
                 </div>
-                <div className="div">
+                <div>
                     <h5 className='m-1 title'>{t('Change language')}</h5>
                     <Form.Select className={isLoginPage? 'w-auto' : 'w-50'} aria-label="language" defaultValue={settings.language} onChange={(e) => changeLang(e.target.value)}>
                         <option value="en">{t('English')}</option>

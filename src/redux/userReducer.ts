@@ -17,6 +17,7 @@ export const defaultUserState:Login = {
         email: '',
         avatar: null,
         googleId: null,
+        allowEmails: true,
     },
     errorMessage: '',
     successMessage: ''

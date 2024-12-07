@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {logoutAction, updateProfileInfo} from "../../../actions/login";
+import {logoutAction, updateProfileInfo, allowEmailSendingRequest} from "../../../actions/login";
 import {connect, useDispatch} from "react-redux";
 import {Button, Container, Form, Image} from "react-bootstrap";
 import {User} from "../../../types/types";
@@ -18,7 +18,7 @@ interface ProfileInterface extends User {
     UpdateProfileInfo: () => void,
     title: string;
 }
-const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterface) => {
+const Profile = ({user, logoutAction, title,updateProfileInfo, allowEmailSendingRequest }:ProfileInterface) => {
     const userData = user.user;
     const dispatch = useDispatch();
     const [name, setName] = useState(userData.name);
@@ -69,7 +69,7 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
                 setMessage('');
             }, 2500)
         }
-        console.log('???', user.user.googleId);
+
     }, [user]);
     const resetProfileData = () => {
         setName(userData.name);
@@ -77,7 +77,9 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
         setEmail(userData.email);
         setIsEditing(false);
     }
-
+    const toggleEmailSending = (e) => {
+        allowEmailSendingRequest(user.user.id, e.target.checked);
+    }
     return (
         <div className='profile content d-flex flex-column align-items-center mx-auto my-0 pb-5 h-100'>
             {loading ? <Spinner/> : null}
@@ -126,6 +128,15 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, }:ProfileInterfac
                         </Button>
                         {isEditing && <Button className='ms-1' onClick={() => resetProfileData()} size="md">{t('Cancel')}</Button>}
                     </div>
+                    <div className="d-flex align-items-center px-3 my-2">
+                        <Form.Label className='title mb-0'>{t('Email notifications about being added to a list')}</Form.Label>
+                        <Form.Check
+                            type={'checkbox'}
+                            className='prod-checkbox mx-3'
+                            checked={user.user.allowEmails}
+                            onChange={(e) => toggleEmailSending(e)}
+                        />
+                    </div>
                     <ChangePassword setLoading={(state) => setLoading(state)} userId={userData.id} googleId={user.user.googleId}/>
                     <AvatarModal
                         isVisible={toggleAvatarModal}
@@ -154,5 +165,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     updateProfileInfo,
     logoutAction,
+    allowEmailSendingRequest,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

@@ -6,6 +6,7 @@ import {
     updateProfileSuccessMessage, updateRegisterFlag
 } from "../redux/userReducer";
 import {
+    ALLOW_EMAIL_SENDING_URL,
     FORGOT_PASSWORD_GENERATE_CODE_URL,
     FORGOT_PASSWORD_SUBMIT_CODE_URL,
     FORGOT_PASSWORD_URL,
@@ -48,6 +49,7 @@ export const signInAction = (user) => {
                 const data = await response.json();
                 const {token, user} = data;
                 const country = await getCountryCodeByIP();
+                console.log('AAAAA',user.allowEmails);
                 const updatedLoginState = {
                     isAuthorized: true,
                     user: {
@@ -57,6 +59,7 @@ export const signInAction = (user) => {
                         name: user?.name || '',
                         lastName: user?.lastName || '',
                         avatar: user.avatar || '',
+                        allowEmails: user.allowEmails,
                         country,
                     },
                 }
@@ -101,6 +104,7 @@ export const checkUserSession:any = () => {
                     .then(async (data) => {
                         //user data retrieving
                         const country = await getCountryCodeByIP();
+                        console.log('BBBB',data.user.allowEmails);
                         const updatedLoginState = {
                             isAuthorized: true,
                             user: {
@@ -110,6 +114,7 @@ export const checkUserSession:any = () => {
                                 name: data.user.name,
                                 avatar: data.user.avatar,
                                 googleId: data.user.googleId,
+                                allowEmails: data.user.allowEmails,
                                 country,
                             },
                         }
@@ -262,6 +267,35 @@ export const removeUserAvatarRequest = (fileName, itemId) => {
                 dispatch(updateProfileData(data));
                 dispatch(updateProfileSuccessMessage(result.message));
 
+            }
+        } catch (e) {
+            console.error('Error deleting file:', e);
+        }
+    };
+};
+
+export const allowEmailSendingRequest = (userId, allowEmails) => {
+    return async (dispatch) => {
+        try {
+            const response = await fetch(ALLOW_EMAIL_SENDING_URL, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify( {userId, allowEmails}),
+            });
+
+            if (response.ok) {
+                const userData = await response.json();
+                const data = userData.user;
+                sessionStorage.setItem('token', userData.token); // Получаем токен из хранилища
+                dispatch(updateUnits(data.metricUnits));
+
+                dispatch(updateProfileData(data));
+                dispatch(updateProfileSuccessMessage(userData.message));
+            } else {
+                const userData = await response.json();
+                dispatch(updateProfileErrorMessage(userData.message))
             }
         } catch (e) {
             console.error('Error deleting file:', e);
