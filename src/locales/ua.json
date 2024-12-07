@@ -481,11 +481,19 @@
   "gal": "гал",
   "l": "л",
   "ml": "мл",
+  "mg": "мг",
   "Units": "Одиниці виміру",
   "Parameters": "Параметри",
-  "Uncheck all products": "Зняти виділення з усіх продуктів",
-  "Delete checked products": "Видалити відмічені продукти",
-  "Get it on": "Завантажити в",
+  "Uncheck all products": "Зняти позначки з усіх продуктів",
+  "Delete checked products": "Видалити позначені продукти",
+  "Get it on": "Отримати в",
   "Download on the": "Завантажити в",
-  "Currency": "Валюта"
+  "Currency": "Валюта",
+  "Copy all list": "Скопіювати весь список",
+  "Copy List to clipboard": "Скопіювати список до буфера обміну",
+  "This email is already in the list": "Ця електронна адреса вже є у списку",
+  "Email notifications about being added to a list": "Повідомлення на пошту про додавання до списку",
+  "Email notifications about being added to a list are enabled": "Повідомлення на пошту про додавання до списку увімкнено",
+  "Email notifications about being added to a list are disabled": "Повідомлення на пошту про додавання до списку вимкнено",
+  "Synchronizing data": "Синхронізація даних"
 }

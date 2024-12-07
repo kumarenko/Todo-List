@@ -482,6 +482,7 @@
   "gal": "gal",
   "l": "l",
   "ml": "ml",
+  "mg": "mg",
   "Units": "Units",
   "Parameters": "Parameters",
   "Uncheck all products": "Uncheck all products",
@@ -490,5 +491,10 @@
   "Download on the": "Download on the",
   "Currency": "Currency",
   "Copy all list": "Copy all list",
-  "Copy List to clipboard": "Copy List to clipboard"
+  "Copy List to clipboard": "Copy List to clipboard",
+  "This email is already in the list": "This email is already in the list",
+  "Email notifications about being added to a list": "Email notifications about being added to a list",
+  "Email notifications about being added to a list are enabled": "Email notifications about being added to a list are enabled",
+  "Email notifications about being added to a list are disabled": "Email notifications about being added to a list are disabled",
+  "Synchronizing data": "Synchronizing data"
 }

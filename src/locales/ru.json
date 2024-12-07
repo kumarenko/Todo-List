@@ -487,5 +487,12 @@
   "Delete checked products": "Удалить отмеченные продукты",
   "Get it on": "Скачать в",
   "Download on the": "Скачать в",
-  "Currency": "Валюта"
+  "Currency": "Валюта",
+  "Copy all list": "Скопировать весь список",
+  "Copy List to clipboard": "Скопировать список в буфер обмена",
+  "This email is already in the list": "Этот адрес электронной почты уже в списке",
+  "Email notifications about being added to a list": "Уведомления на почту о добавлении в список",
+  "Email notifications about being added to a list are enabled": "Уведомления на почту о добавлении в список включены",
+  "Email notifications about being added to a list are disabled": "Уведомления на почту о добавлении в список отключены",
+  "Synchronizing data": "Синхронизация данных"
 }

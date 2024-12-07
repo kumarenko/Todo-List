@@ -479,11 +479,19 @@
   "gal": "gal",
   "l": "l",
   "ml": "ml",
+  "mg": "mg",
   "Units": "Unités",
   "Parameters": "Paramètres",
   "Uncheck all products": "Décocher tous les produits",
   "Delete checked products": "Supprimer les produits cochés",
   "Get it on": "Obtenez-le sur",
   "Download on the": "Téléchargez-le sur l'",
-  "Currency": "Devise"
+  "Currency": "Devise",
+  "Copy all list": "Copier toute la liste",
+  "Copy List to clipboard": "Copier la liste dans le presse-papiers",
+  "This email is already in the list": "Cet e-mail est déjà dans la liste",
+  "Email notifications about being added to a list": "Notifications par e-mail lors de l'ajout à une liste",
+  "Email notifications about being added to a list are enabled": "Les notifications par e-mail lors de l'ajout à une liste sont activées",
+  "Email notifications about being added to a list are disabled": "Les notifications par e-mail lors de l'ajout à une liste sont désactivées",
+  "Synchronizing data": "Synchronisation des données"
 }
