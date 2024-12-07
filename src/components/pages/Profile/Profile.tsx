@@ -28,6 +28,7 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, allowEmailSending
     const [toggleAvatarModal, setToggleAvatarModal] = useState(false);
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
+    const [loadingAvatar, setLoadingAvatar] = useState(false);
     useEffect(() => {
         document.title = title;
     }, []);
@@ -80,6 +81,9 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, allowEmailSending
     const toggleEmailSending = (e) => {
         allowEmailSendingRequest(user.user.id, e.target.checked);
     }
+    useEffect(() => {
+        setLoadingAvatar(false);
+    }, [user.user.avatar])
     return (
         <div className='profile content d-flex flex-column align-items-center mx-auto my-0 pb-5 h-100'>
             {loading ? <Spinner/> : null}
@@ -91,8 +95,12 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, allowEmailSending
                 <>
                     <div onClick={() => setToggleAvatarModal(true)} className='d-flex justify-content-center w-100 px-3 py-1'>
                         {user.user.avatar ?
-                            <div className='avatar mb-1 rounded-circle section-styled-bg d-flex align-items-center justify-content-center'>
-                                <Image src={user.user.avatar} className='avatar mb-1 section-styled-bg'/>
+                            <div className='avatar mb-1 rounded-circle section-styled-bg d-flex align-items-center justify-content-center position-relative'>
+                                <Image src={user.user.avatar} className={`avatar mb-1 section-styled-bg`}/>
+                                {loadingAvatar ? <div style={{backgroundColor: 'rgba(0, 0, 0, 0.25)'}}
+                                                      className='position-absolute w-100 h-100 d-flex align-items-center justify-content-center'>
+                                    <div className="spinner-border text-primary"/>
+                                </div> : null}
                             </div> :
                             <div className='avatar mb-1 rounded-circle section-styled-bg d-flex align-items-center justify-content-center'>
                                 <FaCamera size={48} className={'subtitle'} />
@@ -142,6 +150,7 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, allowEmailSending
                         isVisible={toggleAvatarModal}
                         onClose={() => setToggleAvatarModal(false)}
                         product={{_id: user.user.id, name: user.user.name, avatar: user.user.avatar}}
+                        onStartLoading={() => setLoadingAvatar(true)}
                         listId={null}
                         type={'avatars'}
                     />
