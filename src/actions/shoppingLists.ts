@@ -22,7 +22,9 @@ export const getShoppingLists = (userId: string) => {
         if(userData.user.role === 'USER') {
             const response = await axios.get(
                 SHOPPING_LISTS_URL, {params: {userId}});
-            dispatch(setShoppingLists(response.data.shoppingLists))
+            if(state().user.isAuthorized) {
+                dispatch(setShoppingLists(response.data.shoppingLists))
+            }
         } else {
             const lists = state().items.lists;
             dispatch(setShoppingLists(lists));

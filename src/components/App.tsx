@@ -27,7 +27,7 @@ const App = () => {
     useEffect(() => {
         dispatch(checkUserSession());
         document.title = 'Home';
-    }, [dispatch]);
+    }, []);
 
     useEffect(() => {
         document.body.classList.remove('light', 'dark'); // Удаляем старые классы
