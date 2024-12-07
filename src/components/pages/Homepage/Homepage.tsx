@@ -7,8 +7,9 @@ import {
     addShoppingList, synchronizeLocalLists,
 } from '../../../actions/shoppingLists';
 import ShoppingLists from "./shoppingLists";
-import {Button} from "react-bootstrap";
+import {Badge, Button} from "react-bootstrap";
 import {IoMdAdd} from "react-icons/io";
+import {FaSyncAlt} from "react-icons/fa";
 import './styles.less';
 import {t} from "i18next";
 import Footer from "../../../common/footer";
@@ -17,6 +18,8 @@ import ListPlaceholder from "../../../common/listPlaceholder";
 const HomePage: FC = ({lists, getShoppingLists, title, user, addShoppingList, synchronizeLocalLists }): ReactElement => {
     const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [loadingSync, setLoadingSync] = useState(false);
+
     const handleClose = () => setShowModal(false);
 
     const handleApply = async (name) => {
@@ -37,8 +40,10 @@ const HomePage: FC = ({lists, getShoppingLists, title, user, addShoppingList, sy
             const unSynchronizedLists = lists.filter(list => list.temporary);
             if (unSynchronizedLists.length > 0) {
                 setLoading(true);
+                setLoadingSync(true);
                 await synchronizeLocalLists(unSynchronizedLists, user.id);
                 setLoading(false);
+                setLoadingSync(false);
             }
         };
 
@@ -68,13 +73,19 @@ const HomePage: FC = ({lists, getShoppingLists, title, user, addShoppingList, sy
             }
         }
     }
-    return <div className='content h-100vh w-100 d-flex flex-column align-items-center mx-auto my-0'>
+    return <div className='content h-100vh w-100 d-flex flex-column align-items-center mx-auto my-0 position-relative'>
         <div className="d-flex justify-content-between h3 w-100 align-items-center justify-content-between flex-column flex-sm-row  pt-5 pt-sm-3 px-3 mb-0">
             <h1 className='title pt-2 pt-sm-0'>{t('Lists')}</h1>
             <Button className='d-flex align-items-center' onClick={() => addNewList()}>
                 <IoMdAdd size={16} className='me-1'/>
                 {t('Add list')}
             </Button>
+        </div>
+        <div className='d-flex justify-content-end w-100 px-3 mt-2'>
+            <Badge className={`sync-label title d-flex align-items-center ${loadingSync ? 'show' :''}`}>
+                <FaSyncAlt className='me-2' />
+                {t('Synchronizing data')}
+            </Badge>
         </div>
         {renderLists()}
             <CreateListModal

@@ -105,7 +105,7 @@ const ShoppingLists = ({lists, removeListRequest,updateListRequest, user, setSho
 
     return (
         <>
-            <div className='lists w-100 px-3 pb-5 my-2'>
+            <div className='lists w-100 px-3 pb-5 mt-1 mb-2'>
                 {lists.map(list => <div className=' w-100 my-2 py-2' key={list._id}>
                     <Card className={`${list.loading ? 'placeholder-list overflow-hidden' : ''} w-100 d-flex flex-row align-items-stretch p-2 section-styled-bg`}>
                         <Link to={`/lists/${list._id}`} className={`w-75 ${list.loading ? 'pe-none' : ''}`}>

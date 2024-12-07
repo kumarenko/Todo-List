@@ -57,19 +57,16 @@ const AddProductModal = ({show, onHide}) => {
 
         setFilteredItems(filtered);
 
-        // Определяем категории на основе фильтрованных продуктов
         const filteredProductsCats = allCategories.filter(category =>
             filtered.some(prod => prod.category === category),
         );
 
-        // Всегда добавляем категорию OTHER, если есть поисковый запрос
         if (searchValue.trim() && !filteredProductsCats.includes('OTHER')) {
             filteredProductsCats.push('OTHER');
         }
 
         setFilteredCategories(filteredProductsCats);
     };
-
 
     const filterByCategory = (categories: Array<string>) => {
         setSelectedCategories(categories);
@@ -129,7 +126,7 @@ const AddProductModal = ({show, onHide}) => {
                     {selectedCategories.map(cat => <Button key={cat} className='m-1' onClick={() => removeCategoryToFilter(cat)}><IoMdClose/>{t(cat)}</Button>)}
                 </div> : null}
             </Modal.Header>
-            <Form.Group className='d-flex flex-row flex-nowrap py-3 modal-styled-bg'>
+            <Form.Group className='d-flex flex-row flex-nowrap modal-styled-bg py-3 px-3 justify-content-start'>
                 <InputGroup className=' w-75 d-fex flex-column me-3'>
                     <Form.Control
                         value={searchValue}
@@ -147,7 +144,7 @@ const AddProductModal = ({show, onHide}) => {
                     onClick={() => setToggleFilterModal(true)}
                 >{t('Filter')}</Button>
             </Form.Group>
-            <Modal.Body className='d-flex align-items-start flex-column modal-fixed-height modal-styled-bg'>
+            <Modal.Body className='d-flex align-items-start flex-column modal-fixed-height modal-styled-bg pt-0'>
                 {filteredCategories.length === 0 && searchValue && (
                     <div className="w-100">
                         {renderCategory(t('OTHER'))}
