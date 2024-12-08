@@ -96,7 +96,7 @@ const AddProductModal = ({show, onHide}) => {
             <div key={item} className="w-100">
                 <button
                     onClick={() => toggleCategory(item)}
-                    className="d-flex justify-content-between align-items-center w-100 section-styled-bg my-1 p-1 rounded"
+                    className="accordion d-flex justify-content-between subtitle align-items-center w-100 section-styled-bg my-1 p-1 rounded"
                 >
                     <div>
                         {t(item)} <span>({selectedProductsCount})</span>

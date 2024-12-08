@@ -45,7 +45,7 @@ body {
         border-top: none;
       }
     }
-    button:not(.nav-link), button.btn, .custom-file-upload {
+    button:not(.nav-link, .accordion), button.btn, .custom-file-upload {
       background-color: @BUTTON_BG_DARK;
       border:none;
       color: @BUTTON_TEXT_DARK;
@@ -136,7 +136,6 @@ body {
     button.section-styled-bg {
       border: 1px solid @INPUT_BORDER_LIGHT;
       background-color: @SECTION_BG_DARK;
-      color: @BUTTON_TEXT_DARK;
       &:hover {
         background-color: lighten(@SECTION_BG_DARK, 10%);
       }
@@ -312,7 +311,7 @@ body {
     button.btn {
       border: 1px solid @INPUT_BORDER_DARK;
     }
-    button, button.btn, .custom-file-upload {
+    button:not(.accordion), button.btn, .custom-file-upload {
       background-color: @BUTTON_BG_LIGHT;
       border: none;
       color: @BUTTON_TEXT_LIGHT;
@@ -386,7 +385,6 @@ body {
     button.section-styled-bg {
       border: 1px solid @INPUT_BORDER_DARK;
       background-color: @SECTION_BG_LIGHT;
-      color: @BUTTON_TEXT_LIGHT;
       &:hover {
         background-color: darken(@SECTION_BG_LIGHT, 10%);
       }
