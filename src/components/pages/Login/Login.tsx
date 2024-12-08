@@ -17,8 +17,10 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
+    const [registerEmail, setRegisterEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
+    const [registerPassword, setRegisterPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const [showErrorPopup, setShowErrorPopup] = useState(false);
@@ -36,7 +38,7 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
 
     useEffect(() => {
         if (user.isAuthorized) {
-            navigate(-1);
+            navigate('/');
         } else if (user.errorMessage) {
             setErrorMessage(user.errorMessage);
             setShowErrorPopup(true);
@@ -48,10 +50,10 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
     }, [user, navigate]);
 
     const signUpHandler = async () => {
-        setErrors(validateSignUpForm({ email, password, confirmPassword, name }));
-        if (!Object.keys(validateSignUpForm({ email, password, confirmPassword, name })).length) {
+        setErrors(validateSignUpForm({ registerEmail, password, confirmPassword, name }));
+        if (!Object.keys(validateSignUpForm({ registerEmail, password, confirmPassword, name })).length) {
             setLoading(true);
-            await signUpAction(email,name, password);
+            await signUpAction(registerEmail,name, password);
             setLoading(false);
         }
     }
@@ -110,9 +112,9 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
                                     <IoMdSettings className="fs-4"/>
                                 </Button>
                                 <SignUpTab
-                                    email={email} setEmail={setEmail}
+                                    email={registerEmail} setEmail={setRegisterEmail}
                                     name={name} setName={setName}
-                                    password={password} setPassword={setPassword}
+                                    registerPassword={registerPassword} setRegisterPassword={setRegisterPassword}
                                     confirmPassword={confirmPassword} setConfirmPassword={setConfirmPassword}
                                     signUpHandler={signUpHandler}
                                     errors={errors}
