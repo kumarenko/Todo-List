@@ -2,12 +2,13 @@ import React, {useState} from 'react';
 import {Form, Button} from "react-bootstrap";
 import {FaEye, FaEyeSlash} from "react-icons/fa";
 
-const PasswordInput = ({value, onChange, isInvalid,validationErrorsMessage}) => {
+const PasswordInput = ({value, onChange, isInvalid,validationErrorsMessage, name = ''}) => {
     const [visible, setVisible] = useState(false);
     return (
         <div className='position-relative'>
             <Form.Control
                 isInvalid={isInvalid}
+                name={name}
                 onChange={onChange}
                 type={visible ? 'text' : 'password'}
                 value={value}/>

@@ -4,20 +4,22 @@ import { Button } from "react-bootstrap";
 import {t} from "i18next";
 import PasswordInput from "../../../common/passwordInput";
 
-const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, confirmPassword, setConfirmPassword, signUpHandler, errors, resetErrors }) => {
+const SignUpTab = ({ email, setEmail, name, setName, registerPassword, setRegisterPassword, confirmPassword, setConfirmPassword, signUpHandler, errors, resetErrors }) => {
     return (
-        <Form className='d-flex flex-column p-3'>
+        <Form className='d-flex flex-column p-3' autoComplete="off">
             <Form.Group className="mb-2">
                 <Form.Label className='subtitle'>{t('Email')}</Form.Label>
                 <Form.Control
                     type="email"
                     value={email}
+                    autoComplete="email"
                     isInvalid={!!errors?.email}
                     onChange={event => {
                         resetErrors();
-                        setEmail(event.target.value)
+                        setEmail(event.target.value);
                     }}
                     placeholder="name@example.com"
+                    name="email"
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors?.email}
@@ -28,10 +30,11 @@ const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, conf
                 <Form.Control
                     type="text"
                     value={name}
+                    autoComplete="name"
                     isInvalid={!!errors?.name}
                     onChange={event => {
                         resetErrors();
-                        setName(event.target.value)
+                        setName(event.target.value);
                     }}
                 />
                 <Form.Control.Feedback type="invalid">
@@ -41,13 +44,15 @@ const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, conf
             <Form.Group className="mb-2" controlId="passSignUp">
                 <Form.Label className='subtitle'>{t('Password')}</Form.Label>
                 <PasswordInput
-                    value={password}
+                    value={registerPassword}
                     isInvalid={!!errors?.password}
+
                     onChange={event => {
                         resetErrors();
-                        setPassword(event.target.value)
+                        setRegisterPassword(event.target.value);
                     }}
                     validationErrorsMessage={errors?.password}
+                    autoComplete="new-password"
                 />
             </Form.Group>
             <Form.Group className="mb-2" controlId="confirmPassSignUp">
@@ -57,9 +62,10 @@ const SignUpTab = ({ email, setEmail, name, setName, password, setPassword, conf
                     isInvalid={!!errors?.confirmPassword}
                     onChange={event => {
                         resetErrors();
-                        setConfirmPassword(event.target.value)
+                        setConfirmPassword(event.target.value);
                     }}
                     validationErrorsMessage={errors?.confirmPassword}
+                    autoComplete="new-password"
                 />
             </Form.Group>
             <Button

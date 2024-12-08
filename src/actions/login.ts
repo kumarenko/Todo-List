@@ -49,7 +49,6 @@ export const signInAction = (user) => {
                 const data = await response.json();
                 const {token, user} = data;
                 const country = await getCountryCodeByIP();
-                console.log('AAAAA',user.allowEmails);
                 const updatedLoginState = {
                     isAuthorized: true,
                     user: {
@@ -67,14 +66,11 @@ export const signInAction = (user) => {
                 updateUnits(user.metricUnits);
                 sessionStorage.setItem('token', token);
                 dispatch(updateLogin(updatedLoginState));
-
             } else {
-                alert('Login failed!');
-                dispatch(updateLogin({...userState, loading: false}));
+                dispatch(updateLogin({...userState,errorMessage: 'Login failed', loading: false}));
             }
         } catch (e) {
-            alert('Login failed!');
-            dispatch(updateLogin({...userState, loading: false}));
+            dispatch(updateLogin({...userState,errorMessage: 'Internal Server Error', loading: false}));
         }
     };
 };
