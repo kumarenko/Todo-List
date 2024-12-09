@@ -3,12 +3,13 @@ import {Button, Modal, Spinner} from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 import {validateEmail} from "../../../../helpers/validator";
 import {requestResetPassword} from "../../../../actions/login";
-import Message from "../../../../common/message";
 import {t} from "i18next";
+import {addMessageToQueue} from "../../../../redux/settingsReducer";
+import {useDispatch} from "react-redux";
 
 const ConfirmEmail = ({onHide, onApply, email, setEmail}) => {
+    const dispatch = useDispatch();
     const [error, setError] = useState('');
-    const [responseMessage, setResponseMessage] = useState('');
     const [loading, setLoading] = useState(false);
 
     const confirmEmail = async () => {
@@ -18,12 +19,9 @@ const ConfirmEmail = ({onHide, onApply, email, setEmail}) => {
             if (result.ok) {
                 onApply();
             } else if(result.status === 404) {
-                setResponseMessage(t('User not found'));
-                setTimeout(() => {
-                    setResponseMessage('');
-                }, 2500)
+                dispatch(addMessageToQueue({message: t('User not found'), type: 'error'}));
             } else {
-                setResponseMessage(t('Server error'));
+                dispatch(addMessageToQueue({message: t('Internal Server Error'), type: 'error'}));
             }
             setLoading(false);
         } else {
@@ -33,7 +31,6 @@ const ConfirmEmail = ({onHide, onApply, email, setEmail}) => {
     };
     return <>
         <Modal.Header className='modal-styled-bg justify-content-center'>
-            <Message text={responseMessage}/>
             <Modal.Title className='title'>{t('Enter your email to reset password')}</Modal.Title>
         </Modal.Header>
         <Modal.Body className='modal-styled-bg'>

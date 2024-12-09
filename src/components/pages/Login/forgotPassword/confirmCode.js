@@ -1,14 +1,15 @@
 import React, { useState, useRef } from 'react';
 import { Modal, Button, Form, Spinner } from 'react-bootstrap';
-import Message from "../../../../common/message";
 import {sendCode} from "../../../../actions/login";
 import {t} from "i18next";
 import {IoMdClose} from "react-icons/io";
+import {addMessageToQueue} from "../../../../redux/settingsReducer";
+import {useDispatch} from "react-redux";
 
 const ConfirmCode = ({ email, onApply, onBack, code, setCode, onHide }) => {
     const [loading, setLoading] = useState(false);
     const inputRefs = useRef([]);
-    const [responseMessage, setResponseMessage] = useState('');
+    const dispatch = useDispatch();
 
     const handleChange = (value, index) => {
         const newCode = [...code];
@@ -47,10 +48,7 @@ const ConfirmCode = ({ email, onApply, onBack, code, setCode, onHide }) => {
     const handleConfirmCode = async () => {
         const completedCode = code.join('');
         if (completedCode.length < 4) {
-            setResponseMessage(t('The code must be 4 digits long'));
-            setTimeout(() => {
-                setResponseMessage('');
-            }, 2500);
+            dispatch(addMessageToQueue({message: t('The code must be 4 digits long'), type: 'error'}));
         } else {
             setLoading(true);
             try {
@@ -60,21 +58,13 @@ const ConfirmCode = ({ email, onApply, onBack, code, setCode, onHide }) => {
                 } else {
                     const data = await result.json();
                     if(data.message) {
-                        setResponseMessage(t('Too many attempts. Code expired'));
-                        setTimeout(() => {
-                            setResponseMessage('');
-                        }, 2500);
+                        dispatch(addMessageToQueue({message: t('Too many attempts. Code expired'), type: 'error'}));
                     } else {
-                        setResponseMessage(t('invalidСode', {attempts: data.attempts}));
-                        setTimeout(() => {
-                            setResponseMessage('');
-                        }, 2500);
+                        dispatch(addMessageToQueue({message: t('invalidСode', {attempts: data.attempts}), type: 'error'}));
                     }
                 }
             } catch (error) {
-                setTimeout(() => {
-                    setResponseMessage('');
-                }, 2500);
+                setLoading(false);
             } finally {
                 setLoading(false);
             }
@@ -83,7 +73,6 @@ const ConfirmCode = ({ email, onApply, onBack, code, setCode, onHide }) => {
 
     return (
        <>
-           <Message text={responseMessage}/>
            <Modal.Header className='modal-styled-bg'>
                <Modal.Title className='title text-break'>{t('Code was sent to your e-mail address, please enter it below')}</Modal.Title>
                <Button type="button" className="btn custom-close" aria-label="Close" onClick={onHide}>

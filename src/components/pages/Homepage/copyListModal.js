@@ -4,13 +4,13 @@ import {Button, Modal} from "react-bootstrap";
 import {t} from "i18next";
 import {copyTextToClipboard} from "../../../helpers/helper";
 import {useState} from "react";
-import CustomAlert from "../../../common/Alert";
 import {defaultListsState} from "../../../redux/shoppingListsReducer";
 import {IoMdClose} from "react-icons/io";
+import {addMessageToQueue} from "../../../redux/settingsReducer";
+import {useDispatch} from "react-redux";
 
 const CopyListModal = ({list, show, onHide}) => {
-    const [message, setMessage] = useState('');
-
+    const dispatch = useDispatch();
     const [l, setL] = useState(defaultListsState.list);
 
     function compareFn(a, b) {
@@ -41,13 +41,12 @@ const CopyListModal = ({list, show, onHide}) => {
         copyTextToClipboard(str)
             .then(result => {
                 if (result === 'success') {
-                    setMessage(t('List copied to clipboard'));
+                    dispatch(addMessageToQueue({message: t('List copied to clipboard'), type: 'success'}));
                 }
             })
             .catch(error => {
-                setMessage(`${t('Error copying to clipboard')}: ${error}`);
+                dispatch(addMessageToQueue({message: `${t('Error copying to clipboard')}: ${error}`, type: 'error'}));
             });
-        setTimeout(() => setMessage(''), 2500);
     }
     const copyChecked = (checked) => {
         let str = `${list.name.value}\n${t(checked ? 'Purchased' : 'Remaining')}:\n`;
@@ -61,14 +60,13 @@ const CopyListModal = ({list, show, onHide}) => {
             .then(result => {
                 if (result === 'success') {
                     checked ?
-                        setMessage(t('Purchased products copied to clipboard')) :
-                        setMessage(t('No purchased products copied to clipboard'));
+                        dispatch(addMessageToQueue({message: t('Purchased products copied to clipboard'), type: 'success'})) :
+                        dispatch(addMessageToQueue({message: t('No purchased products copied to clipboard'), type: 'success'}));
                 }
             })
             .catch(error => {
-                setMessage(`${t('Error copying to clipboard')}: ${error}`);
+                dispatch(addMessageToQueue({message: `${t('Error copying to clipboard')}: ${error}`, type: 'error'}));
             });
-        setTimeout(() => setMessage(''), 2500);
     }
     return (ReactDOM.createPortal(<Modal show={show} onHide={onHide} centered>
         <Modal.Header className='d-flex justify-content-center modal-styled-bg'>
@@ -83,9 +81,6 @@ const CopyListModal = ({list, show, onHide}) => {
             <Button className={`sort-btn my-1`} onClick={() => copyChecked(true)}>{t('Copy unchecked products')}</Button>
         </Modal.Body>
         <Modal.Footer className='empty-footer  modal-styled-bg'/>
-        {message ? <CustomAlert className='popup'>
-            {message}
-        </CustomAlert> : null}
     </Modal>, document.body));
 };
 

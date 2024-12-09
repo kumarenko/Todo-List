@@ -3,8 +3,6 @@ import {logoutAction, updateProfileInfo, allowEmailSendingRequest} from "../../.
 import {connect, useDispatch} from "react-redux";
 import {Button, Container, Form, Image} from "react-bootstrap";
 import {User} from "../../../types/types";
-import {updateProfileErrorMessage, updateProfileSuccessMessage} from "../../../redux/userReducer";
-import CustomAlert from "../../../common/Alert";
 import ChangePassword from "./changePassword";
 import './styles.less';
 import {t} from "i18next";
@@ -12,6 +10,7 @@ import Footer from "../../../common/footer";
 import AvatarModal from "../Homepage/listPage/avatar";
 import { FaCamera } from "react-icons/fa";
 import Spinner from "../../../common/spinner";
+import {addMessageToQueue} from "../../../redux/settingsReducer";
 
 interface ProfileInterface extends User {
     logoutAction: (role: boolean) => void,
@@ -26,7 +25,6 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, allowEmailSending
     const [email, setEmail] = useState(userData.email);
     const [isEditing, setIsEditing] = useState(false);
     const [toggleAvatarModal, setToggleAvatarModal] = useState(false);
-    const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const [loadingAvatar, setLoadingAvatar] = useState(false);
     useEffect(() => {
@@ -57,18 +55,10 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, allowEmailSending
     }
     useEffect(() => {
         if(user.successMessage) {
-            setMessage(user.successMessage);
-            setTimeout(() => {
-                dispatch(updateProfileSuccessMessage(''));
-                setMessage('');
-            }, 2500)
+            dispatch(addMessageToQueue({message: t(user.successMessage), type: 'success'}));
         }
         if(user.errorMessage) {
-            setMessage(user.errorMessage);
-            setTimeout(() => {
-                dispatch(updateProfileErrorMessage(''));
-                setMessage('');
-            }, 2500)
+            dispatch(addMessageToQueue({message: t(user.errorMessage), type: 'error'}));
         }
 
     }, [user]);
@@ -159,9 +149,6 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, allowEmailSending
                     <h4 className='title'>{t("Hello! You're in guest mode. Sign in to access all features!")}</h4>
                 </div>
             }
-            <CustomAlert variant={user.errorMessage ? 'danger' : 'success'} className='popup'>
-                {message}
-            </CustomAlert>
             <Footer/>
         </div>
     );

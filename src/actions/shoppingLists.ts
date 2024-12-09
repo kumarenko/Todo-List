@@ -14,7 +14,7 @@ import {
 } from "../configs/urls";
 import {t} from "i18next";
 import {getCurrencyCode} from "../helpers/helper";
-import {updateProfileSuccessMessage} from "../redux/userReducer";
+import {addMessageToQueue} from "../redux/settingsReducer";
 
 export const getShoppingLists = (userId: string) => {
     return async (dispatch, state) => {
@@ -174,7 +174,7 @@ export const inviteUsersRequest = (shoppingListId, userId, invitedUser, method) 
         if(response.ok) {
             const data = await response.json();
             dispatch(setShoppingList({...currentList, userOwners: data.userOwners}));
-            dispatch(updateProfileSuccessMessage(data.message));
+            dispatch(addMessageToQueue({message: t(data.message), type: 'success'}));
         }
     };
 };
@@ -213,8 +213,10 @@ export const removeListRequest = (userId, shoppingListId) => {
                 dispatch(
                     setShoppingLists(lists.filter(list => list._id !== shoppingListId)),
                 );
+
             } else {
                 dispatch(setShoppingList(lists));
+                dispatch(addMessageToQueue({message: t('Error during inviting user'), type: 'error'}));
             }
         } else {
             const prodsWithAvatarsFromLocalList = lists.find(list => list._id === shoppingListId).products.filter(prod => prod.avatar);

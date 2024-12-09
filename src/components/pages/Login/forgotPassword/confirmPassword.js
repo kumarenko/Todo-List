@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form, Spinner } from 'react-bootstrap';
 import {changePassword} from "../../../../actions/login";
-import Message from "../../../../common/message";
 import {t} from "i18next";
 import {IoMdClose} from "react-icons/io";
 import PasswordInput from "../../../../common/passwordInput";
+import {addMessageToQueue} from "../../../../redux/settingsReducer";
+import {useDispatch} from "react-redux";
 
 const ChangePassword = ({ email, onApply, onBack, onHide }) => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
-    const [message, setMessage] = useState('');
+    const dispatch = useDispatch();
 
     const handlePasswordChange = async () => {
         if (confirmPassword !== password) {
@@ -29,22 +30,15 @@ const ChangePassword = ({ email, onApply, onBack, onHide }) => {
                 try {
                     const result = await changePassword(email, password);
                     if(result.ok) {
-                        setMessage(t('Password successfully changed'));
+                        dispatch(addMessageToQueue({message: t('Password successfully changed'), type: 'success'}));
                         setTimeout(() => {
-                            setMessage('');
                             onApply();
                         }, 2500);
                     } else {
-                        setMessage(t('An error occurred while changing the password'));
-                        setTimeout(() => {
-                            setMessage('');
-                        }, 2500);
+                        dispatch(addMessageToQueue({message: t('An error occurred while changing the password'), type: 'error'}));
                     }
                 } catch (err) {
-                    setMessage(t('An error occurred while changing the password'));
-                    setTimeout(() => {
-                        setMessage('');
-                    }, 2500);
+                    dispatch(addMessageToQueue({message: t('An error occurred while changing the password'), type: 'error'}));
                 } finally {
                     setLoading(false);
                 }
@@ -54,7 +48,6 @@ const ChangePassword = ({ email, onApply, onBack, onHide }) => {
 
     return (
         <>
-            <Message text={message}/>
             <Modal.Header className='modal-styled-bg'>
                 <Modal.Title className='title'>{t('Change Password')}</Modal.Title>
                 <Button type="button" className="btn custom-close" aria-label="Close" onClick={onHide}>

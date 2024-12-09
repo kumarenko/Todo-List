@@ -7,7 +7,6 @@ import {IoMdClose} from "react-icons/io";
 import {inviteUsersRequest} from "../../../actions/shoppingLists";
 import {connect} from "react-redux";
 import {t} from "i18next";
-import CustomMessage from "../../../common/customMessage";
 
 const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
     const [email, setEmail] = useState('');
@@ -196,7 +195,6 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
             </Container>
         </Modal.Body>
         <Modal.Footer className='modal-styled-bg empty-footer'/>
-        <CustomMessage/>
     </Modal>, document.body);
 };
 const mapStateToProps = (state) => ({
