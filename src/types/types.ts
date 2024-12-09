@@ -18,14 +18,9 @@ export interface Login {
     isAuthorized: boolean,
     loading: boolean,
     user: User,
-    errorMessage: string,
-    successMessage: string,
 }
 export interface SettingsTypes {
     theme: string,
-    units: string,
-    currency: string,
-    isMetric: boolean,
     language: string,
     messagesQueue: Array<{createdAt: Date, value: string}>
 }

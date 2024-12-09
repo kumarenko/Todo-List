@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import {Alert, Button, Tab, Tabs} from "react-bootstrap";
-import {connect, useDispatch} from "react-redux";
+import {Button, Tab, Tabs} from "react-bootstrap";
+import {connect} from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { setUserData, signInAction, signUpAction } from "../../../actions/login";
 import SignInTab from './SignInTab';
 import SignUpTab from './SignUpTab';
 import {validateSignInForm, validateSignUpForm} from "../../../helpers/validator";
-import {updateLogin} from "../../../redux/userReducer";
 import Spinner from "../../../common/spinner";
 import {t} from "i18next";
 import {IoMdSettings} from "react-icons/io";
@@ -14,7 +13,6 @@ import SettingsModal from "./settingsModal";
 import './styles.less';
 
 const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [registerEmail, setRegisterEmail] = useState('');
@@ -23,11 +21,7 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
     const [registerPassword, setRegisterPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const [showErrorPopup, setShowErrorPopup] = useState(false);
-    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const [showSettingsModal, setShowSettingsModal] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState([]);
     const [key, setKey] = useState('login');
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
@@ -39,13 +33,6 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
     useEffect(() => {
         if (user.isAuthorized) {
             navigate('/');
-        } else if (user.errorMessage) {
-            setErrorMessage(user.errorMessage);
-            setShowErrorPopup(true);
-        } else if (user.successMessage) {
-            setKey('login');
-            setSuccessMessage(user.successMessage);
-            setShowSuccessPopup(true);
         }
     }, [user, navigate]);
 
@@ -60,7 +47,6 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
 
     const signInHandler = async () => {
         setErrors(validateSignInForm({ email, password }));
-        // setErrorMessage(errors);
         if (Object.keys(validateSignInForm({ email, password })).length) {
         } else {
             setLoading(true);
@@ -124,19 +110,6 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
                         </Tab>
                     </Tabs>
                 </div>
-                {showErrorPopup ? <Alert onAnimationEnd={() => {
-                    setShowErrorPopup(false);
-                    dispatch(updateLogin({...user, errorMessage: ''}));
-                    setErrorMessage('');
-                }} variant='danger' className='popup position-fixed'>
-                    {errorMessage}
-                </Alert> : null}
-                {showSuccessPopup ? <Alert onAnimationEnd={() => {
-                    setShowSuccessPopup(false);
-                    dispatch(updateLogin({...user, successMessage: ''}))
-                }} variant='success' className='popup position-fixed'>
-                    {t(successMessage)}
-                </Alert> : null}
             </div>
         );
     }

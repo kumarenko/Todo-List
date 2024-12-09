@@ -1,9 +1,7 @@
 import {
-    defaultUserState,
     updateLogin,
     updateProfileData,
-    updateProfileErrorMessage,
-    updateProfileSuccessMessage, updateRegisterFlag
+    updateRegisterFlag,
 } from "../redux/userReducer";
 import {
     ALLOW_EMAIL_SENDING_URL,
@@ -12,12 +10,13 @@ import {
     FORGOT_PASSWORD_URL,
     LOGIN_URL,
     PROTECTED_ROUTE_URL,
-    REGISTER_URL, UPLOAD_AVATAR_URL, UPLOAD_URL,
+    REGISTER_URL, UPLOAD_AVATAR_URL,
     USERS_URL
 } from "../configs/urls";
-import {updateCurrency, updateUnits} from "../redux/settingsReducer";
+import {addMessageToQueue} from "../redux/settingsReducer";
 import {logout, persistor, store} from "../redux";
 import {getCountryCodeByIP} from "../helpers/helper";
+import {t} from "i18next";
 
 export const setUserData = (isAuthorized) => {
     return async (dispatch) => {
@@ -34,8 +33,7 @@ export const setUserData = (isAuthorized) => {
 };
 
 export const signInAction = (user) => {
-    return async (dispatch, state) => {
-        const userState = state().user;
+    return async (dispatch) => {
         try {
             const response = await fetch(LOGIN_URL, {
                 method: 'POST',
@@ -62,15 +60,13 @@ export const signInAction = (user) => {
                         country,
                     },
                 }
-                dispatch(updateCurrency(user.currency));
-                updateUnits(user.metricUnits);
                 sessionStorage.setItem('token', token);
                 dispatch(updateLogin(updatedLoginState));
             } else {
-                dispatch(updateLogin({...userState,errorMessage: 'Login failed', loading: false}));
+                dispatch(addMessageToQueue({message: t('Incorrect email or password'), type: 'error'}));
             }
         } catch (e) {
-            dispatch(updateLogin({...userState,errorMessage: 'Internal Server Error', loading: false}));
+            dispatch(addMessageToQueue({message: t('Internal Server Error'), type: 'error'}));
         }
     };
 };
@@ -100,7 +96,6 @@ export const checkUserSession:any = () => {
                     .then(async (data) => {
                         //user data retrieving
                         const country = await getCountryCodeByIP();
-                        console.log('BBBB',data.user.allowEmails);
                         const updatedLoginState = {
                             isAuthorized: true,
                             user: {
@@ -114,9 +109,7 @@ export const checkUserSession:any = () => {
                                 country,
                             },
                         }
-                        dispatch(updateCurrency(data.user.currency));
                         dispatch(updateLogin(updatedLoginState));
-                        dispatch(updateUnits(data.user.metricUnits));
                     })
                     .catch(error => {
                         console.error('There was a problem with your fetch operation:', error);
@@ -152,12 +145,12 @@ export const signUpAction = (email, name, password) => {
            });
            const data = await response.json();
            if (response.status === 201) {
-               dispatch(updateLogin({...defaultUserState, successMessage: data}))
+               dispatch(addMessageToQueue({message: t('Registration successful!'), type: 'success'}));
            } else {
-               dispatch(updateLogin({...defaultUserState, errorMessage: data.message}))
+               dispatch(addMessageToQueue({message: t(data.message), type: 'error'}));
            }
        } catch (e) {
-           dispatch(updateLogin({...defaultUserState, errorMessage: 'Internal server error'}))
+           dispatch(addMessageToQueue({message: t('Internal Server Error'), type: 'error'}));
        }
     }
 };
@@ -175,14 +168,13 @@ export const updateProfileInfo: any = (userId, data) => {
         if (response.ok) {
             const userData = await response.json();
             const data = userData.user;
-            sessionStorage.setItem('token', userData.token); // Получаем токен из хранилища
-            dispatch(updateUnits(data.metricUnits));
-
+            sessionStorage.setItem('token', userData.token);
             dispatch(updateProfileData(data));
-            dispatch(updateProfileSuccessMessage(userData.message));
+            dispatch(addMessageToQueue({message: t(userData.message), type: 'success'}));
+
         } else {
             const userData = await response.json();
-            dispatch(updateProfileErrorMessage(userData.message))
+            dispatch(addMessageToQueue({message: t(userData.message), type: 'error'}));
         }
     };
 }
@@ -231,11 +223,11 @@ export const updateUserAvatarRequest = (selectedFile, itemId) => {
             const result = await response.json();
             if (result.success) {
                 const data = result.user;
-                sessionStorage.setItem('token', result.token); // Получаем токен из хранилища
-                dispatch(updateUnits(data.metricUnits));
+                sessionStorage.setItem('token', result.token);
                 dispatch(updateProfileData(data));
-                dispatch(updateProfileSuccessMessage(result.message));
-
+                dispatch(addMessageToQueue({message: t(result.message), type: 'success'}));
+            } else {
+                dispatch(addMessageToQueue({message: t('Error during uploading avatar'), type: 'error'}));
             }
         } catch (error) {
             console.error('Error uploading file:', error);
@@ -259,10 +251,9 @@ export const removeUserAvatarRequest = (fileName, itemId) => {
             const result = await response.json();
             if (result.success) {
                 const data = result.user;
-                sessionStorage.setItem('token', result.token); // Получаем токен из хранилища
+                sessionStorage.setItem('token', result.token);
                 dispatch(updateProfileData(data));
-                dispatch(updateProfileSuccessMessage(result.message));
-
+                dispatch(addMessageToQueue({message: t(result.message), type: 'success'}));
             }
         } catch (e) {
             console.error('Error deleting file:', e);
@@ -284,14 +275,13 @@ export const allowEmailSendingRequest = (userId, allowEmails) => {
             if (response.ok) {
                 const userData = await response.json();
                 const data = userData.user;
-                sessionStorage.setItem('token', userData.token); // Получаем токен из хранилища
-                dispatch(updateUnits(data.metricUnits));
+                sessionStorage.setItem('token', userData.token);
 
                 dispatch(updateProfileData(data));
-                dispatch(updateProfileSuccessMessage(userData.message));
+                dispatch(addMessageToQueue({message: t(userData.message), type: 'success'}));
             } else {
                 const userData = await response.json();
-                dispatch(updateProfileErrorMessage(userData.message))
+                dispatch(addMessageToQueue({message: t(userData.message), type: 'error'}));
             }
         } catch (e) {
             console.error('Error deleting file:', e);
