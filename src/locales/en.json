@@ -496,5 +496,12 @@
   "Email notifications about being added to a list": "Email notifications about being added to a list",
   "Email notifications about being added to a list are enabled": "Email notifications about being added to a list are enabled",
   "Email notifications about being added to a list are disabled": "Email notifications about being added to a list are disabled",
-  "Synchronizing data": "Synchronizing data"
+  "Synchronizing data": "Synchronizing data",
+  "Login failed": "Login failed",
+  "Product already added to the list": "Product already added to the list",
+  "Product successfully added to the list": "Product successfully added to the list",
+  "Product was not found": "Product was not found",
+  "Incorrect email or password": "Incorrect email or password",
+  "Registration successful!": "Registration successful!",
+  "Error during uploading avatar": "Error during uploading avatar"
 }

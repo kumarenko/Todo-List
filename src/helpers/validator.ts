@@ -27,12 +27,12 @@ export const validateEmail = (email: string) => {
     }
     return errorMessage
 }
-export const validateSignUpForm = ({ email, password, confirmPassword, name }) => {
+export const validateSignUpForm = ({ registerEmail, password, confirmPassword, name }) => {
     let errors = {};
-    if(!email.length) {
+    if(!registerEmail.length) {
         errors = {...errors, email: t('Email field is required')};
     }
-    if (email.length && !String(email)
+    if (registerEmail.length && !String(registerEmail)
         .toLowerCase()
         .match(
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
