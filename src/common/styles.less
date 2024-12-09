@@ -4,14 +4,6 @@ body {
 #root {
   height: 100%;
 }
-.popup {
-  position: fixed;
-  left: 50%;
-  width: auto;
-  top: 30%;
-  z-index: 999;
-  animation: 2.5s forwards popup linear;
-}
 .eye-btn {
   width: 27px;
   height: 100%;
@@ -57,6 +49,7 @@ body {
     height: 2rem;
     position: absolute;
     right: 1rem;
+    top: 1rem;
     padding: 0;
     display: flex;
     justify-content: center;
@@ -98,6 +91,15 @@ input[type="file"] {
 .prod-checkbox {
   position: relative;
 }
+.global-message {
+  animation: anim 3s linear forwards;
+  margin: 0.25rem;
+  padding: 0.25rem;
+  border: 1px;
+  height: 85%;
+  overflow: hidden;
+
+}
 @keyframes popup {
   0% {
     opacity: 0;
@@ -117,5 +119,39 @@ input[type="file"] {
 
     opacity: 0;
     transform: translateY(0) translateX(-50%);
+  }
+}
+@keyframes anim {
+  0% {
+    opacity: 0;
+    max-height: 200px;
+    border: 0;
+    margin: 0.25rem;
+    padding: 0.25rem;
+    transform: translateX(0%);
+  }
+  10% {
+    opacity: 1;
+    max-height: 200px;
+    border: 0;
+    margin: 0.25rem;
+    padding: 0.25rem;
+    transform: translateX(0%);
+  }
+  95% {
+    opacity: 1;
+    max-height: 200px;
+    border: 0;
+    margin: 0.25rem;
+    padding: 0.25rem;
+    transform: translateX(0%);
+  }
+  100% {
+    opacity: 0;
+    max-height: 0;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    transform: translateX(120%);
   }
 }

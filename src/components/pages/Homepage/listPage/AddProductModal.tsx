@@ -9,12 +9,15 @@ import {onlyUnique} from "../../../../helpers/helper";
 import RenderProduct from "./renderProduct";
 import {IoMdArrowDropdown, IoMdClose} from "react-icons/io";
 import {t} from "i18next";
+import {FaBarcode} from "react-icons/fa6";
+import BarcodeModal from "./barcodeModal";
 const allCategories = allProducts.map(prod => prod.category).filter(onlyUnique);
 const customProductsUnits = ['pcs', 'g', 'kg', 'oz', 'lb', 'ml', 'l', 'gal'];
 const AddProductModal = ({show, onHide}) => {
 
     const [searchValue, setSearchValue] = useState('');
     const [toggleFilterModal, setToggleFilterModal] = useState(false);
+    const [toggleBarcodeModal, setToggleBarcodeModal] = useState(false);
     const [filteredItems, setFilteredItems] = useState(allProducts);
     const [filteredCategories, setFilteredCategories] = useState(allProducts.map(prod => prod.category).filter(onlyUnique));
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -141,8 +144,14 @@ const AddProductModal = ({show, onHide}) => {
                     </Form.Label>
                 </InputGroup>
                 <Button
+                    className={'mx-1'}
                     onClick={() => setToggleFilterModal(true)}
                 >{t('Filter')}</Button>
+                <Button
+                    className={'mx-1'}
+                    onClick={() => setToggleBarcodeModal(true)}>
+                        <FaBarcode />
+                </Button>
             </Form.Group>
             <Modal.Body className='d-flex align-items-start flex-column modal-fixed-height modal-styled-bg pt-0'>
                 {filteredCategories.length === 0 && searchValue && (
@@ -168,13 +177,16 @@ const AddProductModal = ({show, onHide}) => {
                 filteredCats={selectedCategories}
                 categories={allProducts.map(prod => prod.category).filter(onlyUnique)}
             />}
+            {setToggleBarcodeModal && <BarcodeModal
+                isVisible={toggleBarcodeModal}
+                onClose={() => setToggleBarcodeModal(false)}
+            />}
         </Modal>, document.body);
 };
 
 const mapStateToProps = (state) => ({
     list: state.items.list,
     allProducts: state.items.allProducts,
-    productFromBarcode: state.items.productFromBarcode
 });
 
 const mapDispatchToProps = {

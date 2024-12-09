@@ -27,4 +27,5 @@ export interface SettingsTypes {
     currency: string,
     isMetric: boolean,
     language: string,
+    messagesQueue: Array<{createdAt: Date, value: string}>
 }
