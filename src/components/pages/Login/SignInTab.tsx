@@ -42,6 +42,7 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
                         lastName: user.lastName,
                         avatar: user.avatar,
                         googleId: user.googleId,
+                        allowEmails: user.allowEmails,
                         country
                     },
                 }

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {logoutAction, updateProfileInfo, allowEmailSendingRequest} from "../../../actions/login";
-import {connect, useDispatch} from "react-redux";
+import {connect} from "react-redux";
 import {Button, Container, Form, Image} from "react-bootstrap";
 import {User} from "../../../types/types";
 import ChangePassword from "./changePassword";
@@ -10,7 +10,7 @@ import Footer from "../../../common/footer";
 import AvatarModal from "../Homepage/listPage/avatar";
 import { FaCamera } from "react-icons/fa";
 import Spinner from "../../../common/spinner";
-import {addMessageToQueue} from "../../../redux/settingsReducer";
+import {FcGoogle} from "react-icons/fc";
 
 interface ProfileInterface extends User {
     logoutAction: (role: boolean) => void,
@@ -19,7 +19,6 @@ interface ProfileInterface extends User {
 }
 const Profile = ({user, logoutAction, title,updateProfileInfo, allowEmailSendingRequest }:ProfileInterface) => {
     const userData = user.user;
-    const dispatch = useDispatch();
     const [name, setName] = useState(userData.name);
     const [lastName, setLastName] = useState(userData.lastName);
     const [email, setEmail] = useState(userData.email);
@@ -53,15 +52,7 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, allowEmailSending
             setIsEditing(true);
         }
     }
-    useEffect(() => {
-        if(user.successMessage) {
-            dispatch(addMessageToQueue({message: t(user.successMessage), type: 'success'}));
-        }
-        if(user.errorMessage) {
-            dispatch(addMessageToQueue({message: t(user.errorMessage), type: 'error'}));
-        }
 
-    }, [user]);
     const resetProfileData = () => {
         setName(userData.name);
         setLastName(userData.lastName);
@@ -83,18 +74,20 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, allowEmailSending
             </div>
             {userData.role === 'USER' ?
                 <>
-                    <div onClick={() => setToggleAvatarModal(true)} className='d-flex justify-content-center w-100 px-3 py-1'>
-                        {user.user.avatar ?
-                            <div className='avatar mb-1 rounded-circle section-styled-bg d-flex align-items-center justify-content-center position-relative'>
-                                <Image src={user.user.avatar} className={`avatar mb-1 section-styled-bg`}/>
-                                {loadingAvatar ? <div style={{backgroundColor: 'rgba(0, 0, 0, 0.25)'}}
-                                                      className='position-absolute w-100 h-100 d-flex align-items-center justify-content-center'>
-                                    <div className="spinner-border text-primary"/>
-                                </div> : null}
-                            </div> :
-                            <div className='avatar mb-1 rounded-circle section-styled-bg d-flex align-items-center justify-content-center'>
-                                <FaCamera size={48} className={'subtitle'} />
-                            </div>}
+                    <div onClick={() => setToggleAvatarModal(true)} className='position-relative d-flex justify-content-center w-100 px-3 py-1'>
+                        <div className='position-relative'>
+                            {user.user.avatar ?
+                                <div className='avatar mb-1 rounded-circle section-styled-bg d-flex align-items-center justify-content-center position-relative'>
+                                    <Image src={user.user.avatar} className={`avatar mb-1 section-styled-bg`}/>
+                                    {loadingAvatar ? <div style={{backgroundColor: 'rgba(0, 0, 0, 0.25)'}}
+                                                          className='position-absolute w-100 h-100 d-flex align-items-center justify-content-center'>
+                                        <div className="spinner-border text-primary"/>
+                                    </div> : null}
+                                </div> :
+                                <div className='avatar mb-1 rounded-circle section-styled-bg d-flex align-items-center justify-content-center'>
+                                    <FaCamera size={48} className={'subtitle'} />
+                                </div>}
+                        </div>
                     </div>
                     <Container fluid="md" className='user-info d-flex w-100 flex-wrap mb-2 px-3 py-1 justify-content-center'>
                        <div className='w-50'>
@@ -110,7 +103,10 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, allowEmailSending
                                        onChange={e => setEmail(e.target.value)}
                                        disabled value={email}
                                        type="text"/> :
-                                   <div className='subtitle'>{userData.email}</div>}
+                                   <div className='subtitle position-relative'>
+                                       {user.user.googleId ? <FcGoogle className='me-1'/> : null}
+                                       {userData.email}
+                                   </div>}
                            </div>
                        </div>
                     </Container>
@@ -131,7 +127,7 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, allowEmailSending
                         <Form.Check
                             type={'checkbox'}
                             className='prod-checkbox mx-3'
-                            checked={user.user.allowEmails}
+                            defaultChecked={user.user.allowEmails}
                             onChange={(e) => toggleEmailSending(e)}
                         />
                     </div>
