@@ -88,6 +88,7 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
                                     loginAsGuest={loginAsGuest}
                                     errors={errors}
                                     resetErrors={reset}
+                                    setLoading={(state) => setLoading(state)}
                                 />
                                 </>}
                         </Tab>

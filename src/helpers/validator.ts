@@ -5,14 +5,15 @@ export const validateSignInForm = ({ email, password}) => {
     if(!email) {
         errors = {...errors, email: t('Email field is required')};
     }
+    if(!password) {
+        errors = {...errors, password: t('Password field is required')};
+    }
     if (email.length && !String(email)
         .toLowerCase()
         .match(
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         )) {
         errors = {...errors, email: t('Email is invalid')};
-    } if(password.length < 8) {
-        errors = {...errors, password: t('Password is too short!')};
     }
     return errors;
 };
@@ -60,6 +61,25 @@ export const validateChangePassword = (current, newPassword, confirmNewPassword,
         errors = {...errors, confirmPassword: t('Passwords do not match')};
     }
     if(!confirmNewPassword.length) {
+        errors = {...errors, confirmPassword: t('Confirm password field is required')};
+    }
+    return errors;
+}
+export const validateForgotPassword = ({password, confirmPassword}) => {
+    let errors = {};
+    if(password !== confirmPassword) {
+        errors = {...errors, confirmPassword: t('Passwords do not match')};
+    }
+    if(password.length < 8) {
+        errors = {...errors, password: t('New password field is too short')};
+    }
+    if(confirmPassword.length < 8) {
+        errors = {...errors, confirmPassword: t('Confirm password field is too short')};
+    }
+    if(!password.length) {
+        errors = {...errors, password: t('Password field is required')};
+    }
+    if(!confirmPassword.length) {
         errors = {...errors, confirmPassword: t('Confirm password field is required')};
     }
     return errors;

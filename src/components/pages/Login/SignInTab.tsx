@@ -10,17 +10,15 @@ import {getCountryCodeByIP} from "../../../helpers/helper";
 import PasswordInput from "../../../common/passwordInput";
 import ServerConfig from "../../../configs/serverConfig";
 
-const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, loginAsGuest, errors, resetErrors }) => {
+const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, loginAsGuest, errors, resetErrors, setLoading }) => {
     const dispatch = useDispatch();
-    const userState = useSelector(state => state.user);
     const currentLanguage = useSelector(state => state.settings.language);
     const [triggerPassword, setTriggerPassword] = useState(false);
     const handleGoogleLoginSuccess = async (response) => {
         const idToken = response.credential;
         const accessToken = response.access_token;
-        dispatch(updateLogin({...userState, loading: true}));
-
         try {
+            setLoading(true);
             const serverResponse = await fetch(`${ServerConfig.getUrl()}api/google-login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -46,13 +44,15 @@ const SignInTab = ({ email, setEmail, setPassword, password, signInHandler, logi
                         country
                     },
                 }
+                setLoading(false);
                 dispatch(updateLogin(updatedLoginState));
             } else {
                 console.error('Login failed:', await serverResponse.text());
-                dispatch(updateLogin({...userState, loading: true}));
+                setLoading(false);
             }
         } catch (error) {
             console.error('Error during Google login:', error);
+            setLoading(false);
         }
     };
 

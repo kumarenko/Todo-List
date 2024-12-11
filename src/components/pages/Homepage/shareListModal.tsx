@@ -8,6 +8,7 @@ import {inviteUsersRequest} from "../../../actions/shoppingLists";
 import {connect} from "react-redux";
 import {t} from "i18next";
 import DeleteListModal from "./deleteListModal";
+import {useNavigate} from "react-router-dom";
 
 const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
     const [email, setEmail] = useState('');
@@ -40,9 +41,11 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
     const removeInvite = (email) => {
         inviteUsersRequest(list._id, user.id, email, 'DELETE');
     }
+    const navigate = useNavigate();
     const leaveList = async () => {
        await inviteUsersRequest(list._id, user.id, user.email, 'DELETE');
        setDeleteModal(false);
+       navigate('/');
        onHide();
     }
     const renderBadge = (user) => {
