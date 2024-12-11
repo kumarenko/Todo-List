@@ -125,8 +125,10 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
         setSelectedUnits(unit);
         applyUpdate({
             ...product,
+            count: parseFloat(count || '0'),
+            price: parseFloat(price || '0'),
             selectedUnits: unit,
-            availableUnits: [...availableUnits],
+            category,
         });
     };
 

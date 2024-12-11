@@ -12,7 +12,7 @@ import { IoMdClose } from "react-icons/io";
 
 const AvatarModal = ({ isVisible, onClose, listId, type, product, onStartLoading = ()=> {} }) => {
     const [selectedFile, setSelectedFile] = useState(null);
-    const [preview, setPreview] = useState('');
+    const [preview, setPreview] = useState(product.avatar);
     const [item, setItem] = useState({});
     const dispatch = useDispatch();
 
@@ -26,6 +26,11 @@ const AvatarModal = ({ isVisible, onClose, listId, type, product, onStartLoading
         }
     };
 
+    useEffect(() => {
+        if(isVisible) {
+            setPreview(product.avatar);
+        }
+    }, [isVisible]);
     useEffect(() => {
         if (!selectedFile) {
             setPreview(product.avatar);
@@ -76,11 +81,10 @@ const AvatarModal = ({ isVisible, onClose, listId, type, product, onStartLoading
     const closeModal = () => {
         onClose();
         setSelectedFile(null);
-        setPreview('');
     };
 
     return ReactDOM.createPortal(
-        <Modal show={isVisible} onHide={closeModal} centered>
+        <Modal show={isVisible} onHide={closeModal} onExited={() => setPreview(null)} centered>
             <Modal.Header className="modal-styled-bg">
                 <Modal.Title className="title text-break px-5">{item.name}</Modal.Title>
                 <Button type="button" className="btn custom-close" aria-label="Close" onClick={closeModal}>

@@ -112,7 +112,14 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
         ));
     };
 
-    return ReactDOM.createPortal(<Modal show={show} onHide={onHide} className='share-modal' centered>
+    return ReactDOM.createPortal(
+        <Modal show={show}
+               onHide={() => {
+                   onHide();
+                   setEmail('');
+               }}
+               className='share-modal'
+               centered>
         <Modal.Header className='modal-styled-bg justify-content-center'>
             <Modal.Title className='title'>{t('Invite Friends to List')}</Modal.Title>
         </Modal.Header>
