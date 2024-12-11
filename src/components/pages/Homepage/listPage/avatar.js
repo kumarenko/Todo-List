@@ -9,6 +9,7 @@ import { CLOUD_URL } from "../../../../configs/urls";
 import { t } from "i18next";
 import { removeUserAvatarRequest, updateUserAvatarRequest } from "../../../../actions/login";
 import { IoMdClose } from "react-icons/io";
+import {addMessageToQueue} from "../../../../redux/settingsReducer";
 
 const AvatarModal = ({ isVisible, onClose, listId, type, product, onStartLoading = ()=> {} }) => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -44,14 +45,27 @@ const AvatarModal = ({ isVisible, onClose, listId, type, product, onStartLoading
                 try {
                     const maxFileSizeKB = 512;
                     const fileSizeKB = selectedFile.size / 1024;
+                    const mimeType = selectedFile.type;
+                    if (mimeType !== 'image/jpeg' && mimeType !== 'image/png') {
+                        dispatch(addMessageToQueue({message: t('Please upload an image in JPEG or PNG format'), type: 'error'}));
+                        return;
+                    }
                     onStartLoading();
-                    const uploadFile = fileSizeKB > maxFileSizeKB
+
+                    const compressedBlob = fileSizeKB > maxFileSizeKB
                         ? await imageCompression(selectedFile, {
                             maxSizeMB: maxFileSizeKB / 1024,
                             maxWidthOrHeight: 1024,
                             useWebWorker: true,
+                            fileType: mimeType,
                         })
                         : selectedFile;
+
+                    const uploadFile = new File(
+                        [compressedBlob],
+                        selectedFile.name,
+                        { type: mimeType }
+                    );
 
                     if (type === 'products') {
                         dispatch(updateProductAvatarRequest(listId, uploadFile, product._id, type));
@@ -59,7 +73,7 @@ const AvatarModal = ({ isVisible, onClose, listId, type, product, onStartLoading
                         dispatch(updateUserAvatarRequest(uploadFile, product._id));
                     }
                 } catch (error) {
-                    console.error('Error during image compression:', error);
+                    dispatch(addMessageToQueue({message: t('Error during image compression. Please try again'), type: 'error'}));
                 }
             }
         };
