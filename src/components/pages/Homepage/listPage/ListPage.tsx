@@ -112,11 +112,11 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
         let filteredProducts = list.products.filter(
             prod =>
                 filteredCategories.includes(prod.category) &&
-                prod.name.toLowerCase().includes(t(searchValue.toLowerCase())),
+                t(prod.name).toLowerCase().includes(t(searchValue.toLowerCase())),
         );
         if (filteredCategories.length === 0) {
             filteredProducts = list.products.filter(prod =>
-                prod.name.toLowerCase().includes(t(searchValue.toLowerCase())),
+                t(prod.name).toLowerCase().includes(t(searchValue.toLowerCase())),
             );
         }
         setProds(sortProds(filteredProducts));
