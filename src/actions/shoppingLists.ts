@@ -161,6 +161,7 @@ export const updateListCurrencyRequest = (list, currency) => {
 export const inviteUsersRequest = (shoppingListId, userId, invitedUser, method) => {
     return async (dispatch, state) => {
         const lists = state().items.lists;
+        const userEmail = state().user.user.email;
         const currentList = lists.find(list => list._id === shoppingListId);
         const objectToUpdate = {shoppingListId, invitedUser, userId};
         const response = await fetch(
@@ -171,10 +172,15 @@ export const inviteUsersRequest = (shoppingListId, userId, invitedUser, method) 
                 },
                 body: JSON.stringify(objectToUpdate)
             });
-        if(response.ok) {
-            const data = await response.json();
-            dispatch(setShoppingList({...currentList, userOwners: data.userOwners}));
-            dispatch(addMessageToQueue({message: t(data.message), type: 'success'}));
+        if (response.ok) {
+            if(method === 'DELETE' && userEmail === invitedUser) {
+                dispatch(setShoppingLists(lists.filter(list => list._id !== shoppingListId)));
+                dispatch(addMessageToQueue({message: t('You have successfully left the list'), type: 'success'}));
+            } else {
+                const data = await response.json();
+                dispatch(setShoppingList({...currentList, userOwners: data.userOwners}));
+                dispatch(addMessageToQueue({message: t(data.message), type: 'success'}));
+            }
         }
     };
 };
