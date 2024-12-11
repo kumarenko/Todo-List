@@ -5,10 +5,12 @@ import Form from 'react-bootstrap/Form';
 import {getColorById, validateEmail} from "../../../helpers/validator";
 import {IoMdClose} from "react-icons/io";
 import {inviteUsersRequest} from "../../../actions/shoppingLists";
-import {connect} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import {t} from "i18next";
 import DeleteListModal from "./deleteListModal";
 import {useNavigate} from "react-router-dom";
+import Spinner from "../../../common/spinner";
+import {addMessageToQueue} from "../../../redux/settingsReducer";
 
 const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
     const [email, setEmail] = useState('');
@@ -16,7 +18,8 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
     const [waitingOwners, setWaitingOwners] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const [showDeleteModal, setDeleteModal] = useState(false);
-
+    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
     useEffect(()=> {
         let ownersArray = list.userOwners.filter(item => item.status !== 'WAIT');
         ownersArray.sort((a, b) => {
@@ -28,25 +31,31 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
         setWaitingOwners(list.userOwners.filter(item => item.status === 'WAIT'));
     }, [list]);
 
-    const invite = () => {
+    const invite = async () => {
         if(validateEmail(email)){
             setErrorMessage(validateEmail(email))
         } else if (list.userOwners.find(owner => owner.email === email)) {
-            setErrorMessage(t('This email is already in the list'))
+            dispatch(addMessageToQueue({message: t('This email is already in the list'), type: 'error'}));
         } else {
-            inviteUsersRequest(list._id, user.id, email, 'POST')
+            setLoading(true);
+            await inviteUsersRequest(list._id, user.id, email, 'POST');
+            setLoading(false);
         }
     }
 
-    const removeInvite = (email) => {
-        inviteUsersRequest(list._id, user.id, email, 'DELETE');
+    const removeInvite = async (email) => {
+        setLoading(true);
+        await inviteUsersRequest(list._id, user.id, email, 'DELETE');
+        setLoading(false);
     }
     const navigate = useNavigate();
     const leaveList = async () => {
-       await inviteUsersRequest(list._id, user.id, user.email, 'DELETE');
-       setDeleteModal(false);
-       navigate('/');
-       onHide();
+        setLoading(true);
+        await inviteUsersRequest(list._id, user.id, user.email, 'DELETE');
+        setLoading(false);
+        setDeleteModal(false);
+        navigate('/');
+        onHide();
     }
     const renderBadge = (user) => {
         if(list.creator._id === user._id) {
@@ -120,6 +129,7 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
                }}
                className='share-modal'
                centered>
+            {loading ? <div className='position-absolute top-0 start-0 w-100 h-100'><Spinner/></div> : null}
         <Modal.Header className='modal-styled-bg justify-content-center'>
             <Modal.Title className='title'>{t('Invite Friends to List')}</Modal.Title>
         </Modal.Header>
