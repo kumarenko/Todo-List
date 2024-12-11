@@ -227,7 +227,7 @@ export const updateUserAvatarRequest = (selectedFile, itemId) => {
                 dispatch(updateProfileData(data));
                 dispatch(addMessageToQueue({message: t(result.message), type: 'success'}));
             } else {
-                dispatch(addMessageToQueue({message: t('Error during uploading avatar'), type: 'error'}));
+                dispatch(addMessageToQueue({message: t('Error while uploading avatar'), type: 'error'}));
             }
         } catch (error) {
             console.error('Error uploading file:', error);

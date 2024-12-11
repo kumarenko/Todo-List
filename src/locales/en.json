@@ -503,9 +503,13 @@
   "Product was not found": "Product was not found",
   "Incorrect email or password": "Incorrect email or password",
   "Registration successful!": "Registration successful!",
-  "Error during uploading avatar": "Error during uploading avatar",
-  "Are you sure you want to leave list": "Are you sure you want to leave list",
+  "Error while uploading avatar": "Error while uploading avatar",
+  "Are you sure you want to leave the list": "Are you sure you want to leave the list",
   "Leave": "Leave",
   "New password field is too short": "New password field is too short",
-  "Confirm password field is too short": "Confirm password field is too short"
+  "Confirm password field is too short": "Confirm password field is too short",
+  "Error during image compression. Please try again": "Error during image compression. Please try again",
+  "Product image updated successfully": "Product image updated successfully",
+  "Please upload an image in JPEG or PNG format": "Please upload an image in JPEG or PNG format",
+
 }

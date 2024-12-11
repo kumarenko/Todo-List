@@ -495,5 +495,20 @@
   "Email notifications about being added to a list": "Повідомлення на пошту про додавання до списку",
   "Email notifications about being added to a list are enabled": "Повідомлення на пошту про додавання до списку увімкнено",
   "Email notifications about being added to a list are disabled": "Повідомлення на пошту про додавання до списку вимкнено",
-  "Synchronizing data": "Синхронізація даних"
+  "Synchronizing data": "Синхронізація даних",
+  "Login failed": "Помилка входу",
+  "Product already added to the list": "Продукт вже додано до списку",
+  "Product successfully added to the list": "Продукт успішно додано до списку",
+  "Product was not found": "Продукт не знайдено",
+  "Incorrect email or password": "Невірна електронна пошта або пароль",
+  "Registration successful!": "Реєстрація успішна!",
+  "Error while uploading avatar": "Помилка під час завантаження аватара",
+  "Are you sure you want to leave the list": "Ви впевнені, що хочете залишити список?",
+  "Leave": "Вийти",
+  "New password field is too short": "Поле нового пароля занадто коротке",
+  "Confirm password field is too short": "Поле підтвердження пароля занадто коротке",
+  "Error during image compression. Please try again": "Помилка під час стиснення зображення. Будь ласка, спробуйте ще раз",
+  "Product image updated successfully": "Зображення продукту успішно оновлено",
+  "Please upload an image in JPEG or PNG format": "Будь ласка, завантажте зображення у форматі JPEG або PNG"
+
 }

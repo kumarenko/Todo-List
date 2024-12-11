@@ -6,7 +6,8 @@ import {t} from "i18next";
 const DeleteListModal = ({name, show, onHide, onApply, leave = false}) => {
     return ReactDOM.createPortal(<Modal show={show} onHide={onHide} centered>
         <Modal.Header className='modal-styled-bg justify-content-center text-break'>
-            <Modal.Title className='title'>{leave ? t('Are you sure to leave list') : t('Are you sure to delete list')} <strong>{name}</strong>?</Modal.Title>
+            <Modal.Title className='title'>
+                {leave ? t('Are you sure you want to leave the list') : t('Are you sure to delete list')} <strong>{name}</strong>?</Modal.Title>
         </Modal.Header>
         <Modal.Footer className='modal-styled-bg justify-content-center'>
             <Button onClick={onHide} className='mx-2'>
