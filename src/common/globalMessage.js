@@ -22,13 +22,13 @@ const GlobalMessage = () => {
 
     return (
         <div className="d-flex flex-column-reverse position-fixed bottom-0 end-0 p-3" style={{ zIndex: 1056 }}>
-            {messages.map((message) => (
+            {messages ? messages.map((message) => (
                 <div key={message.createdAt}
                      className={`global-message d-flex align-items-center bg-success title mx-1 rounded bg-${message.type === 'error' ? 'danger': 'success'}`}>
                     {message.type === 'error' ? <MdError className='mx-1' /> : <FaCheckCircle className='mx-1' />}
                     {message.value}
                 </div>
-            ))}
+            )) : null}
         </div>
     );
 };
