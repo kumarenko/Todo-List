@@ -296,7 +296,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                             <div>
                                 <span className='text-center'>{t('Purchased')}</span>
                                 <span className='title text-center'>{list.products?.length &&
-                                list.products.reduce((accumulator, prod) => prod.checked ? accumulator + parseFloat(prod.price) * prod.count : accumulator, 0).toFixed(2)}
+                                list.products.reduce((accumulator, prod) => prod.checked ? accumulator + parseFloat(prod.price ?? 0) * prod.count : accumulator, 0).toFixed(2)}
                                 {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}
                                 </span>
                             </div>

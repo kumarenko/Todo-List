@@ -62,7 +62,7 @@ const Product = forwardRef(({ list, prod, checkProduct, selectProduct, user }, r
                         ) : null}
                         <span className={`x subtitle`}> ✕ </span>
                         <span className={`subtitle`}>
-                            {prod.count} {prod.selectedUnits || t("pcs")}
+                            {prod.count} {t(prod.selectedUnits) || t("pcs")}
                         </span>
                     </div>
                 </button>
