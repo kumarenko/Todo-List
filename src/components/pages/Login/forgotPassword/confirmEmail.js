@@ -5,17 +5,18 @@ import {validateEmail} from "../../../../helpers/validator";
 import {requestResetPassword} from "../../../../actions/login";
 import {t} from "i18next";
 import {addMessageToQueue} from "../../../../redux/settingsReducer";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 const ConfirmEmail = ({onHide, onApply, email, setEmail}) => {
     const dispatch = useDispatch();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
+    const language = useSelector( state => state.settings.language);
     const confirmEmail = async () => {
         if (!validateEmail(email).length) {
             setLoading(true);
-            const result = await requestResetPassword(email);
+            const result = await requestResetPassword(email, language);
             if (result.ok) {
                 onApply();
             } else if(result.status === 404) {

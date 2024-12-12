@@ -178,13 +178,13 @@ export const updateProfileInfo: any = (userId, data) => {
         }
     };
 }
-export const requestResetPassword = async email => {
+export const requestResetPassword = async (email, language) => {
     return await fetch(`${FORGOT_PASSWORD_GENERATE_CODE_URL}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({email}),
+        body: JSON.stringify({email, language}),
     });
 };
 export const sendCode = async (email, code) => {

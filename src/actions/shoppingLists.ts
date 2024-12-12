@@ -162,8 +162,9 @@ export const inviteUsersRequest = (shoppingListId, userId, invitedUser, method) 
     return async (dispatch, state) => {
         const lists = state().items.lists;
         const userEmail = state().user.user.email;
+        const language = state().settings.language;
         const currentList = lists.find(list => list._id === shoppingListId);
-        const objectToUpdate = {shoppingListId, invitedUser, userId};
+        const objectToUpdate = {shoppingListId, invitedUser, userId, language};
         const response = await fetch(
             `${SHOPPING_LIST_SHARE_URL}`,{
                 method,
