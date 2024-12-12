@@ -5,7 +5,7 @@ const UPDATE_PROFILE = "UPDATE_PROFILE";
 const UPDATE_REGISTERING_FLAG = 'UPDATE_REGISTER_FLAG';
 
 export const defaultUserState:Login = {
-    isAuthorized: false,
+    isAuthorized: true,
     loading: false,
     user: {
         role: 'GUEST',
