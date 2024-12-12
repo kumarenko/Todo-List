@@ -209,7 +209,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                                 selectProduct={selectProduct}/>)}
                     </FlipMove> : null}
                     {prods.filter(i => i.checked).length ? <div className='separator-container flip px-3 mx-auto mb-2'><div className='separator section-styled-bg'/></div> : null}
-                    {prods.filter(i => i.checked).length ? <FlipMove className='flip pb-5 mx-auto'>
+                    {prods.filter(i => i.checked).length ? <FlipMove className='flip pb-5 mx-auto my-1'>
                         {prods.filter(i => i.checked).map(prod =>
                             <Product
                                 key={prod._id}

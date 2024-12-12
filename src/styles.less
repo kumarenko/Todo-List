@@ -116,9 +116,32 @@ input[type="file"] {
   height: 32px;
   box-shadow: none;
   cursor: pointer;
+  margin-top: 0;
 }
 .prod-checkbox {
   position: relative;
+  overflow: hidden;
+  min-width: 32px;
+  &.loading::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    animation: loading-placeholder 1.5s infinite linear;
+    pointer-events: none;
+    background:
+            linear-gradient(
+                    to right,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(122, 122, 122, 0.25) 15%,
+                    rgba(115, 115, 115, 0.35) 50%,
+                    rgba(122, 122, 122, 0.25) 75%,
+                    rgba(255, 255, 255, 0) 100%
+            );
+    border-radius: .25rem;
+  }
 }
 
 
@@ -162,5 +185,14 @@ input[type="file"] {
     margin: 0;
     padding: 0;
     transform: translateX(120%);
+  }
+}
+@keyframes loading-placeholder  {
+  0% {
+    transform: translateX(-100%);
+
+  }
+  100% {
+    transform: translateX(200%);
   }
 }

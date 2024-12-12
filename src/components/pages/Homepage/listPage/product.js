@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from "react";
+import React, {forwardRef, useState} from "react";
 import { Button, Form } from "react-bootstrap";
 import { t } from "i18next";
 import currencies from "../../../../configs/currencies.json";
@@ -38,7 +38,7 @@ const Product = forwardRef(({ list, prod, checkProduct, selectProduct, user }, r
             <div className="d-flex w-100 align-items-center ml-2">
                 <Form.Check
                     type={"checkbox"}
-                    className="prod-checkbox mx-3"
+                    className={`prod-checkbox mx-3 ${prod.loading ? 'loading': ''}`}
                     checked={prod.checked}
                     onChange={() => checkProduct(prod)}
                     id={prod._id}

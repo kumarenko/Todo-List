@@ -58,6 +58,9 @@ export const updateProductsListRequest = (shoppingListId, products) => {
         const userData = state().user;
         if(userData.user.role === 'USER') {
             const objectToUpdate = {shoppingListId, products};
+            let prodsWithLoadingState = currentList.products.map(prod =>
+                prod._id === products[0]._id ? {...products[0], loading: true} : prod);
+            dispatch(setShoppingList({...currentList, products: prodsWithLoadingState}));
             const response = await fetch(`${SHOPPING_LISTS_EDIT_PROD_URL}`, {
                 method: 'PUT',
                 headers: {
