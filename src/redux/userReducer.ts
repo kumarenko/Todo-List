@@ -16,6 +16,7 @@ export const defaultUserState:Login = {
         avatar: null,
         googleId: null,
         allowEmails: true,
+        country: '',
     },
 }
 

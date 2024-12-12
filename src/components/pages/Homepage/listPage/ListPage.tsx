@@ -353,7 +353,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                 name={list.name.value}
                 show={showParametersModal}
                 onHide={handleCloseParameters}
-                defaultCurrency={currencies.find(curr => curr.country === user.country).code}
+                defaultCurrency={currencies.find(curr => curr.country === user.country)?.code || 'USD'}
                 list={list}
             />
             <FilterModal

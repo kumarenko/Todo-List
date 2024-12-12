@@ -12,7 +12,8 @@ export interface User {
     lastName: string,
     email: string,
     avatar: string | null,
-    googleId: string | null
+    googleId: string | null,
+    country: string,
 }
 export interface Login {
     isAuthorized: boolean,
