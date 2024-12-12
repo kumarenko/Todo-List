@@ -9,10 +9,11 @@ import { CLOUD_URL } from "../../../../configs/urls";
 import { t } from "i18next";
 import { removeUserAvatarRequest, updateUserAvatarRequest } from "../../../../actions/login";
 import { IoMdClose } from "react-icons/io";
+import {addMessageToQueue} from "../../../../redux/settingsReducer";
 
 const AvatarModal = ({ isVisible, onClose, listId, type, product, onStartLoading = ()=> {} }) => {
     const [selectedFile, setSelectedFile] = useState(null);
-    const [preview, setPreview] = useState('');
+    const [preview, setPreview] = useState(product.avatar);
     const [item, setItem] = useState({});
     const dispatch = useDispatch();
 
@@ -27,6 +28,11 @@ const AvatarModal = ({ isVisible, onClose, listId, type, product, onStartLoading
     };
 
     useEffect(() => {
+        if(isVisible) {
+            setPreview(product.avatar);
+        }
+    }, [isVisible]);
+    useEffect(() => {
         if (!selectedFile) {
             setPreview(product.avatar);
         }
@@ -39,14 +45,27 @@ const AvatarModal = ({ isVisible, onClose, listId, type, product, onStartLoading
                 try {
                     const maxFileSizeKB = 512;
                     const fileSizeKB = selectedFile.size / 1024;
+                    const mimeType = selectedFile.type;
+                    if (mimeType !== 'image/jpeg' && mimeType !== 'image/png') {
+                        dispatch(addMessageToQueue({message: t('Please upload an image in JPEG or PNG format'), type: 'error'}));
+                        return;
+                    }
                     onStartLoading();
-                    const uploadFile = fileSizeKB > maxFileSizeKB
+
+                    const compressedBlob = fileSizeKB > maxFileSizeKB
                         ? await imageCompression(selectedFile, {
                             maxSizeMB: maxFileSizeKB / 1024,
                             maxWidthOrHeight: 1024,
                             useWebWorker: true,
+                            fileType: mimeType,
                         })
                         : selectedFile;
+
+                    const uploadFile = new File(
+                        [compressedBlob],
+                        selectedFile.name,
+                        { type: mimeType }
+                    );
 
                     if (type === 'products') {
                         dispatch(updateProductAvatarRequest(listId, uploadFile, product._id, type));
@@ -54,7 +73,7 @@ const AvatarModal = ({ isVisible, onClose, listId, type, product, onStartLoading
                         dispatch(updateUserAvatarRequest(uploadFile, product._id));
                     }
                 } catch (error) {
-                    console.error('Error during image compression:', error);
+                    dispatch(addMessageToQueue({message: t('Error during image compression. Please try again'), type: 'error'}));
                 }
             }
         };
@@ -76,11 +95,10 @@ const AvatarModal = ({ isVisible, onClose, listId, type, product, onStartLoading
     const closeModal = () => {
         onClose();
         setSelectedFile(null);
-        setPreview('');
     };
 
     return ReactDOM.createPortal(
-        <Modal show={isVisible} onHide={closeModal} centered>
+        <Modal show={isVisible} onHide={closeModal} onExited={() => setPreview(null)} centered>
             <Modal.Header className="modal-styled-bg">
                 <Modal.Title className="title text-break px-5">{item.name}</Modal.Title>
                 <Button type="button" className="btn custom-close" aria-label="Close" onClick={closeModal}>

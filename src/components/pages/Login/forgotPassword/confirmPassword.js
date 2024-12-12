@@ -1,60 +1,47 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form, Spinner } from 'react-bootstrap';
 import {changePassword} from "../../../../actions/login";
-import Message from "../../../../common/message";
 import {t} from "i18next";
 import {IoMdClose} from "react-icons/io";
 import PasswordInput from "../../../../common/passwordInput";
+import {addMessageToQueue} from "../../../../redux/settingsReducer";
+import {useDispatch} from "react-redux";
+import {validateForgotPassword} from "../../../../helpers/validator";
 
 const ChangePassword = ({ email, onApply, onBack, onHide }) => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
-    const [message, setMessage] = useState('');
+    const dispatch = useDispatch();
 
     const handlePasswordChange = async () => {
-        if (confirmPassword !== password) {
-            setErrors({...errors, match: t('Passwords do not match')});
-            return;
-        } if (confirmPassword.length < 8) {
-            setErrors({...errors, confirmPassword: t('New password is too short')});
-            return;
-        } if (password.length < 8) {
-            setErrors({...errors, password: t('Password is too short')});
-        } else {
-            setLoading(true);
-            setErrors({});
-            if(Object.keys(errors).length === 0) {
-                try {
-                    const result = await changePassword(email, password);
-                    if(result.ok) {
-                        setMessage(t('Password successfully changed'));
-                        setTimeout(() => {
-                            setMessage('');
-                            onApply();
-                        }, 2500);
-                    } else {
-                        setMessage(t('An error occurred while changing the password'));
-                        setTimeout(() => {
-                            setMessage('');
-                        }, 2500);
-                    }
-                } catch (err) {
-                    setMessage(t('An error occurred while changing the password'));
+        setErrors(validateForgotPassword({password, confirmPassword}));
+        if(Object.keys(validateForgotPassword({password, confirmPassword})).length === 0) {
+            try {
+                setLoading(true);
+                const result = await changePassword(email, password);
+                if(result.ok) {
+                    dispatch(addMessageToQueue({message: t('Password successfully changed'), type: 'success'}));
+                    setLoading(false);
                     setTimeout(() => {
-                        setMessage('');
+                        onApply();
                     }, 2500);
-                } finally {
+                } else {
+                    dispatch(addMessageToQueue({message: t('An error occurred while changing the password'), type: 'error'}));
                     setLoading(false);
                 }
+            } catch (err) {
+                dispatch(addMessageToQueue({message: t('An error occurred while changing the password'), type: 'error'}));
+                setLoading(false);
+            } finally {
+                setLoading(false);
             }
         }
     };
 
     return (
         <>
-            <Message text={message}/>
             <Modal.Header className='modal-styled-bg'>
                 <Modal.Title className='title'>{t('Change Password')}</Modal.Title>
                 <Button type="button" className="btn custom-close" aria-label="Close" onClick={onHide}>
@@ -72,6 +59,7 @@ const ChangePassword = ({ email, onApply, onBack, onHide }) => {
                         <Form.Label className='subtitle'>{t('New password')}</Form.Label>
                         <PasswordInput
                             value={password}
+                            isInvalid={errors.password}
                             onChange={e => {
                                 setPassword(e.target.value);
                                 setErrors({});
@@ -82,13 +70,13 @@ const ChangePassword = ({ email, onApply, onBack, onHide }) => {
                     <Form.Group className="mb-3">
                         <Form.Label className='subtitle'>{t('Confirm new password')}</Form.Label>
                         <PasswordInput
-                            isInvalid={errors.match || errors.confirmPassword}
+                            isInvalid={errors.confirmPassword}
                             value={confirmPassword}
                             onChange={e => {
                                 setConfirmPassword(e.target.value);
                                 setErrors({});
                             }}
-                            validationErrorsMessage={errors.match}
+                            validationErrorsMessage={errors.confirmPassword}
                         />
                     </Form.Group>
                 </Form>

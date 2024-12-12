@@ -35,10 +35,11 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
     }, [product, show]);
 
     const applyUpdate = (updatedProduct = null) => {
+
         const prod = updatedProduct || {
             _id: product._id,
             checked: product.checked,
-            name,
+            name: name === t(product.name) ? product.name : name,
             count: parseFloat(count || '0'),
             price: parseFloat(price || '0'),
             selectedUnits,
@@ -65,7 +66,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
 
     useEffect(() => {
         if (debouncedValues.name || debouncedValues.count || debouncedValues.price) {
-            if (product.name !== debouncedValues.name || product.count !== debouncedValues.count || product.price !== debouncedValues.price) {
+            if (t(product.name) !== debouncedValues.name || product.count !== debouncedValues.count || product.price !== debouncedValues.price) {
                 applyUpdate();
             }
         }
@@ -124,8 +125,10 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
         setSelectedUnits(unit);
         applyUpdate({
             ...product,
+            count: parseFloat(count || '0'),
+            price: parseFloat(price || '0'),
             selectedUnits: unit,
-            availableUnits: [...availableUnits],
+            category,
         });
     };
 

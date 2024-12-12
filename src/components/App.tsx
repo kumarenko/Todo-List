@@ -13,6 +13,7 @@ import { checkUserSession } from "../actions/login";
 import './../styles.less';
 import './../common/theme.less';
 import i18n from "i18next";
+import GlobalMessage from "../common/globalMessage";
 
 const App = () => {
     const theme = useSelector(state => state.settings.theme); // Получение темы из Redux
@@ -50,6 +51,7 @@ const App = () => {
                     </Routes>
                 </div>
             </Router>
+            <GlobalMessage/>
         </div>
     );
 };

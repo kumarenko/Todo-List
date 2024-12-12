@@ -493,5 +493,19 @@
   "Email notifications about being added to a list": "Notifications par e-mail lors de l'ajout à une liste",
   "Email notifications about being added to a list are enabled": "Les notifications par e-mail lors de l'ajout à une liste sont activées",
   "Email notifications about being added to a list are disabled": "Les notifications par e-mail lors de l'ajout à une liste sont désactivées",
-  "Synchronizing data": "Synchronisation des données"
+  "Synchronizing data": "Synchronisation des données",
+  "Login failed": "Échec de la connexion",
+  "Product already added to the list": "Le produit a déjà été ajouté à la liste",
+  "Product successfully added to the list": "Produit ajouté à la liste avec succès",
+  "Product was not found": "Produit introuvable",
+  "Incorrect email or password": "Email ou mot de passe incorrect",
+  "Registration successful!": "Inscription réussie !",
+  "Error while uploading avatar": "Erreur lors du téléchargement de l'avatar",
+  "Are you sure you want to leave the list": "Êtes-vous sûr de vouloir quitter la liste ?",
+  "Leave": "Quitter",
+  "New password field is too short": "Le champ du nouveau mot de passe est trop court",
+  "Confirm password field is too short": "Le champ de confirmation du mot de passe est trop court",
+  "Error during image compression. Please try again": "Erreur lors de la compression de l'image. Veuillez réessayer",
+  "Product image updated successfully": "Image du produit mise à jour avec succès",
+  "Please upload an image in JPEG or PNG format": "Veuillez télécharger une image au format JPEG ou PNG"
 }

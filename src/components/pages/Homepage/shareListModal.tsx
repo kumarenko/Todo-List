@@ -5,16 +5,21 @@ import Form from 'react-bootstrap/Form';
 import {getColorById, validateEmail} from "../../../helpers/validator";
 import {IoMdClose} from "react-icons/io";
 import {inviteUsersRequest} from "../../../actions/shoppingLists";
-import {connect} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import {t} from "i18next";
-import CustomMessage from "../../../common/customMessage";
+import DeleteListModal from "./deleteListModal";
+import {useNavigate} from "react-router-dom";
+import Spinner from "../../../common/spinner";
+import {addMessageToQueue} from "../../../redux/settingsReducer";
 
 const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
     const [email, setEmail] = useState('');
     const [owners, setOwners] = useState([]);
     const [waitingOwners, setWaitingOwners] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
-
+    const [showDeleteModal, setDeleteModal] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
     useEffect(()=> {
         let ownersArray = list.userOwners.filter(item => item.status !== 'WAIT');
         ownersArray.sort((a, b) => {
@@ -26,109 +31,105 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
         setWaitingOwners(list.userOwners.filter(item => item.status === 'WAIT'));
     }, [list]);
 
-    const invite = () => {
+    const invite = async () => {
         if(validateEmail(email)){
             setErrorMessage(validateEmail(email))
         } else if (list.userOwners.find(owner => owner.email === email)) {
-            setErrorMessage(t('This email is already in the list'))
+            dispatch(addMessageToQueue({message: t('This email is already in the list'), type: 'error'}));
         } else {
-            inviteUsersRequest(list._id, user.id, email, 'POST')
+            setLoading(true);
+            await inviteUsersRequest(list._id, user.id, email, 'POST');
+            setLoading(false);
         }
     }
 
-    const removeInvite = (email) => {
-        inviteUsersRequest(list._id, user.id, email, 'DELETE');
+    const removeInvite = async (email) => {
+        setLoading(true);
+        await inviteUsersRequest(list._id, user.id, email, 'DELETE');
+        setLoading(false);
+    }
+    const navigate = useNavigate();
+    const leaveList = async () => {
+        setLoading(true);
+        await inviteUsersRequest(list._id, user.id, user.email, 'DELETE');
+        setLoading(false);
+        setDeleteModal(false);
+        navigate('/');
+        onHide();
     }
     const renderBadge = (user) => {
         if(list.creator._id === user._id) {
-           return <Badge bg="secondary">{t('Owner')}</Badge>
+           return <Badge bg="secondary" className='mx-1'>{t('Owner')}</Badge>
         }
         if(user.status === 'WAIT') {
-            return <Badge bg="secondary">{t('Waiting')}</Badge>
+            return <Badge bg="secondary" className='mx-1'>{t('Waiting')}</Badge>
         }
         else {
-           return <Badge bg="secondary">{t('Shared')}</Badge>
+           return <Badge bg="secondary" className='mx-1'>{t('Shared')}</Badge>
         }
     }
 
-    const renderCreator = () => {
-        const creator = list.userOwners.find(owner => owner._id === list.creator);
-        if(creator) {
-            return <div className='flex-row items-center'>
-                <div className='d-flex'>
-                    <div className={'user-avatar ml-2'}
-                         style={{
-                             backgroundColor: getColorById(list.creator),
-                         }}>
-                        {creator.avatar ? <div className='user-avatar-info'>
-                            <img src={creator.avatar} alt=""/>
-                        </div> : <div className='user-avatar-info'>
-                            {creator.name ? creator.name[0] : creator.email[0]}
-                        </div>}
-                    </div>
-                    <span className='mx-2'>
-                    <span className='subtitle'>{creator.name} </span>
-                    <span className='subtitle'> ({creator.email})</span>
-                        {user.id === creator._id ? <span className='subtitle'> ({t('You')})</span> : null}
-                </span>
-                </div>
-            </div>
-        }
-    }
     const renderOwners = (userOwners) => {
-        const ownersWithoutCreator = userOwners.filter(user => user._id !== list.creator && user.status !== 'WAIT');
+        const ownersWithoutCreator = userOwners.filter(user => user.status !== 'WAIT');
         return ownersWithoutCreator.map(owner => (
             <div key={owner._id} className='d-flex flex-nowrap justify-content-between mb-2'>
-                <div className='d-flex'>
-                    <div
-                        className={'user-avatar ml-2'}
-                        style={{
-                            backgroundColor: getColorById(owner._id),
-                        }}
-                    >
-                        {owner.avatar ? (
-                            <div className='user-avatar-info'>
-                                <img
-                                    src={owner.avatar}
-                                    alt=''
-                                    onError={(e) => {
-                                        e.target.style.display = 'none';
-                                        e.target.nextSibling.style.display = 'block';
-                                    }}
-                                />
-                                <div style={{ display: 'none' }} className='user-avatar-info subtitle'>
+                <div className='d-flex justify-content-between w-100'>
+                    <div className='d-flex flex-nowrap align-items-center'>
+                        <div
+                            className={'user-avatar ml-2'}
+                            style={{
+                                backgroundColor: getColorById(owner._id),
+                            }}
+                        >
+                            {owner.avatar ? (
+                                <div className='user-avatar-info'>
+                                    <img
+                                        src={owner.avatar}
+                                        alt=''
+                                        onError={(e) => {
+                                            e.target.style.display = 'none';
+                                            e.target.nextSibling.style.display = 'block';
+                                        }}
+                                    />
+                                    <div style={{ display: 'none' }} className='user-avatar-info subtitle'>
+                                        {owner.name[0]}
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className='user-avatar-info subtitle'>
                                     {owner.name[0]}
                                 </div>
-                            </div>
-                        ) : (
-                            <div className='user-avatar-info subtitle'>
-                                {owner.name[0]}
-                            </div>
-                        )}
+                            )}
+                        </div>
+                        <div className='d-flex flex-column align-items-center ms-2'>
+                            <span className='subtitle text-break w-100'>{owner.name}</span>
+                            <span className='subtitle text-break w-100'>{owner.email}</span>
+                        </div>
                     </div>
-                    <span className='mx-2 d-flex flex-column flex-sm-row'>
-                        <span className='subtitle text-break'>{owner.name} </span>
-                        <span className='subtitle text-break'> ({owner.email})</span>
-                            {user.id === owner._id && <Badge bg="secondary ms-1">{t('You')}</Badge>}
-                    </span>
-                </div>
-                {list.creator !== owner._id && (
                     <div className='d-flex align-items-center'>
-                        {renderBadge(owner)}
-                        <Button
+                        {user.id === owner._id && <Badge bg="secondary mx-1">{t('You')}</Badge>}
+                        {owner._id === list.creator ? <Badge bg="secondary mx-1">{t('Creator')}</Badge> : renderBadge(owner)}
+                        {user.id !== owner._id && <Button
                             className={'mx-2'}
                             size="sm"
-                            onClick={() => removeInvite(owner.email)}
-                        >
-                            <IoMdClose/>
-                        </Button>
+                            onClick={() => removeInvite(owner.email)}>
+                                <IoMdClose/>
+                        </Button>}
                     </div>
-                )}
+                </div>
             </div>
         ));
     };
 
-    return ReactDOM.createPortal(<Modal show={show} onHide={onHide} className='share-modal' centered>
+    return ReactDOM.createPortal(
+        <Modal show={show}
+               onHide={() => {
+                   onHide();
+                   setEmail('');
+               }}
+               className='share-modal'
+               centered>
+            {loading ? <div className='position-absolute top-0 start-0 w-100 h-100'><Spinner/></div> : null}
         <Modal.Header className='modal-styled-bg justify-content-center'>
             <Modal.Title className='title'>{t('Invite Friends to List')}</Modal.Title>
         </Modal.Header>
@@ -150,15 +151,11 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
                         {errorMessage}
                     </Form.Control.Feedback>
                 </Form.Group>
-
-
                 <Button className={'mx-2'} onClick={() => invite()}>
                     {t('Invite')}
                 </Button>
             </Container>
             <Container className='d-flex justify-content-between flex-column'>
-                <h3 className='title'>{t('Creator')}</h3>
-                {renderCreator()}
                 {owners.length > 1 ?
                 <>
                     <h3 className='title'>{owners.length > 2 ?
@@ -180,23 +177,32 @@ const ShareListModal = ({list, show, onHide, user, inviteUsersRequest}) => {
                                     <span className='subtitle'>{user.email}</span>
                                 </span>
                             </div>
-                            <div>
-                                {renderBadge(user)}
-                                <Button
-                                    className={'mx-2'}
-                                    size="sm"
-                                    onClick={() => removeInvite(user.email)}
-                                    disabled={list.creator._id === user._id}>
-                                    <IoMdClose />
-                                </Button>
-                            </div>
+                            <Button
+                                className={'mx-2'}
+                                size="sm"
+                                onClick={() => removeInvite(user.email)}
+                                disabled={list.creator._id === user._id}>
+                                <IoMdClose />
+                            </Button>
                         </div>)}
                     </div>
                 </> : null}
+                {list.userOwners.length > 1 ?
+                    <Button className='w-50 mx-auto'
+                            onClick={() => setDeleteModal(true)}>
+                        {t('Leave')}
+                </Button> : null}
             </Container>
         </Modal.Body>
         <Modal.Footer className='modal-styled-bg empty-footer'/>
-        <CustomMessage/>
+
+        <DeleteListModal
+            name={list.name.value}
+            show={showDeleteModal}
+            onHide={() => setDeleteModal(false)}
+            onApply={leaveList}
+            leave={true}
+        />
     </Modal>, document.body);
 };
 const mapStateToProps = (state) => ({

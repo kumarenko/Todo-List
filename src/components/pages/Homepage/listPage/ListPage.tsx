@@ -32,12 +32,12 @@ import ShareListModal from "../shareListModal";
 import {defaultListsState, setShoppingList} from "../../../../redux/shoppingListsReducer";
 import DeleteListModal from "../deleteListModal";
 import SortingModal from "./sorting";
-import AvatarModal from "./avatar";
 import {t} from "i18next";
 import Footer from "../../../../common/footer";
 import CopyListModal from "../copyListModal";
 import ProductPlaceholder from "../../../../common/productPlaceholder";
 import ParametersListModal from "./parameters";
+import Product from "./product";
 
 const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updateListRequest, removeListRequest }) => {
     const { listId } = useParams();
@@ -57,10 +57,8 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showParametersModal, setShowParametersModal] = useState(false);
     const [toggleSortingModal, setToggleSortingModal] = useState(false);
-    const [toggleAvatarModal, setToggleAvatarModal] = useState(false);
-    const [item, setItem] = useState(null);
     const [sortingType, setSortingType] = useState('default');
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const handleApply = () => setAddShowModal(false);
     const handleClose = () => setAddShowModal(false);
@@ -112,11 +110,11 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
         let filteredProducts = list.products.filter(
             prod =>
                 filteredCategories.includes(prod.category) &&
-                prod.name.toLowerCase().includes(t(searchValue.toLowerCase())),
+                t(prod.name).toLowerCase().includes(t(searchValue.toLowerCase())),
         );
         if (filteredCategories.length === 0) {
             filteredProducts = list.products.filter(prod =>
-                prod.name.toLowerCase().includes(t(searchValue.toLowerCase())),
+                t(prod.name).toLowerCase().includes(t(searchValue.toLowerCase())),
             );
         }
         setProds(sortProds(filteredProducts));
@@ -199,75 +197,30 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
         if(loading) {
             return <ProductPlaceholder/>
         } else {
-            return <div className='list'>
-                {prods.filter(i => !i.checked).length ? <FlipMove className='flip mx-auto my-1'>
-                    {prods.filter(i => !i.checked).map(prod => <div className='d-flex justify-content-between mb-2 w-100' key={prod._id}>
-                        <div className='d-flex w-100 align-items-center ml-2'>
-                            <Form.Check
-                                type={'checkbox'}
-                                className='prod-checkbox mx-3'
-                                checked={prod.checked}
-                                onChange={() => checkProduct(prod)}
-                                id={prod._id}
-                            />
-                            <button
-                                className='my-1 w-100 section-styled-bg rounded'
-                                onClick={() => selectProduct(prod)}>
-                                <h5 className='title text-break'>{t(prod.name)}</h5>
-                                <div>
-                                    {prod.price > 0 ? <span className={`subtitle ${parseFloat(prod.price) === 0 ? 'd-none' : 'd-inline'}`}>
-                                        {prod.price}
-                                        {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}
-                                    </span> : null}
-                                    {<span className={`x subtitle`}> ✕ </span>}
-                                    <span className={`subtitle`}>{prod.count} {prod.selectedUnits || t('pcs')}</span>
-                                </div>
-                            </button>
-                            <Button className='avatar-container mx-3 section-styled-bg' onClick={() => {
-                                setToggleAvatarModal(true);
-                                setItem(prod);
-                            }}>
-                                {prod.avatar ? <img src={prod.avatar} alt={prod.category.toLowerCase()}/> :
-                                    <div className={`sprite sprite-${prod.category.toLowerCase()}`} />}
-                            </Button>
-                        </div>
-                    </div>)}
-                </FlipMove> : null}
-                {prods.filter(i => i.checked).length ? <div className='separator-container flip px-3 mx-auto mb-2'><div className='separator section-styled-bg'/></div> : null}
-                {prods.filter(i => i.checked).length ? <FlipMove className='flip pb-5 mx-auto'>
-                    {prods.filter(i => i.checked).map(prod => <div className='d-flex justify-content-between mb-2 w-100' key={prod._id}>
-                        <div className='d-flex w-100 align-items-center ml-2'>
-                            <Form.Check
-                                id={prod._id}
-                                type={'checkbox'}
-                                className='prod-checkbox mx-3'
-                                checked={prod.checked}
-                                onChange={() => checkProduct(prod)}
-                            />
-                            <Button
-                                className='my-1 w-100 section-styled-bg'
-                                onClick={() => selectProduct(prod)}>
-                                <h5 className='title text-break'>{t(prod.name)}</h5>
-                                <div>
-                                    {prod.price > 0 ? <span className={`subtitle ${parseFloat(prod.price) === 0 ? 'd-none' : 'd-inline'}`}>
-                                        {prod.price}
-                                        {currencies.find(curr => curr.code === list.currency)?.symbol || getCurrencySymbol(user.country)}
-                                    </span> : null}
-                                    {<span className={`x subtitle`}> ✕ </span>}
-                                    <span className={`subtitle`}>{prod.count} {prod.selectedUnits || t('pcs')}</span>
-                                </div>
-                            </Button>
-                            <Button className='avatar-container mx-3 section-styled-bg' onClick={() => {
-                                setToggleAvatarModal(true);
-                                setItem(prod);
-                            }}>
-                                {prod.avatar ? <img src={prod.avatar} alt={prod.category.toLowerCase()}/> :
-                                    <div className={`sprite sprite-${prod.category.toLowerCase()}`} />}
-                            </Button>
-                        </div>
-                    </div>)}
-                </FlipMove> : null}
-            </div>
+            return prods.length > 0 ? <div className='list'>
+                    {prods.filter(i => !i.checked).length ? <FlipMove className='flip mx-auto my-1'>
+                        {prods.filter(i => !i.checked).map(prod =>
+                            <Product
+                                key={prod._id}
+                                list={list}
+                                prod={prod}
+                                user={user}
+                                checkProduct={checkProduct}
+                                selectProduct={selectProduct}/>)}
+                    </FlipMove> : null}
+                    {prods.filter(i => i.checked).length ? <div className='separator-container flip px-3 mx-auto mb-2'><div className='separator section-styled-bg'/></div> : null}
+                    {prods.filter(i => i.checked).length ? <FlipMove className='flip pb-5 mx-auto my-1'>
+                        {prods.filter(i => i.checked).map(prod =>
+                            <Product
+                                key={prod._id}
+                                list={list}
+                                prod={prod}
+                                user={user}
+                                checkProduct={checkProduct}
+                                selectProduct={selectProduct}/>)}
+                    </FlipMove> : null}
+                </div> :
+                    <h3 className='text-center my-2 mx-auto title list-header px-3'>{t('Your list is currently empty. Add your items to make sure you don’t forget anything!')}</h3>
         }
     }
     return (
@@ -329,7 +282,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                         </Dropdown>
                     </div>
                 </div>
-                {list.products?.length ?
+                {list.products.length ?
                     <>
                         <div className='position-relative w-100 d-flex flex-nowrap align-items-center px-2 mx-auto'>
                             <ProgressBar
@@ -363,7 +316,7 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                             </div>
                         </div>
                     </>
-                    : <div className='text-center my-2 mx-auto title'>{t('Your list is currently empty. Add your items to make sure you don’t forget anything!')}</div>}
+                    : null}
                 {filteredCategories.length >= 1 ? <div className='my-2'>
                     {filteredCategories.map(cat => <Button key={cat} className='mx-2' onClick={() => removeCategoryToFilter(cat)}><IoMdClose/>{t(cat)}</Button>)}
                 </div> : null}
@@ -415,16 +368,6 @@ const ListPage = ({user, list, getShoppingList, updateProductsListRequest, updat
                 sortingType={sortingType}
                 onApply={applySort}
             />
-            {item ? <AvatarModal
-                isVisible={toggleAvatarModal}
-                onClose={() => {
-                    setToggleAvatarModal(false);
-                    setItem(null);
-                }}
-                product={item}
-                listId={list._id}
-                type={'products'}
-            /> : null}
             <Footer/>
         </div>
     );

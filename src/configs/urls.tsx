@@ -6,6 +6,7 @@ export const SHOPPING_LIST_CREATE_URL = URL + "api/shoppingLists/add";
 export const SHOPPING_LIST_CURRENCY_URL = URL + "api/shoppingLists/updateCurrency";
 export const SHOPPING_LISTS_ADD_PROD_URL = URL + "api/shoppingLists/addProduct";
 export const SHOPPING_LISTS_EDIT_PROD_URL = URL + "api/shoppingLists/editProduct";
+export const FIND_BARCODE_URL = URL + 'api/shoppingLists/findBarcode';
 export const SHOPPING_LIST_SHARE_URL = URL + "api/shoppingLists/invite";
 export const LOGIN_URL = URL + "api/login";
 export const PROTECTED_ROUTE_URL = URL + "api/protected-route";

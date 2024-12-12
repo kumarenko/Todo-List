@@ -1,4 +1,4 @@
-import {SHOPPING_LISTS_ADD_PROD_URL, SHOPPING_LISTS_EDIT_PROD_URL, UPLOAD_URL} from "../configs/urls";
+import {FIND_BARCODE_URL, SHOPPING_LISTS_ADD_PROD_URL, SHOPPING_LISTS_EDIT_PROD_URL, UPLOAD_URL} from "../configs/urls";
 import {setShoppingList} from "../redux/shoppingListsReducer";
 import {v4 as uuidv4} from "uuid";
 export const addProductToList = (shoppingListId, product) => {
@@ -58,6 +58,9 @@ export const updateProductsListRequest = (shoppingListId, products) => {
         const userData = state().user;
         if(userData.user.role === 'USER') {
             const objectToUpdate = {shoppingListId, products};
+            let prodsWithLoadingState = currentList.products.map(prod =>
+                prod._id === products[0]._id ? {...products[0], loading: true} : prod);
+            dispatch(setShoppingList({...currentList, products: prodsWithLoadingState}));
             const response = await fetch(`${SHOPPING_LISTS_EDIT_PROD_URL}`, {
                 method: 'PUT',
                 headers: {
@@ -165,3 +168,12 @@ export const removeProductAvatarRequest = (shoppingListId, fileName, itemId) => 
         }
     };
 };
+export const findProductByBarcode = async (code) => {
+    return await fetch(
+        `${FIND_BARCODE_URL}?code=${code}`,{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+}

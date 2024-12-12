@@ -14,7 +14,7 @@ import {
 } from "../configs/urls";
 import {t} from "i18next";
 import {getCurrencyCode} from "../helpers/helper";
-import {updateProfileSuccessMessage} from "../redux/userReducer";
+import {addMessageToQueue} from "../redux/settingsReducer";
 
 export const getShoppingLists = (userId: string) => {
     return async (dispatch, state) => {
@@ -161,8 +161,10 @@ export const updateListCurrencyRequest = (list, currency) => {
 export const inviteUsersRequest = (shoppingListId, userId, invitedUser, method) => {
     return async (dispatch, state) => {
         const lists = state().items.lists;
+        const userEmail = state().user.user.email;
+        const language = state().settings.language;
         const currentList = lists.find(list => list._id === shoppingListId);
-        const objectToUpdate = {shoppingListId, invitedUser, userId};
+        const objectToUpdate = {shoppingListId, invitedUser, userId, language};
         const response = await fetch(
             `${SHOPPING_LIST_SHARE_URL}`,{
                 method,
@@ -171,10 +173,15 @@ export const inviteUsersRequest = (shoppingListId, userId, invitedUser, method) 
                 },
                 body: JSON.stringify(objectToUpdate)
             });
-        if(response.ok) {
-            const data = await response.json();
-            dispatch(setShoppingList({...currentList, userOwners: data.userOwners}));
-            dispatch(updateProfileSuccessMessage(data.message));
+        if (response.ok) {
+            if(method === 'DELETE' && userEmail === invitedUser) {
+                dispatch(setShoppingLists(lists.filter(list => list._id !== shoppingListId)));
+                dispatch(addMessageToQueue({message: t('You have successfully left the list'), type: 'success'}));
+            } else {
+                const data = await response.json();
+                dispatch(setShoppingList({...currentList, userOwners: data.userOwners}));
+                dispatch(addMessageToQueue({message: t(data.message), type: 'success'}));
+            }
         }
     };
 };
@@ -213,8 +220,10 @@ export const removeListRequest = (userId, shoppingListId) => {
                 dispatch(
                     setShoppingLists(lists.filter(list => list._id !== shoppingListId)),
                 );
+
             } else {
                 dispatch(setShoppingList(lists));
+                dispatch(addMessageToQueue({message: t('Error during inviting user'), type: 'error'}));
             }
         } else {
             const prodsWithAvatarsFromLocalList = lists.find(list => list._id === shoppingListId).products.filter(prod => prod.avatar);
