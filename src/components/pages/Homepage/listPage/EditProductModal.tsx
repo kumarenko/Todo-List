@@ -176,7 +176,7 @@ const EditProductModal = ({ product, show, onHide, deleteProductFromList, update
                             onKeyPress={event => preventCharacters(event)}
                             value={count}
                         />
-                        <InputGroup.Text className='pe-none d-block p-1' style={{width: 42}}>
+                        <InputGroup.Text className='pe-none d-block p-1'>
                             {t(selectedUnits)}
                         </InputGroup.Text>
                     </InputGroup>
