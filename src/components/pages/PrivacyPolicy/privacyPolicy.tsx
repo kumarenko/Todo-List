@@ -1,9 +1,19 @@
 import React from 'react';
-import {t} from "i18next";
+import { t } from "i18next";
+import { Helmet } from 'react-helmet';
 
 const PrivacyPolicy = () => {
     return (
         <div className='content d-flex flex-column align-items-center mx-auto my-0'>
+            <Helmet>
+                <title>{t('Privacy Policy')}</title>
+                <meta name="description" content={t('privacy_policy.introduction_text')} />
+                <meta property="og:title" content={t('Privacy Policy')} />
+                <meta property="og:description" content={t('privacy_policy.introduction_text')} />
+                <meta name="twitter:title" content={t('Privacy Policy')} />
+                <meta name="twitter:description" content={t('privacy_policy.introduction_text')} />
+            </Helmet>
+
             <div className={`d-flex justify-content-between h3 w-100 align-items-center justify-content-between flex-column flex-sm-row pt-5 pt-sm-3 px-3 mb-0`}>
                 <h1 className='title pt-2'>{t('Privacy Policy')}</h1>
             </div>

@@ -1,12 +1,20 @@
 import React from 'react';
-
 import { t } from 'i18next';
+import { Helmet } from 'react-helmet';
 import Footer from "../../../common/footer";
 
 const TermsOfUse = () => {
-
     return (
         <div className={`content d-flex flex-column align-items-center mx-auto my-0`}>
+            <Helmet>
+                <title>{t('Terms of use')}</title>
+                <meta name="description" content={t('introduction')} />
+                <meta property="og:title" content={t('Terms of use')} />
+                <meta property="og:description" content={t('introduction')} />
+                <meta name="twitter:title" content={t('Terms of use')} />
+                <meta name="twitter:description" content={t('introduction')} />
+            </Helmet>
+
             <div className={`d-flex justify-content-between h3 w-100 align-items-center justify-content-between flex-column flex-sm-row pt-5 pt-sm-3 px-3 mb-0`}>
                 <h1 className='title pt-2'>{t('Terms of use')}</h1>
             </div>
@@ -42,6 +50,7 @@ const TermsOfUse = () => {
                     </li>
                 </ol>
             </div>
+
             <Footer/>
         </div>
     );
