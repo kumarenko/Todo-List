@@ -72,6 +72,22 @@ const Navigation = () => {
                                 <IoMdSettings className="fs-4 me-2"/> <span>{t('Settings')}</span>
                             </Link>
                         </li>
+                        <li className='d-sm-none'>
+                            <Link
+                                className={`d-flex align-items-center mt-3 mb-md-0 mt-3 ms-sm-3 me-md-auto ms-md-3 text-decoration-none justify-content-sm-start justify-content-center ${getActiveClass('/privacyPolicy')}`}
+                                to={'/privacyPolicy'}
+                            >
+                                <span className='ms-3'>{t('Privacy Policy')}</span>
+                            </Link>
+                        </li>
+                        <li className='d-sm-none'>
+                            <Link
+                                className={`d-flex align-items-center mt-3 mb-md-0 mt-3 ms-sm-3 me-md-auto ms-md-3 text-decoration-none justify-content-sm-start justify-content-center ${getActiveClass('/termsOfUse')}`}
+                                to={'/termsOfUse'}
+                            >
+                                <span className='ms-3'>{t('Terms of use')}</span>
+                            </Link>
+                        </li>
                     </ul>
                     <div className='d-sm-flex d-none nav-footer w-100 flex-column justify-content-center align-items-start ps-3' style={{bottom: 10, left: 0}}>
                         <Link to={'/'} className='px-2 my-1'>
