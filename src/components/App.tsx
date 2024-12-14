@@ -14,6 +14,8 @@ import './../styles.less';
 import './../common/theme.less';
 import i18n from "i18next";
 import GlobalMessage from "../common/globalMessage";
+import TermsOfUse from "./pages/TermsOfUse/termsOfUse";
+import PrivacyPolicy from "./pages/PrivacyPolicy/privacyPolicy";
 
 const App = () => {
     const theme = useSelector(state => state.settings.theme); // Получение темы из Redux
@@ -38,7 +40,7 @@ const App = () => {
     return (
         <div className='d-flex flex-nowrap flex-column flex-sm-row h-100'>
             <Router>
-                {isAuthorized ? <Navigation /> : null}
+                <Navigation/>
                 <div className={'position-relative col vh-100 overflow-auto px-0'}>
                     <Routes>
                         <Route index element={isAuthorized ? <HomePage title="Home" /> : <Navigate to={'/login'} />} />
@@ -46,6 +48,8 @@ const App = () => {
                         <Route path='/profile' element={isAuthorized ? <Profile title='Profile' /> : <Navigate to={'/login'} />} />
                         <Route path='/settings' element={isAuthorized ? <Settings title='Settings' /> : <Navigate to={'/login'} />} />
                         <Route path='/lists/:listId' element={isAuthorized ? <ListPage title='List' /> : <Navigate to={'/login'} />} />
+                        <Route path='/termsOfUse' element={<TermsOfUse />} />
+                        <Route path='/privacyPolicy' element={<PrivacyPolicy />} />
                         <Route path='/login' element={<LoginPage title='Login' />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
