@@ -89,16 +89,16 @@ const Navigation = () => {
                             </Link>
                         </li>
                     </ul>
-                    <div className='d-sm-flex d-none nav-footer w-100 flex-column justify-content-center align-items-start ps-3' style={{bottom: 10, left: 0}}>
-                        <Link to={'/'} className='px-2 my-1'>
-                            <img src={appStore} alt="app-store"/>
-                            <span className='w-100 text-white'>{t('Get it on')} <div className=''><strong>App Store</strong></div></span>
-                        </Link>
-                        <Link to={'/'} className='px-2 my-1 mb-2'>
-                            <img src={playMarket} alt="app-store"/>
-                            <span className='w-100 text-white'>{t('Download on the')} <div><strong>Google Play</strong></div></span>
-                        </Link>
-                    </div>
+                    {/*<div className='d-sm-flex d-none nav-footer w-100 flex-column justify-content-center align-items-start ps-3' style={{bottom: 10, left: 0}}>*/}
+                    {/*    <Link to={'/'} className='px-2 my-1'>*/}
+                    {/*        <img src={appStore} alt="app-store"/>*/}
+                    {/*        <span className='w-100 text-white'>{t('Get it on')} <div className=''><strong>App Store</strong></div></span>*/}
+                    {/*    </Link>*/}
+                    {/*    <Link to={'/'} className='px-2 my-1 mb-2'>*/}
+                    {/*        <img src={playMarket} alt="app-store"/>*/}
+                    {/*        <span className='w-100 text-white'>{t('Download on the')} <div><strong>Google Play</strong></div></span>*/}
+                    {/*    </Link>*/}
+                    {/*</div>*/}
                 </div>
                 <div className='d-flex flex-column'>
                     <ul  className='list-unstyled'>
