@@ -552,6 +552,28 @@
   "Terms of use": "Nutzungsbedingungen",
   "Privacy Policy": "Datenschutzrichtlinie",
   "A page where users can manage their shopping lists.": "Eine Seite, auf der Benutzer ihre Einkaufsliste verwalten können.",
-  "Manage your shopping lists easily and efficiently.": "Verwalten Sie Ihre Einkaufsliste einfach und effizient."
-
+  "Manage your shopping lists easily and efficiently.": "Verwalten Sie Ihre Einkaufsliste einfach und effizient.",
+  "faq": {
+    "title": "FAQ",
+    "description": "Häufig gestellte Fragen",
+    "general_questions": "Allgemeine Fragen",
+    "what_is_app": "Was ist Ihre App?",
+    "what_is_app_answer": "Dies ist eine praktische Webanwendung zum Erstellen, Verwalten und Teilen von Einkaufslisten. Sie können schnell Artikel hinzufügen, Listen mit Familie oder Freunden teilen und erledigte Aufgaben verfolgen.",
+    "registration_required": "Muss ich mich anmelden, um die App zu verwenden?",
+    "registration_required_answer": "Nein, Sie können die App im Gästemodus ohne Anmeldung verwenden. Ihre Daten werden lokal auf Ihrem Gerät gespeichert.",
+    "registration_benefits": "Welche Vorteile bietet die Registrierung?",
+    "registration_benefits_answer": "Wenn Sie sich registrieren, werden alle Ihre Listen und Artikel, die im Gästemodus erstellt wurden, in Ihrem Konto gespeichert. Dadurch haben Sie von jedem Gerät aus Zugriff auf Ihre Daten.",
+    "guest_mode": "Gästemodus",
+    "guest_mode_description": "Was ist der Gästemodus?",
+    "guest_mode_description_answer": "Der Gästemodus ermöglicht es Ihnen, die App ohne Anmeldung zu verwenden. Alle erstellten Listen und Artikel werden lokal auf Ihrem Gerät gespeichert.",
+    "continue_in_guest_mode": "Kann ich die App weiterhin im Gästemodus verwenden?",
+    "continue_in_guest_mode_answer": "Ja, der Gästemodus ist immer verfügbar. Die Daten werden jedoch nur lokal auf Ihrem Gerät gespeichert und nicht zwischen Geräten synchronisiert.",
+    "app_functionality": "Funktionen",
+    "create_new_list": "Wie erstelle ich eine neue Einkaufsliste?",
+    "create_new_list_answer": "Klicken Sie auf der Startseite auf die Schaltfläche '+ Liste hinzufügen', geben Sie den Listennamen ein und sie erscheint in Ihrem Konto oder im lokalen Speicher, wenn Sie den Gästemodus verwenden.",
+    "share_list_in_guest_mode": "Kann ich Listen im Gästemodus mit anderen Benutzern teilen?",
+    "share_list_in_guest_mode_answer": "Nein, die Listenfreigabefunktion ist nur für registrierte Benutzer verfügbar.",
+    "offline_functionality": "Kann ich die App offline verwenden?",
+    "offline_functionality_answer": "Ja, die App unterstützt den Offline-Modus. Alle Änderungen werden lokal gespeichert und mit dem Server synchronisiert, wenn die Verbindung wiederhergestellt wird (für registrierte Benutzer)."
+  }
 }

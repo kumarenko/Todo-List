@@ -551,6 +551,28 @@
   "Terms of use": "Terms of use",
   "Privacy Policy": "Privacy Policy",
   "A page where users can manage their shopping lists.": "A page where users can manage their shopping lists.",
-  "Manage your shopping lists easily and efficiently.": "Manage your shopping lists easily and efficiently."
-
+  "Manage your shopping lists easily and efficiently.": "Manage your shopping lists easily and efficiently.",
+  "faq": {
+    "title": "FAQ",
+    "description": "Frequently Asked Questions",
+    "general_questions": "General Questions",
+    "what_is_app": "What is your app?",
+    "what_is_app_answer": "This is a convenient web application for creating, managing, and sharing shopping lists. You can quickly add items, share lists with family or friends, and track completed tasks.",
+    "registration_required": "Do I need to register to use the app?",
+    "registration_required_answer": "No, you can use the app in guest mode without registration. Your data will be saved locally on your device.",
+    "registration_benefits": "What are the benefits of registration?",
+    "registration_benefits_answer": "If you decide to register, all your lists and items created in guest mode will be saved to your account. This will allow you to access your data from any device.",
+    "guest_mode": "Guest Mode",
+    "guest_mode_description": "What is guest mode?",
+    "guest_mode_description_answer": "Guest mode allows you to use the app without registration. All created lists and items will be saved locally on your device.",
+    "continue_in_guest_mode": "Can I continue using the app in guest mode?",
+    "continue_in_guest_mode_answer": "Yes, guest mode is always available. However, the data will be stored locally on your device and will not sync across devices.",
+    "app_functionality": "Functionality",
+    "create_new_list": "How do I create a new shopping list?",
+    "create_new_list_answer": "On the main page, click the '+ Add list' button, enter the list name, and it will appear in your account or in local storage if you are using guest mode.",
+    "share_list_in_guest_mode": "Can I share lists with other users in guest mode?",
+    "share_list_in_guest_mode_answer": "No, the list sharing feature is available only for registered users.",
+    "offline_functionality": "Can I use the app offline?",
+    "offline_functionality_answer": "Yes, the app supports offline mode. All changes are saved locally and synced with the server when the connection is restored (for registered users)."
+  }
 }
