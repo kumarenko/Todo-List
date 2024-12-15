@@ -41,7 +41,7 @@ const Feedback = () => {
     return (
         <div className='content d-flex flex-column align-items-center mx-auto my-0'>
             <Helmet>
-                <title>{t('Share Your Thoughts and Help Us Improve!')}</title>
+                <title>{t('Contacts & Feedback')}</title>
                 <meta name="description" content={t('We value your feedback! Use this form to share your thoughts, report issues, or suggest improvements.')} />
                 <meta property="og:title" content={t('Share Your Thoughts and Help Us Improve!')} />
                 <meta property="og:description" content={t('We value your feedback! Use this form to share your thoughts, report issues, or suggest improvements.')} />
