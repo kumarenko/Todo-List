@@ -588,5 +588,10 @@
   "suggestion": "Vorschlag",
   "problem": "Problem",
   "other": "Sonstiges",
-  "Contacts & Feedback": "Kontakte und Feedback"
+  "Contacts & Feedback": "Kontakte und Feedback",
+  "agreeText": "Indem Sie fortfahren, stimmen Sie den ",
+  "termsOfUse": "Nutzungsbedingungen",
+  "andAccept": " zu und akzeptieren die ",
+  "privacyPolicy": "Datenschutzrichtlinie.",
+  "validationTermsAcceptance": "Sie müssen den Nutzungsbedingungen und der Datenschutzerklärung zustimmen, um fortzufahren."
 }

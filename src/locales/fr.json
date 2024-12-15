@@ -584,5 +584,10 @@
   "suggestion": "Suggestion",
   "problem": "Problème",
   "other": "Autre",
-  "Contacts & Feedback": "Contacts et Retours"
+  "Contacts & Feedback": "Contacts et Retours",
+  "agreeText": "En continuant, vous acceptez les ",
+  "termsOfUse": "Conditions d'utilisation",
+  "andAccept": " et acceptez la ",
+  "privacyPolicy": "Politique de confidentialité.",
+  "validationTermsAcceptance": "Vous devez accepter les Conditions d'utilisation et la Politique de confidentialité pour continuer."
 }

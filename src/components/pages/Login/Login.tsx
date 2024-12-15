@@ -20,6 +20,7 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
     const [password, setPassword] = useState('');
     const [registerPassword, setRegisterPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [acceptTermsAndConditions, setAcceptTermsAndConditions] = useState(false);
 
     const [showSettingsModal, setShowSettingsModal] = useState(false);
     const [key, setKey] = useState('login');
@@ -37,8 +38,8 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
     }, [user, navigate]);
 
     const signUpHandler = async () => {
-        setErrors(validateSignUpForm({ registerEmail, registerPassword, confirmPassword, name }));
-        if (!Object.keys(validateSignUpForm({ registerEmail, registerPassword, confirmPassword, name })).length) {
+        setErrors(validateSignUpForm({ registerEmail, registerPassword, confirmPassword, name, accept: acceptTermsAndConditions }));
+        if (!Object.keys(validateSignUpForm({ registerEmail, registerPassword, confirmPassword, name, accept: acceptTermsAndConditions })).length) {
             setLoading(true);
             await signUpAction(registerEmail,name, registerPassword);
             setLoading(false);
@@ -103,6 +104,8 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
                                     name={name} setName={setName}
                                     registerPassword={registerPassword} setRegisterPassword={setRegisterPassword}
                                     confirmPassword={confirmPassword} setConfirmPassword={setConfirmPassword}
+                                    acceptTermsAndConditions={acceptTermsAndConditions}
+                                    setAcceptTermsAndConditions={setAcceptTermsAndConditions}
                                     signUpHandler={signUpHandler}
                                     errors={errors}
                                     resetErrors={reset}

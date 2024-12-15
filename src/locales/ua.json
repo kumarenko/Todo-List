@@ -586,6 +586,10 @@
   "suggestion": "Пропозиція",
   "problem": "Проблема",
   "other": "Інше",
-  "Contacts & Feedback": "Контакти та Відгуки"
+  "Contacts & Feedback": "Контакти та Відгуки",
+  "agreeText": "Продовжуючи, ви погоджуєтеся з ",
+  "termsOfUse": "Умовами використання",
+  "andAccept": " та приймаєте ",
+  "privacyPolicy": "Політику конфіденційності."
 
 }
