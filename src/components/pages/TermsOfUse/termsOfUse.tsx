@@ -47,10 +47,10 @@ const TermsOfUse = () => {
                     <li className='mt-2'>
                         <h3>{t('contactHeader')}</h3>
                         {t('contact')}
+                        <a href="mailto:support@buyit.solutions">{t('contactEmail')}</a>.
                     </li>
                 </ol>
             </div>
-
             <Footer/>
         </div>
     );
