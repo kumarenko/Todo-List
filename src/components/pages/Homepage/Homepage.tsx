@@ -8,7 +8,7 @@ import {
     synchronizeLocalLists,
 } from '../../../actions/shoppingLists';
 import ShoppingLists from "./shoppingLists";
-import { Badge, Button } from "react-bootstrap";
+import { Badge, Button, Image } from "react-bootstrap";
 import { IoMdAdd } from "react-icons/io";
 import { FaSyncAlt } from "react-icons/fa";
 import './styles.less';
@@ -16,6 +16,7 @@ import { t } from "i18next";
 import Footer from "../../../common/footer";
 import ListPlaceholder from "../../../common/listPlaceholder";
 import { Helmet } from 'react-helmet';
+import img from './../../../media/groceries.png';
 
 const HomePage: FC = ({ lists, getShoppingLists, title, user, addShoppingList, synchronizeLocalLists }): ReactElement => {
     const [showModal, setShowModal] = useState(false);
@@ -71,7 +72,13 @@ const HomePage: FC = ({ lists, getShoppingLists, title, user, addShoppingList, s
             if (lists.length) {
                 return <ShoppingLists lists={lists} />
             } else {
-                return <h3 className='title'>{t("Here is no lists. Press '+' to create new one!")}</h3>
+                return user.role === 'USER' ? <h3 className='title'>
+                        {t("Here is no lists. Press '+' to create new one!")}
+                    </h3> : <div className='w-100 mt-2 mx-auto text-center'>
+                        <h3 className='title'>{t('Manage your shopping lists easily!')}</h3>
+                        <h3 className='title'>{t('Create, edit and share grocery lists.')}</h3>
+                        <Image className='mx-auto' width={200} style={{height: 'auto'}} src={img} alt={'Illustration of a checklist'} />
+                    </div>
             }
         }
     }

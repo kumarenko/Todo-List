@@ -37,10 +37,10 @@ const LoginPage = ({ user, setUserData, signInAction, signUpAction, title }) => 
     }, [user, navigate]);
 
     const signUpHandler = async () => {
-        setErrors(validateSignUpForm({ registerEmail, password, confirmPassword, name }));
-        if (!Object.keys(validateSignUpForm({ registerEmail, password, confirmPassword, name })).length) {
+        setErrors(validateSignUpForm({ registerEmail, registerPassword, confirmPassword, name }));
+        if (!Object.keys(validateSignUpForm({ registerEmail, registerPassword, confirmPassword, name })).length) {
             setLoading(true);
-            await signUpAction(registerEmail,name, password);
+            await signUpAction(registerEmail,name, registerPassword);
             setLoading(false);
         }
     }

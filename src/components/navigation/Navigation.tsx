@@ -74,6 +74,22 @@ const Navigation = () => {
                         </li>
                         <li className='d-sm-none'>
                             <Link
+                                className={`d-flex align-items-center mt-3 mb-md-0 mt-3 ms-sm-3 me-md-auto ms-md-3 text-decoration-none justify-content-sm-start justify-content-center ${getActiveClass('/faq')}`}
+                                to={'/faq'}
+                            >
+                                <span className='ms-3'>{t('FAQ')}</span>
+                            </Link>
+                        </li>
+                        <li className='d-sm-none'>
+                            <Link
+                                className={`d-flex align-items-center mt-3 mb-md-0 mt-3 ms-sm-3 me-md-auto ms-md-3 text-decoration-none justify-content-sm-start justify-content-center ${getActiveClass('/feedback')}`}
+                                to={'/feedback'}
+                            >
+                                <span className='ms-3'>{t('Contacts & Feedback')}</span>
+                            </Link>
+                        </li>
+                        <li className='d-sm-none'>
+                            <Link
                                 className={`d-flex align-items-center mt-3 mb-md-0 mt-3 ms-sm-3 me-md-auto ms-md-3 text-decoration-none justify-content-sm-start justify-content-center ${getActiveClass('/privacyPolicy')}`}
                                 to={'/privacyPolicy'}
                             >
@@ -102,6 +118,22 @@ const Navigation = () => {
                 </div>
                 <div className='d-flex flex-column'>
                     <ul  className='list-unstyled'>
+                        <li>
+                            <Link
+                                className={`d-flex align-items-center mt-3 mb-md-0 mt-3 ms-sm-3 me-md-auto ms-md-3 text-decoration-none justify-content-sm-start justify-content-center ${getActiveClass('/faq')}`}
+                                to={'/faq'}
+                            >
+                                <span>{t('FAQ')}</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                className={`d-flex align-items-center mt-3 mb-md-0 mt-3 ms-sm-3 me-md-auto ms-md-3 text-decoration-none justify-content-sm-start justify-content-center ${getActiveClass('/feedback')}`}
+                                to={'/feedback'}
+                            >
+                                <span>{t('Contacts & Feedback')}</span>
+                            </Link>
+                        </li>
                         <li>
                             <Link
                                 className={`d-flex align-items-center mt-3 mb-md-0 mt-3 ms-sm-3 me-md-auto ms-md-3 text-decoration-none justify-content-sm-start justify-content-center ${getActiveClass('/privacyPolicy')}`}

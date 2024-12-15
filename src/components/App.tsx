@@ -16,6 +16,8 @@ import i18n from "i18next";
 import GlobalMessage from "../common/globalMessage";
 import TermsOfUse from "./pages/TermsOfUse/termsOfUse";
 import PrivacyPolicy from "./pages/PrivacyPolicy/privacyPolicy";
+import FAQ from "./pages/FAQ/faq";
+import Feedback from "./pages/Feedback/feedback";
 
 const App = () => {
     const theme = useSelector(state => state.settings.theme); // Получение темы из Redux
@@ -48,8 +50,10 @@ const App = () => {
                         <Route path='/profile' element={isAuthorized ? <Profile title='Profile' /> : <Navigate to={'/login'} />} />
                         <Route path='/settings' element={isAuthorized ? <Settings title='Settings' /> : <Navigate to={'/login'} />} />
                         <Route path='/lists/:listId' element={isAuthorized ? <ListPage title='List' /> : <Navigate to={'/login'} />} />
+                        <Route path='/feedback' element={<Feedback />} />
                         <Route path='/termsOfUse' element={<TermsOfUse />} />
                         <Route path='/privacyPolicy' element={<PrivacyPolicy />} />
+                        <Route path='/faq' element={<FAQ />} />
                         <Route path='/login' element={<LoginPage title='Login' />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
