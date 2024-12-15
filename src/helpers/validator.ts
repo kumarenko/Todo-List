@@ -28,7 +28,7 @@ export const validateEmail = (email: string) => {
     }
     return errorMessage
 }
-export const validateSignUpForm = ({ registerEmail, password, confirmPassword, name }) => {
+export const validateSignUpForm = ({ registerEmail, registerPassword, confirmPassword, name }) => {
     let errors = {};
     if(!registerEmail.length) {
         errors = {...errors, email: t('Email field is required')};
@@ -39,11 +39,11 @@ export const validateSignUpForm = ({ registerEmail, password, confirmPassword, n
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         )) {
         errors = {...errors, email: t('Email is invalid')};
-    } if(password.length < 8) {
-        errors = {...errors, password: t('Password is too short!')};
+    } if(registerPassword.length < 8) {
+        errors = {...errors, password: t('Password is too short')};
     } if(!name.length) {
         errors = {...errors, name: t('Name field is required')};
-    } if(password !== confirmPassword) {
+    } if(registerPassword !== confirmPassword) {
         errors = {...errors, confirmPassword: t('Passwords do not match')};
     }
     return errors;
