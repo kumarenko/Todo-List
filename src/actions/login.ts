@@ -10,7 +10,7 @@ import {
     FORGOT_PASSWORD_URL,
     LOGIN_URL,
     PROTECTED_ROUTE_URL,
-    REGISTER_URL, UPLOAD_AVATAR_URL,
+    REGISTER_URL, SEND_FEEDBACK_URL, UPLOAD_AVATAR_URL,
     USERS_URL
 } from "../configs/urls";
 import {addMessageToQueue} from "../redux/settingsReducer";
@@ -282,6 +282,28 @@ export const allowEmailSendingRequest = (userId, allowEmails) => {
             } else {
                 const userData = await response.json();
                 dispatch(addMessageToQueue({message: t(userData.message), type: 'error'}));
+            }
+        } catch (e) {
+            console.error('Error deleting file:', e);
+        }
+    };
+};
+
+export const sendFeedbackRequest = (email, subject, message) => {
+    return async (dispatch) => {
+        try {
+            const response = await fetch(SEND_FEEDBACK_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify( {email, subject, message}),
+            });
+
+            if (response.ok) {
+                dispatch(addMessageToQueue({message: t('Thank you for your feedback! We appreciate your input and will review it soon.'), type: 'success'}));
+            } else {
+                dispatch(addMessageToQueue({message: t('Internal Server Error'), type: 'error'}));
             }
         } catch (e) {
             console.error('Error deleting file:', e);

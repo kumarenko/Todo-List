@@ -574,6 +574,17 @@
     "offline_functionality_answer": "Да, приложение поддерживает офлайн-режим."
   },
   "Manage your shopping lists easily!": "Управляйте своими списками покупок с легкостью!",
-  "Create, edit and share grocery lists.": "Создавайте, редактируйте и делитесь списками покупок."
+  "Create, edit and share grocery lists.": "Создавайте, редактируйте и делитесь списками покупок.",
+  "Share Your Thoughts and Help Us Improve!": "Поделитесь своими мыслями и помогите нам улучшиться!",
+  "We value your feedback! Use this form to share your thoughts, report issues, or suggest improvements.": "Мы ценим вашу обратную связь! Используйте эту форму, чтобы поделиться мыслями, сообщить о проблемах или предложить улучшения.",
+  "Thank you for your feedback! We appreciate your input and will review it soon.": "Спасибо за ваш отзыв! Мы ценим ваше мнение и скоро его рассмотрим.",
+  "Subject": "Тема",
+  "Message": "Сообщение",
+  "Send feedback": "Отправить отзыв",
+  "Message is too short": "Сообщение слишком короткое",
+  "suggestion": "Предложение",
+  "problem": "Проблема",
+  "other": "Другое",
+  "Contacts & Feedback": "Контакты и Обратная связь"
 
 }

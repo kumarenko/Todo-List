@@ -575,6 +575,17 @@
     "offline_functionality_answer": "Так, додаток підтримує офлайн-режим. Всі зміни зберігаються локально та синхронізуються з сервером після відновлення з'єднання (для зареєстрованих користувачів)."
   },
   "Manage your shopping lists easily!": "Керуйте своїми списками покупок легко!",
-  "Create, edit and share grocery lists.": "Створюйте, редагуйте та діліться списками покупок."
+  "Create, edit and share grocery lists.": "Створюйте, редагуйте та діліться списками покупок.",
+  "Share Your Thoughts and Help Us Improve!": "Поділіться своїми думками та допоможіть нам стати кращими!",
+  "We value your feedback! Use this form to share your thoughts, report issues, or suggest improvements.": "Ми цінуємо ваш зворотний зв'язок! Використовуйте цю форму, щоб поділитися думками, повідомити про проблеми або запропонувати покращення.",
+  "Thank you for your feedback! We appreciate your input and will review it soon.": "Дякуємо за ваш відгук! Ми цінуємо вашу думку та незабаром її розглянемо.",
+  "Subject": "Тема",
+  "Message": "Повідомлення",
+  "Send feedback": "Надіслати відгук",
+  "Message is too short": "Повідомлення занадто коротке",
+  "suggestion": "Пропозиція",
+  "problem": "Проблема",
+  "other": "Інше",
+  "Contacts & Feedback": "Контакти та Відгуки"
 
 }

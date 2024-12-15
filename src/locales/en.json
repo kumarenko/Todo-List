@@ -576,5 +576,16 @@
     "offline_functionality_answer": "Yes, the app supports offline mode. All changes are saved locally and synced with the server when the connection is restored (for registered users)."
   },
   "Manage your shopping lists easily!": "Manage your shopping lists easily!",
-  "Create, edit and share grocery lists.": "Create, edit and share grocery lists."
+  "Create, edit and share grocery lists.": "Create, edit and share grocery lists.",
+  "Share Your Thoughts and Help Us Improve!": "Share Your Thoughts and Help Us Improve!",
+  "We value your feedback! Use this form to share your thoughts, report issues, or suggest improvements.": "We value your feedback! Use this form to share your thoughts, report issues, or suggest improvements.",
+  "Thank you for your feedback! We appreciate your input and will review it soon.": "Thank you for your feedback! We appreciate your input and will review it soon.",
+  "Subject": "Subject",
+  "Message": "Message",
+  "Send feedback": "Send feedback",
+  "Message is too short": "Message is too short",
+  "suggestion": "Suggestion",
+  "problem": "Problem",
+  "other": "Other",
+  "Contacts & Feedback": "Contacts & Feedback"
 }

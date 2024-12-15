@@ -5,8 +5,8 @@ import Footer from "../../../common/footer";
 
 const FAQ = () => {
     return (
-        <div className="content-container d-flex">
-            <Helmet>
+        <div className="content d-flex flex-column align-items-center mx-auto my-0">
+            c<Helmet>
                 <title>{t('faq.title')}</title>
                 <meta name="description" content={t('faq.description')} />
                 <meta property="og:title" content={t('faq.title')} />

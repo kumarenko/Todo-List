@@ -77,7 +77,7 @@ const HomePage: FC = ({ lists, getShoppingLists, title, user, addShoppingList, s
                     </h3> : <div className='w-100 mt-2 mx-auto text-center'>
                         <h3 className='title'>{t('Manage your shopping lists easily!')}</h3>
                         <h3 className='title'>{t('Create, edit and share grocery lists.')}</h3>
-                        <Image className='mx-auto' width={200} style={{height: 'auto'}} src={img} alt={'checklist picture'} />
+                        <Image className='mx-auto' width={200} style={{height: 'auto'}} src={img} alt={'Illustration of a checklist'} />
                     </div>
             }
         }

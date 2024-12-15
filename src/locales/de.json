@@ -577,6 +577,16 @@
     "offline_functionality_answer": "Ja, die App unterstützt den Offline-Modus. Alle Änderungen werden lokal gespeichert und mit dem Server synchronisiert, wenn die Verbindung wiederhergestellt wird (für registrierte Benutzer)."
   },
   "Manage your shopping lists easily!": "Verwalten Sie Ihre Einkaufslisten ganz einfach!",
-  "Create, edit and share grocery lists.": "Erstellen, bearbeiten und teilen Sie Einkaufslisten."
-
+  "Create, edit and share grocery lists.": "Erstellen, bearbeiten und teilen Sie Einkaufslisten.",
+  "Share Your Thoughts and Help Us Improve!": "Teilen Sie Ihre Gedanken und helfen Sie uns, uns zu verbessern!",
+  "We value your feedback! Use this form to share your thoughts, report issues, or suggest improvements.": "Wir schätzen Ihr Feedback! Verwenden Sie dieses Formular, um Ihre Gedanken mitzuteilen, Probleme zu melden oder Verbesserungen vorzuschlagen.",
+  "Thank you for your feedback! We appreciate your input and will review it soon.": "Vielen Dank für Ihr Feedback! Wir schätzen Ihre Meinung und werden sie bald überprüfen.",
+  "Subject": "Betreff",
+  "Message": "Nachricht",
+  "Send feedback": "Feedback senden",
+  "Message is too short": "Die Nachricht ist zu kurz",
+  "suggestion": "Vorschlag",
+  "problem": "Problem",
+  "other": "Sonstiges",
+  "Contacts & Feedback": "Kontakte und Feedback"
 }

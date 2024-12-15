@@ -573,6 +573,16 @@
     "offline_functionality_answer": "Oui, l'application prend en charge le mode hors ligne. Toutes les modifications sont enregistrées localement et synchronisées avec le serveur lorsque la connexion est rétablie (pour les utilisateurs enregistrés)."
   },
   "Manage your shopping lists easily!": "Gérez vos listes de courses facilement !",
-  "Create, edit and share grocery lists.": "Créez, modifiez et partagez vos listes de courses."
-
+  "Create, edit and share grocery lists.": "Créez, modifiez et partagez vos listes de courses.",
+  "Share Your Thoughts and Help Us Improve!": "Partagez vos pensées et aidez-nous à nous améliorer !",
+  "We value your feedback! Use this form to share your thoughts, report issues, or suggest improvements.": "Nous apprécions vos retours ! Utilisez ce formulaire pour partager vos idées, signaler des problèmes ou suggérer des améliorations.",
+  "Thank you for your feedback! We appreciate your input and will review it soon.": "Merci pour vos retours ! Nous apprécions votre avis et l'examinerons bientôt.",
+  "Subject": "Sujet",
+  "Message": "Message",
+  "Send feedback": "Envoyer un retour",
+  "Message is too short": "Le message est trop court",
+  "suggestion": "Suggestion",
+  "problem": "Problème",
+  "other": "Autre",
+  "Contacts & Feedback": "Contacts et Retours"
 }
