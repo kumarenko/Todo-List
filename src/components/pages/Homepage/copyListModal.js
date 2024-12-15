@@ -31,7 +31,7 @@ const CopyListModal = ({list, show, onHide}) => {
     const copyAllList = () => {
         let str = `${l.name.value}\n`;
         l.products.sort(compareFn).forEach(prod => {
-            const prodStr = `${t(prod.name)}${parseInt(prod.count) > 1 ?`: ${parseInt(prod.count)} ${t('pcs')}` : ''}`
+            const prodStr = `${t(prod.name)} ${parseInt(prod.count)} ${t(prod.selectedUnits)}`
             if(prod.checked) {
                 str = str + `• ${prodStr.split('').map(char => char + '\u0336').join('')}\n`
             } else {
@@ -51,7 +51,7 @@ const CopyListModal = ({list, show, onHide}) => {
     const copyChecked = (checked) => {
         let str = `${list.name.value}\n${t(checked ? 'Purchased' : 'Remaining')}:\n`;
         l.products.sort(compareFn).forEach(prod => {
-            const prodStr = `${t(prod.name)}${parseInt(prod.count) > 1 ?`: ${parseInt(prod.count)} ${t('pcs')}` : ''}`
+            const prodStr = `${t(prod.name)} ${parseInt(prod.count)} ${t(prod.selectedUnits)}`
             if(prod.checked === checked) {
                 str = str + `• ${prodStr}\n`
             }
@@ -69,18 +69,18 @@ const CopyListModal = ({list, show, onHide}) => {
             });
     }
     return (ReactDOM.createPortal(<Modal show={show} onHide={onHide} centered>
-        <Modal.Header className='d-flex justify-content-center modal-styled-bg'>
-            <Modal.Title className='justify-content-center title'>{t('Copy List to clipboard')}</Modal.Title>
+        <Modal.Header className='d-flex text-break justify-content-center modal-styled-bg'>
+            <Modal.Title className='justify-content-center title px-4 text-center'>{t('Copy List to clipboard')}</Modal.Title>
             <Button type="button" className="btn custom-close" aria-label="Close" onClick={onHide}>
                 <IoMdClose size={20}/>
             </Button>
         </Modal.Header>
         <Modal.Body className='d-flex flex-column align-items-center modal-styled-bg'>
             <Button className={`sort-btn my-1`} onClick={() => copyAllList()}>{t('Copy all list')}</Button>
-            <Button className={`sort-btn my-1`} onClick={() => copyChecked(false)}>{t('Copy checked products')}</Button>
-            <Button className={`sort-btn my-1`} onClick={() => copyChecked(true)}>{t('Copy unchecked products')}</Button>
+            <Button className={`sort-btn my-1`} onClick={() => copyChecked(true)}>{t('Copy checked products')}</Button>
+            <Button className={`sort-btn my-1`} onClick={() => copyChecked(false)}>{t('Copy unchecked products')}</Button>
         </Modal.Body>
-        <Modal.Footer className='empty-footer  modal-styled-bg'/>
+        <Modal.Footer className='empty-footer modal-styled-bg'/>
     </Modal>, document.body));
 };
 
