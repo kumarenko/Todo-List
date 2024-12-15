@@ -397,7 +397,7 @@
   "Login successful": "Connexion réussie",
   "Internal Server Error": "Erreur interne du serveur",
   "User deleted successfully": "Utilisateur supprimé avec succès",
-  "User already exist": "L'utilisateur existe déjà",
+  "User already exists": "L'utilisateur existe déjà",
   "Successfully signed in": "Connexion réussie",
   "Old password is incorrect": "L'ancien mot de passe est incorrect",
   "User and associated shopping lists deleted": "Utilisateur et listes de courses associées supprimés",
@@ -571,5 +571,8 @@
     "share_list_in_guest_mode_answer": "Non, la fonction de partage de liste est uniquement disponible pour les utilisateurs enregistrés.",
     "offline_functionality": "Puis-je utiliser l'application hors ligne ?",
     "offline_functionality_answer": "Oui, l'application prend en charge le mode hors ligne. Toutes les modifications sont enregistrées localement et synchronisées avec le serveur lorsque la connexion est rétablie (pour les utilisateurs enregistrés)."
-  }
+  },
+  "Manage your shopping lists easily!": "Gérez vos listes de courses facilement !",
+  "Create, edit and share grocery lists.": "Créez, modifiez et partagez vos listes de courses."
+
 }

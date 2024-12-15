@@ -14,14 +14,11 @@ const FAQ = () => {
                 <meta name="twitter:title" content={t('faq.title')} />
                 <meta name="twitter:description" content={t('faq.description')} />
             </Helmet>
-
-
-            {/* Основной контент с прокруткой */}
             <div className="faq-content w-100 p-3">
                 <h1 className="title pt-2">{t('faq.title')}</h1>
-                <ol>
+                <ol className='subtitle'>
                     <li className="mt-2" id="general-questions">
-                        <h3>{t('faq.general_questions')}</h3>
+                        <h3 className='title'>{t('faq.general_questions')}</h3>
                         <ul>
                             <li>
                                 <h4>{t('faq.what_is_app')}</h4>
@@ -38,7 +35,7 @@ const FAQ = () => {
                         </ul>
                     </li>
                     <li className="mt-2" id="guest-mode">
-                        <h3>{t('faq.guest_mode')}</h3>
+                        <h3 className='title'>{t('faq.guest_mode')}</h3>
                         <ul>
                             <li>
                                 <h4>{t('faq.guest_mode_description')}</h4>
@@ -51,7 +48,7 @@ const FAQ = () => {
                         </ul>
                     </li>
                     <li className="mt-2" id="app-functionality">
-                        <h3>{t('faq.app_functionality')}</h3>
+                        <h3 className='title'>{t('faq.app_functionality')}</h3>
                         <ul>
                             <li>
                                 <h4>{t('faq.create_new_list')}</h4>

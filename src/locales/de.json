@@ -398,7 +398,7 @@
   "Login successful": "Anmeldung erfolgreich",
   "Internal Server Error": "Interner Serverfehler",
   "User deleted successfully": "Benutzer erfolgreich gelöscht",
-  "User already exist": "Benutzer existiert bereits",
+  "User already exists": "Benutzer existiert bereits",
   "Successfully signed in": "Erfolgreich angemeldet",
   "Old password is incorrect": "Altes Passwort ist falsch",
   "User and associated shopping lists deleted": "Benutzer und zugehörige Einkaufslisten gelöscht",
@@ -575,5 +575,8 @@
     "share_list_in_guest_mode_answer": "Nein, die Listenfreigabefunktion ist nur für registrierte Benutzer verfügbar.",
     "offline_functionality": "Kann ich die App offline verwenden?",
     "offline_functionality_answer": "Ja, die App unterstützt den Offline-Modus. Alle Änderungen werden lokal gespeichert und mit dem Server synchronisiert, wenn die Verbindung wiederhergestellt wird (für registrierte Benutzer)."
-  }
+  },
+  "Manage your shopping lists easily!": "Verwalten Sie Ihre Einkaufslisten ganz einfach!",
+  "Create, edit and share grocery lists.": "Erstellen, bearbeiten und teilen Sie Einkaufslisten."
+
 }

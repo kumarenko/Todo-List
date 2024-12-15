@@ -399,7 +399,7 @@
   "Login successful": "Вхід успішний",
   "Internal Server Error": "Внутрішня помилка сервера",
   "User deleted successfully": "Користувача успішно видалено",
-  "User already exist": "Користувач уже існує",
+  "User already exists": "Користувач уже існує",
   "Successfully signed in": "Успішний вхід",
   "Old password is incorrect": "Старий пароль невірний",
   "User and associated shopping lists deleted": "Користувач і пов'язані списки покупок видалені",
@@ -573,5 +573,8 @@
     "share_list_in_guest_mode_answer": "Ні, функція спільного використання списків доступна тільки для зареєстрованих користувачів.",
     "offline_functionality": "Чи можна працювати з додатком без інтернету?",
     "offline_functionality_answer": "Так, додаток підтримує офлайн-режим. Всі зміни зберігаються локально та синхронізуються з сервером після відновлення з'єднання (для зареєстрованих користувачів)."
-  }
+  },
+  "Manage your shopping lists easily!": "Керуйте своїми списками покупок легко!",
+  "Create, edit and share grocery lists.": "Створюйте, редагуйте та діліться списками покупок."
+
 }
