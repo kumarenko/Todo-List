@@ -525,7 +525,8 @@
   "changesToTermsHeader": "Änderungen der Bedingungen",
   "changesToTerms": "Wir behalten uns das Recht vor, diese Nutzungsbedingungen zu ändern. Alle Änderungen werden auf unserer Website bekannt gegeben und treten mit der Veröffentlichung in Kraft.",
   "contactHeader": "Kontakt",
-  "contact": "Wenn Sie Fragen zu unseren Nutzungsbedingungen haben, wenden Sie sich bitte über das Kontaktformular auf der Website oder per <a href=\"mailto:support@buyit.solutions\">E-Mail</a> an uns.",
+  "contact": "Si vous avez des questions concernant nos Conditions d'utilisation, veuillez nous contacter via le formulaire de contact sur le site ou par ",
+  "contactEmail": "E-Mail",
   "privacy_policy.introduction": "Einleitung",
   "privacy_policy.introduction_text": "Wir schätzen Ihre Privatsphäre. Diese Datenschutzerklärung erklärt, wie wir Ihre Daten sammeln, verwenden, offenlegen und schützen, wenn Sie unsere Website und/oder mobile Anwendung („Service“) nutzen.",
   "privacy_policy.data_we_collect": "Welche Daten wir sammeln",
@@ -588,5 +589,10 @@
   "suggestion": "Vorschlag",
   "problem": "Problem",
   "other": "Sonstiges",
-  "Contacts & Feedback": "Kontakte und Feedback"
+  "Contacts & Feedback": "Kontakte und Feedback",
+  "agreeText": "Indem Sie fortfahren, stimmen Sie den ",
+  "termsOfUse": "Nutzungsbedingungen",
+  "andAccept": " zu und akzeptieren die ",
+  "privacyPolicy": "Datenschutzrichtlinie.",
+  "validationTermsAcceptance": "Sie müssen den Nutzungsbedingungen und der Datenschutzerklärung zustimmen, um fortzufahren."
 }

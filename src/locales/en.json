@@ -524,7 +524,8 @@
   "changesToTermsHeader": "Changes to Terms",
   "changesToTerms": "We reserve the right to modify these Terms of Use. All changes will be announced on our website and take effect upon publication.",
   "contactHeader": "Contact",
-  "contact": "If you have any questions about our Terms of Use, please contact us through the contact form on the website or via <a href=\"mailto:support@buyit.solutions\">email</a>.",
+  "contact": "If you have any questions about our Terms of Use, please contact us via the contact form on the website or by ",
+  "contactEmail": "email",
   "privacy_policy.introduction": "Introduction",
   "privacy_policy.introduction_text": "We value your privacy. This Privacy Policy explains how we collect, use, disclose, and protect your data when you use our website and/or mobile application (\"Service\").",
   "privacy_policy.data_we_collect": "What data we collect",
@@ -587,5 +588,11 @@
   "suggestion": "Suggestion",
   "problem": "Problem",
   "other": "Other",
-  "Contacts & Feedback": "Contacts & Feedback"
+  "Contacts & Feedback": "Contacts & Feedback",
+  "agreeText": "By continuing, you agree to the ",
+  "termsOfUse": "Terms of Use",
+  "andAccept": " and accept the ",
+  "privacyPolicy": "Privacy Policy.",
+  "validationTermsAcceptance": "You must agree to the Terms of Use and Privacy Policy to proceed."
+
 }

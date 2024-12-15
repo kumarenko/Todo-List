@@ -1,12 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Form from 'react-bootstrap/Form';
-import { Button } from "react-bootstrap";
+import {Button, Modal} from "react-bootstrap";
 import {t} from "i18next";
 import PasswordInput from "../../../common/passwordInput";
+import ReactDOM from "react-dom";
+import TermsOfUse from "../TermsOfUse/termsOfUse";
+import {IoMdClose} from "react-icons/io";
 
-const SignUpTab = ({ email, setEmail, name, setName, registerPassword, setRegisterPassword, confirmPassword, setConfirmPassword, signUpHandler, errors, resetErrors }) => {
+const SignUpTab = ({ email, setEmail, name, setName,
+                       registerPassword, setRegisterPassword, confirmPassword,
+                       acceptTermsAndConditions, setAcceptTermsAndConditions,
+                       setConfirmPassword, signUpHandler, errors, resetErrors }) => {
+
+    const [toggleTermsModal, setTermsModal] = useState(false);
+    const [togglePrivacyModal, setPrivacyModal] = useState(false);
     return (
-        <Form className='d-flex flex-column p-3' autoComplete="off">
+        <Form className='d-flex flex-column' autoComplete="off">
             <Form.Group className="mb-2">
                 <Form.Label className='subtitle'>{t('Email')}</Form.Label>
                 <Form.Control
@@ -68,12 +77,57 @@ const SignUpTab = ({ email, setEmail, name, setName, registerPassword, setRegist
                     autoComplete="new-password"
                 />
             </Form.Group>
+            <Form.Group className="mb-2 " controlId="ecceptTerms">
+                <div className='d-flex flex-nowrap flex-row'>
+                    <Form.Check
+                        type={'checkbox'}
+                        isInvalid={!!errors?.accept}
+                        className='prod-checkbox me-2'
+                        defaultChecked={acceptTermsAndConditions}
+                        onChange={(e) => {
+                            setAcceptTermsAndConditions(e.target.checked);
+                            resetErrors();
+                        }}
+                    />
+                    <Form.Label className='subtitle'>
+                        {t('agreeText')}
+                        <Button className='btn-link p-0' style={{marginTop: '-0.3rem'}} onClick={() => setTermsModal(true)}>{t('termsOfUse')}</Button>
+                        {t('andAccept')}
+                        <Button className='btn-link p-0' style={{marginTop: '-0.3rem'}} onClick={() => setPrivacyModal(true)}>{t('privacyPolicy')}</Button>
+                    </Form.Label>
+                </div>
+                {errors?.accept ? <div style={{color: 'var(--bs-form-invalid-color)'}}>{t(errors.accept)}</div> : null}
+            </Form.Group>
             <Button
                 onClick={signUpHandler}
                 className='my-2 mx-auto'
             >{t('Sign Up')}</Button>
+            <TermsModal show={toggleTermsModal} onHide={() => setTermsModal(false)}/>
+            <PrivacyModal show={togglePrivacyModal} onHide={() => setPrivacyModal(false)}/>
         </Form>
     );
 }
+const TermsModal = ({show, onHide}) => {
+    return ReactDOM.createPortal(<Modal className='terms-modal' show={show} onHide={onHide} centered>
+        <Modal.Body className='modal-styled-bg'>
+            <Button type="button" className="position-absolute top-3 end-3 btn custom-close" aria-label="Close" onClick={onHide}>
+                <IoMdClose size={20}/>
+            </Button>
+            <TermsOfUse/>
+        </Modal.Body>
+        <Modal.Footer className='modal-styled-bg empty-footer'/>
+    </Modal>, document.body);
+};
+const PrivacyModal = ({show, onHide}) => {
+    return ReactDOM.createPortal(<Modal className='terms-modal' show={show} onHide={onHide} centered>
+        <Modal.Body className='modal-styled-bg'>
+            <Button type="button" className="position-absolute top-3 end-3 btn custom-close" aria-label="Close" onClick={onHide}>
+                <IoMdClose size={20}/>
+            </Button>
+            <TermsOfUse/>
+        </Modal.Body>
+        <Modal.Footer className='modal-styled-bg empty-footer'/>
+    </Modal>, document.body);
+};
 
 export default React.memo(SignUpTab);
