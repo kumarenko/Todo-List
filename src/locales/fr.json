@@ -590,5 +590,7 @@
   "termsOfUse": "Conditions d'utilisation",
   "andAccept": " et acceptez la ",
   "privacyPolicy": "Politique de confidentialité.",
-  "validationTermsAcceptance": "Vous devez accepter les Conditions d'utilisation et la Politique de confidentialité pour continuer."
+  "validationTermsAcceptance": "Vous devez accepter les Conditions d'utilisation et la Politique de confidentialité pour continuer.",
+  "Image removed successfully": "Image supprimée avec succès"
+
 }

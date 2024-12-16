@@ -73,30 +73,32 @@ const Product = forwardRef(({ list, prod, checkProduct, selectProduct, user }, r
                     }}
                 >
                     {prod.avatar ? (
-                        <>
-                            <img
-                                src={prod.avatar}
-                                alt={prod.category.toLowerCase()}
-                                onLoad={handleAvatarLoad}
-                                onError={handleAvatarError}
-                            />
-                            {loadingAvatar && (
-                                <div
-                                    style={{ backgroundColor: "rgba(0, 0, 0, 0.25)" }}
-                                    className="position-absolute w-100 h-100 d-flex align-items-center justify-content-center"
-                                >
-                                    <div className="spinner-border text-primary" />
-                                </div>
-                            )}
-                        </>
+                        <img
+                            src={prod.avatar}
+                            alt={prod.category.toLowerCase()}
+                            onLoad={handleAvatarLoad}
+                            onError={handleAvatarError}
+                        />
                     ) : (
                         <div className={`sprite sprite-${prod.category.toLowerCase()}`} />
                     )}
+                    {loadingAvatar ? (
+                        <div
+                            style={{ backgroundColor: "rgba(0, 0, 0, 0.25)" }}
+                            className="position-absolute w-100 h-100 d-flex align-items-center justify-content-center"
+                        >
+                            <div className="spinner-border text-primary" />
+                        </div>
+                    ) : null}
                 </Button>
             </div>
             <AvatarModal
                 isVisible={toggleAvatarModal}
                 onClose={() => setToggleAvatarModal(false)}
+                onAvatarRemoved={() => {
+                    setLoadingAvatar(false);
+                    dispatch(addMessageToQueue({ message: t('Image removed successfully'), type: 'success' }));
+                }}
                 onStartLoading={handleAvatarChange}
                 product={prod}
                 listId={list._id}
