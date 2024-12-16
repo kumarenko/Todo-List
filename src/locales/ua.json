@@ -591,6 +591,12 @@
   "agreeText": "Продовжуючи, ви погоджуєтеся з ",
   "termsOfUse": "Умовами використання",
   "andAccept": " та приймаєте ",
-  "privacyPolicy": "Політику конфіденційності."
+  "privacyPolicy": "Політику конфіденційності.",
+  "validationTermsAcceptance": "Ви повинні погодитися з Умовами використання та Політикою конфіденційності, щоб продовжити.",
+  "Image removed successfully": "Зображення успішно видалено",
+  "Scan a product barcode using your camera to find it quickly": "Скануйте штрихкод товару за допомогою камери, щоб швидко його знайти",
+  "Scan": "Сканувати",
+  "Can't scan? Enter the barcode manually": "Не можете сканувати? Введіть штрихкод вручну"
+
 
 }

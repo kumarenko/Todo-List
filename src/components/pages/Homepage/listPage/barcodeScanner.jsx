@@ -1,111 +1,36 @@
-import React, {useState, useLayoutEffect, useRef} from 'react';
-import Quagga from 'quagga';
-import '../../Settings/styles.less';
-import {Form} from "react-bootstrap";
+import React from "react";
+import BarcodeScannerComponent from "react-qr-barcode-scanner";
+import {Button, Modal} from "react-bootstrap";
+import {IoMdClose} from "react-icons/io";
 
-const BarcodeScanner = ({ onDetected, onClose }) => {
-    const videoRef = useRef(null);
-    const [detectedCode, setDetectedCode] = useState(null);
-    const [manualEntering, setManualEntering] = useState(false);
-    const [manualCode, setManualCode] = useState('');
-
-    useLayoutEffect(() => {
-        const startCamera = async () => {
-            let stream;
-            try {
-                stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-                if (videoRef.current) {
-                    videoRef.current.srcObject = stream;
-                    videoRef.current.addEventListener('loadedmetadata', () => {
-                        videoRef.current.play();
-                    });
-
-                Quagga.init({
-                    inputStream: {
-                        name: "Live",
-                        type: "LiveStream",
-                        target: videoRef.current,
-                        constraints: {
-                            facingMode: "environment"
+const BarcodeScanner = ({ show, onHide, onDetect }) => {
+    return (
+        <Modal show={show}
+               centered
+               onHide={() => {
+            onHide();
+        }}>
+            <Modal.Header className='modal-styled-bg'>
+                <Modal.Title className='title'>
+                    Scan a Product Barcode
+                </Modal.Title>
+                <Button type="button" className="position-absolute top-3 end-3 btn custom-close" aria-label="Close" onClick={onHide}>
+                    <IoMdClose size={20}/>
+                </Button>
+            </Modal.Header>
+            <Modal.Body className='modal-styled-bg'>
+                <BarcodeScannerComponent
+                    onUpdate={(err, result) => {
+                        if (result) {
+                            onDetect(result.text);
+                            onHide();
                         }
-                    },
-                    decoder: {
-                        readers: ["code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader", "code_39_vin_reader", "codabar_reader", "upc_reader", "upc_e_reader", "i2of5_reader"]
-                    },
-                }, (err) => {
-                    if (err) {
-                        console.error('Error initializing Quagga:', err);
-                        return;
-                    }
-                    console.log("Initialization finished. Ready to start");
-                    Quagga.start();
-                });
-
-                    Quagga.onDetected(handleDetected);
-                }
-            } catch (err) {
-                console.error('Error accessing media devices:', err);
-                alert('Ошибка при доступе к устройствам медиа: ' + err.message);
-            }
-        };
-
-        const handleDetected = (data) => {
-            setDetectedCode(data.codeResult.code);
-            if (onDetected) {
-                onDetected(data.codeResult.code);
-            }
-        };
-
-        if (videoRef.current) {
-            startCamera();
-        }
-
-        return () => {
-            console.log("Stopping Quagga and video stream");
-            Quagga.offDetected(handleDetected);
-            Quagga.stop();
-            if (videoRef.current && videoRef.current.srcObject) {
-                let stream = videoRef.current.srcObject;
-                let tracks = stream.getTracks();
-                tracks.forEach(track => {
-                    track.stop();
-                    console.log(`Stopped track: ${track.kind}`);
-                });
-                videoRef.current.srcObject = null;
-                console.log("Video stream stopped");
-            }
-        };
-    }, [onDetected]);
-
-    return <div className='position-fixed barcode d-flex flex-column justify-content-center align-items-centers z-1'>
-        <div className='d-flex justify-content-end m-2'>
-            <button onClick={onClose}>
-                Cancel
-            </button>
-        </div>
-        <h3 className='text-center'>Please scan barcode with your camera</h3>
-        <video ref={videoRef} style={{ width: '100%', height: 'auto', aspectRatio: '16/9' }} playsInline />
-        {detectedCode && !manualEntering && (
-            <p className='text-center m-2'>Detected code: {detectedCode}</p>
-        )}
-        <div className='text-center'>
-            <button className='button-as-link my-2' onClick={() => setManualEntering(!manualEntering)}>Enter manually</button>
-        </div>
-        {manualEntering &&
-        <div className='text-center'>
-            <Form.Control
-                className='search mx-auto my-2 z-3'
-                type="text"
-                value={manualCode}
-                onChange={(e) => setManualCode(e.target.value)}/>
-            <button className='my-1'
-                    onClick={() => {
-                        setDetectedCode(manualCode);
-                        onClose();
-                        onDetected(manualCode);
-                    }}>Search</button>
-        </div>}
-    </div>;
+                    }}
+                />
+            </Modal.Body>
+            <Modal.Footer className='empty-footer modal-styled-bg'/>
+        </Modal>
+    );
 };
 
 export default BarcodeScanner;

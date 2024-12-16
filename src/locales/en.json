@@ -593,6 +593,9 @@
   "termsOfUse": "Terms of Use",
   "andAccept": " and accept the ",
   "privacyPolicy": "Privacy Policy.",
-  "validationTermsAcceptance": "You must agree to the Terms of Use and Privacy Policy to proceed."
-
+  "validationTermsAcceptance": "You must agree to the Terms of Use and Privacy Policy to proceed.",
+  "Image removed successfully": "Image removed successfully",
+  "Scan a product barcode using your camera to find it quickly": "Scan a product barcode using your camera to find it quickly",
+  "Scan": "Scan",
+  "Can't scan? Enter the barcode manually": "Can't scan? Enter the barcode manually"
 }

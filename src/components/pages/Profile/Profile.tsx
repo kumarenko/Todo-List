@@ -76,17 +76,15 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, allowEmailSending
                 <>
                     <div onClick={() => setToggleAvatarModal(true)} className='position-relative d-flex justify-content-center w-100 px-3 py-1'>
                         <div className='position-relative'>
-                            {user.user.avatar ?
-                                <div className='avatar mb-1 rounded-circle section-styled-bg d-flex align-items-center justify-content-center position-relative'>
-                                    <Image src={user.user.avatar} className={`avatar mb-1 section-styled-bg`}/>
-                                    {loadingAvatar ? <div style={{backgroundColor: 'rgba(0, 0, 0, 0.25)'}}
-                                                          className='position-absolute w-100 h-100 d-flex align-items-center justify-content-center'>
-                                        <div className="spinner-border text-primary"/>
-                                    </div> : null}
-                                </div> :
-                                <div className='avatar mb-1 rounded-circle section-styled-bg d-flex align-items-center justify-content-center'>
-                                    <FaCamera size={48} className={'subtitle'} />
-                                </div>}
+                            <div className='avatar mb-1 rounded-circle section-styled-bg d-flex align-items-center justify-content-center position-relative'>
+                                {user.user.avatar ?
+                                    <Image src={user.user.avatar} className={`avatar mb-1 section-styled-bg`}/> :
+                                    <FaCamera size={48} className={'subtitle'} />}
+                                {loadingAvatar ? <div style={{backgroundColor: 'rgba(0, 0, 0, 0.25)'}}
+                                                      className='position-absolute w-100 h-100 d-flex align-items-center justify-content-center'>
+                                    <div className="spinner-border text-primary"/>
+                                </div> : null}
+                            </div>
                         </div>
                     </div>
                     <Container fluid="md" className='user-info d-flex w-100 flex-wrap mb-2 px-3 py-1 justify-content-center'>
@@ -136,6 +134,7 @@ const Profile = ({user, logoutAction, title,updateProfileInfo, allowEmailSending
                         isVisible={toggleAvatarModal}
                         onClose={() => setToggleAvatarModal(false)}
                         product={{_id: user.user.id, name: user.user.name, avatar: user.user.avatar}}
+                        onAvatarRemoved={() => setLoadingAvatar(false)}
                         onStartLoading={() => setLoadingAvatar(true)}
                         listId={null}
                         type={'avatars'}

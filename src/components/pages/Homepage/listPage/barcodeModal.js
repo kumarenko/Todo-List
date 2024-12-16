@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import ReactDOM from 'react-dom';
 import {Button, Form, Image, InputGroup, Modal} from "react-bootstrap";
 import {t} from "i18next";
-import {IoMdAdd, IoMdClose, IoMdSearch} from "react-icons/io";
+import {IoMdAdd, IoMdBarcode, IoMdClose, IoMdSearch} from "react-icons/io";
 import {addProductToList, findProductByBarcode} from "../../../../actions/products";
 import {connect, useDispatch} from "react-redux";
 import {MdShoppingCart} from "react-icons/md";
 import {addMessageToQueue} from "../../../../redux/settingsReducer";
 import {preventCharacters} from "../../../../helpers/helper";
+import BarcodeScanner from "./barcodeScanner";
 const customProductsUnits = ['pcs', 'g', 'kg', 'oz', 'lb', 'ml', 'l', 'gal'];
 
 const BarcodeModal = ({list, isVisible, onClose, addProductToList}) => {
@@ -15,20 +16,15 @@ const BarcodeModal = ({list, isVisible, onClose, addProductToList}) => {
     const [code, setCode] = useState('');
     const [name, setName] = useState('');
     const [avatar, setAvatar] = useState(null);
+    const [toggleMobileBarcodeModal, setMobileToggleBarcodeModal] = useState(false);
 
     const elemInList = list.products.find(elem => elem.name === name);
 
-    useEffect(() => {
-        if(name) {
-
-        }
-    }, [list.products]);
-    const sendCode = async () => {
+    const sendCode = async (code) => {
         if(code.trim()) {
             const res = await findProductByBarcode(code.trim());
             if(res.ok) {
                 const prod = await res.json();
-                console.log('prod', prod);
                 setName(prod.name);
                 setAvatar(prod.avatar);
             } else {
@@ -51,14 +47,20 @@ const BarcodeModal = ({list, isVisible, onClose, addProductToList}) => {
                 availableUnits: customProductsUnits,
                 selectionCount: 1,
             };
-            console.log('PROD', prod, name);
             await addProductToList(list._id, prod);
+            setName('');
+            setAvatar(null);
             dispatch(addMessageToQueue({message: t('Product successfully added to the list'), type: 'success'}));
-
         } else {
             dispatch(addMessageToQueue({message: t('Product already added to the list'), type: 'success'}));
         }
     }
+
+    const handleDetect = useCallback(async (codeFromCamera) => {
+        setCode(codeFromCamera);
+        await sendCode(codeFromCamera);
+    }, [code]);
+
     return ReactDOM.createPortal(
         <Modal
             show={isVisible}
@@ -75,25 +77,44 @@ const BarcodeModal = ({list, isVisible, onClose, addProductToList}) => {
                 <Button type="button" className="position-absolute top-3 end-3 btn custom-close" aria-label="Close" onClick={onClose}>
                     <IoMdClose size={20}/>
                 </Button>
-                <InputGroup className='w-75 d-fex mx-3 my-2'>
-                    <Form.Control
-                        value={code}
-                        style={{textAlign: 'left'}}
-                        className='input-with-length-numbers add-prod-input'
-                        type='number'
-                        maxLength={50}
-                        onKeyPress={event => preventCharacters(event)}
-                        onChange={(e) => setCode(e.target.value)}
-                    />
-                    <Form.Label className='position-absolute top-100 label-with-length-numbers subtitle text-right d-flex align-self-end' style={{fontSize: 10}}>
-                        {code.length} / 50
-                    </Form.Label>
-                    <Button
-                        className={'p-0'}
-                        style={{width: 32}}
-                        onClick={() => sendCode()}
-                    ><IoMdSearch /></Button>
-                </InputGroup>
+                <div className='w-100 d-flex flex-column align-items-center'>
+                    <InputGroup className='w-75 d-fex mx-auto my-2 flex-column justify-content-center align-items-center'>
+                        <span className='subtitle text-center mb-1'>{t('Scan a product barcode using your camera to find it quickly')}</span>
+                        <Button className='mx-2 d-flex align-items-center rounded' onClick={() => setMobileToggleBarcodeModal(true)}>
+                            <IoMdBarcode className='me-2' />
+                            {t('Scan')}
+                        </Button>
+
+                    </InputGroup>
+                    <Form.Label className='text-center subtitle mb-1'>{t('Can\'t scan? Enter the barcode manually')}</Form.Label>
+                    <InputGroup className='d-flex flex-nowrap w-75'>
+                        <Form.Control
+                            value={code}
+                            style={{textAlign: 'left'}}
+                            className='w-100 input-with-length-numbers add-prod-input'
+                            type='number'
+                            maxLength={50}
+                            onKeyPress={event => preventCharacters(event)}
+                            onChange={(e) => setCode(e.target.value)}
+                        />
+                        <Form.Label className='position-absolute top-100 label-with-length-numbers subtitle text-right d-flex align-self-end' style={{fontSize: 10}}>
+                            {code.length} / 50
+                        </Form.Label>
+                        <Button
+                            className={'p-0'}
+                            style={{width: 32}}
+                            onClick={() => sendCode(code)}
+                        >
+                            <IoMdSearch/>
+                        </Button>
+                    </InputGroup>
+                </div>
+
+                <BarcodeScanner
+                    show={toggleMobileBarcodeModal}
+                    onHide={() => setMobileToggleBarcodeModal(false)}
+                    onDetect={handleDetect}
+                />
             </Modal.Header>
             {name ? <Modal.Body className="modal-styled-bg d-flex flex-column justify-content-center">
                 <InputGroup className='my-2'>

@@ -11,7 +11,7 @@ import { removeUserAvatarRequest, updateUserAvatarRequest } from "../../../../ac
 import { IoMdClose } from "react-icons/io";
 import {addMessageToQueue} from "../../../../redux/settingsReducer";
 
-const AvatarModal = ({ isVisible, onClose, listId, type, product, onStartLoading = ()=> {} }) => {
+const AvatarModal = ({ isVisible, onClose, listId, type, product,onAvatarRemoved, onStartLoading }) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [preview, setPreview] = useState(product.avatar);
     const [item, setItem] = useState({});
@@ -86,6 +86,7 @@ const AvatarModal = ({ isVisible, onClose, listId, type, product, onStartLoading
         onStartLoading();
         if (type === 'products') {
             await dispatch(removeProductAvatarRequest(listId, fileName, item._id));
+            onAvatarRemoved();
         } else {
             await dispatch(removeUserAvatarRequest(fileName, item._id));
         }
