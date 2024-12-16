@@ -19,14 +19,16 @@ const BarcodeScanner = ({ show, onHide, onDetect }) => {
                 </Button>
             </Modal.Header>
             <Modal.Body className='modal-styled-bg'>
-                <BarcodeScannerComponent
-                    onUpdate={(err, result) => {
-                        if (result) {
-                            onDetect(result.text);
-                            onHide();
-                        }
-                    }}
-                />
+                <div className="video-wrapper">
+                    <BarcodeScannerComponent
+                        onUpdate={(err, result) => {
+                            if (result) {
+                                onDetect(result.text);
+                                onHide();
+                            }
+                        }}
+                    />
+                </div>
             </Modal.Body>
             <Modal.Footer className='empty-footer modal-styled-bg'/>
         </Modal>
