@@ -7,9 +7,8 @@ import FilterModal from './filter';
 import allProducts from './../../../../configs/products.json';
 import {onlyUnique} from "../../../../helpers/helper";
 import RenderProduct from "./renderProduct";
-import {IoMdArrowDropdown, IoMdClose} from "react-icons/io";
+import {IoMdArrowDropdown, IoMdBarcode, IoMdClose} from "react-icons/io";
 import {t} from "i18next";
-import {FaBarcode} from "react-icons/fa6";
 import BarcodeModal from "./barcodeModal";
 const allCategories = allProducts.map(prod => prod.category).filter(onlyUnique);
 const customProductsUnits = ['pcs', 'g', 'kg', 'oz', 'lb', 'ml', 'l', 'gal'];
@@ -148,9 +147,9 @@ const AddProductModal = ({show, onHide}) => {
                     onClick={() => setToggleFilterModal(true)}
                 >{t('Filter')}</Button>
                 <Button
-                    className={'mx-1'}
+                    className={'d-flex align-items-center mx-1'}
                     onClick={() => setToggleBarcodeModal(true)}>
-                        <FaBarcode />
+                        <IoMdBarcode />
                 </Button>
             </Form.Group>
             <Modal.Body className='d-flex align-items-start flex-column modal-fixed-height modal-styled-bg pt-0'>

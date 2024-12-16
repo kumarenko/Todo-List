@@ -591,6 +591,9 @@
   "andAccept": " et acceptez la ",
   "privacyPolicy": "Politique de confidentialité.",
   "validationTermsAcceptance": "Vous devez accepter les Conditions d'utilisation et la Politique de confidentialité pour continuer.",
-  "Image removed successfully": "Image supprimée avec succès"
+  "Image removed successfully": "Image supprimée avec succès",
+  "Scan a product barcode using your camera to find it quickly": "Scannez le code-barres d'un produit avec votre caméra pour le trouver rapidement",
+  "Scan": "Scanner",
+  "Can't scan? Enter the barcode manually": "Impossible de scanner ? Saisissez le code-barres manuellement"
 
 }

@@ -595,5 +595,9 @@
   "andAccept": " zu und akzeptieren die ",
   "privacyPolicy": "Datenschutzrichtlinie.",
   "validationTermsAcceptance": "Sie müssen den Nutzungsbedingungen und der Datenschutzerklärung zustimmen, um fortzufahren.",
-  "Image removed successfully": "Bild erfolgreich entfernt"
+  "Image removed successfully": "Bild erfolgreich entfernt",
+  "Scan a product barcode using your camera to find it quickly": "Scannen Sie den Produktbarcode mit Ihrer Kamera, um ihn schnell zu finden",
+  "Scan": "Scannen",
+  "Can't scan? Enter the barcode manually": "Können Sie nicht scannen? Geben Sie den Barcode manuell ein"
+
 }
